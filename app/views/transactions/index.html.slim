@@ -1,0 +1,110 @@
+.clearfix.margin-lg-top
+.text-center
+  = link_to 'Sale Mode', transactions_path(mode: :sale), class: "btn #{(params[:mode].blank? || params[:mode] == 'sale') ? 'btn-primary' : 'btn-default'}"
+  = link_to 'Buy Mode', transactions_path(mode: :buy), class: "btn #{(params[:mode] == 'buy') ? 'btn-primary' : 'btn-default'} margin-sm-left"
+.clearfix.margin-lg-top
+
+- if params[:mode] == 'buy'
+  table#data_table.purchase_mode
+    thead
+      tr
+        th = check_box_tag :object_all, false, false
+        th Buyer
+        th Seller
+        th
+          |Relinquished Property
+          br
+          | or Properties
+        th Closing Date
+        th QI Funds
+        th Funds Identified
+        th Funds to be Identified
+        th Properties Identified
+        th Date of PSA
+        th Days to 45
+        th Days to 180
+        th Days to 1st Deposit
+        th Days to End of Inspection
+        th Days to 2nd Deposit
+        th Days to Closing
+        th Action
+    tbody
+      - @transactions.each do |transaction|
+        - var = transaction
+        - next if var.main.blank?
+        tr
+          td.align-with-th = check_box_tag :object_select, false, false, 'data-id' => var.id
+          td = var.purchaser_name
+          td = var.seller_name
+          td
+            - (var.sale.try(:transaction_properties) || []).each do |p|
+              = "#{p.name}"
+              br
+
+          td = var.closing_date.try(:strftime, '%d-%b-%Y')
+          td = number_to_currency(var.qi_fund)
+          td = number_to_currency(var.funds_identified)
+          td = number_to_currency(var.funds_to_identified)
+          td
+            - var.transaction_properties.each do |p|
+              = "#{p.name}"
+              br
+          td = var.psa_date.try(:to_string)
+          td = var.days_45.try(:to_string)
+          td = var.days_180.try(:to_string)
+          td = (var.first_deposit_date_due.days_gone rescue '')
+          td = var.end_of_inspection.try(:to_string)
+          td = (var.second_deposit_date_due.days_gone rescue '')
+          td = var.closing_date.try(:days_gone)
+          td
+            = link_to 'E', edit_transaction_path(var, type: 'purchase', main_id: transaction.main.id), class: 'btn btn-sm btn-warning margin-xs-left'
+            = link_to 'D', transaction_path(var, type: 'purchase', main_id: transaction.main.id), method: :delete, class: 'btn btn-sm btn-danger margin-xs-left', data: { confirm: 'Are you sure ?' }
+
+- else
+  table#data_table.sale_mode
+    thead
+      tr
+        th = check_box_tag :object_all, false, false
+        th Seller
+        th Buyer
+        th
+          | Relinquished Property
+          br
+          | or Properties
+        th Date of PSA
+        th Days to 1st Deposit
+        th Days to End of Inspection
+        th Days to 2nd Deposit
+        th Days to Closing
+        th Tenant Estoppel
+        th Walver of Tenant's First Refusal
+        th Action
+    tbody
+      - @transactions.each do |transaction|
+        - var = transaction
+        - next if var.main.blank?
+        tr
+          td.align-with-th = check_box_tag :object_select, false, false, 'data-id' => var.id
+          td = var.seller_name
+          td = var.purchaser_name
+          td
+            - var.transaction_properties.each do |p|
+              = "#{p.name}"
+              br
+          td = var.psa_date
+          td = "Measured: #{ var.first_deposit_date_due.try(:days_gone) } Days"
+          td = "Measured: #{ var.end_of_inspection.try(:days_gone) } Days"
+          td = "Measured: #{ var.second_deposit_date_due.try(:days_gone) } Days"
+          td = "Measured: #{ var.closing_date.try(:days_gone) } Days"
+          td = var.try(:type_is)
+          td = var.try(:type_is)
+          td
+            = link_to 'E', edit_transaction_path(var, type: 'sale', main_id: transaction.main.id), class: 'btn btn-sm btn-warning margin-xs-left'
+            = link_to 'D', transaction_path(var, type: 'sale', main_id: transaction.main.id), method: :delete, class: 'btn btn-sm btn-danger margin-xs-left', data: { confirm: 'Are you sure ?' }
+
+.margin-lg-top
+  = render template: 'shared/trashed_un', locals: { local_path: multi_delete_transactions_path, klazz: [TransactionSale, TransactionPurchase], index_path: transactions_path(trashed: !params[:trashed].to_b, mode: params[:mode]) }
+  .pull-right
+    = will_paginate @transactions
+    .clearfix
+    = render template: 'shared/per_page_set'

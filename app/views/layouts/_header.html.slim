@@ -1,0 +1,54 @@
+.top-header-links
+  /.top-header-link
+   / = link_to 'Clients', clients_path, class: "btn btn-default #{@current_page == 'client' ? 'active' : ''}"
+    /.add
+     / = link_to 'Add', new_client_path
+  .top-header-link
+    = link_to 'Transactions', transactions_path, class: "btn btn-default #{@current_page == 'project' ? 'active' : ''}"
+    .add
+      = link_to 'Add', "javascript:void(0);", class: 'new-transaction'
+      #TransactionTypeList style=("display: none;")
+        = link_to '1031 Still Selling', new_transaction_path(transaction_type: '1031 Still Selling'), class: 'transaction-type-list'
+        = link_to '1031 Already Sold', new_transaction_path(transaction_type: '1031 Already Sold'), class: 'transaction-type-list'
+  .top-header-link
+    = link_to 'Properties', properties_path, class: "btn btn-default #{@current_page == 'property' ? 'active' : ''}"
+    .add
+      = link_to 'Add', new_property_path
+  .top-header-link
+    = link_to 'Clients', clients_path, class: "btn btn-default #{@current_page == 'client' ? 'active' : ''}"
+    .add
+      = link_to 'Add', "javascript:void(0)", "data-url" => new_entity_path, class: "entity-new"
+      #EntityTypeList style=("display: none;")
+
+  .top-header-link
+    = link_to 'Contacts', contacts_path, class: "btn btn-default #{@current_page == 'contacts' ? 'active' : ''}"
+    .add
+      = link_to 'Add', "javascript:void(0)", id: 'new-contacts-type'
+      #ContactsTypeList style=("display: none;")
+        = link_to 'Individual', new_contact_path(contact_type: 'individual'), class: 'transaction-type-list'
+        = link_to 'Company', new_contact_path(contact_type: 'company'), class: 'transaction-type-list'
+
+  /.top-header-link
+  /  = link_to 'Entities', entities_path, class: "btn btn-default #{@current_page == 'entity' ? 'active' : ''}"
+    .add
+   /   = link_to 'Add', "javascript:void(0)", "data-url" => new_entity_path, class: "entity-new"
+      #EntityTypeList style=("display: none;")
+        | &nbsp;
+  /.top-header-link
+   / = link_to 'Crucial Personnel', '#', class: "btn btn-default #{@current_page == 'crucial personnel' ? 'active' : ''}"
+    .add
+    /  = link_to 'Add', "javascript:void(0)", "data-url" => "", class: "#"
+  / .top-header-link
+   / = link_to 'Mortgagees', '#', class: "btn btn-default #{@current_page == 'crucial personnel' ? 'active' : ''}"
+    .add
+    /  = link_to 'Add', "javascript:void(0)", "data-url" => "", class: "#"
+  .top-header-link
+    = link_to 'Reports', '#', class: "btn btn-default #{@current_page == 'crucial personnel' ? 'active' : ''}"
+  - if current_user.admin?
+    .top-header-link
+      = link_to 'Admin Panel', admin_users_path, class: "btn btn-default"
+
+  .user-info-logout.pull-right
+    = current_user.email
+    .clearfix
+    = link_to 'Logout', destroy_user_session_path, method: :delete

@@ -1,0 +1,11 @@
+.client-entities-list
+  - if @entities.empty?
+    .entity-not-found
+      | There is no saved entity with that name . Would you like to &nbsp;
+      a class="#{@stockholder ? 'stockholder-' : 'client-'}form-new-entity" href="javascript:void(0)"
+        | Add
+      | ?
+  - else
+    - @entities.each do |entity|
+      .client-entity data-id="#{entity.id}"
+        = entity.name

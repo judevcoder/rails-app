@@ -1,0 +1,15 @@
+= form_for @common_static_field do |f|
+  - if @common_static_field.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@common_static_field.errors.count, "error")} prohibited this common_static_field from being saved:"
+      ul
+        - @common_static_field.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :type_is
+    = f.text_field :type_is
+  .field
+    = f.label :title
+    = f.text_field :title
+  .actions = f.submit 'Save'

@@ -1,0 +1,68 @@
+table#data_table
+  thead
+    tr
+      th = check_box_tag :object_all, false, false
+      th style="width: 100px;"
+        | Client
+      th
+        | Type
+      th style="width: 112px;"
+        | Owns
+      th style="width: 112px;"
+        | Owned By
+      th
+        | State Of Formation
+      th
+        | Date Of Formation
+      th
+        | EIN / Social
+      th
+        | Contact First Name
+      th
+        | Contact Last Name
+      th
+        | Phone Number  
+      th
+        | Email
+      th
+        | Actions
+  tbody
+    - @entities.each do |entity|
+      tr
+        td.align-with-th = check_box_tag :object_select, false, false, 'data-id' => entity.id
+        td
+          = client_entity(entity)
+        td
+          = entity.entity_type.try(:name)
+        td
+          = entity.name if ["Tenancy in Common","Joint Tenancy with Rights of Survivorship (JTWROS)","Tenancy by the Entirety"].include? entity.entity_type.try(:name)
+        td
+          - owned_by(entity).each do |name|
+            span.badge 
+              = name
+        td
+          = entity.jurisdiction
+        td
+          = entity.date_of_formation || entity.date_of_commission
+        td
+          = entity.ein_or_ssn
+        td
+          = first_name_of_entity entity
+        td
+          = last_name_of_entity entity
+        td 
+          = entity.phone1
+        td
+          = entity.email
+        td.action
+          = link_to 'S', entity_path(entity.key), class: "#{show_xs}"
+          = link_to 'E', edit_entity_path(entity.key), class: "#{edit_xs}"
+          = link_to 'D', entity_path(entity), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "#{delete_xs}"
+
+
+.margin-lg-top
+  = render template: 'shared/trashed_un', locals: {local_path: multi_delete_clients_path, klazz: Entity, index_path: clients_path(trashed: !params[:trashed].to_b)}
+  .pull-right
+    = will_paginate @entities
+    .clearfix
+    = render template: 'shared/per_page_set'

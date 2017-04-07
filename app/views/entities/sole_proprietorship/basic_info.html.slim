@@ -1,0 +1,8 @@
+- if request.xhr?
+  == render partial: "entities/sole_proprietorship/basic_info"
+- else
+  .corporate-forms
+    == render partial: "entities/sole_proprietorship/links"
+    .clearfix
+    .corporate-contact-form
+      == render partial: "entities/sole_proprietorship/basic_info"

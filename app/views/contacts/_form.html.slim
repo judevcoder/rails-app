@@ -1,0 +1,75 @@
+- url = @contact.persisted? ? contact_path(@contact.key) : contacts_path
+- heading = @contact.persisted? ? "Edit Client" : "New Client"
+= form_for @contact, url: url,remote: (request.xhr?) do |f|
+  - if @contact.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@contact.errors.count, "error")} prohibited this client from being saved:"
+      ul
+        - @contact.errors.full_messages.each do |message|
+          li = message
+
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
+    .clearfix
+      h4
+        ' Company Contact 
+    .clearfix
+    - if params[:contact_type] == "company"
+      .form-group
+        = f.label :company_name, "Company Name"
+        = f.text_field :company_name, class: "form-control"
+
+    .form-group
+      = f.label :company_role, "#{(params[:contact_type] == "company") ? 'Company Role' : 'Role'}"
+      = f.select :company_role, Contact::ROLE, {}, class: 'form-control selectize-single'
+  
+    .form-group
+      = f.label :first_name, "First Name" 
+      = f.text_field :first_name, class: "form-control"
+
+    .form-group
+      = f.label :last_name, "Last Name"
+      = f.text_field :last_name, class: "form-control"
+
+    .form-group
+      = f.label :phone1
+      = f.text_field :phone1, class: "form-control"
+
+    .form-group
+      = f.label :phone2
+      = f.text_field :phone2, class: "form-control"
+
+    .form-group
+      = f.label :fax
+      = f.text_field :fax, class: "form-control"
+
+    .form-group
+      = f.label :email
+      = f.text_field :email, class: "form-control"
+
+    .form-group
+      = f.label :ein_or_ssn, "#{(params[:contact_type] == "company") ? 'EIN' : "SSN"}"
+      = f.text_field :ein_or_ssn, class: "form-control"
+    
+    .form-group
+      = f.label :postal_address, "Postal Address"
+      = f.text_field :postal_address, class: "form-control"
+    
+    .form-group
+      = label_tag 'City'
+      = f.text_field :city, class: "form-control city"
+    
+    .form-group
+      = label_tag 'State'
+      = f.select :state, Property::US_STATES, {}, class: 'form-control selectize-single'
+    
+    .form-group
+      = f.label "Zip"
+      = f.text_field :zip, class: 'zip form-control'
+    
+    .form-group
+      = f.label :notes
+      = f.text_area :notes, class: "form-control"
+    .form-group
+    .clearfix
+    .form-group
+      = f.submit 'Save', class: 'btn btn-sm btn-primary'

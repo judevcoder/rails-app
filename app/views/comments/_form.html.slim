@@ -1,0 +1,36 @@
+.clearfix
+= form_tag comments_property_path, method: :post, remote: true, class: 'add-comment' do
+  = text_area_tag :comment
+  = hidden_field_tag :commentable_id, @action.id  
+  = submit_tag 'update', class: 'pull-right tw-show'
+.clearfix
+
+javascript:
+  $(function(){
+    $('form.add-comment').bind('ajax:beforeSend', function (xhr, settings) {
+      console.log(xhr);
+      $.blockUI();
+    });
+    $('form.add-comment').bind('ajax:complete', function (xhr, status) {
+      $('textarea#comment').val('');
+      var id = $(document).find('div.comment-list:last').attr('data-id');
+      var commentable_id = $(document).find('input#commentable_id').val();
+      $.ajax({
+        type: "get",
+        url: '/comments/list',
+        data: {
+          id: id,
+          commentable_id: commentable_id
+        },
+        dataType: "html",
+        success: function (val) {
+          $('div#comments').append(val);
+          window.activate_image_lightbox();
+          $.unblockUI();
+        },
+        error: function (e) {
+          console.log(e);
+        }
+      });
+    });
+  });

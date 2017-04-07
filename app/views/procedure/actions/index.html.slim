@@ -1,0 +1,27 @@
+h1 Listing procedure_actions
+
+table
+  thead
+    tr
+      th Title
+      th Procedure
+      th Deleted
+      th Key
+      th
+      th
+      th
+
+  tbody
+    - @procedure_actions.each do |procedure_action|
+      tr
+        td = procedure_action.title
+        td = procedure_action.procedure_id
+        td = procedure_action.deleted
+        td = procedure_action.key
+        td = link_to 'Show', procedure_action
+        td = link_to 'Edit', edit_procedure_action_path(procedure_action)
+        td = link_to 'Destroy', procedure_action, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Action', new_procedure_action_path

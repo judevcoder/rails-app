@@ -1,0 +1,23 @@
+h1 Listing common_static_fields
+
+table
+  thead
+    tr
+      th Type is
+      th Title
+      th
+      th
+      th
+
+  tbody
+    - @common_static_fields.each do |common_static_field|
+      tr
+        td = common_static_field.type_is
+        td = common_static_field.title
+        td = link_to 'Show', common_static_field
+        td = link_to 'Edit', edit_common_static_field_path(common_static_field)
+        td = link_to 'Destroy', common_static_field, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Common static field', new_common_static_field_path

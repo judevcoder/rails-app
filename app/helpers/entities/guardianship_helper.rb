@@ -1,0 +1,2 @@
+module Entities::GuardianshipHelper
+end

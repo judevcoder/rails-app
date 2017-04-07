@@ -1,0 +1,126 @@
+- if @just_created.present?
+  .modal.fade#entity-creation-message tabindex="-3" role="dialog" aria-labelledby="entity-creation-message"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+        .modal-body
+          .corporation-creation-message
+            = "Congratulations you have just created In Re #{@entity.first_name} #{@entity.last_name}, AIP."
+        .modal-footer
+          button.btn.btn-primary.should-not-change-date-of-formation-cancel datadismiss="modal" type="button"  Close
+
+= form_for @entity, url: entities_guardianship_basic_info_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
+  - if @entity.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Guardianship from being saved:"
+      ul
+        - override_active_record_errors(@entity.errors.messages, {name: :judge, name2: "Name of Ward", ein_or_ssn: "Social Security"}).each do |message|
+          li = message
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
+  
+    .form-group
+      = f.label :judge_first_name
+      = f.text_field :judge_first_name, class: "form-control"
+    .form-group
+      = f.label :judge_last_name
+      = f.text_field :judge_last_name, class: "form-control"
+    .form-group
+      = f.label "Guardian First Name"
+      = f.text_field :guardian_first_name, class: "form-control"
+    .form-group
+      = f.label "Guardian Last Name"
+      = f.text_field :guardian_last_name, class: "form-control"
+    .form-group.required
+      = f.label "Ward First Name", class: "control-label"
+      = f.text_field :first_name, class: "form-control"
+    .form-group.required
+      = f.label "Ward Last Name", class: "control-label"
+      = f.text_field :last_name, class: "form-control"
+    .form-group
+      = f.label "Social Security"
+      = f.text_field :ein_or_ssn, class: "form-control"
+
+    .clearfix
+    .form-group
+      label.control-label Date of Appointment
+      .clearfix
+      .pull-left
+        = f.date_select :date_of_appointment, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto entity_guardianship_date_of_appointment", style: "#{'display: none;' if f.object.m_date_of_appointment?}"
+        = f.text_field :date_of_appointment, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless f.object.m_date_of_appointment?}"
+      .pull-right
+        .pull-left
+          label Input Date Manually &nbsp; &nbsp; &nbsp; &nbsp;
+        .pull-right
+          = f.check_box :m_date_of_appointment, data: { class: 'entity_guardianship_date_of_appointment' }, class: 'manually_date'
+
+    .clearfix
+    .form-group
+      label.control-label Date of Commission
+      .clearfix
+      .pull-left
+        = f.date_select :date_of_commission, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto entity_guardianship_date_of_commission", style: "#{'display: none;' if f.object.m_date_of_commission?}"
+        = f.text_field :date_of_commission, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless f.object.m_date_of_commission?}"
+      .pull-right
+        .pull-left
+          label Input Date Manually &nbsp; &nbsp; &nbsp; &nbsp;
+        .pull-right
+          = f.check_box :m_date_of_commission, data: { class: 'entity_guardianship_date_of_commission' }, class: 'manually_date'
+
+    .clearfix
+    .form-group
+      = f.label "County"
+      = f.text_field :county, class: "form-control"
+    .form-group
+      = f.label "State of Formation"
+      = f.select :jurisdiction, options_for_select(Entity.USSTATES.sort, @entity.jurisdiction), html_options: {class: 'selectize-single'}
+    .clearfix
+      .form-group
+        = f.submit 'Save', class: 'btn btn-sm btn-primary'
+
+#popup-should-not-change.corporate
+  = hidden_field_tag "should_not_change[name]", (@entity.persisted? ? @entity.reload["name"] : '')
+  = hidden_field_tag "should_not_change[ein_or_ssn]", (@entity.persisted? ? @entity.ein_or_ssn : '')
+  = hidden_field_tag "should_not_change[date_of_formation]", (@entity.persisted? ? @entity.date_of_formation : '')
+  = hidden_field_tag "should_not_change[submit]", false
+
+  .modal.fade#should-not-change-name tabindex="-1" role="dialog" aria-labelledby="should-not-change-name"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+        .modal-body
+          .heading Name should never change -- are you sure you want to change it?
+        .modal-footer
+          button.btn.btn-default.should-not-change-name-yes type="button"  Yes
+          button.btn.btn-primary.should-not-change-name-cancel data-dismiss="modal" type="button"  Cancel
+
+  .modal.fade#should-not-change-ein tabindex="-2" role="dialog" aria-labelledby="should-not-change-ein"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+        .modal-body
+          .heading EIN number should never change -- are you sure you want to change it?
+        .modal-footer
+          button.btn.btn-default.should-not-change-ein-yes type="button"  Yes
+          button.btn.btn-primary.should-not-change-ein-cancel data-dismiss="modal" type="button"  Cancel
+
+  .modal.fade#should-not-change-date-of-formation tabindex="-3" role="dialog" aria-labelledby="should-not-change-date-of-formation"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+        .modal-body
+          .heading Date Of Formation should never change -- are you sure you want to change it?
+        .modal-footer
+          button.btn.btn-default.should-not-change-date-of-formation-yes type="button"  Yes
+          button.btn.btn-primary.should-not-change-date-of-formation-cancel data-dismiss="modal" type="button"  Cancel
+
+
+/#required_field
+/  | All (*) fields are mandatory

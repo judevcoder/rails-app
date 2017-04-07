@@ -1,0 +1,14 @@
+.procedure
+  div.title = @procedure.title
+  .clearfix
+  .procedure-actions
+    = link_to '+', 'javascript:void(0)', class: 'procedure-actions'
+    .clearfix
+    .actions-links style="display: none;"
+      div.edit = link_to 'Edit', edit_procedure_path(@procedure.key), remote: true, class: 'edit-procedure-action'
+      div.show = link_to 'Add Action', new_procedure_action_path(id: @procedure.key), remote: true, class: 'new-procedure-action'
+      div.delete = link_to 'Destroy', @procedure, data: {:confirm => 'Are you sure?'}, :method => :delete
+  .actions
+    - @procedure.actions.each do |procedure_action|
+      div.title = link_to procedure_action.title, procedure_actions_path(pid: procedure_action.key), remote: true, class: 'show_procedure_action'
+  .clearfix

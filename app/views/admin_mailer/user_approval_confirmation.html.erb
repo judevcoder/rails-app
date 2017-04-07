@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hello <%= @user.email %><br>
+    
+    <% if @user.user_approval == true %>
+      Welcome to Dvno-messenger.
+    </p>
+    <br>
+    <p>
+      You are successfully approved in Dvno-messenger<br>
+    <% elsif @user.user_approval == false %>
+      You are disapproved in Dvno-messenger<br>
+    <% end %>
+    </p>
+    <br>
+    <p>
+      For more information kindly contact our admin or visit us at http://dvnomessenger.com
+    </p>
+    <br>
+    <p>
+      Regards,<br>
+      Web Master
+    </p>
+  </body>
+</html>

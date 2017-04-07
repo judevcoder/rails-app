@@ -1,0 +1,13 @@
+div.procedure_action
+  div.title.procedure-action-title data-id="#{@action.key}"
+    = @action.title
+  div.created_at
+    = @action.created_at
+  div.checklists data-id="#{@action.key}"
+    - @checklists = @action.checklists
+    = render template: 'procedure/actions/checklist_with_checkbox'
+
+  div#comments
+    = render template: 'comments/list'
+
+  = render template: 'comments/property'

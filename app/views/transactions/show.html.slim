@@ -1,0 +1,11 @@
+.project-heading
+  .clearfix
+  div.title
+    - title @transaction.title
+    = @transaction.title
+  div.description
+    = @transaction.description
+  div.created_at
+    = time_ago_in_words(@transaction.created_at)
+
+= render template: 'properties/index'

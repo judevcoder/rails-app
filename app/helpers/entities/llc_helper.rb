@@ -1,0 +1,2 @@
+module Entities::LlcHelper
+end

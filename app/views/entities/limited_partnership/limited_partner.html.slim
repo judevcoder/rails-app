@@ -1,0 +1,86 @@
+= form_for @partner, url: entities_limited_partnership_limited_partner_path(@entity.key, @partner.id), remote: true, html: {class: "entity-page-xhr"} do |f|
+  - if @partner.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@partner.errors.count, "error")} prohibited this director from being saved:"
+      ul
+        - @partner.errors.full_messages.each do |message|
+          li = message
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12           
+    .form-group
+      .option-1
+        = f.label "Person"
+        = f.radio_button :is_person, true, checked: @partner.is_person
+      .option-2
+        = f.label "Entity"
+        = f.radio_button :is_person, false, checked: !@partner.is_person
+    .form-group#partner_entity style=("#{('display: none;' if @partner.is_person)}")
+      = f.label :entity
+      = f.select :entity_id, options_for_select(current_user.entities_list.where.not(id: @partner.super_entity).order(name: :asc).pluck(:name, :id), f.object.id), {}, class: "selectize-single"
+      = hidden_field_tag "partner[entity_type_id]", MemberType.new.getLLPId
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+    .form-group
+      .part2.honorific
+        = f.label :honorific
+        = f.check_box :is_honorific
+      .part3 style="display: #{(@partner.is_honorific ? 'inline' : 'none')}"
+        = f.select :honorific, options_for_select(GeneralMethods.honorific, @partner.honorific), {}, {class: "state"}
+    .form-group.required
+      = f.label :first_name, class: "control-label"
+      = f.text_field :first_name, class: "form-control"
+    .form-group.required
+      = f.label :last_name, class: "control-label"
+      = f.text_field :last_name, class: "form-control"
+    .form-group
+      = f.label :phone1
+      = f.text_field :phone1, "placeholder" => "example: +(country code) (phone number)", class: "form-control"
+    .form-group
+      = f.label :phone2
+      = f.text_field :phone2, "placeholder" => "example: +(country code) (phone number)", class: "form-control"
+    .form-group
+      = f.label :fax
+      = f.text_field :fax, class: "form-control"
+    .form-group    
+      = f.label :email
+      = f.text_field :email, class: "form-control"
+    .form-group
+      = f.label :postal_address
+      = f.text_field :postal_address, class: "form-control"
+    .form-group
+      label City
+      = f.text_field :city, class: 'city form-control'
+    .form-group
+      label State
+      = f.select :state, options_for_select(GeneralMethods.USSTATES, @partner.state), html_options: {class: 'state form-control selectize-single'}
+    .form-group
+      label Zip
+      = f.text_field :zip, class: 'zip form-control'
+    .form-group
+      = f.label :notes
+      = f.text_area :notes, class: 'form-control'
+    .form-group
+      label Partnership Interest of this Member
+      = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"
+    .form-group
+      label Remaining Partnership Interest to be Assigned
+      = text_field_tag "remaining_number_of_assets", @partner.remaining_share_or_interest, "disabled" => "disabled", "autocomplete" => "off", class: "assets-share form-control" 
+      = hidden_field_tag "remaining_number_of_assets", sumup_values(@partner.remaining_share_or_interest, @partner.my_percentage), "disabled" => "disabled"
+    .form-group
+      label Tax Matters Member
+      = f.check_box :tax_member
+    .form-group
+      = f.submit "Save", class: "btn btn-primary"
+
+/! Modal
+#ResourceFormNewEntity.modal.fade aria-hidden="true" aria-labelledby="ResourceFormNewEntity" role="dialog" tabindex="-5"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4.modal-title New Entity for Limited Partner
+      .model-body
+        | &nbsp;
+      .modal-footer
+        button type="button" class="btn btn-primary btn-xs" data-dismiss="modal"
+          | close

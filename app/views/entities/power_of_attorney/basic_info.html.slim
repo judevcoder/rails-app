@@ -1,0 +1,8 @@
+- if request.xhr?
+  == render partial: "entities/power_of_attorney/basic_info"
+- else
+  .corporate-forms
+    == render partial: "entities/power_of_attorney/links"
+    .clearfix
+    .corporate-contact-form
+      == render partial: "entities/power_of_attorney/basic_info"

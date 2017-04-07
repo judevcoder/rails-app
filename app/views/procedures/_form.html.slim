@@ -1,0 +1,18 @@
+- if @procedure.persisted?
+  = form_for @procedure, url: procedure_path(@procedure.key), method: :patch, remote: true do |f|
+    .field-small
+      .part3
+        = f.text_area :title
+    .field-small
+      .part3
+        = f.hidden_field :property_id
+    .actions = f.submit 'Save'
+- else
+  = form_for @procedure, remote: true do |f|
+    .field-small
+      .part3
+        = f.text_area :title
+    .field-small
+      .part3
+        = f.hidden_field :property_id
+    .actions = f.submit 'Save'

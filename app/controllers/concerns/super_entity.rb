@@ -1,0 +1,3 @@
+class SuperEntity < Entity
+
+end

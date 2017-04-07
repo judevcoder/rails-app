@@ -1,0 +1,79 @@
+= nested_form_for(@qualified_intermediary, url: qualified_intermediary_transaction_path(@transaction, sub: params[:sub], main_id: params[:main_id], type: params[:type])) do |f|
+  - if @qualified_intermediary.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@qualified_intermediary.errors.count, 'error')} prohibited this qualified intermediary from being saved:"
+      ul
+        - @qualified_intermediary.errors.full_messages.each do |message|
+          li = message
+
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12
+    .form-group
+      = label_tag 'Name'
+      = f.text_field :name, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:name)), class: 'form-control'
+    .form-group
+      label Amount Currently Held by QI
+      .input-group
+        .input-group-addon $
+        = f.text_field :currently_held, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:currently_held)), class: 'form-control'
+    .clearfix
+    h2.heading_without_padding_large
+      | Contact
+    .clearfix
+    = f.fields_for :contact do |c_builder|
+      .form-group
+        label First Name
+        = c_builder.text_field :first_name, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:first_name)), class: 'form-control'
+      .form-group
+        label Last Name
+        = c_builder.text_field :last_name, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:last_name)), class: 'form-control'
+      .form-group
+        = label_tag 'Email'
+        = c_builder.text_field :email, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:email)), class: 'form-control'
+      .form-group
+        label Phone 1
+        = c_builder.text_field :phone1, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:phone1)), class: 'form-control'
+      .form-group
+        label Phone 2
+        = c_builder.text_field :phone2, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:phone2)), class: 'form-control'
+      .form-group
+        = label_tag 'Fax'
+        = c_builder.text_field :fax, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:fax)), class: 'form-control'
+      .form-group
+        label Street Address
+        = c_builder.text_area :street_address, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:street_address)), class: 'form-control'
+      .form-group
+        = label_tag 'City'
+        = c_builder.text_field :city, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:city)), class: 'form-control'
+      .form-group
+        = label_tag 'State'
+        = c_builder.select :state, options_for_select(GeneralMethods.USSTATES, @transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:state)), {}, class: 'form-control selectize-single'
+      .form-group
+        = label_tag 'Zip'
+        = c_builder.text_field :zip, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:contact).try(:zip)), class: 'form-control'
+
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12
+    .clearfix
+    h2.heading_without_padding_large
+      | Wired Instruction
+    .clearfix
+    = f.fields_for :wired_instruction do |w_builder|
+      .form-group
+        = label_tag "Bank"
+        = w_builder.text_area :bank, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:wired_instruction).try(:bank)), class: 'form-control'
+      .form-group
+        label ABA #
+        = w_builder.text_field :aba_no, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:wired_instruction).try(:aba_no)), class: 'form-control'
+      .form-group
+        label Credit To:
+        = w_builder.text_field :credit_to, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:wired_instruction).try(:credit_to)), class: 'form-control'
+      .form-group
+        label Account Number
+        = w_builder.text_field :account_number, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:wired_instruction).try(:account_number)), class: 'form-control'
+      .form-group
+        = label_tag 'Reference'
+        = w_builder.text_field :reference, value: (@transaction_main.try(:sale).try(:qualified_intermediary).try(:wired_instruction).try(:reference)), class: 'form-control'
+
+  .col-lg-12.col-md-12.col-sm-12.col-xs-12.margin-lg-top
+    .form-group
+      = link_to 'Back', $header_links[:terms], class: 'btn btn-primary next-prev margin-sm-right'
+      = f.submit 'Save & Next', class: 'btn btn-primary next-prev'

@@ -1,0 +1,42 @@
+.twb-model
+  .property-heading-index data-id="#{@property.key}"
+    = @property.title
+  .property-description-index data-id="#{@property.key}"
+    = @property.description
+
+= link_to 'Destroy', property_path(@property.key), data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'tw-delete'
+
+/= form_tag(property_setting_path(id: @property.key), method: :post, remote: true, class: 'procedure_action_member') do
+/  = select_tag 'permission_type', options_for_select([['read', 1], ['write', 2], ['admin', 3]])
+/  .procedure_action_member
+/    .email
+/      = text_field_tag 'email', nil, class: 'action-member-email', 'autocomplete' => 'off'
+/      span.old-action-member-email style=("display: none")
+/        |
+/    .autocomplete style=("display: none")
+/
+/  = submit_tag 'update'
+/
+/table#data_table
+/  thead
+/    tr
+/      th
+/        | Email
+/      th
+/        | Permission
+/      th
+/        | Action
+/
+/  tbody
+/    - @property.access_resources.each do |access_resource|
+/      tr
+/        td
+/          = access_resource.user.email rescue 'Error'
+/        td
+/          - if (access_resource.user.email rescue 'Error') == current_user.email
+/            | Owner
+/          - else
+/            = select_tag 'permission_type', options_for_select([['read', 1], ['write', 2], ['admin', 3]], access_resource.permission_type), 'user-email' => (access_resource.user.email rescue nil), 'resource_key' => @property.key
+/        td
+/          - unless (access_resource.user.email rescue 'Error') == current_user.email
+/            = link_to 'remove', {controller: 'properties', action: 'member', id: @property.key, email: (access_resource.user.email rescue 'Error')}, method: :delete, remote: true, class: 'tw-delete'

@@ -1,0 +1,35 @@
+  <h2>Sign in</h2>
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+    <div class='login-main-form'>
+      <div class="login-form-one">
+        <div class="clear-both">
+          <p>
+            <%= f.label :email %>
+            <%= f.email_field :email, :autofocus => true, class: "form-control login-email" %>
+          </p>
+          <br>
+        </div>
+        <div class="clear-both">
+          <p>
+            <%= f.label :password %>
+            <%= f.password_field :password, class: "form-control login-pass" %>
+          </p>
+        </div>
+    
+        <% if devise_mapping.rememberable? -%>
+          <div class="clear-both">
+            <p>
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me, :style=> "display:inline" %>
+            </p>
+            
+          </div>
+        <% end -%>
+        <div class="clear-both">
+          <%= f.submit "Sign in", class: "btn signin_btn" %>
+        </div>
+        <%= render "devise/shared/links" %>
+      </div>
+      
+    </div>
+  <% end %>

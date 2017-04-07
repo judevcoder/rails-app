@@ -1,0 +1,5 @@
+.project-setting-edit
+  .project-title data-id="#{@transaction.key}" = @transaction.title
+  .project-description data-id="#{@transaction.key}" = simple_format(@transaction.description.blank? ? '.......' : @transaction.description)
+  .actions
+    = link_to 'Destroy', transaction_path(@transaction.key), data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'tw-delete'

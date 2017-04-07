@@ -1,0 +1,30 @@
+.heading
+  = "List of #{@entity.name}'s Trustees"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | First Name
+      th
+        | Last Name
+      th
+        | Email
+      th
+        | phone1
+      th
+        | Actions
+  tbody
+    - @trustees.each do |trustee|
+      tr
+        td
+          = trustee.first_name
+        td
+          = trustee.last_name
+        td
+          = trustee.email
+        td
+          = trustee.phone1
+        td
+          = link_to 'Edit', entities_trust_trustees_path(@entity.key, trustee.id), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'Delete', entities_trust_trustees_path(trustee.id), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

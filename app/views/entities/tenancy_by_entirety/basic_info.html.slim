@@ -1,0 +1,8 @@
+- if request.xhr?
+  == render partial: "entities/tenancy_by_entirety/basic_info"
+- else
+  .corporate-forms
+    == render partial: "entities/tenancy_by_entirety/links"
+    .clearfix
+    .corporate-contact-form
+      == render partial: "entities/tenancy_by_entirety/basic_info"

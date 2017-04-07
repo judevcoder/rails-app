@@ -1,0 +1,2 @@
+module Entities::JointTenancyHelper
+end

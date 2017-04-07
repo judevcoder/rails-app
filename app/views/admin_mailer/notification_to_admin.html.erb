@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hello Dan,<br>
+    </p>
+    <br>
+    <p>
+      A new user <%=@user.email%> has registered on <%= root_url%> with an email id <%= @user.email%><br>
+      Kindly review this new user in the admin area at <%= admin_user_approval_list_url%> and approve'em so he/she can start using this app.
+    </p>
+    <br>
+    <p>
+      Regards,<br>
+      DVNO Team
+    </p>
+  </body>
+</html>

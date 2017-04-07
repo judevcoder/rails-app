@@ -1,0 +1,2 @@
+module Procedure::ActionsHelper
+end

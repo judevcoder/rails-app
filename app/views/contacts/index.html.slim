@@ -1,0 +1,53 @@
+table#data_table
+  thead
+    tr
+      th = check_box_tag :object_all, false, false
+      th
+        | Company
+      th
+        | Role
+      th
+        | Contact First Name
+      th
+        | Contact Last Name
+      th
+        | Email
+      th
+        | Phone
+      th
+        | Fax
+      th
+        | Notes
+      th
+        | Actions
+  tbody
+    - @contacts.each do |contact|
+      tr
+        td.align-with-th = check_box_tag :object_select, false, false, 'data-id' => contact.id
+        td
+          = contact.company_name  
+        td
+          = contact.company_role
+        td
+          = contact.first_name
+        td
+          = contact.last_name
+        td
+          = contact.email
+        td
+          = contact.phone1
+        td
+          = contact.fax
+        td
+          = contact.notes
+        td.actions
+          = link_to 'S', contact_path(contact), class: show_xs
+          = link_to 'E', edit_contact_path(contact), class: edit_xs
+          = link_to 'D', contact_path(contact), data: {:confirm => 'Are you sure?'}, :method => :delete, class: delete_xs
+
+.margin-lg-top
+  = render template: 'shared/trashed_un', locals: {local_path: multi_delete_contacts_path, klazz: Contact, index_path: contacts_path(trashed: !params[:trashed].to_b)}
+  .pull-right
+    = will_paginate @contacts
+    .clearfix
+    = render template: 'shared/per_page_set'

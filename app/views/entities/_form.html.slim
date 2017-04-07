@@ -1,0 +1,41 @@
+= form_for @entity do |f|
+  - if @entity.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this entity from being saved:"
+      ul
+        - @entity.errors.full_messages.each do |message|
+          li = message
+  
+  .form-group
+    = f.label "First Name*"
+    = f.text_field :first_name, class: "form-control"
+  .form-group
+    = f.label "Last Name*"
+    = f.text_field :last_name, class: "form-control"
+  .form-group
+    = f.label :address
+    = f.text_area :address, class: "form-control"
+  .form-group
+    = f.label :type_
+    = f.hidden_field :type_
+    strong
+      = MemberType.find(@entity.type_).name rescue 'Please choose correct option'
+  .form-group
+    = label_tag 'Share/Interest'
+    - if @entity.Corporation?
+      = f.text_field :number_of_share, class: "form-control"
+    - elsif @entity.LLP? || @entity.LLP?
+      = f.text_field :total_membership_interest, class: "form-control"
+    - elsif @entity.TenancyinCommon?
+      = f.text_field :total_undivided_interest, class: "form-control"
+    - elsif @entity.LimitedPartnership?
+      = f.text_field :total_partnership_interest, class: "form-control"
+    - else
+      = f.text_field :number_of_share, class: "form-control"
+  .form-group
+    = f.label "State of Formation"
+    = f.select :jurisdiction, options_for_select(Entity.USSTATES, @entity.jurisdiction), class: "form-control selectize-single"
+  .clearfix
+    .form-group
+      = f.submit 'Save', class: 'btn btn-sm btn-primary'
+    

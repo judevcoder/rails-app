@@ -1,0 +1,44 @@
+table#data_table
+  thead
+    tr
+      th = check_box_tag :object_all, false, false
+      th Ownership
+      th style=("width: 100px;") Owned by
+      th Title
+      th County
+      th State
+      th Price
+      th style=("width: 70px;") Current Rent
+      th Cap. Rate
+      th Current Term
+      th Term Ends
+      th Time Remaining in Term
+      th Status
+      th Action
+  tbody
+    - @properties.each do |property|
+      tr
+        td.align-with-th = check_box_tag :object_select, false, false, 'data-id' => property.id
+        td
+        td = property.owner.try(:first_name)
+        td = property.title
+        td = property.location_county
+        td = property.abbreviations_state
+        td = number_to_currency(property.price)
+        td = number_to_currency(property.current_rent)
+        td = property.show_cap_rate
+        td = ""
+        td = property.number_of_years_in_term
+        td = property.date_of_lease
+        td = property.building_status_is
+        td
+          = link_to 'E', edit_property_path(property.key), class: 'btn btn-sm btn-warning margin-xs-left'
+          = link_to 'D', property_path(property.key), method: :delete, class: 'btn btn-sm btn-danger margin-xs-left'
+
+
+.margin-lg-top
+  = render template: 'shared/trashed_un', locals: { local_path: multi_delete_properties_path, klazz: Property, index_path: properties_path(trashed: !params[:trashed].to_b) }
+  .pull-right
+    = will_paginate @properties
+    .clearfix
+    = render template: 'shared/per_page_set'

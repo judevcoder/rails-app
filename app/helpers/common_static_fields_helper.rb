@@ -1,0 +1,2 @@
+module CommonStaticFieldsHelper
+end

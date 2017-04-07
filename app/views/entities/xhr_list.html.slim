@@ -1,0 +1,9 @@
+.ClientFormEntityPickFormList
+  - @entities.each do |entity|
+    - next if entity.name.blank?
+    .clearfix
+    .ind-entity-popup data-id="#{entity.id}"
+      .object-text class="entity-object-action#{@stockholder ? '-resource' : ''}"
+        = entity.name
+      .object-json style="display: none"
+        = entity.to_json.html_safe

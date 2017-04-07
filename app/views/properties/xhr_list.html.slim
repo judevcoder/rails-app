@@ -1,0 +1,7 @@
+.Properties-list
+  - @properties.each do |property|
+    - next if property.title.blank?
+    .clearfix
+    .ind-entity-popup data-id="#{property.id}"
+      .object-text class="entity-object-action"
+        = property.title

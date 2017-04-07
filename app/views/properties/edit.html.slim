@@ -1,0 +1,13 @@
+.clearfix.margin-lg-left
+  = render 'properties/form_header_link'
+.col-lg-12.col-md-12.col-sm-12.col-xs-12.margin-lg-top
+  - if params[:type_is] == 'county_tax'
+    == render 'properties/county_tax_form'
+  - elsif params[:type_is] == 'tenant'
+    == render 'properties/tenant_form'
+  - elsif params[:type_is] == 'lease'
+    == render 'properties/lease_form'
+  - elsif params[:type_is] == 'ownership'
+    == render 'properties/ownership_form'
+  - else
+    == render 'properties/basic_info_form'

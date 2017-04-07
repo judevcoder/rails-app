@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Type is:
+  = @common_static_field.type_is
+p
+  strong Title:
+  = @common_static_field.title
+
+= link_to 'Edit', edit_common_static_field_path(@common_static_field)
+'|
+= link_to 'Back', common_static_fields_path

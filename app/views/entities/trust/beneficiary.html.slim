@@ -1,0 +1,90 @@
+= form_for @beneficiary, url: entities_trust_beneficiary_path(@entity.key, @beneficiary.id), remote: true, html: {class: "entity-page-xhr"} do |f|
+  - if @beneficiary.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@beneficiary.errors.count, "error")} prohibited this Beneficiary from being saved:"
+      ul
+        - @beneficiary.errors.full_messages.each do |message|
+          li = message
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
+    .form-group
+      .option-1
+        = f.label "Person"
+        = f.radio_button :is_person, true, checked: @beneficiary.is_person
+      .option-2
+        = f.label "Entity"
+        = f.radio_button :is_person, false, checked: !@beneficiary.is_person
+    .form-group#beneficiary_entity style=("#{('display: none;' if @beneficiary.is_person)}")
+      = f.label :entity
+      = f.select :entity_id, options_for_select(current_user.entities_list.where.not(id: @beneficiary.super_entity).order(name: :asc).pluck(:name, :id), f.object.id), {}, class: "selectize-single"
+      = hidden_field_tag "beneficiary[entity_type_id]", MemberType.new.getTrustId
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+    .form-group
+      .honorific
+        = f.label :honorific
+        = f.check_box :is_honorific
+      .part3 style="display: #{(@beneficiary.is_honorific ? 'inline' : 'none')}"
+        = f.select :honorific, options_for_select(GeneralMethods.honorific, @beneficiary.honorific), {}, {class: "state"}
+    .form-group.required
+      = f.label "First Name", class: "control-label"
+      = f.text_field :last_name, class: "form-control"
+    .form-group.required
+      = f.label "Last Name", class: "control-label"
+      = f.text_field :first_name, class: "form-control"
+    .form-group
+      = f.label :phone1
+      = f.text_field :phone1, "placeholder" => "example: +(country code) (phone number)",class: "form-control"
+    .form-group
+      = f.label :phone2
+      = f.text_field :phone2, "placeholder" => "example: +(country code) (phone number)",class: "form-control"
+    .form-group
+      = f.label :fax
+      = f.text_field :fax,class: "form-control"
+    .form-group
+      = f.label :email
+      = f.text_field :email,class: "form-control"
+    .form-group
+      label Postal Address
+      = f.text_field :postal_address,class: "form-control"
+    .form-group
+      label City
+      = f.text_field :city, class: 'city form-control'
+    .form-group
+      label State
+      = f.select :state, options_for_select(GeneralMethods.USSTATES, @beneficiary.state), html_options: {class: 'state form-control selectize-single'}
+    .form-group
+      label Zip    
+      = f.text_field :zip, class: 'zip form-control'
+    .form-group
+      = f.label :notes
+      = f.text_area :notes,class: "form-control"
+    .form-group
+      .col-sm-6
+        label Beneficiary Interest
+        br
+        = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"
+        .percentage-text
+          | %
+      .col-sm-6
+        label Remaining Beneficiary Interest to be Assigned
+        br
+        = text_field_tag "remaining_number_of_assets", @beneficiary.remaining_share_or_interest, "disabled" => "disabled", "autocomplete" => "off", class: "assets-share form-control"
+        .percentage-text
+          | %
+        = hidden_field_tag "remaining_number_of_assets", sumup_values(@beneficiary.remaining_share_or_interest, @beneficiary.my_percentage), "disabled" => "disabled"
+    .form-group
+      .actions = f.submit "Save", class: "btn btn-primary"
+
+/! Modal
+#ResourceFormNewEntity.modal.fade aria-hidden="true" aria-labelledby="ResourceFormNewEntity" role="dialog" tabindex="-5"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4.modal-title New Entity for Trust
+      .model-body
+        | &nbsp;
+      .modal-footer
+        button type="button" class="btn btn-primary btn-xs" data-dismiss="modal"
+          | close

@@ -1,0 +1,33 @@
+html
+  head
+    css:
+      .td-align-center{
+        text-align: center;
+      }
+      .company-info{
+        color: grey;
+        font-size: 12px;
+      }
+      table{
+        width: 500px;
+        height: auto;
+      }
+      td.info{
+        padding: 10px 0px 10px 0px;
+      }
+      .logo-background{
+        background: #15488E;
+        height: 50px;
+      }
+
+  body
+    table
+      tr
+        td.td-align-center.logo-background colspan="3"
+          = image_tag "#{HOST}/assets/logo.png", width: "200px"
+      tr
+        td.td-align-center.info colspan="3"
+          = yield
+      tr
+        td.company-info colspan="3"
+          | 1031 Management , LLC

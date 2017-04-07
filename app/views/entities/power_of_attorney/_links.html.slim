@@ -1,0 +1,4 @@
+= link_to "Basic info", entities_power_of_attorney_basic_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left #{params[:action] == "basic_info" ? 'active' : ''}"
+= link_to "Principal", "#", class: "btn btn-sm btn-default margin-sm-left pull-left", "data-toggle" => "tooltip", "title" => "Please create the Power Of Attorney by filling out required fields in Basic Info and saving"
+= link_to "Agent", "#", class: "btn btn-sm btn-default margin-sm-left pull-left", "data-toggle" => "tooltip", "title" => "Please create the Power Of Attorney by filling out required fields in Basic Info and saving"
+= link_to "Owns", "#", class: "btn btn-sm btn-default margin-sm-left pull-left", "data-toggle" => "tooltip", "title" => "Please create the Power Of Attorney by filling out required fields in Basic Info and saving"

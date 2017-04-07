@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @procedure.title
+p
+  strong Property:
+  = @procedure.property_id
+p
+  strong Deleted:
+  = @procedure.deleted
+p
+  strong Key:
+  = @procedure.key
+
+= link_to 'Edit', edit_procedure_path(@procedure)
+'|
+= link_to 'Back', procedures_path
+
+
+= render template: 'procedure/actions/index'

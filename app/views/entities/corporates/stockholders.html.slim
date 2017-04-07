@@ -1,0 +1,37 @@
+.heading
+  = "List of #{@entity.name}'s Stockholders"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | Name
+      th
+        | Type
+      th
+        | EIN / Social
+      th
+        | Email
+      th
+        | Number of Share
+      th
+        | Actions
+  tbody
+    - @stockholders.each do |stockholder|
+      tr
+        td
+          - if stockholder.is_person?
+            = "#{stockholder.first_name} #{stockholder.last_name}"
+          - else
+            = stockholder.entity.try(:name)
+        td
+          = stockholder.type_
+        td
+          = stockholder.ein_or_ssn
+        td
+          = stockholder.email
+        td
+          = stockholder.my_percentage
+        td.actions
+          = link_to 'E', entities_corporates_stockholder_path(@entity.key, stockholder.id), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'D', entities_corporates_stockholder_path(stockholder.id), data: {:confirm => 'Are you sure?'}, :method => :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

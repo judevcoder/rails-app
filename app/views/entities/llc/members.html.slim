@@ -1,0 +1,37 @@
+.heading
+  = "List of #{@entity.name} 's Members"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | Name
+      th
+        | Type
+      th
+        | EIN / Social
+      th
+        | Email
+      th
+        | Membership Interest
+      th
+        | Actions
+  tbody
+    - @members.each do |member|
+      tr
+        td
+          - if member.is_person?
+            = "#{member.first_name} #{member.last_name}"
+          - else
+            = member.entity.try(:name)
+        td
+          = member.member_type.try(:name)
+        td
+          = member.ein_or_ssn
+        td
+          = member.email
+        td
+          = member.my_percentage
+        td.actions
+          = link_to 'E', entities_llc_members_path( @entity.key, member.id ), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'D', entities_llc_members_path( member.id ), data: {:confirm => 'Are you sure?'}, :method => :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

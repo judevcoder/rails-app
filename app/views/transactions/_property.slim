@@ -1,0 +1,32 @@
+- if @transaction.persisted?
+  - options = %w(Active Completed InActive)
+- else
+  - options = [ 'Active']
+
+= nested_form_for(@transaction, as: :transaction, url: properties_update_transaction_path(@transaction, main_id: params[:main_id], sub: params[:sub], type: params[:type])) do |f|
+  - if @transaction.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@transaction.errors.count, 'error')} prohibited this transaction from being saved:"
+      ul
+        - @transaction.errors.full_messages.each do |message|
+          li = message
+
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12
+    = f.fields_for :transaction_properties do |transaction_property_form|
+      .form-group
+        label Property
+        = transaction_property_form.select :property_id, options_for_select(Property.where.not(title: nil).pluck(:title, :id), transaction_property_form.object.property_id), {}, class: 'form-control selectize-single'
+      .form-group
+        label Sale Price
+        .input-group
+          .input-group-addon $
+          = transaction_property_form.text_field :sale_price, class: 'form-control'
+      .form-group
+        = transaction_property_form.link_to_remove 'Delete', class: 'btn btn-sm btn-danger pull-right margin-xs-top'
+      .clearfix
+    = f.link_to_add "Add Property", :transaction_properties, class: 'btn btn-sm btn-default margin-lg-top margin-sm-bottom'
+
+  .clearfix.margin-lg-top
+  .form-group
+    = link_to 'Back', '#', class: 'btn btn-primary next-prev margin-sm-right'
+    = f.submit 'Save & Next', class: 'btn btn-sm btn-primary next-prev'

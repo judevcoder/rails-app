@@ -1,0 +1,2 @@
+module Entities::SoleProprietorshipHelper
+end

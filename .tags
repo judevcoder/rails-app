@@ -1,0 +1,1347 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+ABBREVIATIONS	app/models/property.rb	/^  ABBREVIATIONS = {"Alaska"=>"AK", "Alabama"=>"AL", "Arkansas"=>"AR", $/;"	C	class:Property
+AccessResource	app/models/access_resource.rb	/^class AccessResource < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+Action	app/models/procedure/action.rb	/^class Procedure::Action < ActiveRecord::Base$/;"	c	class:Procedure	inherits:ActiveRecord.Base
+ActionsController	app/controllers/procedure/actions_controller.rb	/^class Procedure::ActionsController < ApplicationController$/;"	c	class:Procedure	inherits:ApplicationController
+ActionsHelper	app/helpers/procedure/actions_helper.rb	/^module Procedure::ActionsHelper$/;"	m	class:Procedure
+ActiveSupport	lib/core_ext/time_with_zone.rb	/^module ActiveSupport$/;"	m
+Admin	app/models/admin.rb	/^class Admin < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+AdminAuthenticationError	app/controllers/application_controller.rb	/^class AdminAuthenticationError < StandardError$/;"	c	inherits:StandardError
+AdminController	app/controllers/admin/admin_controller.rb	/^class Admin::AdminController < ApplicationController$/;"	c	class:Admin	inherits:ApplicationController
+AdminMailer	app/mailers/admin_mailer.rb	/^class AdminMailer < ActionMailer::Base$/;"	c	inherits:ActionMailer.Base
+AdminsController	app/controllers/admin/admins_controller.rb	/^class Admin::AdminsController < Admin::AdminController$/;"	c	class:Admin	inherits:Admin.AdminController
+Application	config/application.rb	/^  class Application < Rails::Application$/;"	c	class:Exchange1031	inherits:Rails.Application
+ApplicationController	app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c	inherits:ActionController.Base
+ApplicationHelper	app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+Array	lib/core_ext/array.rb	/^class Array$/;"	c
+BUILDING_STATUS	app/models/property.rb	/^  BUILDING_STATUS = ['Operational', 'Not Yet Built', 'Under Construction']$/;"	C	class:Property
+Beneficiary	app/models/Entity/beneficiary.rb	/^class Beneficiary < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+Checklist	app/models/procedure/action/checklist.rb	/^class Procedure::Action::Checklist < ActiveRecord::Base$/;"	c	class:Procedure.Action	inherits:ActiveRecord.Base
+Client	app/models/client.rb	/^class Client < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+ClientsController	app/controllers/admin/clients_controller.rb	/^class Admin::ClientsController < Admin::AdminController$/;"	c	class:Admin	inherits:Admin.AdminController
+ClientsController	app/controllers/clients_controller.rb	/^class ClientsController < ApplicationController$/;"	c	inherits:ApplicationController
+ClientsHelper	app/helpers/clients_helper.rb	/^module ClientsHelper$/;"	m
+Comment	app/models/comment.rb	/^class Comment < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+CommentsController	app/controllers/comments_controller.rb	/^class CommentsController < ApplicationController$/;"	c	inherits:ApplicationController
+CommentsHelper	app/helpers/comments_helper.rb	/^module CommentsHelper$/;"	m
+CommonStaticField	app/models/common_static_field.rb	/^class CommonStaticField < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+CommonStaticFieldsController	app/controllers/common_static_fields_controller.rb	/^class CommonStaticFieldsController < ApplicationController$/;"	c	inherits:ApplicationController
+CommonStaticFieldsHelper	app/helpers/common_static_fields_helper.rb	/^module CommonStaticFieldsHelper$/;"	m
+Contact	app/models/contact.rb	/^class Contact < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+ContactOverride	app/models/transaction_personnel.rb	/^class ContactOverride < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+ContactsController	app/controllers/contacts_controller.rb	/^class ContactsController < ApplicationController$/;"	c	inherits:ApplicationController
+ContactsHelper	app/helpers/contacts_helper.rb	/^module ContactsHelper$/;"	m
+CorporatesController	app/controllers/entities/corporates_controller.rb	/^class Entities::CorporatesController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+CorporatesHelper	app/helpers/entities/corporates_helper.rb	/^module Entities::CorporatesHelper$/;"	m	class:Entities
+Corporation?	app/models/concerns/model_methods.rb	/^  def Corporation?$/;"	f	class:ModelMethods
+Corporation?	app/models/concerns/my_function.rb	/^  def Corporation?$/;"	f	class:MyFunction
+CreateDatabase	db/migrate/20170405155101_create_database.rb	/^class CreateDatabase < ActiveRecord::Migration[5.0]$/;"	c	inherits:ActiveRecord.Migration
+DATE_OF_LEASE_DETAILS	app/models/property.rb	/^  DATE_OF_LEASE_DETAILS = ['Date is clearly on document', 'Date can be inferred from document',$/;"	C	class:Property
+Date	lib/core_ext/date.rb	/^class Date$/;"	c
+DateTime	lib/core_ext/date_time.rb	/^class DateTime$/;"	c
+Director	app/models/Entity/director.rb	/^class Director < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+DynamicField	app/models/dynamic_field.rb	/^class DynamicField < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+DynamicFieldsController	app/controllers/dynamic_fields_controller.rb	/^class DynamicFieldsController < ApplicationController$/;"	c	inherits:ApplicationController
+DynamicFieldsHelper	app/helpers/dynamic_fields_helper.rb	/^module DynamicFieldsHelper$/;"	m
+EntitiesController	app/controllers/entities_controller.rb	/^class EntitiesController < ApplicationController$/;"	c	inherits:ApplicationController
+EntitiesHelper	app/helpers/entities_helper.rb	/^module EntitiesHelper$/;"	m
+Entity	app/models/entity.rb	/^class Entity < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+EntityGuardianship	app/models/entity_guardianship.rb	/^class EntityGuardianship < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+EntityJointTenancy	app/models/entity_joint_tenancy.rb	/^class EntityJointTenancy < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+EntityTenancyByEntirety	app/models/entity_tenancy_by_entirety.rb	/^class EntityTenancyByEntirety < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+EntityTenancyInCommon	app/models/entity_tenancy_in_common.rb	/^class EntityTenancyInCommon < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+EntityType	app/models/concerns/entity_type.rb	/^class EntityType < MemberType$/;"	c	inherits:MemberType
+Error	app/models/concerns/error.rb	/^class Error$/;"	c
+Estate?	app/models/concerns/my_function.rb	/^  def Estate?$/;"	f	class:MyFunction
+EstateController	app/controllers/entities/estate_controller.rb	/^class Entities::EstateController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+EstateHelper	app/helpers/entities/estate_helper.rb	/^module Entities::EstateHelper$/;"	m	class:Entities
+Exchange1031	config/application.rb	/^module Exchange1031$/;"	m
+FIXED_TITLE	app/models/transaction_personnel.rb	/^  FIXED_TITLE = ['Seller`s Lawyer', 'Buyer`s Lawyer', 'Seller`s Broker', 'Buyer`s Broker', 'Title', 'Survey', 'Environmental', 'Zoning']$/;"	C	class:TransactionPersonnel
+GeneralMethods	app/models/concerns/general_methods.rb	/^class GeneralMethods$/;"	c
+GeneralPartner	app/models/Entity/general_partner.rb	/^class GeneralPartner < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+Guardianship?	app/models/concerns/my_function.rb	/^  def Guardianship?$/;"	f	class:MyFunction
+GuardianshipController	app/controllers/entities/guardianship_controller.rb	/^class Entities::GuardianshipController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+GuardianshipHelper	app/helpers/entities/guardianship_helper.rb	/^module Entities::GuardianshipHelper$/;"	m	class:Entities
+HOST	config/initializers/config.rb	/^HOST = Rails.env.production? ? 'http:\/\/amazme.net' : 'http:\/\/localhost:3000'$/;"	C	class:
+HomeController	app/controllers/home_controller.rb	/^class HomeController < ApplicationController$/;"	c	inherits:ApplicationController
+Individual?	app/models/concerns/model_methods.rb	/^  def Individual?$/;"	f	class:ModelMethods
+Individual?	app/models/concerns/my_function.rb	/^  def Individual?$/;"	f	class:MyFunction
+IndividualsController	app/controllers/entities/individuals_controller.rb	/^class Entities::IndividualsController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+IndividualsHelper	app/helpers/entities/individuals_helper.rb	/^module Entities::IndividualsHelper$/;"	m	class:Entities
+JointTenancy?	app/models/concerns/model_methods.rb	/^  def JointTenancy?$/;"	f	class:ModelMethods
+JointTenancy?	app/models/concerns/my_function.rb	/^  def JointTenancy?$/;"	f	class:MyFunction
+JointTenancyController	app/controllers/entities/joint_tenancy_controller.rb	/^class Entities::JointTenancyController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+JointTenancyHelper	app/helpers/entities/joint_tenancy_helper.rb	/^module Entities::JointTenancyHelper$/;"	m	class:Entities
+JointTenant	app/models/Entity/joint_tenant.rb	/^class JointTenant < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+Key	app/models/key.rb	/^class Key < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+LEASE_TYPES	app/models/property.rb	/^  LEASE_TYPES = ['Ground Lease with Operating Tenant', 'Ground Lease Self Occupancy', 'Space Lease']$/;"	C	class:Property
+LLC?	app/models/concerns/model_methods.rb	/^  def LLC?$/;"	f	class:ModelMethods
+LLC?	app/models/concerns/my_function.rb	/^  def LLC?$/;"	f	class:MyFunction
+LLP?	app/models/concerns/model_methods.rb	/^  def LLP?$/;"	f	class:ModelMethods
+LLP?	app/models/concerns/my_function.rb	/^  def LLP?$/;"	f	class:MyFunction
+LimitedPartner	app/models/Entity/limited_partner.rb	/^class LimitedPartner < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+LimitedPartnership?	app/models/concerns/model_methods.rb	/^  def LimitedPartnership?$/;"	f	class:ModelMethods
+LimitedPartnership?	app/models/concerns/my_function.rb	/^  def LimitedPartnership?$/;"	f	class:MyFunction
+LimitedPartnershipController	app/controllers/entities/limited_partnership_controller.rb	/^class Entities::LimitedPartnershipController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+LimitedPartnershipHelper	app/helpers/entities/limited_partnership_helper.rb	/^module Entities::LimitedPartnershipHelper$/;"	m	class:Entities
+LlcController	app/controllers/entities/llc_controller.rb	/^class Entities::LlcController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+LlcHelper	app/helpers/entities/llc_helper.rb	/^module Entities::LlcHelper$/;"	m	class:Entities
+LlpController	app/controllers/entities/llp_controller.rb	/^class Entities::LlpController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+LlpHelper	app/helpers/entities/llp_helper.rb	/^module Entities::LlpHelper$/;"	m	class:Entities
+Manager	app/models/Entity/manager.rb	/^class Manager < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+Member	app/models/Entity/member.rb	/^class Member < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+MemberType	app/models/member_type.rb	/^class MemberType < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+MembersController	app/controllers/members_controller.rb	/^class MembersController < ApplicationController$/;"	c	inherits:ApplicationController
+MembersHelper	app/helpers/members_helper.rb	/^module MembersHelper$/;"	m
+ModelMethods	app/models/concerns/model_methods.rb	/^module ModelMethods$/;"	m
+MyFunction	app/models/concerns/my_function.rb	/^module MyFunction$/;"	m
+NoUserRelationWithAbilityFound	app/controllers/application_controller.rb	/^class NoUserRelationWithAbilityFound < Exception;$/;"	c	inherits:Exception
+Notification	app/models/notification.rb	/^class Notification < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+OWNERSHIP_STATUS	app/models/property.rb	/^  OWNERSHIP_STATUS = ['Purchased', 'Prospective Purchase']$/;"	C	class:Property
+Officer	app/models/officer.rb	/^class Officer < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+Parcel	app/models/parcel.rb	/^class Parcel < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+Partner	app/models/Entity/partner.rb	/^class Partner < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+Partnership?	app/models/concerns/model_methods.rb	/^  def Partnership?$/;"	f	class:ModelMethods
+Partnership?	app/models/concerns/my_function.rb	/^  def Partnership?$/;"	f	class:MyFunction
+PartnershipController	app/controllers/entities/partnership_controller.rb	/^class Entities::PartnershipController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+PartnershipHelper	app/helpers/entities/partnership_helper.rb	/^module Entities::PartnershipHelper$/;"	m	class:Entities
+PeopleAndFirm	app/models/people_and_firm.rb	/^class PeopleAndFirm < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+PowerOfAttorney	app/models/power_of_attorney.rb	/^class PowerOfAttorney < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+PowerOfAttorneyController	app/controllers/entities/power_of_attorney_controller.rb	/^class Entities::PowerOfAttorneyController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+Procedure	app/models/procedure.rb	/^class Procedure < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+ProceduresController	app/controllers/procedures_controller.rb	/^class ProceduresController < ApplicationController$/;"	c	inherits:ApplicationController
+ProceduresHelper	app/helpers/procedures_helper.rb	/^module ProceduresHelper$/;"	m
+ProjectsHelper	app/helpers/projects_helper.rb	/^module ProjectsHelper$/;"	m
+PropertiesController	app/controllers/admin/properties_controller.rb	/^class Admin::PropertiesController < Admin::AdminController$/;"	c	class:Admin	inherits:Admin.AdminController
+PropertiesController	app/controllers/properties_controller.rb	/^class PropertiesController < ApplicationController$/;"	c	inherits:ApplicationController
+PropertiesHelper	app/helpers/properties_helper.rb	/^module PropertiesHelper$/;"	m
+Property	app/models/property.rb	/^class Property < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+Purchase?	app/models/transaction_purchase.rb	/^  def Purchase?$/;"	f	class:TransactionPurchase
+Purchase?	app/models/transaction_sale.rb	/^  def Purchase?$/;"	f	class:TransactionSale
+QualifiedIntermediary	app/models/qualified_intermediary.rb	/^class QualifiedIntermediary < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+QualifiedIntermediaryDeposit	app/models/qualified_intermediary_deposit.rb	/^class QualifiedIntermediaryDeposit < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+RENT_COMMENCEMENT_DATE_DETAILS	app/models/property.rb	/^  RENT_COMMENCEMENT_DATE_DETAILS = ['Date is fixed in document and has not yet occurred',$/;"	C	class:Property
+ROLE	app/models/contact.rb	/^  ROLE = ["Counter-Party",$/;"	C	class:Contact
+Sale?	app/models/transaction_purchase.rb	/^  def Sale?$/;"	f	class:TransactionPurchase
+Sale?	app/models/transaction_sale.rb	/^  def Sale?$/;"	f	class:TransactionSale
+SettingController	app/controllers/property/setting_controller.rb	/^class Property::SettingController < ApplicationController$/;"	c	class:Property	inherits:ApplicationController
+SettingHelper	app/helpers/projects/setting_helper.rb	/^module Projects::SettingHelper$/;"	m	class:Projects
+SettingsController	app/controllers/settings_controller.rb	/^class SettingsController < ApplicationController$/;"	c	inherits:ApplicationController
+Settlor	app/models/Entity/settlor.rb	/^class Settlor < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+SoleProprietorship?	app/models/concerns/my_function.rb	/^  def SoleProprietorship?$/;"	f	class:MyFunction
+SoleProprietorshipController	app/controllers/entities/sole_proprietorship_controller.rb	/^class Entities::SoleProprietorshipController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+SoleProprietorshipHelper	app/helpers/entities/sole_proprietorship_helper.rb	/^module Entities::SoleProprietorshipHelper$/;"	m	class:Entities
+Spouse	app/models/Entity/spouse.rb	/^class Spouse < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+StockHolder	app/models/Entity/stock_holder.rb	/^class StockHolder < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+String	lib/core_ext/string.rb	/^class String$/;"	c
+SuperEntity	app/controllers/concerns/super_entity.rb	/^class SuperEntity < Entity$/;"	c	inherits:Entity
+TENANTS	app/models/property.rb	/^  TENANTS = ['7\/11', 'Racetrac', 'CVS', 'Walgreens', 'Capital One', 'First Choice Emergency',$/;"	C	class:Property
+TYPES	app/models/property.rb	/^  TYPES = ['Single Tenant Freestanding', 'Shopping Center',$/;"	C	class:Property
+TenancyByEntiretyController	app/controllers/entities/tenancy_by_entirety_controller.rb	/^class Entities::TenancyByEntiretyController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+TenancyByEntiretyHelper	app/helpers/entities/tenancy_by_entirety_helper.rb	/^module Entities::TenancyByEntiretyHelper$/;"	m	class:Entities
+TenancyByTheEntirety?	app/models/concerns/model_methods.rb	/^  def TenancyByTheEntirety?$/;"	f	class:ModelMethods
+TenancyByTheEntirety?	app/models/concerns/my_function.rb	/^  def TenancyByTheEntirety?$/;"	f	class:MyFunction
+TenancyInCommonController	app/controllers/entities/tenancy_in_common_controller.rb	/^class Entities::TenancyInCommonController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+TenancyInCommonHelper	app/helpers/entities/tenancy_in_common_helper.rb	/^module Entities::TenancyInCommonHelper$/;"	m	class:Entities
+TenancyinCommon?	app/models/concerns/model_methods.rb	/^  def TenancyinCommon?$/;"	f	class:ModelMethods
+TenancyinCommon?	app/models/concerns/my_function.rb	/^  def TenancyinCommon?$/;"	f	class:MyFunction
+TenantInCommon	app/models/Entity/tenant_in_common.rb	/^class TenantInCommon < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+Time	lib/core_ext/time.rb	/^class Time$/;"	c
+TimeWithZone	lib/core_ext/time_with_zone.rb	/^  class TimeWithZone$/;"	c	class:ActiveSupport
+TransactionMain	app/models/transaction_main.rb	/^class TransactionMain < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+TransactionPersonnel	app/models/transaction_personnel.rb	/^class TransactionPersonnel < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+TransactionProperty	app/models/transaction_property.rb	/^class TransactionProperty < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+TransactionPurchase	app/models/transaction_purchase.rb	/^class TransactionPurchase < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+TransactionSale	app/models/transaction_sale.rb	/^class TransactionSale < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+TransactionStatus	app/models/transaction_status.rb	/^class TransactionStatus < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+TransactionTerm	app/models/transaction_term.rb	/^class TransactionTerm < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+TransactionsController	app/controllers/admin/transactions_controller.rb	/^class Admin::TransactionsController < Admin::AdminController$/;"	c	class:Admin	inherits:Admin.AdminController
+TransactionsController	app/controllers/transactions_controller.rb	/^class TransactionsController < ApplicationController$/;"	c	inherits:ApplicationController
+Trust?	app/models/concerns/model_methods.rb	/^  def Trust?$/;"	f	class:ModelMethods
+Trust?	app/models/concerns/my_function.rb	/^  def Trust?$/;"	f	class:MyFunction
+TrustController	app/controllers/entities/trust_controller.rb	/^class Entities::TrustController < ApplicationController$/;"	c	class:Entities	inherits:ApplicationController
+TrustHelper	app/helpers/entities/trust_helper.rb	/^module Entities::TrustHelper$/;"	m	class:Entities
+Trustee	app/models/Entity/trustee.rb	/^class Trustee < PeopleAndFirm$/;"	c	inherits:PeopleAndFirm
+USSTATES	app/models/concerns/general_methods.rb	/^    def USSTATES$/;"	F	class:GeneralMethods
+USSTATES	app/models/entity.rb	/^    def USSTATES$/;"	F	class:Entity
+US_STATES	app/models/property.rb	/^  US_STATES =$/;"	C	class:Property
+UnauthorizedError	app/controllers/application_controller.rb	/^class UnauthorizedError < Exception;$/;"	c	inherits:Exception
+UnknownRequestFormat	app/controllers/entities/corporates_controller.rb	/^class UnknownRequestFormat < Exception; end$/;"	c	inherits:Exception
+Unregistered	app/models/users/unregistered.rb	/^class Users::Unregistered < ActiveRecord::Base$/;"	c	class:Users	inherits:ActiveRecord.Base
+User	app/models/user.rb	/^class User < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+UserMailer	app/mailers/user_mailer.rb	/^class UserMailer < ActionMailer::Base$/;"	c	inherits:ActionMailer.Base
+Users	app/models/users.rb	/^module Users$/;"	m
+UsersController	app/controllers/admin/users_controller.rb	/^class Admin::UsersController < Admin::AdminController$/;"	c	class:Admin	inherits:Admin.AdminController
+UsersController	app/controllers/users_controller.rb	/^class UsersController < ApplicationController$/;"	c	inherits:ApplicationController
+UsersHelper	app/helpers/users_helper.rb	/^module UsersHelper$/;"	m
+WiredInstruction	app/models/wired_instruction.rb	/^class WiredInstruction < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+XhrController	app/controllers/xhr_controller.rb	/^class XhrController < ApplicationController$/;"	c	inherits:ApplicationController
+__first_deposit_date_due__	app/models/transaction_purchase.rb	/^  def __first_deposit_date_due__$/;"	f	class:TransactionPurchase
+_initialize	app/models/key.rb	/^  def _initialize$/;"	f	class:Key
+abbreviations_state	app/models/property.rb	/^  def abbreviations_state$/;"	f	class:Property
+ability	app/controllers/application_controller.rb	/^  def ability$/;"	f	class:ApplicationController
+ability	app/models/user.rb	/^  def ability$/;"	f	class:User
+access_authentication	app/controllers/admin/admin_controller.rb	/^  def access_authentication$/;"	f	class:Admin.AdminController
+access_resource	app/models/concerns/my_function.rb	/^  def access_resource$/;"	f	class:MyFunction
+access_resources	app/models/procedure/action.rb	/^  def access_resources$/;"	f	class:Procedure.Action
+access_resources	app/models/property.rb	/^  def access_resources$/;"	f	class:Property
+action_ids	app/models/procedure.rb	/^  has_many :actions, :class_name => 'Procedure::Action', foreign_key: 'procedure_id'$/;"	F	class:Procedure
+action_ids=	app/models/procedure.rb	/^  has_many :actions, :class_name => 'Procedure::Action', foreign_key: 'procedure_id'$/;"	F	class:Procedure
+actions	app/models/procedure.rb	/^  has_many :actions, :class_name => 'Procedure::Action', foreign_key: 'procedure_id'$/;"	F	class:Procedure
+actions=	app/models/procedure.rb	/^  has_many :actions, :class_name => 'Procedure::Action', foreign_key: 'procedure_id'$/;"	F	class:Procedure
+add_access	app/models/access_resource.rb	/^    def add_access(options = {})$/;"	F	class:AccessResource
+add_breadcrum	app/controllers/clients_controller.rb	/^  def add_breadcrum$/;"	f	class:ClientsController
+add_breadcrum	app/controllers/entities/corporates_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.CorporatesController
+add_breadcrum	app/controllers/entities/guardianship_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.GuardianshipController
+add_breadcrum	app/controllers/entities/individuals_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.IndividualsController
+add_breadcrum	app/controllers/entities/joint_tenancy_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.JointTenancyController
+add_breadcrum	app/controllers/entities/limited_partnership_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.LimitedPartnershipController
+add_breadcrum	app/controllers/entities/llc_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.LlcController
+add_breadcrum	app/controllers/entities/llp_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.LlpController
+add_breadcrum	app/controllers/entities/partnership_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.PartnershipController
+add_breadcrum	app/controllers/entities/power_of_attorney_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.PowerOfAttorneyController
+add_breadcrum	app/controllers/entities/sole_proprietorship_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.SoleProprietorshipController
+add_breadcrum	app/controllers/entities/tenancy_by_entirety_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.TenancyByEntiretyController
+add_breadcrum	app/controllers/entities/tenancy_in_common_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.TenancyInCommonController
+add_breadcrum	app/controllers/entities/trust_controller.rb	/^  def add_breadcrum$/;"	f	class:Entities.TrustController
+add_breadcrum	app/controllers/entities_controller.rb	/^  def add_breadcrum$/;"	f	class:EntitiesController
+add_breadcrum	app/controllers/properties_controller.rb	/^  def add_breadcrum$/;"	f	class:PropertiesController
+add_breadcrum	app/controllers/transactions_controller.rb	/^  def add_breadcrum$/;"	f	class:TransactionsController
+add_key	app/models/concerns/my_function.rb	/^  def add_key$/;"	f	class:MyFunction
+add_key	app/models/users/unregistered.rb	/^  def add_key$/;"	f	class:Users.Unregistered
+address	app/controllers/clients_controller.rb	/^  def address$/;"	f	class:ClientsController
+admin	app/controllers/application_controller.rb	/^  def admin$/;"	f	class:ApplicationController
+admin_authentication	app/controllers/application_controller.rb	/^  def admin_authentication$/;"	f	class:ApplicationController
+after_sign_in_path_for	app/controllers/application_controller.rb	/^  def after_sign_in_path_for(resource)$/;"	f	class:ApplicationController
+auto_create_admin_session	app/controllers/application_controller.rb	/^  def auto_create_admin_session email$/;"	f	class:ApplicationController
+base64_encode	app/helpers/application_helper.rb	/^  def base64_encode t$/;"	f	class:ApplicationHelper
+basic_info	app/controllers/entities/corporates_controller.rb	/^  def basic_info$/;"	f	class:Entities.CorporatesController
+basic_info	app/controllers/entities/guardianship_controller.rb	/^  def basic_info$/;"	f	class:Entities.GuardianshipController
+basic_info	app/controllers/entities/individuals_controller.rb	/^	def basic_info$/;"	f	class:Entities.IndividualsController
+basic_info	app/controllers/entities/joint_tenancy_controller.rb	/^  def basic_info$/;"	f	class:Entities.JointTenancyController
+basic_info	app/controllers/entities/limited_partnership_controller.rb	/^  def basic_info$/;"	f	class:Entities.LimitedPartnershipController
+basic_info	app/controllers/entities/llc_controller.rb	/^  def basic_info$/;"	f	class:Entities.LlcController
+basic_info	app/controllers/entities/llp_controller.rb	/^  def basic_info$/;"	f	class:Entities.LlpController
+basic_info	app/controllers/entities/partnership_controller.rb	/^  def basic_info$/;"	f	class:Entities.PartnershipController
+basic_info	app/controllers/entities/power_of_attorney_controller.rb	/^  def basic_info$/;"	f	class:Entities.PowerOfAttorneyController
+basic_info	app/controllers/entities/sole_proprietorship_controller.rb	/^  def basic_info$/;"	f	class:Entities.SoleProprietorshipController
+basic_info	app/controllers/entities/tenancy_by_entirety_controller.rb	/^  def basic_info$/;"	f	class:Entities.TenancyByEntiretyController
+basic_info	app/controllers/entities/tenancy_in_common_controller.rb	/^  def basic_info$/;"	f	class:Entities.TenancyInCommonController
+basic_info	app/controllers/entities/trust_controller.rb	/^  def basic_info$/;"	f	class:Entities.TrustController
+beneficiarie_ids	app/models/entity.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:Entity
+beneficiarie_ids	app/models/entity_guardianship.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+beneficiarie_ids	app/models/entity_joint_tenancy.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+beneficiarie_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+beneficiarie_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+beneficiarie_ids=	app/models/entity.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:Entity
+beneficiarie_ids=	app/models/entity_guardianship.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+beneficiarie_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+beneficiarie_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+beneficiarie_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+beneficiaries	app/controllers/entities/trust_controller.rb	/^  def beneficiaries$/;"	f	class:Entities.TrustController
+beneficiaries	app/models/entity.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:Entity
+beneficiaries	app/models/entity_guardianship.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+beneficiaries	app/models/entity_joint_tenancy.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+beneficiaries	app/models/entity_tenancy_by_entirety.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+beneficiaries	app/models/entity_tenancy_in_common.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+beneficiaries=	app/models/entity.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:Entity
+beneficiaries=	app/models/entity_guardianship.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+beneficiaries=	app/models/entity_joint_tenancy.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+beneficiaries=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+beneficiaries=	app/models/entity_tenancy_in_common.rb	/^  has_many :beneficiaries, ->{where(class_name: "Beneficiary")}, class_name: "Beneficiary", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+beneficiary	app/controllers/entities/trust_controller.rb	/^  def beneficiary$/;"	f	class:Entities.TrustController
+beneficiary_params	app/controllers/entities/trust_controller.rb	/^  def beneficiary_params$/;"	f	class:Entities.TrustController
+build_client	app/models/transaction_purchase.rb	/^  belongs_to :client$/;"	F	class:TransactionPurchase
+build_client	app/models/transaction_sale.rb	/^  belongs_to :client$/;"	F	class:TransactionSale
+build_commentable	app/models/comment.rb	/^  belongs_to :commentable, :polymorphic => true$/;"	F	class:Comment
+build_contact	app/models/qualified_intermediary.rb	/^  has_one :contact, foreign_key: :type_id, primary_key: :uuid$/;"	F	class:QualifiedIntermediary
+build_entity	app/models/Entity/beneficiary.rb	/^  belongs_to :entity$/;"	F	class:Beneficiary
+build_entity	app/models/Entity/general_partner.rb	/^  belongs_to :entity$/;"	F	class:GeneralPartner
+build_entity	app/models/Entity/joint_tenant.rb	/^  belongs_to :entity$/;"	F	class:JointTenant
+build_entity	app/models/Entity/limited_partner.rb	/^  belongs_to :entity$/;"	F	class:LimitedPartner
+build_entity	app/models/Entity/manager.rb	/^  belongs_to :entity$/;"	F	class:Manager
+build_entity	app/models/Entity/member.rb	/^  belongs_to :entity$/;"	F	class:Member
+build_entity	app/models/Entity/partner.rb	/^  belongs_to :entity$/;"	F	class:Partner
+build_entity	app/models/Entity/settlor.rb	/^  belongs_to :entity$/;"	F	class:Settlor
+build_entity	app/models/Entity/spouse.rb	/^  belongs_to :entity$/;"	F	class:Spouse
+build_entity	app/models/Entity/stock_holder.rb	/^  belongs_to :entity$/;"	F	class:StockHolder
+build_entity	app/models/Entity/tenant_in_common.rb	/^  belongs_to :entity$/;"	F	class:TenantInCommon
+build_entity	app/models/Entity/trustee.rb	/^  belongs_to :entity$/;"	F	class:Trustee
+build_entity	app/models/client.rb	/^  belongs_to :entity$/;"	F	class:Client
+build_entity	app/models/officer.rb	/^  belongs_to :entity$/;"	F	class:Officer
+build_entity	app/models/transaction_purchase.rb	/^  has_one :entity$/;"	F	class:TransactionPurchase
+build_entity	app/models/transaction_sale.rb	/^  has_one :entity$/;"	F	class:TransactionSale
+build_entity_type	app/models/entity.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:Entity
+build_entity_type	app/models/entity_guardianship.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityGuardianship
+build_entity_type	app/models/entity_joint_tenancy.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityJointTenancy
+build_entity_type	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyByEntirety
+build_entity_type	app/models/entity_tenancy_in_common.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyInCommon
+build_entity_type	app/models/power_of_attorney.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:PowerOfAttorney
+build_property	app/models/entity.rb	/^  belongs_to :property$/;"	F	class:Entity
+build_property	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :property$/;"	F	class:EntityTenancyByEntirety
+build_property	app/models/procedure.rb	/^  belongs_to :property$/;"	F	class:Procedure
+build_property	app/models/transaction_property.rb	/^  belongs_to :property$/;"	F	class:TransactionProperty
+build_property	app/models/transaction_purchase.rb	/^  belongs_to :property$/;"	F	class:TransactionPurchase
+build_property	app/models/transaction_sale.rb	/^  belongs_to :property$/;"	F	class:TransactionSale
+build_purchase	app/models/transaction_main.rb	/^  has_one :purchase, class_name: 'TransactionPurchase', dependent: :destroy$/;"	F	class:TransactionMain
+build_purchaser_entity	app/models/transaction_purchase.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+build_purchaser_entity	app/models/transaction_sale.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+build_qualified_intermediary	app/models/qualified_intermediary_deposit.rb	/^  belongs_to :qualified_intermediary$/;"	F	class:QualifiedIntermediaryDeposit
+build_qualified_intermediary	app/models/transaction_purchase.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+build_qualified_intermediary	app/models/transaction_sale.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+build_sale	app/models/transaction_main.rb	/^  has_one :sale, class_name: 'TransactionSale', dependent: :destroy$/;"	F	class:TransactionMain
+build_seller_entity	app/models/transaction_purchase.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+build_seller_entity	app/models/transaction_sale.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+build_super_entity	app/models/Entity/beneficiary.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Beneficiary
+build_super_entity	app/models/Entity/director.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Director
+build_super_entity	app/models/Entity/general_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:GeneralPartner
+build_super_entity	app/models/Entity/joint_tenant.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:JointTenant
+build_super_entity	app/models/Entity/limited_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:LimitedPartner
+build_super_entity	app/models/Entity/manager.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Manager
+build_super_entity	app/models/Entity/member.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Member
+build_super_entity	app/models/Entity/partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Partner
+build_super_entity	app/models/Entity/settlor.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Settlor
+build_super_entity	app/models/Entity/spouse.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Spouse
+build_super_entity	app/models/Entity/stock_holder.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:StockHolder
+build_super_entity	app/models/Entity/tenant_in_common.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:TenantInCommon
+build_super_entity	app/models/Entity/trustee.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Trustee
+build_transaction_main	app/models/transaction_purchase.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionPurchase
+build_transaction_main	app/models/transaction_sale.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionSale
+build_transaction_personnel	app/models/transaction_purchase.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+build_transaction_personnel	app/models/transaction_sale.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+build_transaction_purchase	app/models/transaction_property.rb	/^  belongs_to :transaction_purchase, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+build_transaction_sale	app/models/property.rb	/^  belongs_to :transaction_sale$/;"	F	class:Property
+build_transaction_sale	app/models/transaction_personnel.rb	/^  belongs_to :transaction_sale$/;"	F	class:TransactionPersonnel
+build_transaction_sale	app/models/transaction_property.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+build_transaction_sale	app/models/transaction_status.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionStatus
+build_transaction_term	app/models/transaction_purchase.rb	/^  has_one :transaction_term, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+build_transaction_term	app/models/transaction_sale.rb	/^  has_one :transaction_term, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+build_update_attributes	app/controllers/users_controller.rb	/^  def build_update_attributes$/;"	f	class:UsersController
+build_user	app/models/comment.rb	/^  belongs_to :user$/;"	F	class:Comment
+build_wired_instruction	app/models/qualified_intermediary.rb	/^  has_one :wired_instruction$/;"	F	class:QualifiedIntermediary
+can_access?	app/models/access_resource.rb	/^    def can_access?(options = {})$/;"	F	class:AccessResource
+change	db/migrate/20170405155101_create_database.rb	/^  def change$/;"	f	class:CreateDatabase
+check_user_approval	app/controllers/application_controller.rb	/^  def check_user_approval$/;"	f	class:ApplicationController
+check_xhr_page	app/controllers/entities/corporates_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.CorporatesController
+check_xhr_page	app/controllers/entities/guardianship_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.GuardianshipController
+check_xhr_page	app/controllers/entities/individuals_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.IndividualsController
+check_xhr_page	app/controllers/entities/joint_tenancy_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.JointTenancyController
+check_xhr_page	app/controllers/entities/limited_partnership_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.LimitedPartnershipController
+check_xhr_page	app/controllers/entities/llc_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.LlcController
+check_xhr_page	app/controllers/entities/llp_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.LlpController
+check_xhr_page	app/controllers/entities/partnership_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.PartnershipController
+check_xhr_page	app/controllers/entities/power_of_attorney_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.PowerOfAttorneyController
+check_xhr_page	app/controllers/entities/sole_proprietorship_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.SoleProprietorshipController
+check_xhr_page	app/controllers/entities/tenancy_by_entirety_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.TenancyByEntiretyController
+check_xhr_page	app/controllers/entities/tenancy_in_common_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.TenancyInCommonController
+check_xhr_page	app/controllers/entities/trust_controller.rb	/^  def check_xhr_page$/;"	f	class:Entities.TrustController
+checklist	app/controllers/procedure/actions_controller.rb	/^  def checklist$/;"	f	class:Procedure.ActionsController
+checklist_ids	app/models/procedure/action.rb	/^  has_many :checklists, :class_name => 'Procedure::Action::Checklist'$/;"	F	class:Procedure.Action
+checklist_ids=	app/models/procedure/action.rb	/^  has_many :checklists, :class_name => 'Procedure::Action::Checklist'$/;"	F	class:Procedure.Action
+checklist_update	app/controllers/procedure/actions_controller.rb	/^  def checklist_update$/;"	f	class:Procedure.ActionsController
+checklist_with_checkbox	app/controllers/procedure/actions_controller.rb	/^  def checklist_with_checkbox$/;"	f	class:Procedure.ActionsController
+checklists	app/models/procedure/action.rb	/^  has_many :checklists, :class_name => 'Procedure::Action::Checklist'$/;"	F	class:Procedure.Action
+checklists=	app/models/procedure/action.rb	/^  has_many :checklists, :class_name => 'Procedure::Action::Checklist'$/;"	F	class:Procedure.Action
+city_state	app/models/client.rb	/^  def city_state$/;"	f	class:Client
+city_state	app/models/property.rb	/^  def city_state$/;"	f	class:Property
+city_state	app/models/transaction_purchase.rb	/^  def city_state$/;"	f	class:TransactionPurchase
+city_state	app/models/transaction_sale.rb	/^  def city_state$/;"	f	class:TransactionSale
+client	app/models/transaction_purchase.rb	/^  belongs_to :client$/;"	F	class:TransactionPurchase
+client	app/models/transaction_sale.rb	/^  belongs_to :client$/;"	F	class:TransactionSale
+client=	app/models/transaction_purchase.rb	/^  belongs_to :client$/;"	F	class:TransactionPurchase
+client=	app/models/transaction_sale.rb	/^  belongs_to :client$/;"	F	class:TransactionSale
+client_entity	app/controllers/xhr_controller.rb	/^  def client_entity$/;"	f	class:XhrController
+client_entity	app/helpers/application_helper.rb	/^  def client_entity(entity)$/;"	f	class:ApplicationHelper
+client_params	app/controllers/clients_controller.rb	/^  def client_params$/;"	f	class:ClientsController
+closing_date_to_string	app/models/transaction_purchase.rb	/^  def closing_date_to_string$/;"	f	class:TransactionPurchase
+closing_date_with_psa_date	app/models/transaction_term.rb	/^  def closing_date_with_psa_date$/;"	f	class:TransactionTerm
+comment_ids	app/models/property.rb	/^  has_many :comments, as: :commentable$/;"	F	class:Property
+comment_ids	app/models/transaction_purchase.rb	/^  has_many :comments, as: :commentable, dependent: :destroy$/;"	F	class:TransactionPurchase
+comment_ids	app/models/transaction_sale.rb	/^  has_many :comments, as: :commentable$/;"	F	class:TransactionSale
+comment_ids=	app/models/property.rb	/^  has_many :comments, as: :commentable$/;"	F	class:Property
+comment_ids=	app/models/transaction_purchase.rb	/^  has_many :comments, as: :commentable, dependent: :destroy$/;"	F	class:TransactionPurchase
+comment_ids=	app/models/transaction_sale.rb	/^  has_many :comments, as: :commentable$/;"	F	class:TransactionSale
+commentable	app/models/comment.rb	/^  belongs_to :commentable, :polymorphic => true$/;"	F	class:Comment
+commentable=	app/models/comment.rb	/^  belongs_to :commentable, :polymorphic => true$/;"	F	class:Comment
+comments	app/models/property.rb	/^  has_many :comments, as: :commentable$/;"	F	class:Property
+comments	app/models/transaction_purchase.rb	/^  has_many :comments, as: :commentable, dependent: :destroy$/;"	F	class:TransactionPurchase
+comments	app/models/transaction_sale.rb	/^  has_many :comments, as: :commentable$/;"	F	class:TransactionSale
+comments=	app/models/property.rb	/^  has_many :comments, as: :commentable$/;"	F	class:Property
+comments=	app/models/transaction_purchase.rb	/^  has_many :comments, as: :commentable, dependent: :destroy$/;"	F	class:TransactionPurchase
+comments=	app/models/transaction_sale.rb	/^  has_many :comments, as: :commentable$/;"	F	class:TransactionSale
+common_multi_delete	app/controllers/application_controller.rb	/^  def common_multi_delete$/;"	f	class:ApplicationController
+common_static_field_params	app/controllers/common_static_fields_controller.rb	/^    def common_static_field_params$/;"	f	class:CommonStaticFieldsController
+contact	app/models/qualified_intermediary.rb	/^  def contact$/;"	f	class:QualifiedIntermediary
+contact	app/models/qualified_intermediary.rb	/^  has_one :contact, foreign_key: :type_id, primary_key: :uuid$/;"	F	class:QualifiedIntermediary
+contact=	app/models/qualified_intermediary.rb	/^  has_one :contact, foreign_key: :type_id, primary_key: :uuid$/;"	F	class:QualifiedIntermediary
+contact_ids	app/models/transaction_personnel.rb	/^  has_many :contacts, foreign_key: :type_id, primary_key: :id$/;"	F	class:TransactionPersonnel
+contact_ids=	app/models/transaction_personnel.rb	/^  has_many :contacts, foreign_key: :type_id, primary_key: :id$/;"	F	class:TransactionPersonnel
+contact_info	app/controllers/entities/corporates_controller.rb	/^  def contact_info$/;"	f	class:Entities.CorporatesController
+contact_info	app/controllers/entities/limited_partnership_controller.rb	/^  def contact_info$/;"	f	class:Entities.LimitedPartnershipController
+contact_info	app/controllers/entities/llc_controller.rb	/^  def contact_info$/;"	f	class:Entities.LlcController
+contact_info	app/controllers/entities/llp_controller.rb	/^  def contact_info$/;"	f	class:Entities.LlpController
+contact_info	app/controllers/entities/partnership_controller.rb	/^  def contact_info$/;"	f	class:Entities.PartnershipController
+contact_info	app/controllers/entities/sole_proprietorship_controller.rb	/^  def contact_info$/;"	f	class:Entities.SoleProprietorshipController
+contact_info	app/controllers/entities/trust_controller.rb	/^  def contact_info$/;"	f	class:Entities.TrustController
+contact_params	app/controllers/contacts_controller.rb	/^  def contact_params$/;"	f	class:ContactsController
+contacts	app/models/transaction_personnel.rb	/^  has_many :contacts, foreign_key: :type_id, primary_key: :id$/;"	F	class:TransactionPersonnel
+contacts=	app/models/transaction_personnel.rb	/^  has_many :contacts, foreign_key: :type_id, primary_key: :id$/;"	F	class:TransactionPersonnel
+corporate_distributed_share	app/models/entity.rb	/^  def corporate_distributed_share$/;"	f	class:Entity
+corporate_remaining_share	app/models/entity.rb	/^  def corporate_remaining_share$/;"	f	class:Entity
+correct_column	app/models/concerns/model_methods.rb	/^  def correct_column$/;"	f	class:ModelMethods
+create	app/controllers/clients_controller.rb	/^  def create$/;"	f	class:ClientsController
+create	app/controllers/common_static_fields_controller.rb	/^  def create$/;"	f	class:CommonStaticFieldsController
+create	app/controllers/contacts_controller.rb	/^  def create$/;"	f	class:ContactsController
+create	app/controllers/dynamic_fields_controller.rb	/^  def create$/;"	f	class:DynamicFieldsController
+create	app/controllers/entities_controller.rb	/^  def create$/;"	f	class:EntitiesController
+create	app/controllers/members_controller.rb	/^  def create$/;"	f	class:MembersController
+create	app/controllers/procedure/actions_controller.rb	/^  def create$/;"	f	class:Procedure.ActionsController
+create	app/controllers/procedures_controller.rb	/^  def create$/;"	f	class:ProceduresController
+create	app/controllers/properties_controller.rb	/^  def create$/;"	f	class:PropertiesController
+create	app/controllers/transactions_controller.rb	/^  def create$/;"	f	class:TransactionsController
+create_admin_session	app/controllers/application_controller.rb	/^  def create_admin_session email, admin$/;"	f	class:ApplicationController
+create_client	app/models/transaction_purchase.rb	/^  belongs_to :client$/;"	F	class:TransactionPurchase
+create_client	app/models/transaction_sale.rb	/^  belongs_to :client$/;"	F	class:TransactionSale
+create_client!	app/models/transaction_purchase.rb	/^  belongs_to :client$/;"	F	class:TransactionPurchase
+create_client!	app/models/transaction_sale.rb	/^  belongs_to :client$/;"	F	class:TransactionSale
+create_commentable	app/models/comment.rb	/^  belongs_to :commentable, :polymorphic => true$/;"	F	class:Comment
+create_commentable!	app/models/comment.rb	/^  belongs_to :commentable, :polymorphic => true$/;"	F	class:Comment
+create_contact	app/models/qualified_intermediary.rb	/^  has_one :contact, foreign_key: :type_id, primary_key: :uuid$/;"	F	class:QualifiedIntermediary
+create_contact!	app/models/qualified_intermediary.rb	/^  has_one :contact, foreign_key: :type_id, primary_key: :uuid$/;"	F	class:QualifiedIntermediary
+create_contacts	app/models/transaction_personnel.rb	/^  def create_contacts$/;"	f	class:TransactionPersonnel
+create_entity	app/models/Entity/beneficiary.rb	/^  belongs_to :entity$/;"	F	class:Beneficiary
+create_entity	app/models/Entity/general_partner.rb	/^  belongs_to :entity$/;"	F	class:GeneralPartner
+create_entity	app/models/Entity/joint_tenant.rb	/^  belongs_to :entity$/;"	F	class:JointTenant
+create_entity	app/models/Entity/limited_partner.rb	/^  belongs_to :entity$/;"	F	class:LimitedPartner
+create_entity	app/models/Entity/manager.rb	/^  belongs_to :entity$/;"	F	class:Manager
+create_entity	app/models/Entity/member.rb	/^  belongs_to :entity$/;"	F	class:Member
+create_entity	app/models/Entity/partner.rb	/^  belongs_to :entity$/;"	F	class:Partner
+create_entity	app/models/Entity/settlor.rb	/^  belongs_to :entity$/;"	F	class:Settlor
+create_entity	app/models/Entity/spouse.rb	/^  belongs_to :entity$/;"	F	class:Spouse
+create_entity	app/models/Entity/stock_holder.rb	/^  belongs_to :entity$/;"	F	class:StockHolder
+create_entity	app/models/Entity/tenant_in_common.rb	/^  belongs_to :entity$/;"	F	class:TenantInCommon
+create_entity	app/models/Entity/trustee.rb	/^  belongs_to :entity$/;"	F	class:Trustee
+create_entity	app/models/client.rb	/^  belongs_to :entity$/;"	F	class:Client
+create_entity	app/models/officer.rb	/^  belongs_to :entity$/;"	F	class:Officer
+create_entity	app/models/transaction_purchase.rb	/^  has_one :entity$/;"	F	class:TransactionPurchase
+create_entity	app/models/transaction_sale.rb	/^  has_one :entity$/;"	F	class:TransactionSale
+create_entity!	app/models/Entity/beneficiary.rb	/^  belongs_to :entity$/;"	F	class:Beneficiary
+create_entity!	app/models/Entity/general_partner.rb	/^  belongs_to :entity$/;"	F	class:GeneralPartner
+create_entity!	app/models/Entity/joint_tenant.rb	/^  belongs_to :entity$/;"	F	class:JointTenant
+create_entity!	app/models/Entity/limited_partner.rb	/^  belongs_to :entity$/;"	F	class:LimitedPartner
+create_entity!	app/models/Entity/manager.rb	/^  belongs_to :entity$/;"	F	class:Manager
+create_entity!	app/models/Entity/member.rb	/^  belongs_to :entity$/;"	F	class:Member
+create_entity!	app/models/Entity/partner.rb	/^  belongs_to :entity$/;"	F	class:Partner
+create_entity!	app/models/Entity/settlor.rb	/^  belongs_to :entity$/;"	F	class:Settlor
+create_entity!	app/models/Entity/spouse.rb	/^  belongs_to :entity$/;"	F	class:Spouse
+create_entity!	app/models/Entity/stock_holder.rb	/^  belongs_to :entity$/;"	F	class:StockHolder
+create_entity!	app/models/Entity/tenant_in_common.rb	/^  belongs_to :entity$/;"	F	class:TenantInCommon
+create_entity!	app/models/Entity/trustee.rb	/^  belongs_to :entity$/;"	F	class:Trustee
+create_entity!	app/models/client.rb	/^  belongs_to :entity$/;"	F	class:Client
+create_entity!	app/models/officer.rb	/^  belongs_to :entity$/;"	F	class:Officer
+create_entity!	app/models/transaction_purchase.rb	/^  has_one :entity$/;"	F	class:TransactionPurchase
+create_entity!	app/models/transaction_sale.rb	/^  has_one :entity$/;"	F	class:TransactionSale
+create_entity_type	app/models/entity.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:Entity
+create_entity_type	app/models/entity_guardianship.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityGuardianship
+create_entity_type	app/models/entity_joint_tenancy.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityJointTenancy
+create_entity_type	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyByEntirety
+create_entity_type	app/models/entity_tenancy_in_common.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyInCommon
+create_entity_type	app/models/power_of_attorney.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:PowerOfAttorney
+create_entity_type!	app/models/entity.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:Entity
+create_entity_type!	app/models/entity_guardianship.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityGuardianship
+create_entity_type!	app/models/entity_joint_tenancy.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityJointTenancy
+create_entity_type!	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyByEntirety
+create_entity_type!	app/models/entity_tenancy_in_common.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyInCommon
+create_entity_type!	app/models/power_of_attorney.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:PowerOfAttorney
+create_property	app/models/entity.rb	/^  belongs_to :property$/;"	F	class:Entity
+create_property	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :property$/;"	F	class:EntityTenancyByEntirety
+create_property	app/models/procedure.rb	/^  belongs_to :property$/;"	F	class:Procedure
+create_property	app/models/transaction_property.rb	/^  belongs_to :property$/;"	F	class:TransactionProperty
+create_property	app/models/transaction_purchase.rb	/^  belongs_to :property$/;"	F	class:TransactionPurchase
+create_property	app/models/transaction_sale.rb	/^  belongs_to :property$/;"	F	class:TransactionSale
+create_property!	app/models/entity.rb	/^  belongs_to :property$/;"	F	class:Entity
+create_property!	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :property$/;"	F	class:EntityTenancyByEntirety
+create_property!	app/models/procedure.rb	/^  belongs_to :property$/;"	F	class:Procedure
+create_property!	app/models/transaction_property.rb	/^  belongs_to :property$/;"	F	class:TransactionProperty
+create_property!	app/models/transaction_purchase.rb	/^  belongs_to :property$/;"	F	class:TransactionPurchase
+create_property!	app/models/transaction_sale.rb	/^  belongs_to :property$/;"	F	class:TransactionSale
+create_purchase	app/models/transaction_main.rb	/^  has_one :purchase, class_name: 'TransactionPurchase', dependent: :destroy$/;"	F	class:TransactionMain
+create_purchase!	app/models/transaction_main.rb	/^  has_one :purchase, class_name: 'TransactionPurchase', dependent: :destroy$/;"	F	class:TransactionMain
+create_purchaser_entity	app/models/transaction_purchase.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+create_purchaser_entity	app/models/transaction_sale.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+create_purchaser_entity!	app/models/transaction_purchase.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+create_purchaser_entity!	app/models/transaction_sale.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+create_qualified_intermediary	app/models/qualified_intermediary_deposit.rb	/^  belongs_to :qualified_intermediary$/;"	F	class:QualifiedIntermediaryDeposit
+create_qualified_intermediary	app/models/transaction_purchase.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+create_qualified_intermediary	app/models/transaction_sale.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+create_qualified_intermediary!	app/models/qualified_intermediary_deposit.rb	/^  belongs_to :qualified_intermediary$/;"	F	class:QualifiedIntermediaryDeposit
+create_qualified_intermediary!	app/models/transaction_purchase.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+create_qualified_intermediary!	app/models/transaction_sale.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+create_sale	app/models/transaction_main.rb	/^  has_one :sale, class_name: 'TransactionSale', dependent: :destroy$/;"	F	class:TransactionMain
+create_sale!	app/models/transaction_main.rb	/^  has_one :sale, class_name: 'TransactionSale', dependent: :destroy$/;"	F	class:TransactionMain
+create_seller_entity	app/models/transaction_purchase.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+create_seller_entity	app/models/transaction_sale.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+create_seller_entity!	app/models/transaction_purchase.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+create_seller_entity!	app/models/transaction_sale.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+create_super_entity	app/models/Entity/beneficiary.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Beneficiary
+create_super_entity	app/models/Entity/director.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Director
+create_super_entity	app/models/Entity/general_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:GeneralPartner
+create_super_entity	app/models/Entity/joint_tenant.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:JointTenant
+create_super_entity	app/models/Entity/limited_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:LimitedPartner
+create_super_entity	app/models/Entity/manager.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Manager
+create_super_entity	app/models/Entity/member.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Member
+create_super_entity	app/models/Entity/partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Partner
+create_super_entity	app/models/Entity/settlor.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Settlor
+create_super_entity	app/models/Entity/spouse.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Spouse
+create_super_entity	app/models/Entity/stock_holder.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:StockHolder
+create_super_entity	app/models/Entity/tenant_in_common.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:TenantInCommon
+create_super_entity	app/models/Entity/trustee.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Trustee
+create_super_entity!	app/models/Entity/beneficiary.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Beneficiary
+create_super_entity!	app/models/Entity/director.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Director
+create_super_entity!	app/models/Entity/general_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:GeneralPartner
+create_super_entity!	app/models/Entity/joint_tenant.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:JointTenant
+create_super_entity!	app/models/Entity/limited_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:LimitedPartner
+create_super_entity!	app/models/Entity/manager.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Manager
+create_super_entity!	app/models/Entity/member.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Member
+create_super_entity!	app/models/Entity/partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Partner
+create_super_entity!	app/models/Entity/settlor.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Settlor
+create_super_entity!	app/models/Entity/spouse.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Spouse
+create_super_entity!	app/models/Entity/stock_holder.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:StockHolder
+create_super_entity!	app/models/Entity/tenant_in_common.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:TenantInCommon
+create_super_entity!	app/models/Entity/trustee.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Trustee
+create_transaction_main	app/models/transaction_purchase.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionPurchase
+create_transaction_main	app/models/transaction_sale.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionSale
+create_transaction_main!	app/models/transaction_purchase.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionPurchase
+create_transaction_main!	app/models/transaction_sale.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionSale
+create_transaction_personnel	app/models/transaction_purchase.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+create_transaction_personnel	app/models/transaction_sale.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+create_transaction_personnel!	app/models/transaction_purchase.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+create_transaction_personnel!	app/models/transaction_sale.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+create_transaction_purchase	app/models/transaction_property.rb	/^  belongs_to :transaction_purchase, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+create_transaction_purchase!	app/models/transaction_property.rb	/^  belongs_to :transaction_purchase, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+create_transaction_sale	app/models/property.rb	/^  belongs_to :transaction_sale$/;"	F	class:Property
+create_transaction_sale	app/models/transaction_personnel.rb	/^  belongs_to :transaction_sale$/;"	F	class:TransactionPersonnel
+create_transaction_sale	app/models/transaction_property.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+create_transaction_sale	app/models/transaction_status.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionStatus
+create_transaction_sale!	app/models/property.rb	/^  belongs_to :transaction_sale$/;"	F	class:Property
+create_transaction_sale!	app/models/transaction_personnel.rb	/^  belongs_to :transaction_sale$/;"	F	class:TransactionPersonnel
+create_transaction_sale!	app/models/transaction_property.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+create_transaction_sale!	app/models/transaction_status.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionStatus
+create_transaction_term	app/models/transaction_purchase.rb	/^  has_one :transaction_term, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+create_transaction_term	app/models/transaction_sale.rb	/^  has_one :transaction_term, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+create_transaction_term!	app/models/transaction_purchase.rb	/^  has_one :transaction_term, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+create_transaction_term!	app/models/transaction_sale.rb	/^  has_one :transaction_term, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+create_user	app/models/comment.rb	/^  belongs_to :user$/;"	F	class:Comment
+create_user!	app/models/comment.rb	/^  belongs_to :user$/;"	F	class:Comment
+create_wired_instruction	app/models/qualified_intermediary.rb	/^  has_one :wired_instruction$/;"	F	class:QualifiedIntermediary
+create_wired_instruction!	app/models/qualified_intermediary.rb	/^  has_one :wired_instruction$/;"	F	class:QualifiedIntermediary
+created	app/controllers/procedure/actions_controller.rb	/^  def created$/;"	f	class:Procedure.ActionsController
+created	app/controllers/procedures_controller.rb	/^  def created$/;"	f	class:ProceduresController
+created_at_to_string	app/models/admin.rb	/^  def created_at_to_string$/;"	f	class:Admin
+created_at_to_string	app/models/client.rb	/^  def created_at_to_string$/;"	f	class:Client
+created_at_to_string	app/models/property.rb	/^  def created_at_to_string$/;"	f	class:Property
+created_at_to_string	app/models/transaction_purchase.rb	/^  def created_at_to_string$/;"	f	class:TransactionPurchase
+created_at_to_string	app/models/transaction_sale.rb	/^  def created_at_to_string$/;"	f	class:TransactionSale
+created_at_to_string	app/models/user.rb	/^  def created_at_to_string$/;"	f	class:User
+current_FULLPATH	app/helpers/application_helper.rb	/^  def current_FULLPATH$/;"	f	class:ApplicationHelper
+current_page	app/controllers/clients_controller.rb	/^  def current_page$/;"	f	class:ClientsController
+current_page	app/controllers/contacts_controller.rb	/^  def current_page$/;"	f	class:ContactsController
+current_page	app/controllers/entities/corporates_controller.rb	/^  def current_page$/;"	f	class:Entities.CorporatesController
+current_page	app/controllers/entities/guardianship_controller.rb	/^  def current_page$/;"	f	class:Entities.GuardianshipController
+current_page	app/controllers/entities/individuals_controller.rb	/^  def current_page$/;"	f	class:Entities.IndividualsController
+current_page	app/controllers/entities/joint_tenancy_controller.rb	/^  def current_page$/;"	f	class:Entities.JointTenancyController
+current_page	app/controllers/entities/limited_partnership_controller.rb	/^  def current_page$/;"	f	class:Entities.LimitedPartnershipController
+current_page	app/controllers/entities/llc_controller.rb	/^  def current_page$/;"	f	class:Entities.LlcController
+current_page	app/controllers/entities/llp_controller.rb	/^  def current_page$/;"	f	class:Entities.LlpController
+current_page	app/controllers/entities/partnership_controller.rb	/^  def current_page$/;"	f	class:Entities.PartnershipController
+current_page	app/controllers/entities/power_of_attorney_controller.rb	/^  def current_page$/;"	f	class:Entities.PowerOfAttorneyController
+current_page	app/controllers/entities/sole_proprietorship_controller.rb	/^  def current_page$/;"	f	class:Entities.SoleProprietorshipController
+current_page	app/controllers/entities/tenancy_by_entirety_controller.rb	/^  def current_page$/;"	f	class:Entities.TenancyByEntiretyController
+current_page	app/controllers/entities/tenancy_in_common_controller.rb	/^  def current_page$/;"	f	class:Entities.TenancyInCommonController
+current_page	app/controllers/entities/trust_controller.rb	/^  def current_page$/;"	f	class:Entities.TrustController
+current_page	app/controllers/entities_controller.rb	/^  def current_page$/;"	f	class:EntitiesController
+current_page	app/controllers/properties_controller.rb	/^  def current_page$/;"	f	class:PropertiesController
+current_page	app/controllers/transactions_controller.rb	/^  def current_page$/;"	f	class:TransactionsController
+custom_order	app/models/member_type.rb	/^  def custom_order$/;"	f	class:MemberType
+days_180	app/models/transaction_purchase.rb	/^  def days_180$/;"	f	class:TransactionPurchase
+days_45	app/models/transaction_purchase.rb	/^  def days_45$/;"	f	class:TransactionPurchase
+days_gone	lib/core_ext/date.rb	/^  def days_gone$/;"	f	class:Date
+days_gone	lib/core_ext/date_time.rb	/^  def days_gone$/;"	f	class:DateTime
+days_gone	lib/core_ext/time_with_zone.rb	/^    def days_gone$/;"	f	class:ActiveSupport.TimeWithZone
+delete	app/controllers/members_controller.rb	/^  def delete$/;"	f	class:MembersController
+delete	app/models/concerns/my_function.rb	/^  def delete$/;"	f	class:MyFunction
+delete_url	app/models/admin.rb	/^  def delete_url$/;"	f	class:Admin
+delete_url	app/models/client.rb	/^  def delete_url$/;"	f	class:Client
+delete_url	app/models/property.rb	/^  def delete_url$/;"	f	class:Property
+delete_url	app/models/transaction_purchase.rb	/^  def delete_url$/;"	f	class:TransactionPurchase
+delete_url	app/models/transaction_sale.rb	/^  def delete_url$/;"	f	class:TransactionSale
+delete_url	app/models/user.rb	/^  def delete_url$/;"	f	class:User
+delete_xs	app/helpers/application_helper.rb	/^  def delete_xs$/;"	f	class:ApplicationHelper
+destroy	app/controllers/admin/admin_controller.rb	/^  def destroy$/;"	f	class:Admin.AdminController
+destroy	app/controllers/clients_controller.rb	/^  def destroy$/;"	f	class:ClientsController
+destroy	app/controllers/common_static_fields_controller.rb	/^  def destroy$/;"	f	class:CommonStaticFieldsController
+destroy	app/controllers/dynamic_fields_controller.rb	/^  def destroy$/;"	f	class:DynamicFieldsController
+destroy	app/controllers/entities_controller.rb	/^  def destroy$/;"	f	class:EntitiesController
+destroy	app/controllers/procedure/actions_controller.rb	/^  def destroy$/;"	f	class:Procedure.ActionsController
+destroy	app/controllers/procedures_controller.rb	/^  def destroy$/;"	f	class:ProceduresController
+destroy	app/controllers/properties_controller.rb	/^  def destroy$/;"	f	class:PropertiesController
+destroy	app/controllers/transactions_controller.rb	/^  def destroy$/;"	f	class:TransactionsController
+destroy	app/models/concerns/my_function.rb	/^  def destroy$/;"	f	class:MyFunction
+destroy!	app/models/concerns/my_function.rb	/^  def destroy!$/;"	f	class:MyFunction
+director	app/controllers/entities/corporates_controller.rb	/^  def director$/;"	f	class:Entities.CorporatesController
+director_ids	app/models/entity.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:Entity
+director_ids	app/models/entity_guardianship.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+director_ids	app/models/entity_joint_tenancy.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+director_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+director_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+director_ids=	app/models/entity.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:Entity
+director_ids=	app/models/entity_guardianship.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+director_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+director_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+director_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+director_params	app/controllers/entities/corporates_controller.rb	/^  def director_params$/;"	f	class:Entities.CorporatesController
+directors	app/controllers/entities/corporates_controller.rb	/^  def directors$/;"	f	class:Entities.CorporatesController
+directors	app/models/entity.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:Entity
+directors	app/models/entity_guardianship.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+directors	app/models/entity_joint_tenancy.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+directors	app/models/entity_tenancy_by_entirety.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+directors	app/models/entity_tenancy_in_common.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+directors=	app/models/entity.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:Entity
+directors=	app/models/entity_guardianship.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+directors=	app/models/entity_joint_tenancy.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+directors=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+directors=	app/models/entity_tenancy_in_common.rb	/^  has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+display_standard_table	app/helpers/application_helper.rb	/^  def display_standard_table(resource_klass, collection = {}, options={})$/;"	f	class:ApplicationHelper
+dynamic_field_params	app/controllers/dynamic_fields_controller.rb	/^    def dynamic_field_params$/;"	f	class:DynamicFieldsController
+edit	app/controllers/clients_controller.rb	/^  def edit$/;"	f	class:ClientsController
+edit	app/controllers/common_static_fields_controller.rb	/^  def edit$/;"	f	class:CommonStaticFieldsController
+edit	app/controllers/dynamic_fields_controller.rb	/^  def edit$/;"	f	class:DynamicFieldsController
+edit	app/controllers/entities_controller.rb	/^  def edit$/;"	f	class:EntitiesController
+edit	app/controllers/members_controller.rb	/^  def edit$/;"	f	class:MembersController
+edit	app/controllers/procedure/actions_controller.rb	/^  def edit$/;"	f	class:Procedure.ActionsController
+edit	app/controllers/procedures_controller.rb	/^  def edit$/;"	f	class:ProceduresController
+edit	app/controllers/properties_controller.rb	/^  def edit$/;"	f	class:PropertiesController
+edit	app/controllers/transactions_controller.rb	/^  def edit$/;"	f	class:TransactionsController
+edit_qualified_intermediary	app/controllers/transactions_controller.rb	/^  def edit_qualified_intermediary$/;"	f	class:TransactionsController
+edit_xs	app/helpers/application_helper.rb	/^  def edit_xs$/;"	f	class:ApplicationHelper
+ein_or_ssn_length_Corporation	app/models/entity.rb	/^  def ein_or_ssn_length_Corporation$/;"	f	class:Entity
+email?	lib/core_ext/string.rb	/^  def email?$/;"	f	class:String
+email_check	app/models/contact.rb	/^  def email_check$/;"	f	class:Contact
+emails	app/controllers/property/setting_controller.rb	/^  def emails$/;"	f	class:Property.SettingController
+enable_disable	app/controllers/admin/users_controller.rb	/^  def enable_disable$/;"	f	class:Admin.UsersController
+enable_disable_link	app/models/user.rb	/^  def enable_disable_link$/;"	f	class:User
+end_of_inspection	app/models/transaction_purchase.rb	/^  def end_of_inspection$/;"	f	class:TransactionPurchase
+end_of_inspection	app/models/transaction_sale.rb	/^  def end_of_inspection$/;"	f	class:TransactionSale
+entities_list	app/models/user.rb	/^  def entities_list$/;"	f	class:User
+entity	app/models/Entity/beneficiary.rb	/^  belongs_to :entity$/;"	F	class:Beneficiary
+entity	app/models/Entity/general_partner.rb	/^  belongs_to :entity$/;"	F	class:GeneralPartner
+entity	app/models/Entity/joint_tenant.rb	/^  belongs_to :entity$/;"	F	class:JointTenant
+entity	app/models/Entity/limited_partner.rb	/^  belongs_to :entity$/;"	F	class:LimitedPartner
+entity	app/models/Entity/manager.rb	/^  belongs_to :entity$/;"	F	class:Manager
+entity	app/models/Entity/member.rb	/^  belongs_to :entity$/;"	F	class:Member
+entity	app/models/Entity/partner.rb	/^  belongs_to :entity$/;"	F	class:Partner
+entity	app/models/Entity/settlor.rb	/^  belongs_to :entity$/;"	F	class:Settlor
+entity	app/models/Entity/spouse.rb	/^  belongs_to :entity$/;"	F	class:Spouse
+entity	app/models/Entity/stock_holder.rb	/^  belongs_to :entity$/;"	F	class:StockHolder
+entity	app/models/Entity/tenant_in_common.rb	/^  belongs_to :entity$/;"	F	class:TenantInCommon
+entity	app/models/Entity/trustee.rb	/^  belongs_to :entity$/;"	F	class:Trustee
+entity	app/models/client.rb	/^  belongs_to :entity$/;"	F	class:Client
+entity	app/models/officer.rb	/^  belongs_to :entity$/;"	F	class:Officer
+entity	app/models/transaction_purchase.rb	/^  has_one :entity$/;"	F	class:TransactionPurchase
+entity	app/models/transaction_sale.rb	/^  has_one :entity$/;"	F	class:TransactionSale
+entity=	app/models/Entity/beneficiary.rb	/^  belongs_to :entity$/;"	F	class:Beneficiary
+entity=	app/models/Entity/general_partner.rb	/^  belongs_to :entity$/;"	F	class:GeneralPartner
+entity=	app/models/Entity/joint_tenant.rb	/^  belongs_to :entity$/;"	F	class:JointTenant
+entity=	app/models/Entity/limited_partner.rb	/^  belongs_to :entity$/;"	F	class:LimitedPartner
+entity=	app/models/Entity/manager.rb	/^  belongs_to :entity$/;"	F	class:Manager
+entity=	app/models/Entity/member.rb	/^  belongs_to :entity$/;"	F	class:Member
+entity=	app/models/Entity/partner.rb	/^  belongs_to :entity$/;"	F	class:Partner
+entity=	app/models/Entity/settlor.rb	/^  belongs_to :entity$/;"	F	class:Settlor
+entity=	app/models/Entity/spouse.rb	/^  belongs_to :entity$/;"	F	class:Spouse
+entity=	app/models/Entity/stock_holder.rb	/^  belongs_to :entity$/;"	F	class:StockHolder
+entity=	app/models/Entity/tenant_in_common.rb	/^  belongs_to :entity$/;"	F	class:TenantInCommon
+entity=	app/models/Entity/trustee.rb	/^  belongs_to :entity$/;"	F	class:Trustee
+entity=	app/models/client.rb	/^  belongs_to :entity$/;"	F	class:Client
+entity=	app/models/officer.rb	/^  belongs_to :entity$/;"	F	class:Officer
+entity=	app/models/transaction_purchase.rb	/^  has_one :entity$/;"	F	class:TransactionPurchase
+entity=	app/models/transaction_sale.rb	/^  has_one :entity$/;"	F	class:TransactionSale
+entity_check	app/controllers/application_controller.rb	/^  def entity_check$/;"	f	class:ApplicationController
+entity_guardianship_params	app/controllers/entities/guardianship_controller.rb	/^  def entity_guardianship_params$/;"	f	class:Entities.GuardianshipController
+entity_joint_tenancy_params	app/controllers/entities/joint_tenancy_controller.rb	/^  def entity_joint_tenancy_params$/;"	f	class:Entities.JointTenancyController
+entity_params	app/controllers/entities/corporates_controller.rb	/^  def entity_params$/;"	f	class:Entities.CorporatesController
+entity_params	app/controllers/entities/guardianship_controller.rb	/^  def entity_params$/;"	f	class:Entities.GuardianshipController
+entity_params	app/controllers/entities/limited_partnership_controller.rb	/^  def entity_params$/;"	f	class:Entities.LimitedPartnershipController
+entity_params	app/controllers/entities/llc_controller.rb	/^  def entity_params$/;"	f	class:Entities.LlcController
+entity_params	app/controllers/entities/llp_controller.rb	/^  def entity_params$/;"	f	class:Entities.LlpController
+entity_params	app/controllers/entities/partnership_controller.rb	/^  def entity_params$/;"	f	class:Entities.PartnershipController
+entity_params	app/controllers/entities/power_of_attorney_controller.rb	/^  def entity_params$/;"	f	class:Entities.PowerOfAttorneyController
+entity_params	app/controllers/entities/sole_proprietorship_controller.rb	/^  def entity_params$/;"	f	class:Entities.SoleProprietorshipController
+entity_params	app/controllers/entities/trust_controller.rb	/^  def entity_params$/;"	f	class:Entities.TrustController
+entity_params	app/controllers/entities_controller.rb	/^  def entity_params$/;"	f	class:EntitiesController
+entity_presence	app/models/Entity/beneficiary.rb	/^  def entity_presence$/;"	f	class:Beneficiary
+entity_presence	app/models/Entity/general_partner.rb	/^  def entity_presence$/;"	f	class:GeneralPartner
+entity_presence	app/models/Entity/limited_partner.rb	/^  def entity_presence$/;"	f	class:LimitedPartner
+entity_presence	app/models/Entity/member.rb	/^  def entity_presence$/;"	f	class:Member
+entity_presence	app/models/Entity/partner.rb	/^  def entity_presence$/;"	f	class:Partner
+entity_presence	app/models/Entity/settlor.rb	/^  def entity_presence$/;"	f	class:Settlor
+entity_presence	app/models/Entity/stock_holder.rb	/^  def entity_presence$/;"	f	class:StockHolder
+entity_presence	app/models/Entity/trustee.rb	/^  def entity_presence$/;"	f	class:Trustee
+entity_presence	app/models/client.rb	/^  def entity_presence$/;"	f	class:Client
+entity_tenancy_by_entirety_params	app/controllers/entities/tenancy_by_entirety_controller.rb	/^  def entity_tenancy_by_entirety_params$/;"	f	class:Entities.TenancyByEntiretyController
+entity_tenancy_in_common_params	app/controllers/entities/tenancy_in_common_controller.rb	/^  def entity_tenancy_in_common_params$/;"	f	class:Entities.TenancyInCommonController
+entity_type	app/models/entity.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:Entity
+entity_type	app/models/entity_guardianship.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityGuardianship
+entity_type	app/models/entity_joint_tenancy.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityJointTenancy
+entity_type	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyByEntirety
+entity_type	app/models/entity_tenancy_in_common.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyInCommon
+entity_type	app/models/power_of_attorney.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:PowerOfAttorney
+entity_type=	app/models/entity.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:Entity
+entity_type=	app/models/entity_guardianship.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityGuardianship
+entity_type=	app/models/entity_joint_tenancy.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityJointTenancy
+entity_type=	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyByEntirety
+entity_type=	app/models/entity_tenancy_in_common.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:EntityTenancyInCommon
+entity_type=	app/models/power_of_attorney.rb	/^  belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"$/;"	F	class:PowerOfAttorney
+entity_type_list	app/controllers/xhr_controller.rb	/^  def entity_type_list$/;"	f	class:XhrController
+extract_emails	app/helpers/application_helper.rb	/^  def extract_emails string$/;"	f	class:ApplicationHelper
+find_next	lib/core_ext/array.rb	/^  def find_next(element)$/;"	f	class:Array
+find_previous	lib/core_ext/array.rb	/^  def find_previous(element)$/;"	f	class:Array
+find_purchase	app/models/transaction_status.rb	/^  scope :find_purchase, -> { find_by(type_is: 0) }$/;"	F	class:TransactionStatus
+find_sale	app/models/transaction_status.rb	/^  scope :find_sale, -> { find_by(type_is: 1) }$/;"	F	class:TransactionStatus
+first_name_of_entity	app/helpers/application_helper.rb	/^  def first_name_of_entity(entity)$/;"	f	class:ApplicationHelper
+for_sale_or_purchase_tab	app/controllers/transactions_controller.rb	/^  def for_sale_or_purchase_tab$/;"	f	class:TransactionsController
+forgot_password	app/mailers/admin_mailer.rb	/^  def forgot_password(admin = Admin.first)$/;"	f	class:AdminMailer
+forgot_password	app/mailers/user_mailer.rb	/^  def forgot_password(user_id)$/;"	f	class:UserMailer
+full_name	app/models/entity.rb	/^  def full_name$/;"	f	class:Entity
+funds_identified	app/models/transaction_purchase.rb	/^  def funds_identified$/;"	f	class:TransactionPurchase
+funds_to_identified	app/models/transaction_purchase.rb	/^  def funds_to_identified$/;"	f	class:TransactionPurchase
+general_partner	app/controllers/entities/limited_partnership_controller.rb	/^  def general_partner$/;"	f	class:Entities.LimitedPartnershipController
+general_partner_ids	app/models/entity.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+general_partner_ids	app/models/entity_guardianship.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+general_partner_ids	app/models/entity_joint_tenancy.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+general_partner_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+general_partner_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+general_partner_ids=	app/models/entity.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+general_partner_ids=	app/models/entity_guardianship.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+general_partner_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+general_partner_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+general_partner_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+general_partner_params	app/controllers/entities/limited_partnership_controller.rb	/^  def general_partner_params$/;"	f	class:Entities.LimitedPartnershipController
+general_partners	app/controllers/entities/limited_partnership_controller.rb	/^  def general_partners$/;"	f	class:Entities.LimitedPartnershipController
+general_partners	app/models/entity.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+general_partners	app/models/entity_guardianship.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+general_partners	app/models/entity_joint_tenancy.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+general_partners	app/models/entity_tenancy_by_entirety.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+general_partners	app/models/entity_tenancy_in_common.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+general_partners=	app/models/entity.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+general_partners=	app/models/entity_guardianship.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+general_partners=	app/models/entity_joint_tenancy.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+general_partners=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+general_partners=	app/models/entity_tenancy_in_common.rb	/^  has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+getCorporationId	app/models/member_type.rb	/^  def getCorporationId$/;"	f	class:MemberType
+getEstateId	app/models/member_type.rb	/^  def getEstateId$/;"	f	class:MemberType
+getGuardianshipId	app/models/member_type.rb	/^  def getGuardianshipId$/;"	f	class:MemberType
+getIndividualId	app/models/member_type.rb	/^  def getIndividualId$/;"	f	class:MemberType
+getJointTenancyId	app/models/member_type.rb	/^  def getJointTenancyId$/;"	f	class:MemberType
+getLLCId	app/models/member_type.rb	/^  def getLLCId$/;"	f	class:MemberType
+getLLPId	app/models/member_type.rb	/^  def getLLPId$/;"	f	class:MemberType
+getLimitedPartnershipId	app/models/member_type.rb	/^  def getLimitedPartnershipId$/;"	f	class:MemberType
+getPartnershipId	app/models/member_type.rb	/^  def getPartnershipId$/;"	f	class:MemberType
+getSoleProprietorshipId	app/models/member_type.rb	/^  def getSoleProprietorshipId$/;"	f	class:MemberType
+getTenancyByTheEntiretyId	app/models/member_type.rb	/^  def getTenancyByTheEntiretyId$/;"	f	class:MemberType
+getTenancyinCommonId	app/models/member_type.rb	/^  def getTenancyinCommonId$/;"	f	class:MemberType
+getTrustId	app/models/member_type.rb	/^  def getTrustId$/;"	f	class:MemberType
+get_ids	app/models/access_resource.rb	/^    def get_ids(options = {})$/;"	F	class:AccessResource
+get_power_of_attorney_id	app/models/member_type.rb	/^  def get_power_of_attorney_id$/;"	f	class:MemberType
+get_sale_purchase_text	app/models/transaction_purchase.rb	/^  def get_sale_purchase_text$/;"	f	class:TransactionPurchase
+get_sale_purchase_text	app/models/transaction_sale.rb	/^  def get_sale_purchase_text$/;"	f	class:TransactionSale
+get_status	app/controllers/transactions_controller.rb	/^  def get_status$/;"	f	class:TransactionsController
+gmail_api_error	app/mailers/admin_mailer.rb	/^  def gmail_api_error error$/;"	f	class:AdminMailer
+gmail_api_error	app/mailers/user_mailer.rb	/^  def gmail_api_error error$/;"	f	class:UserMailer
+gsub_error_message	app/helpers/application_helper.rb	/^  def gsub_error_message(message, gsubs=[])$/;"	f	class:ApplicationHelper
+has_purchase?	app/models/transaction_main.rb	/^  def has_purchase?$/;"	f	class:TransactionMain
+has_sale?	app/models/transaction_main.rb	/^  def has_sale?$/;"	f	class:TransactionMain
+honorific	app/models/concerns/general_methods.rb	/^    def honorific$/;"	F	class:GeneralMethods
+image_via_mimetype	app/helpers/application_helper.rb	/^  def image_via_mimetype(mimetype)$/;"	f	class:ApplicationHelper
+index	app/controllers/admin/admin_controller.rb	/^  def index$/;"	f	class:Admin.AdminController
+index	app/controllers/admin/transactions_controller.rb	/^  def index$/;"	f	class:Admin.TransactionsController
+index	app/controllers/clients_controller.rb	/^  def index$/;"	f	class:ClientsController
+index	app/controllers/common_static_fields_controller.rb	/^  def index$/;"	f	class:CommonStaticFieldsController
+index	app/controllers/contacts_controller.rb	/^  def index$/;"	f	class:ContactsController
+index	app/controllers/dynamic_fields_controller.rb	/^  def index$/;"	f	class:DynamicFieldsController
+index	app/controllers/entities_controller.rb	/^  def index$/;"	f	class:EntitiesController
+index	app/controllers/home_controller.rb	/^  def index$/;"	f	class:HomeController
+index	app/controllers/procedure/actions_controller.rb	/^  def index$/;"	f	class:Procedure.ActionsController
+index	app/controllers/procedures_controller.rb	/^  def index$/;"	f	class:ProceduresController
+index	app/controllers/properties_controller.rb	/^  def index$/;"	f	class:PropertiesController
+index	app/controllers/property/setting_controller.rb	/^  def index$/;"	f	class:Property.SettingController
+index	app/controllers/transactions_controller.rb	/^  def index$/;"	f	class:TransactionsController
+individuals_params	app/controllers/entities/individuals_controller.rb	/^    def individuals_params$/;"	f	class:Entities.IndividualsController
+invalid_access_render	app/controllers/application_controller.rb	/^  def invalid_access_render$/;"	f	class:ApplicationController
+joint_tenant	app/controllers/entities/joint_tenancy_controller.rb	/^  def joint_tenant$/;"	f	class:Entities.JointTenancyController
+joint_tenant_ids	app/models/entity.rb	/^  has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"$/;"	F	class:Entity
+joint_tenant_ids	app/models/entity_joint_tenancy.rb	/^  has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+joint_tenant_ids=	app/models/entity.rb	/^  has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"$/;"	F	class:Entity
+joint_tenant_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+joint_tenant_params	app/controllers/entities/joint_tenancy_controller.rb	/^  def joint_tenant_params$/;"	f	class:Entities.JointTenancyController
+joint_tenants	app/controllers/entities/joint_tenancy_controller.rb	/^  def joint_tenants$/;"	f	class:Entities.JointTenancyController
+joint_tenants	app/models/entity.rb	/^  has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"$/;"	F	class:Entity
+joint_tenants	app/models/entity_joint_tenancy.rb	/^  has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+joint_tenants=	app/models/entity.rb	/^  has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"$/;"	F	class:Entity
+joint_tenants=	app/models/entity_joint_tenancy.rb	/^  has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+judge	app/controllers/entities/guardianship_controller.rb	/^  def judge$/;"	f	class:Entities.GuardianshipController
+last_active	app/controllers/application_controller.rb	/^  def last_active$/;"	f	class:ApplicationController
+last_name_of_entity	app/helpers/application_helper.rb	/^  def last_name_of_entity(entity)$/;"	f	class:ApplicationHelper
+limited_partner	app/controllers/entities/limited_partnership_controller.rb	/^  def limited_partner$/;"	f	class:Entities.LimitedPartnershipController
+limited_partner_ids	app/models/entity.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+limited_partner_ids	app/models/entity_guardianship.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+limited_partner_ids	app/models/entity_joint_tenancy.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+limited_partner_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+limited_partner_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+limited_partner_ids=	app/models/entity.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+limited_partner_ids=	app/models/entity_guardianship.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+limited_partner_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+limited_partner_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+limited_partner_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+limited_partner_params	app/controllers/entities/limited_partnership_controller.rb	/^  def limited_partner_params$/;"	f	class:Entities.LimitedPartnershipController
+limited_partners	app/controllers/entities/limited_partnership_controller.rb	/^  def limited_partners$/;"	f	class:Entities.LimitedPartnershipController
+limited_partners	app/models/entity.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+limited_partners	app/models/entity_guardianship.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+limited_partners	app/models/entity_joint_tenancy.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+limited_partners	app/models/entity_tenancy_by_entirety.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+limited_partners	app/models/entity_tenancy_in_common.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+limited_partners=	app/models/entity.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+limited_partners=	app/models/entity_guardianship.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+limited_partners=	app/models/entity_joint_tenancy.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+limited_partners=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+limited_partners=	app/models/entity_tenancy_in_common.rb	/^  has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+list	app/controllers/comments_controller.rb	/^  def list$/;"	f	class:CommentsController
+logger_	app/models/concerns/error.rb	/^    def logger_ e$/;"	F	class:Error
+main	app/models/transaction_purchase.rb	/^  def main$/;"	f	class:TransactionPurchase
+main	app/models/transaction_sale.rb	/^  def main$/;"	f	class:TransactionSale
+manager	app/controllers/entities/llc_controller.rb	/^  def manager$/;"	f	class:Entities.LlcController
+manager_ids	app/models/entity.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:Entity
+manager_ids	app/models/entity_guardianship.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+manager_ids	app/models/entity_joint_tenancy.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+manager_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+manager_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+manager_ids=	app/models/entity.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:Entity
+manager_ids=	app/models/entity_guardianship.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+manager_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+manager_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+manager_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+manager_params	app/controllers/entities/llc_controller.rb	/^  def manager_params$/;"	f	class:Entities.LlcController
+managers	app/controllers/entities/llc_controller.rb	/^  def managers$/;"	f	class:Entities.LlcController
+managers	app/models/entity.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:Entity
+managers	app/models/entity_guardianship.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+managers	app/models/entity_joint_tenancy.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+managers	app/models/entity_tenancy_by_entirety.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+managers	app/models/entity_tenancy_in_common.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+managers=	app/models/entity.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:Entity
+managers=	app/models/entity_guardianship.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+managers=	app/models/entity_joint_tenancy.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+managers=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+managers=	app/models/entity_tenancy_in_common.rb	/^  has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+member	app/controllers/entities/llc_controller.rb	/^  def member$/;"	f	class:Entities.LlcController
+member	app/controllers/procedure/actions_controller.rb	/^  def member$/;"	f	class:Procedure.ActionsController
+member	app/controllers/properties_controller.rb	/^  def member$/;"	f	class:PropertiesController
+member_ids	app/models/entity.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:Entity
+member_ids	app/models/entity_guardianship.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+member_ids	app/models/entity_joint_tenancy.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+member_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+member_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+member_ids	app/models/member_type.rb	/^  has_many :members$/;"	F	class:MemberType
+member_ids	app/models/power_of_attorney.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:PowerOfAttorney
+member_ids=	app/models/entity.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:Entity
+member_ids=	app/models/entity_guardianship.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+member_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+member_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+member_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+member_ids=	app/models/member_type.rb	/^  has_many :members$/;"	F	class:MemberType
+member_ids=	app/models/power_of_attorney.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:PowerOfAttorney
+member_params	app/controllers/entities/llc_controller.rb	/^  def member_params$/;"	f	class:Entities.LlcController
+member_params	app/controllers/members_controller.rb	/^  def member_params$/;"	f	class:MembersController
+member_type	app/models/concerns/model_methods.rb	/^  def member_type$/;"	f	class:ModelMethods
+members	app/controllers/entities/llc_controller.rb	/^  def members( entity_key = params[:entity_key] )$/;"	f	class:Entities.LlcController
+members	app/models/entity.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:Entity
+members	app/models/entity_guardianship.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+members	app/models/entity_joint_tenancy.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+members	app/models/entity_tenancy_by_entirety.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+members	app/models/entity_tenancy_in_common.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+members	app/models/member_type.rb	/^  has_many :members$/;"	F	class:MemberType
+members	app/models/power_of_attorney.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:PowerOfAttorney
+members=	app/models/entity.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:Entity
+members=	app/models/entity_guardianship.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+members=	app/models/entity_joint_tenancy.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+members=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+members=	app/models/entity_tenancy_in_common.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+members=	app/models/member_type.rb	/^  has_many :members$/;"	F	class:MemberType
+members=	app/models/power_of_attorney.rb	/^  has_many :members, class_name: "Member", foreign_key: "super_entity_id"$/;"	F	class:PowerOfAttorney
+miniprofiler	app/controllers/application_controller.rb	/^  def miniprofiler$/;"	f	class:ApplicationController
+modify_query	app/helpers/application_helper.rb	/^  def modify_query(url, options={})$/;"	f	class:ApplicationHelper
+move_remove_entry_from_unregistered	app/models/user.rb	/^  def move_remove_entry_from_unregistered$/;"	f	class:User
+multi_delete	app/controllers/clients_controller.rb	/^  def multi_delete$/;"	f	class:ClientsController
+multi_delete	app/controllers/contacts_controller.rb	/^  def multi_delete$/;"	f	class:ContactsController
+multi_delete	app/controllers/properties_controller.rb	/^  def multi_delete$/;"	f	class:PropertiesController
+multi_delete	app/controllers/transactions_controller.rb	/^  def multi_delete$/;"	f	class:TransactionsController
+my	app/controllers/users_controller.rb	/^  def my$/;"	f	class:UsersController
+name	app/models/Entity/beneficiary.rb	/^  def name$/;"	f	class:Beneficiary
+name	app/models/Entity/general_partner.rb	/^  def name$/;"	f	class:GeneralPartner
+name	app/models/Entity/member.rb	/^  def name$/;"	f	class:Member
+name	app/models/Entity/partner.rb	/^  def name$/;"	f	class:Partner
+name	app/models/Entity/stock_holder.rb	/^  def name$/;"	f	class:StockHolder
+name	app/models/admin.rb	/^  def name$/;"	f	class:Admin
+name	app/models/client.rb	/^  def name$/;"	f	class:Client
+name	app/models/concerns/model_methods.rb	/^  def name$/;"	f	class:ModelMethods
+name	app/models/contact.rb	/^  def name$/;"	f	class:Contact
+name	app/models/entity.rb	/^  def name$/;"	f	class:Entity
+name	app/models/user.rb	/^  def name$/;"	f	class:User
+new	app/controllers/clients_controller.rb	/^  def new$/;"	f	class:ClientsController
+new	app/controllers/common_static_fields_controller.rb	/^  def new$/;"	f	class:CommonStaticFieldsController
+new	app/controllers/contacts_controller.rb	/^  def new$/;"	f	class:ContactsController
+new	app/controllers/dynamic_fields_controller.rb	/^  def new$/;"	f	class:DynamicFieldsController
+new	app/controllers/entities_controller.rb	/^  def new$/;"	f	class:EntitiesController
+new	app/controllers/members_controller.rb	/^  def new$/;"	f	class:MembersController
+new	app/controllers/procedure/actions_controller.rb	/^  def new$/;"	f	class:Procedure.ActionsController
+new	app/controllers/procedures_controller.rb	/^  def new$/;"	f	class:ProceduresController
+new	app/controllers/properties_controller.rb	/^  def new$/;"	f	class:PropertiesController
+new	app/controllers/transactions_controller.rb	/^  def new$/;"	f	class:TransactionsController
+nil_or_zero	config/initializers/general_functions.rb	/^def nil_or_zero(data)$/;"	f	class:Object
+notification_to_admin	app/mailers/admin_mailer.rb	/^  def notification_to_admin(user)$/;"	f	class:AdminMailer
+notification_to_admin	app/mailers/user_mailer.rb	/^  def notification_to_admin(user)$/;"	f	class:UserMailer
+officer	app/controllers/entities/corporates_controller.rb	/^  def officer$/;"	f	class:Entities.CorporatesController
+officer_ids	app/models/entity.rb	/^  has_many :officers$/;"	F	class:Entity
+officer_ids	app/models/entity_guardianship.rb	/^  has_many :officers$/;"	F	class:EntityGuardianship
+officer_ids	app/models/entity_joint_tenancy.rb	/^  has_many :officers$/;"	F	class:EntityJointTenancy
+officer_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :officers$/;"	F	class:EntityTenancyByEntirety
+officer_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :officers$/;"	F	class:EntityTenancyInCommon
+officer_ids=	app/models/entity.rb	/^  has_many :officers$/;"	F	class:Entity
+officer_ids=	app/models/entity_guardianship.rb	/^  has_many :officers$/;"	F	class:EntityGuardianship
+officer_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :officers$/;"	F	class:EntityJointTenancy
+officer_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :officers$/;"	F	class:EntityTenancyByEntirety
+officer_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :officers$/;"	F	class:EntityTenancyInCommon
+officer_params	app/controllers/entities/corporates_controller.rb	/^  def officer_params$/;"	f	class:Entities.CorporatesController
+officers	app/controllers/entities/corporates_controller.rb	/^  def officers$/;"	f	class:Entities.CorporatesController
+officers	app/models/entity.rb	/^  has_many :officers$/;"	F	class:Entity
+officers	app/models/entity_guardianship.rb	/^  has_many :officers$/;"	F	class:EntityGuardianship
+officers	app/models/entity_joint_tenancy.rb	/^  has_many :officers$/;"	F	class:EntityJointTenancy
+officers	app/models/entity_tenancy_by_entirety.rb	/^  has_many :officers$/;"	F	class:EntityTenancyByEntirety
+officers	app/models/entity_tenancy_in_common.rb	/^  has_many :officers$/;"	F	class:EntityTenancyInCommon
+officers=	app/models/entity.rb	/^  has_many :officers$/;"	F	class:Entity
+officers=	app/models/entity_guardianship.rb	/^  has_many :officers$/;"	F	class:EntityGuardianship
+officers=	app/models/entity_joint_tenancy.rb	/^  has_many :officers$/;"	F	class:EntityJointTenancy
+officers=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :officers$/;"	F	class:EntityTenancyByEntirety
+officers=	app/models/entity_tenancy_in_common.rb	/^  has_many :officers$/;"	F	class:EntityTenancyInCommon
+override_active_record_errors	app/helpers/application_helper.rb	/^  def override_active_record_errors(errors_hash, replace_keys = {})$/;"	f	class:ApplicationHelper
+owned_by	app/helpers/application_helper.rb	/^  def owned_by(entity)$/;"	f	class:ApplicationHelper
+owner	app/models/property.rb	/^  def owner$/;"	f	class:Property
+ownership_entity_dropdown	app/models/property.rb	/^  def ownership_entity_dropdown$/;"	f	class:Property
+ownership_person_dropdown	app/models/property.rb	/^  def ownership_person_dropdown$/;"	f	class:Property
+parcel_ids	app/models/property.rb	/^  has_many :parcels$/;"	F	class:Property
+parcel_ids=	app/models/property.rb	/^  has_many :parcels$/;"	F	class:Property
+parcels	app/models/property.rb	/^  has_many :parcels$/;"	F	class:Property
+parcels=	app/models/property.rb	/^  has_many :parcels$/;"	F	class:Property
+partner	app/controllers/entities/llp_controller.rb	/^  def partner$/;"	f	class:Entities.LlpController
+partner	app/controllers/entities/partnership_controller.rb	/^  def partner$/;"	f	class:Entities.PartnershipController
+partner_ids	app/models/entity.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+partner_ids	app/models/entity_guardianship.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+partner_ids	app/models/entity_joint_tenancy.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+partner_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+partner_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+partner_ids=	app/models/entity.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+partner_ids=	app/models/entity_guardianship.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+partner_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+partner_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+partner_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+partner_params	app/controllers/entities/llp_controller.rb	/^  def partner_params$/;"	f	class:Entities.LlpController
+partner_params	app/controllers/entities/partnership_controller.rb	/^  def partner_params$/;"	f	class:Entities.PartnershipController
+partners	app/controllers/entities/llp_controller.rb	/^  def partners$/;"	f	class:Entities.LlpController
+partners	app/controllers/entities/partnership_controller.rb	/^  def partners$/;"	f	class:Entities.PartnershipController
+partners	app/models/entity.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+partners	app/models/entity_guardianship.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+partners	app/models/entity_joint_tenancy.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+partners	app/models/entity_tenancy_by_entirety.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+partners	app/models/entity_tenancy_in_common.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+partners=	app/models/entity.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:Entity
+partners=	app/models/entity_guardianship.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+partners=	app/models/entity_joint_tenancy.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+partners=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+partners=	app/models/entity_tenancy_in_common.rb	/^  has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+per_page	app/controllers/settings_controller.rb	/^  def per_page$/;"	f	class:SettingsController
+permission_type_	app/models/access_resource.rb	/^  def permission_type_$/;"	f	class:AccessResource
+personnel	app/controllers/transactions_controller.rb	/^  def personnel$/;"	f	class:TransactionsController
+personnel_update	app/controllers/transactions_controller.rb	/^  def personnel_update$/;"	f	class:TransactionsController
+phone_validation	app/models/concerns/my_function.rb	/^  def phone_validation$/;"	f	class:MyFunction
+power_of_attorney?	app/models/concerns/model_methods.rb	/^  def power_of_attorney?$/;"	f	class:ModelMethods
+power_of_attorney?	app/models/concerns/my_function.rb	/^  def power_of_attorney?$/;"	f	class:MyFunction
+power_of_attorney_params	app/controllers/entities/power_of_attorney_controller.rb	/^  def power_of_attorney_params$/;"	f	class:Entities.PowerOfAttorneyController
+procedure_action_params	app/controllers/procedure/actions_controller.rb	/^  def procedure_action_params$/;"	f	class:Procedure.ActionsController
+procedure_ids	app/models/property.rb	/^  has_many :procedures$/;"	F	class:Property
+procedure_ids=	app/models/property.rb	/^  has_many :procedures$/;"	F	class:Property
+procedure_params	app/controllers/procedures_controller.rb	/^  def procedure_params$/;"	f	class:ProceduresController
+procedures	app/models/property.rb	/^  has_many :procedures$/;"	F	class:Property
+procedures=	app/models/property.rb	/^  has_many :procedures$/;"	F	class:Property
+projects_form_build	app/models/property.rb	/^  def projects_form_build$/;"	f	class:Property
+properties_edit	app/controllers/transactions_controller.rb	/^  def properties_edit$/;"	f	class:TransactionsController
+properties_update	app/controllers/transactions_controller.rb	/^  def properties_update$/;"	f	class:TransactionsController
+property	app/controllers/comments_controller.rb	/^  def property$/;"	f	class:CommentsController
+property	app/models/entity.rb	/^  belongs_to :property$/;"	F	class:Entity
+property	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :property$/;"	F	class:EntityTenancyByEntirety
+property	app/models/procedure.rb	/^  belongs_to :property$/;"	F	class:Procedure
+property	app/models/transaction_property.rb	/^  belongs_to :property$/;"	F	class:TransactionProperty
+property	app/models/transaction_purchase.rb	/^  belongs_to :property$/;"	F	class:TransactionPurchase
+property	app/models/transaction_sale.rb	/^  belongs_to :property$/;"	F	class:TransactionSale
+property=	app/models/entity.rb	/^  belongs_to :property$/;"	F	class:Entity
+property=	app/models/entity_tenancy_by_entirety.rb	/^  belongs_to :property$/;"	F	class:EntityTenancyByEntirety
+property=	app/models/procedure.rb	/^  belongs_to :property$/;"	F	class:Procedure
+property=	app/models/transaction_property.rb	/^  belongs_to :property$/;"	F	class:TransactionProperty
+property=	app/models/transaction_purchase.rb	/^  belongs_to :property$/;"	F	class:TransactionPurchase
+property=	app/models/transaction_sale.rb	/^  belongs_to :property$/;"	F	class:TransactionSale
+property_address	app/models/entity_tenancy_by_entirety.rb	/^  def property_address$/;"	f	class:EntityTenancyByEntirety
+property_params	app/controllers/properties_controller.rb	/^  def property_params$/;"	f	class:PropertiesController
+prospective_entity	app/models/contact.rb	/^  def self.prospective_entity$/;"	F	class:Contact
+prospective_person	app/models/contact.rb	/^  def self.prospective_person$/;"	F	class:Contact
+purchase	app/models/transaction_main.rb	/^  has_one :purchase, class_name: 'TransactionPurchase', dependent: :destroy$/;"	F	class:TransactionMain
+purchase	app/models/transaction_term.rb	/^  def purchase$/;"	f	class:TransactionTerm
+purchase=	app/models/transaction_main.rb	/^  has_one :purchase, class_name: 'TransactionPurchase', dependent: :destroy$/;"	F	class:TransactionMain
+purchase_only?	app/models/transaction_sale.rb	/^  def purchase_only?$/;"	f	class:TransactionSale
+purchase_status	app/models/transaction_main.rb	/^  attr_accessor :sale_status, :purchase_status$/;"	f	class:TransactionMain
+purchase_status=	app/models/transaction_main.rb	/^  attr_accessor :sale_status, :purchase_status$/;"	f	class:TransactionMain
+purchased_entity	app/models/client.rb	/^  def self.purchased_entity$/;"	F	class:Client
+purchased_person	app/models/client.rb	/^  def self.purchased_person$/;"	F	class:Client
+purchaser_entity	app/models/transaction_purchase.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+purchaser_entity	app/models/transaction_sale.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+purchaser_entity=	app/models/transaction_purchase.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+purchaser_entity=	app/models/transaction_sale.rb	/^  belongs_to :purchaser_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+purchaser_name	app/models/transaction_purchase.rb	/^  def purchaser_name$/;"	f	class:TransactionPurchase
+purchaser_name	app/models/transaction_sale.rb	/^  def purchaser_name$/;"	f	class:TransactionSale
+qualified_intermediary	app/controllers/transactions_controller.rb	/^  def qualified_intermediary$/;"	f	class:TransactionsController
+qualified_intermediary	app/models/qualified_intermediary_deposit.rb	/^  belongs_to :qualified_intermediary$/;"	F	class:QualifiedIntermediaryDeposit
+qualified_intermediary	app/models/transaction_purchase.rb	/^  def qualified_intermediary$/;"	f	class:TransactionPurchase
+qualified_intermediary	app/models/transaction_purchase.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+qualified_intermediary	app/models/transaction_sale.rb	/^  def qualified_intermediary$/;"	f	class:TransactionSale
+qualified_intermediary	app/models/transaction_sale.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+qualified_intermediary=	app/models/qualified_intermediary_deposit.rb	/^  belongs_to :qualified_intermediary$/;"	F	class:QualifiedIntermediaryDeposit
+qualified_intermediary=	app/models/transaction_purchase.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+qualified_intermediary=	app/models/transaction_sale.rb	/^  has_one :qualified_intermediary, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+qualified_intermediary_deposit_ids	app/models/qualified_intermediary.rb	/^  has_many :qualified_intermediary_deposits$/;"	F	class:QualifiedIntermediary
+qualified_intermediary_deposit_ids=	app/models/qualified_intermediary.rb	/^  has_many :qualified_intermediary_deposits$/;"	F	class:QualifiedIntermediary
+qualified_intermediary_deposits	app/models/qualified_intermediary.rb	/^  has_many :qualified_intermediary_deposits$/;"	F	class:QualifiedIntermediary
+qualified_intermediary_deposits=	app/models/qualified_intermediary.rb	/^  has_many :qualified_intermediary_deposits$/;"	F	class:QualifiedIntermediary
+qualified_intermediary_params	app/controllers/transactions_controller.rb	/^  def qualified_intermediary_params$/;"	f	class:TransactionsController
+remaining	app/models/entity.rb	/^  def remaining$/;"	f	class:Entity
+remaining_	app/models/entity.rb	/^  def remaining_$/;"	f	class:Entity
+remaining_share_or_interest	app/models/concerns/model_methods.rb	/^  def remaining_share_or_interest$/;"	f	class:ModelMethods
+remaining_share_or_interest_	app/models/concerns/model_methods.rb	/^  def remaining_share_or_interest_$/;"	f	class:ModelMethods
+remaining_share_or_interest_check	app/models/concerns/model_methods.rb	/^  def remaining_share_or_interest_check$/;"	f	class:ModelMethods
+remaining_stock_share	app/models/Entity/stock_holder.rb	/^  def remaining_stock_share$/;"	f	class:StockHolder
+remove_access	app/models/access_resource.rb	/^    def remove_access(options = {})$/;"	F	class:AccessResource
+remove_from_errors	app/helpers/application_helper.rb	/^  def remove_from_errors$/;"	f	class:ApplicationHelper
+require_field	app/helpers/application_helper.rb	/^  def require_field$/;"	f	class:ApplicationHelper
+reset_first_name_or_entity_id	app/models/Entity/stock_holder.rb	/^  def reset_first_name_or_entity_id$/;"	f	class:StockHolder
+resource	app/controllers/admin/admin_controller.rb	/^  def resource$/;"	f	class:Admin.AdminController
+resource_class_with_condition	app/controllers/admin/admins_controller.rb	/^  def resource_class_with_condition$/;"	f	class:Admin.AdminsController
+resource_class_with_condition	app/controllers/admin/clients_controller.rb	/^  def resource_class_with_condition$/;"	f	class:Admin.ClientsController
+resource_class_with_condition	app/controllers/admin/properties_controller.rb	/^  def resource_class_with_condition$/;"	f	class:Admin.PropertiesController
+resource_class_with_condition	app/controllers/admin/transactions_controller.rb	/^  def resource_class_with_condition$/;"	f	class:Admin.TransactionsController
+resource_class_with_condition	app/controllers/admin/users_controller.rb	/^  def resource_class_with_condition$/;"	f	class:Admin.UsersController
+resources	app/controllers/admin/admin_controller.rb	/^  def resources$/;"	f	class:Admin.AdminController
+resources_url	app/controllers/admin/admin_controller.rb	/^  def resources_url$/;"	f	class:Admin.AdminController
+resources_url	app/models/admin.rb	/^  def self.resources_url$/;"	F	class:Admin
+resources_url	app/models/client.rb	/^  def self.resources_url$/;"	F	class:Client
+resources_url	app/models/property.rb	/^  def self.resources_url$/;"	F	class:Property
+resources_url	app/models/transaction_purchase.rb	/^  def self.resources_url$/;"	F	class:TransactionPurchase
+resources_url	app/models/transaction_sale.rb	/^  def self.resources_url$/;"	F	class:TransactionSale
+resources_url	app/models/user.rb	/^  def self.resources_url$/;"	F	class:User
+sale	app/models/transaction_main.rb	/^  has_one :sale, class_name: 'TransactionSale', dependent: :destroy$/;"	F	class:TransactionMain
+sale	app/models/transaction_term.rb	/^  def sale$/;"	f	class:TransactionTerm
+sale=	app/models/transaction_main.rb	/^  has_one :sale, class_name: 'TransactionSale', dependent: :destroy$/;"	F	class:TransactionMain
+sale_status	app/models/transaction_main.rb	/^  attr_accessor :sale_status, :purchase_status$/;"	f	class:TransactionMain
+sale_status=	app/models/transaction_main.rb	/^  attr_accessor :sale_status, :purchase_status$/;"	f	class:TransactionMain
+save_current_url	app/controllers/application_controller.rb	/^  def save_current_url$/;"	f	class:ApplicationController
+seller_and_purchaser_match	app/models/transaction_purchase.rb	/^  def seller_and_purchaser_match$/;"	f	class:TransactionPurchase
+seller_and_purchaser_match	app/models/transaction_sale.rb	/^  def seller_and_purchaser_match$/;"	f	class:TransactionSale
+seller_entity	app/models/transaction_purchase.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+seller_entity	app/models/transaction_sale.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+seller_entity=	app/models/transaction_purchase.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionPurchase
+seller_entity=	app/models/transaction_sale.rb	/^  belongs_to :seller_entity, class_name: 'Entity'$/;"	F	class:TransactionSale
+seller_info	app/models/transaction_sale.rb	/^  def seller_info$/;"	f	class:TransactionSale
+seller_name	app/models/transaction_purchase.rb	/^  def seller_name$/;"	f	class:TransactionPurchase
+seller_name	app/models/transaction_sale.rb	/^  def seller_name$/;"	f	class:TransactionSale
+send	app/models/concerns/error.rb	/^    def send e$/;"	F	class:Error
+sessioned_per_page	app/controllers/application_controller.rb	/^  def sessioned_per_page(per_page=false)$/;"	f	class:ApplicationController
+set_client	app/controllers/clients_controller.rb	/^  def set_client$/;"	f	class:ClientsController
+set_common_static_field	app/controllers/common_static_fields_controller.rb	/^    def set_common_static_field$/;"	f	class:CommonStaticFieldsController
+set_default_val	app/models/entity.rb	/^  def set_default_val$/;"	f	class:Entity
+set_default_val	app/models/entity_joint_tenancy.rb	/^  def set_default_val$/;"	f	class:EntityJointTenancy
+set_default_val	app/models/entity_tenancy_by_entirety.rb	/^  def set_default_val$/;"	f	class:EntityTenancyByEntirety
+set_default_val	app/models/entity_tenancy_in_common.rb	/^  def set_default_val$/;"	f	class:EntityTenancyInCommon
+set_default_val	app/models/power_of_attorney.rb	/^  def set_default_val$/;"	f	class:PowerOfAttorney
+set_dynamic_field	app/controllers/dynamic_fields_controller.rb	/^    def set_dynamic_field$/;"	f	class:DynamicFieldsController
+set_entity	app/controllers/entities_controller.rb	/^  def set_entity$/;"	f	class:EntitiesController
+set_info	app/models/client.rb	/^  def set_info$/;"	f	class:Client
+set_procedure	app/controllers/procedures_controller.rb	/^  def set_procedure$/;"	f	class:ProceduresController
+set_procedure_action	app/controllers/procedure/actions_controller.rb	/^  def set_procedure_action$/;"	f	class:Procedure.ActionsController
+set_property	app/controllers/properties_controller.rb	/^  def set_property$/;"	f	class:PropertiesController
+set_resource_id	app/controllers/admin/admin_controller.rb	/^  def set_resource_id$/;"	f	class:Admin.AdminController
+set_second_deposit_date	app/models/transaction_term.rb	/^  def set_second_deposit_date$/;"	f	class:TransactionTerm
+set_status	app/controllers/transactions_controller.rb	/^  def set_status$/;"	f	class:TransactionsController
+set_transaction	app/controllers/transactions_controller.rb	/^  def set_transaction$/;"	f	class:TransactionsController
+set_unset	app/controllers/admin/admins_controller.rb	/^  def set_unset$/;"	f	class:Admin.AdminsController
+set_unset	app/controllers/admin/users_controller.rb	/^  def set_unset$/;"	f	class:Admin.UsersController
+set_user_indexing	app/controllers/home_controller.rb	/^  def set_user_indexing$/;"	f	class:HomeController
+settings	app/controllers/transactions_controller.rb	/^  def settings$/;"	f	class:TransactionsController
+settlor	app/controllers/entities/trust_controller.rb	/^  def settlor$/;"	f	class:Entities.TrustController
+settlor_ids	app/models/entity.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:Entity
+settlor_ids	app/models/entity_guardianship.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+settlor_ids	app/models/entity_joint_tenancy.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+settlor_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+settlor_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+settlor_ids=	app/models/entity.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:Entity
+settlor_ids=	app/models/entity_guardianship.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+settlor_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+settlor_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+settlor_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+settlor_params	app/controllers/entities/trust_controller.rb	/^  def settlor_params$/;"	f	class:Entities.TrustController
+settlors	app/controllers/entities/trust_controller.rb	/^  def settlors$/;"	f	class:Entities.TrustController
+settlors	app/models/entity.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:Entity
+settlors	app/models/entity_guardianship.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+settlors	app/models/entity_joint_tenancy.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+settlors	app/models/entity_tenancy_by_entirety.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+settlors	app/models/entity_tenancy_in_common.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+settlors=	app/models/entity.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:Entity
+settlors=	app/models/entity_guardianship.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+settlors=	app/models/entity_joint_tenancy.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+settlors=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+settlors=	app/models/entity_tenancy_in_common.rb	/^  has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+share_or_interest	app/controllers/entities_controller.rb	/^  def share_or_interest$/;"	f	class:EntitiesController
+show	app/controllers/admin/admin_controller.rb	/^  def show$/;"	f	class:Admin.AdminController
+show	app/controllers/clients_controller.rb	/^  def show;$/;"	f	class:ClientsController
+show	app/controllers/common_static_fields_controller.rb	/^  def show$/;"	f	class:CommonStaticFieldsController
+show	app/controllers/dynamic_fields_controller.rb	/^  def show$/;"	f	class:DynamicFieldsController
+show	app/controllers/entities_controller.rb	/^  def show$/;"	f	class:EntitiesController
+show	app/controllers/procedure/actions_controller.rb	/^  def show$/;"	f	class:Procedure.ActionsController
+show	app/controllers/procedures_controller.rb	/^  def show$/;"	f	class:ProceduresController
+show	app/controllers/properties_controller.rb	/^  def show$/;"	f	class:PropertiesController
+show	app/controllers/transactions_controller.rb	/^  def show$/;"	f	class:TransactionsController
+show_cap_rate	app/models/property.rb	/^  def show_cap_rate$/;"	f	class:Property
+show_xs	app/helpers/application_helper.rb	/^  def show_xs$/;"	f	class:ApplicationHelper
+shuffle	lib/core_ext/string.rb	/^  def shuffle$/;"	f	class:String
+spouse	app/controllers/entities/tenancy_by_entirety_controller.rb	/^  def spouse$/;"	f	class:Entities.TenancyByEntiretyController
+spouse_ids	app/models/entity.rb	/^  has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"$/;"	F	class:Entity
+spouse_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+spouse_ids=	app/models/entity.rb	/^  has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"$/;"	F	class:Entity
+spouse_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+spouse_params	app/controllers/entities/tenancy_by_entirety_controller.rb	/^  def spouse_params$/;"	f	class:Entities.TenancyByEntiretyController
+spouses	app/controllers/entities/tenancy_by_entirety_controller.rb	/^  def spouses$/;"	f	class:Entities.TenancyByEntiretyController
+spouses	app/models/entity.rb	/^  has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"$/;"	F	class:Entity
+spouses	app/models/entity_tenancy_by_entirety.rb	/^  has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+spouses=	app/models/entity.rb	/^  has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"$/;"	F	class:Entity
+spouses=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+stockholder	app/controllers/entities/corporates_controller.rb	/^  def stockholder$/;"	f	class:Entities.CorporatesController
+stockholder_ids	app/models/entity.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:Entity
+stockholder_ids	app/models/entity_guardianship.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+stockholder_ids	app/models/entity_joint_tenancy.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+stockholder_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+stockholder_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+stockholder_ids=	app/models/entity.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:Entity
+stockholder_ids=	app/models/entity_guardianship.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+stockholder_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+stockholder_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+stockholder_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+stockholder_params	app/controllers/entities/corporates_controller.rb	/^  def stockholder_params$/;"	f	class:Entities.CorporatesController
+stockholders	app/controllers/entities/corporates_controller.rb	/^  def stockholders(entity_key = params[:entity_key])$/;"	f	class:Entities.CorporatesController
+stockholders	app/models/entity.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:Entity
+stockholders	app/models/entity_guardianship.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+stockholders	app/models/entity_joint_tenancy.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+stockholders	app/models/entity_tenancy_by_entirety.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+stockholders	app/models/entity_tenancy_in_common.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+stockholders=	app/models/entity.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:Entity
+stockholders=	app/models/entity_guardianship.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+stockholders=	app/models/entity_joint_tenancy.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+stockholders=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+stockholders=	app/models/entity_tenancy_in_common.rb	/^  has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+sumup_values	app/helpers/application_helper.rb	/^  def sumup_values val1, val2$/;"	f	class:ApplicationHelper
+super_admin?	app/models/user.rb	/^  def super_admin?$/;"	f	class:User
+super_entity	app/models/Entity/beneficiary.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Beneficiary
+super_entity	app/models/Entity/director.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Director
+super_entity	app/models/Entity/general_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:GeneralPartner
+super_entity	app/models/Entity/joint_tenant.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:JointTenant
+super_entity	app/models/Entity/limited_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:LimitedPartner
+super_entity	app/models/Entity/manager.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Manager
+super_entity	app/models/Entity/member.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Member
+super_entity	app/models/Entity/partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Partner
+super_entity	app/models/Entity/settlor.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Settlor
+super_entity	app/models/Entity/spouse.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Spouse
+super_entity	app/models/Entity/stock_holder.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:StockHolder
+super_entity	app/models/Entity/tenant_in_common.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:TenantInCommon
+super_entity	app/models/Entity/trustee.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Trustee
+super_entity=	app/models/Entity/beneficiary.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Beneficiary
+super_entity=	app/models/Entity/director.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Director
+super_entity=	app/models/Entity/general_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:GeneralPartner
+super_entity=	app/models/Entity/joint_tenant.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:JointTenant
+super_entity=	app/models/Entity/limited_partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:LimitedPartner
+super_entity=	app/models/Entity/manager.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Manager
+super_entity=	app/models/Entity/member.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Member
+super_entity=	app/models/Entity/partner.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Partner
+super_entity=	app/models/Entity/settlor.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Settlor
+super_entity=	app/models/Entity/spouse.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Spouse
+super_entity=	app/models/Entity/stock_holder.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:StockHolder
+super_entity=	app/models/Entity/tenant_in_common.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:TenantInCommon
+super_entity=	app/models/Entity/trustee.rb	/^  belongs_to :super_entity, class_name: "SuperEntity"$/;"	F	class:Trustee
+super_user?	app/models/access_resource.rb	/^    def super_user?(options = {})$/;"	F	class:AccessResource
+table_name_prefix	app/models/users.rb	/^  def self.table_name_prefix$/;"	F	class:Users
+tenant_in_common	app/controllers/entities/tenancy_in_common_controller.rb	/^  def tenant_in_common$/;"	f	class:Entities.TenancyInCommonController
+tenant_in_common_params	app/controllers/entities/tenancy_in_common_controller.rb	/^  def tenant_in_common_params$/;"	f	class:Entities.TenancyInCommonController
+tenants_in_common	app/controllers/entities/tenancy_in_common_controller.rb	/^  def tenants_in_common$/;"	f	class:Entities.TenancyInCommonController
+tenants_in_common	app/models/entity.rb	/^  has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"$/;"	F	class:Entity
+tenants_in_common	app/models/entity_joint_tenancy.rb	/^  has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+tenants_in_common	app/models/entity_tenancy_by_entirety.rb	/^  has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+tenants_in_common	app/models/entity_tenancy_in_common.rb	/^  has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+tenants_in_common=	app/models/entity.rb	/^  has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"$/;"	F	class:Entity
+tenants_in_common=	app/models/entity_joint_tenancy.rb	/^  has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+tenants_in_common=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+tenants_in_common=	app/models/entity_tenancy_in_common.rb	/^  has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+term	app/models/transaction_purchase.rb	/^  def term$/;"	f	class:TransactionPurchase
+term	app/models/transaction_sale.rb	/^  def term$/;"	f	class:TransactionSale
+terms	app/controllers/transactions_controller.rb	/^  def terms$/;"	f	class:TransactionsController
+terms_update	app/controllers/transactions_controller.rb	/^  def terms_update$/;"	f	class:TransactionsController
+test	app/controllers/home_controller.rb	/^  def test$/;"	f	class:HomeController
+title	app/helpers/application_helper.rb	/^  def title(page_title = '1031 Exchange', options={})$/;"	f	class:ApplicationHelper
+to_string	lib/core_ext/date.rb	/^  def to_string$/;"	f	class:Date
+to_string	lib/core_ext/date_time.rb	/^  def to_string$/;"	f	class:DateTime
+to_string	lib/core_ext/time.rb	/^  def to_string$/;"	f	class:Time
+to_string	lib/core_ext/time_with_zone.rb	/^    def to_string$/;"	f	class:ActiveSupport.TimeWithZone
+total	app/models/entity.rb	/^  def total$/;"	f	class:Entity
+total_stock_share	app/models/Entity/stock_holder.rb	/^  def total_stock_share$/;"	f	class:StockHolder
+transaction_main	app/models/transaction_purchase.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionPurchase
+transaction_main	app/models/transaction_sale.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionSale
+transaction_main=	app/models/transaction_purchase.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionPurchase
+transaction_main=	app/models/transaction_sale.rb	/^  belongs_to :transaction_main$/;"	F	class:TransactionSale
+transaction_main_params	app/controllers/transactions_controller.rb	/^  def transaction_main_params$/;"	f	class:TransactionsController
+transaction_message_filter	app/helpers/application_helper.rb	/^  def transaction_message_filter(message)$/;"	f	class:ApplicationHelper
+transaction_params	app/controllers/transactions_controller.rb	/^  def transaction_params$/;"	f	class:TransactionsController
+transaction_personnel	app/models/transaction_purchase.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_personnel	app/models/transaction_sale.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_personnel=	app/models/transaction_purchase.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_personnel=	app/models/transaction_sale.rb	/^  has_one :transaction_personnel, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_personnels_params	app/controllers/transactions_controller.rb	/^  def transaction_personnels_params$/;"	f	class:TransactionsController
+transaction_propertie_ids	app/models/transaction_purchase.rb	/^  has_many :transaction_properties, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_propertie_ids	app/models/transaction_sale.rb	/^  has_many :transaction_properties, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_propertie_ids=	app/models/transaction_purchase.rb	/^  has_many :transaction_properties, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_propertie_ids=	app/models/transaction_sale.rb	/^  has_many :transaction_properties, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_properties	app/models/transaction_purchase.rb	/^  has_many :transaction_properties, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_properties	app/models/transaction_sale.rb	/^  has_many :transaction_properties, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_properties=	app/models/transaction_purchase.rb	/^  has_many :transaction_properties, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_properties=	app/models/transaction_sale.rb	/^  has_many :transaction_properties, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_property_params	app/controllers/transactions_controller.rb	/^  def transaction_property_params$/;"	f	class:TransactionsController
+transaction_purchase	app/models/transaction_property.rb	/^  belongs_to :transaction_purchase, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+transaction_purchase=	app/models/transaction_property.rb	/^  belongs_to :transaction_purchase, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+transaction_purchase_ids	app/models/client.rb	/^  has_many :transaction_purchases$/;"	F	class:Client
+transaction_purchase_ids=	app/models/client.rb	/^  has_many :transaction_purchases$/;"	F	class:Client
+transaction_purchases	app/models/client.rb	/^  has_many :transaction_purchases$/;"	F	class:Client
+transaction_purchases=	app/models/client.rb	/^  has_many :transaction_purchases$/;"	F	class:Client
+transaction_sale	app/models/property.rb	/^  belongs_to :transaction_sale$/;"	F	class:Property
+transaction_sale	app/models/transaction_personnel.rb	/^  belongs_to :transaction_sale$/;"	F	class:TransactionPersonnel
+transaction_sale	app/models/transaction_property.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+transaction_sale	app/models/transaction_status.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionStatus
+transaction_sale=	app/models/property.rb	/^  belongs_to :transaction_sale$/;"	F	class:Property
+transaction_sale=	app/models/transaction_personnel.rb	/^  belongs_to :transaction_sale$/;"	F	class:TransactionPersonnel
+transaction_sale=	app/models/transaction_property.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionProperty
+transaction_sale=	app/models/transaction_status.rb	/^  belongs_to :transaction_sale, primary_key: :transaction_id$/;"	F	class:TransactionStatus
+transaction_sale_ids	app/models/client.rb	/^  has_many :transaction_sales$/;"	F	class:Client
+transaction_sale_ids=	app/models/client.rb	/^  has_many :transaction_sales$/;"	F	class:Client
+transaction_sales	app/models/client.rb	/^  has_many :transaction_sales$/;"	F	class:Client
+transaction_sales=	app/models/client.rb	/^  has_many :transaction_sales$/;"	F	class:Client
+transaction_statu_ids	app/models/transaction_purchase.rb	/^  has_many :transaction_status, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_statu_ids	app/models/transaction_sale.rb	/^  has_many :transaction_status, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_statu_ids=	app/models/transaction_purchase.rb	/^  has_many :transaction_status, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_statu_ids=	app/models/transaction_sale.rb	/^  has_many :transaction_status, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_status	app/models/transaction_purchase.rb	/^  has_many :transaction_status, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_status	app/models/transaction_sale.rb	/^  has_many :transaction_status, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_status=	app/models/transaction_purchase.rb	/^  has_many :transaction_status, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_status=	app/models/transaction_sale.rb	/^  has_many :transaction_status, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_term	app/models/transaction_purchase.rb	/^  has_one :transaction_term, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_term	app/models/transaction_sale.rb	/^  has_one :transaction_term, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_term=	app/models/transaction_purchase.rb	/^  has_one :transaction_term, foreign_key: :transaction_id, dependent: :destroy$/;"	F	class:TransactionPurchase
+transaction_term=	app/models/transaction_sale.rb	/^  has_one :transaction_term, foreign_key: :transaction_id$/;"	F	class:TransactionSale
+transaction_terms_params	app/controllers/transactions_controller.rb	/^  def transaction_terms_params$/;"	f	class:TransactionsController
+trustee	app/controllers/entities/trust_controller.rb	/^  def trustee$/;"	f	class:Entities.TrustController
+trustee_ids	app/models/entity.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:Entity
+trustee_ids	app/models/entity_guardianship.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+trustee_ids	app/models/entity_joint_tenancy.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+trustee_ids	app/models/entity_tenancy_by_entirety.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+trustee_ids	app/models/entity_tenancy_in_common.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+trustee_ids=	app/models/entity.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:Entity
+trustee_ids=	app/models/entity_guardianship.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+trustee_ids=	app/models/entity_joint_tenancy.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+trustee_ids=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+trustee_ids=	app/models/entity_tenancy_in_common.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+trustee_params	app/controllers/entities/trust_controller.rb	/^  def trustee_params$/;"	f	class:Entities.TrustController
+trustees	app/controllers/entities/trust_controller.rb	/^  def trustees$/;"	f	class:Entities.TrustController
+trustees	app/models/entity.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:Entity
+trustees	app/models/entity_guardianship.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+trustees	app/models/entity_joint_tenancy.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+trustees	app/models/entity_tenancy_by_entirety.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+trustees	app/models/entity_tenancy_in_common.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+trustees=	app/models/entity.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:Entity
+trustees=	app/models/entity_guardianship.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityGuardianship
+trustees=	app/models/entity_joint_tenancy.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityJointTenancy
+trustees=	app/models/entity_tenancy_by_entirety.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyByEntirety
+trustees=	app/models/entity_tenancy_in_common.rb	/^  has_many :trustees, ->{where(class_name: "Trustee")}, class_name: "Trustee", foreign_key: "super_entity_id"$/;"	F	class:EntityTenancyInCommon
+type_	app/models/Entity/stock_holder.rb	/^  def type_$/;"	f	class:StockHolder
+type_	app/models/client.rb	/^  def type_$/;"	f	class:Client
+unset_link	app/models/admin.rb	/^  def unset_link$/;"	f	class:Admin
+unset_link	app/models/user.rb	/^  def unset_link$/;"	f	class:User
+unused_key	app/models/key.rb	/^    def unused_key$/;"	F	class:Key
+update	app/controllers/clients_controller.rb	/^  def update$/;"	f	class:ClientsController
+update	app/controllers/common_static_fields_controller.rb	/^  def update$/;"	f	class:CommonStaticFieldsController
+update	app/controllers/dynamic_fields_controller.rb	/^  def update$/;"	f	class:DynamicFieldsController
+update	app/controllers/entities_controller.rb	/^  def update$/;"	f	class:EntitiesController
+update	app/controllers/members_controller.rb	/^  def update$/;"	f	class:MembersController
+update	app/controllers/procedure/actions_controller.rb	/^  def update$/;"	f	class:Procedure.ActionsController
+update	app/controllers/procedures_controller.rb	/^  def update$/;"	f	class:ProceduresController
+update	app/controllers/properties_controller.rb	/^  def update$/;"	f	class:PropertiesController
+update	app/controllers/transactions_controller.rb	/^  def update$/;"	f	class:TransactionsController
+update	app/controllers/users_controller.rb	/^  def update$/;"	f	class:UsersController
+update_last_active	app/models/user.rb	/^  def update_last_active$/;"	f	class:User
+usa	lib/core_ext/date.rb	/^  def usa$/;"	f	class:Date
+usa	lib/core_ext/date_time.rb	/^  def usa$/;"	f	class:DateTime
+usa	lib/core_ext/time.rb	/^  def usa$/;"	f	class:Time
+usa	lib/core_ext/time_with_zone.rb	/^    def usa$/;"	f	class:ActiveSupport.TimeWithZone
+user	app/models/comment.rb	/^  belongs_to :user$/;"	F	class:Comment
+user=	app/models/comment.rb	/^  belongs_to :user$/;"	F	class:Comment
+user_approval_confirmation	app/mailers/admin_mailer.rb	/^  def user_approval_confirmation(user)$/;"	f	class:AdminMailer
+user_approval_confirmation	app/mailers/user_mailer.rb	/^  def user_approval_confirmation(user)$/;"	f	class:UserMailer
+user_block_or_trash	app/controllers/application_controller.rb	/^  def user_block_or_trash$/;"	f	class:ApplicationController
+user_enabled	app/controllers/application_controller.rb	/^  def user_enabled$/;"	f	class:ApplicationController
+validate_agent	app/models/power_of_attorney.rb	/^  def validate_agent$/;"	f	class:PowerOfAttorney
+validate_my_percentage	app/models/Entity/beneficiary.rb	/^  def validate_my_percentage$/;"	f	class:Beneficiary
+validate_my_percentage	app/models/Entity/general_partner.rb	/^  def validate_my_percentage$/;"	f	class:GeneralPartner
+validate_my_percentage	app/models/Entity/joint_tenant.rb	/^  def validate_my_percentage$/;"	f	class:JointTenant
+validate_my_percentage	app/models/Entity/limited_partner.rb	/^  def validate_my_percentage$/;"	f	class:LimitedPartner
+validate_my_percentage	app/models/Entity/member.rb	/^  def validate_my_percentage$/;"	f	class:Member
+validate_my_percentage	app/models/Entity/partner.rb	/^  def validate_my_percentage$/;"	f	class:Partner
+validate_my_percentage	app/models/Entity/spouse.rb	/^  def validate_my_percentage$/;"	f	class:Spouse
+validate_my_percentage	app/models/Entity/stock_holder.rb	/^  def validate_my_percentage$/;"	f	class:StockHolder
+validate_my_percentage	app/models/Entity/tenant_in_common.rb	/^  def validate_my_percentage$/;"	f	class:TenantInCommon
+validate_number_of_assets	app/models/entity.rb	/^  def validate_number_of_assets$/;"	f	class:Entity
+validation_for_names	app/models/entity.rb	/^  def validation_for_names$/;"	f	class:Entity
+view_address	app/models/property.rb	/^  def view_address$/;"	f	class:Property
+view_index_columns	app/models/admin.rb	/^  def self.view_index_columns$/;"	F	class:Admin
+view_index_columns	app/models/client.rb	/^  def self.view_index_columns$/;"	F	class:Client
+view_index_columns	app/models/property.rb	/^  def self.view_index_columns$/;"	F	class:Property
+view_index_columns	app/models/transaction_purchase.rb	/^  def self.view_index_columns$/;"	F	class:TransactionPurchase
+view_index_columns	app/models/transaction_sale.rb	/^  def self.view_index_columns$/;"	F	class:TransactionSale
+view_index_columns	app/models/user.rb	/^  def self.view_index_columns$/;"	F	class:User
+welcome_user	app/mailers/admin_mailer.rb	/^   def welcome_user(user)$/;"	f	class:AdminMailer
+welcome_user	app/mailers/user_mailer.rb	/^  def welcome_user(user)$/;"	f	class:UserMailer
+welcome_user	app/models/user.rb	/^  def welcome_user$/;"	f	class:User
+wired_instruction	app/models/qualified_intermediary.rb	/^  def wired_instruction$/;"	f	class:QualifiedIntermediary
+wired_instruction	app/models/qualified_intermediary.rb	/^  has_one :wired_instruction$/;"	F	class:QualifiedIntermediary
+wired_instruction=	app/models/qualified_intermediary.rb	/^  has_one :wired_instruction$/;"	F	class:QualifiedIntermediary
+work_group_access_notify	app/mailers/user_mailer.rb	/^  def work_group_access_notify(user_id)$/;"	f	class:UserMailer
+work_group_access_notify_with_signup	app/mailers/user_mailer.rb	/^  def work_group_access_notify_with_signup(options)$/;"	f	class:UserMailer
+xhr_list	app/controllers/entities_controller.rb	/^  def xhr_list$/;"	f	class:EntitiesController
+xhr_list_dropdown	app/controllers/properties_controller.rb	/^  def xhr_list_dropdown$/;"	f	class:PropertiesController
+xs_default	app/helpers/application_helper.rb	/^  def xs_default$/;"	f	class:ApplicationHelper

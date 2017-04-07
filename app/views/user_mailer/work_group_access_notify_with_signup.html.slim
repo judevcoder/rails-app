@@ -1,0 +1,5 @@
+p
+  = "Hi, #{@user.email}"
+p
+  | You can access now
+  = " #{link_to(@work_group, controller: 'properties', action: 'show', id: @work_group_id, host: HOST)} with #{@permission_type} permission".html_safe

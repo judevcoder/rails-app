@@ -1,0 +1,102 @@
+- if @transaction.persisted?
+  - options = %w(Active Completed InActive)
+- else
+  - options = [ 'Active']
+
+= nested_form_for(@transaction, as: :transaction, url: terms_update_transaction_path(@transaction, main_id: params[:main_id], sub: params[:sub], type: params[:type])) do |f|
+  - if @transaction.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@transaction.errors.count, 'error')} prohibited this transaction from being saved:"
+      ul
+        - @transaction.errors.full_messages.each do |message|
+          li = gsub_error_message(message, ['Transaction term base '])
+
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12
+    = f.fields_for :transaction_term do |transaction_term_form|
+      .form-group
+        label Sales Price
+        .input-group
+          .input-group-addon $
+          = transaction_term_form.text_field :purchase_price, class: 'form-control'
+      .form-group
+        label Current Annual Rent
+        .input-group
+          .input-group-addon $
+          = transaction_term_form.text_field :current_annual_rent, class: 'form-control'
+      .form-group
+        label Cap Rate
+        .input-group
+          = transaction_term_form.text_field :cap_rate, class: 'form-control'
+          .input-group-addon %
+      .form-group
+        label Date of Purchase Sale Agreement
+        .clearfix
+        .pull-left
+          = transaction_term_form.date_select :psa_date, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto transaction_transaction_term_attributes_psa_date", style: "#{'display: none;' if transaction_term_form.object.m_psa_date?}"
+          = transaction_term_form.text_field :psa_date, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless transaction_term_form.object.m_psa_date?}"
+        .pull-right
+          .pull-left
+            label Input Date Manually &nbsp; &nbsp; &nbsp; &nbsp;
+          .pull-right
+            = transaction_term_form.check_box :m_psa_date, data: { class: 'transaction_transaction_term_attributes_psa_date' }, class: 'manually_date'
+      .clearfix
+      .form-group
+        label First Deposit Due Date
+        .clearfix
+        .pull-left
+          = transaction_term_form.date_select :first_deposit_date_due, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto transaction_transaction_term_attributes_first_deposit_date_due", style: "#{'display: none;' if transaction_term_form.object.m_first_deposit_date_due?}"
+          = transaction_term_form.text_field :first_deposit_date_due, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless transaction_term_form.object.m_first_deposit_date_due?}"
+        .pull-right
+          .pull-left
+            label Input Date Manually &nbsp; &nbsp; &nbsp; &nbsp;
+          .pull-right
+            = transaction_term_form.check_box :m_first_deposit_date_due, data: { class: 'transaction_transaction_term_attributes_first_deposit_date_due' }, class: 'manually_date'
+      .clearfix
+      .form-group
+        label Amount of First Deposit
+        .input-group
+          .input-group-addon $
+          = transaction_term_form.text_field :first_deposit, class: 'form-control'
+      .form-group
+        label Number of Days in Inspection Period
+        = transaction_term_form.text_field :inspection_period_days, class: 'form-control'
+
+      .clearfix
+      .form-group
+        label 2nd Deposit Due Date -- Number of Days After Inspection Period
+        .clearfix
+        .pull-left
+          = transaction_term_form.date_select :second_deposit_date_due, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto transaction_transaction_term_attributes_second_deposit_date_due", style: "#{'display: none;' if transaction_term_form.object.m_closing_date?}"
+          = transaction_term_form.text_field :second_deposit_date_due, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless transaction_term_form.object.m_second_deposit_date_due?}"
+        .pull-right
+          .pull-left
+            label Input Date Manually &nbsp; &nbsp; &nbsp; &nbsp;
+          .pull-right
+            = transaction_term_form.check_box :m_second_deposit_date_due, data: { class: 'transaction_transaction_term_attributes_second_deposit_date_due' }, class: 'manually_date'
+      .clearfix
+      .form-group
+        label 2nd Deposit Amount
+        .input-group
+          .input-group-addon $
+          = transaction_term_form.text_field :second_deposit_amount, class: 'form-control'
+      .clearfix
+      .form-group
+        label Date of Closing
+        .clearfix
+        .pull-left
+          = transaction_term_form.date_select :closing_date, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto transaction_transaction_term_attributes_closing_date", style: "#{'display: none;' if transaction_term_form.object.m_closing_date?}"
+          = transaction_term_form.text_field :closing_date, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless transaction_term_form.object.m_closing_date?}"
+        .pull-right
+          .pull-left
+            label Input Date Manually &nbsp; &nbsp; &nbsp; &nbsp;
+          .pull-right
+            = transaction_term_form.check_box :m_closing_date, data: { class: 'transaction_transaction_term_attributes_closing_date' }, class: 'manually_date'
+      .clearfix
+      .form-group
+        label Date of Closing Note
+        = transaction_term_form.text_field :closing_date_note, class: 'form-control'
+
+  .clearfix.margin-lg-top
+  .form-group
+    = link_to 'Back', $header_links[:parties], class: 'btn btn-primary next-prev margin-sm-right'
+    = f.submit 'Save & Next', class: 'btn btn-primary next-prev'

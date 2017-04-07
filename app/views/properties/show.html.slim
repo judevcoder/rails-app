@@ -1,0 +1,13 @@
+.property-heading
+  .clearfix
+  div.title
+    - title @property.title
+    = @property.title
+  div.description
+    = @property.description
+  div.type
+    = @property.type_is
+  div.created_at
+    = time_ago_in_words(@property.created_at)
+
+= render template: 'procedures/index'

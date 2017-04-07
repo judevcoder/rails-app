@@ -1,0 +1,27 @@
+h1 Listing dynamic_fields
+
+table
+  thead
+    tr
+      th Klass
+      th Fields
+      th Validation
+      th Default value
+      th
+      th
+      th
+
+  tbody
+    - @dynamic_fields.each do |dynamic_field|
+      tr
+        td = dynamic_field.klass
+        td = dynamic_field.fields
+        td = dynamic_field.validation
+        td = dynamic_field.default_value
+        td = link_to 'Show', dynamic_field
+        td = link_to 'Edit', edit_dynamic_field_path(dynamic_field)
+        td = link_to 'Destroy', dynamic_field, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Dynamic field', new_dynamic_field_path

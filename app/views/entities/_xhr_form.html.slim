@@ -1,0 +1,32 @@
+
+= form_for @entity, remote: true, html: {class: "#{@stockholder ? 'new-entity-resource' : ''}"} do |f|
+  = hidden_field_tag "stockholder", @stockholder
+  - if @entity.errors.any?
+    #error_explanation
+      h2 = "#{pluralize( @entity.errors.count, "error" )} prohibited this entity from being saved:"
+      ul
+        - @entity.errors.full_messages.each do |message|
+          li = message
+  .col-sm-12.col-xs-12
+    .form-group
+      = f.label :name
+      = f.text_field :name, class: "form-control"
+        
+    .form-group
+      = f.label :address
+      = f.text_area :address, class: "form-control"
+    .form-group
+      = f.label :type_
+      = f.select :type_, options_from_collection_for_select( MemberType.all, 'id', 'name', @entity.type_ ),  {}, class: "form-control"
+    .form-group.is-corporation style="display: none"
+      = label_tag 'Shares'
+      = f.text_field :number_of_assets, class: "form-control"
+    .form-group
+      = f.label "date_of_formation *"
+      .clearfix
+      = f.date_select :date_of_formation, {start_year: 50.years.ago.year, end_year: Time.zone.now.year}, class: "form-control select_auto"
+    .form-group
+      .col-lg-4.close-md-4.col-sm-12.col-xs-12= f.label "State of Formation"
+      = f.select :jurisdiction, options_for_select( Entity.USSTATES, @entity.jurisdiction ), {}, class: "form-control selectize-single"
+    .form-group
+      = f.submit 'Save', class: 'btn btn-sm btn-primary'

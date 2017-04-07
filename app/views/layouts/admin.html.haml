@@ -1,0 +1,59 @@
+!!!
+%html
+  %head
+    %title Messenger
+    %link{:href => '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', :rel => 'stylesheet'}
+    = stylesheet_link_tag    'application', media: 'all'
+    %script{:src => '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'}
+    = javascript_include_tag 'application'
+    %meta{:content => 'width=device-width, initial-scale=1.0', :name => 'viewport'}
+    = csrf_meta_tags
+  %body
+    %div.container-fluid
+      %div.row
+        %div.col-md-1
+        %div.col-md-10
+          .pull-right
+            %nav.navbar.navbar-iysy.messenger-nav{:role => "navigation"}
+              #NavHeader{:style => "overflow: visible;"}
+                %div{:style => "min-height:22px;"}
+                  .pull-right
+                    .pull-right{:style => "display:inline;"}
+                      = link_to "Logout", destroy_user_session_path, method: :delete,  :class => "pull-right logout"
+                    .signed_in.pull-right
+                      %b{:style => "color: #808080; display:inline;"} Signed in as:
+                      %span= current_user.email
+          .pull-left
+            .header
+              %span
+                %span
+                  = link_to 'Back', '/', class: "btn btn-sm btn-default"
+              %span
+                %span
+                  = link_to 'Admins', admin_admins_path, class: "btn btn-sm #{controller_name == 'admins' ? 'btn-primary' : 'btn-default'}"
+              %span
+                %span
+                  = link_to 'Users', admin_users_path, class: "btn btn-sm #{controller_name == 'users' ? 'btn-primary' : 'btn-default'}"
+              %span
+                %span
+                  = link_to 'Clients', admin_clients_path, class: "btn btn-sm #{controller_name == 'clients' ? 'btn-primary' : 'btn-default'}"
+              %span
+                %span
+                  = link_to 'Properties', admin_properties_path, class: "btn btn-sm #{controller_name == 'properties' ? 'btn-primary' : 'btn-default'}"
+              %span
+                %span
+                  = link_to 'Sale Transactions', admin_transactions_path(klazz: 'TransactionSale'), class: "btn btn-sm #{controller_name == 'transactions' && (params[:klazz] == 'TransactionSale' || params[:klazz].blank?) ? 'btn-primary' : 'btn-default'}"
+              %span
+                %span
+                  = link_to 'Purchase Transactions', admin_transactions_path(klazz: 'TransactionPurchase'), class: "btn btn-sm #{controller_name == 'transactions' && (params[:klazz] == 'TransactionPurchase') ? 'btn-primary' : 'btn-default'}"
+        %div.col-md-1
+    .container-fluid
+      %div.row
+        %div.col-md-1
+        %div.col-md-10
+          - if notice
+            .notice=raw notice
+          - if alert
+            .alert=raw alert
+          = yield
+        %div.col-md-1

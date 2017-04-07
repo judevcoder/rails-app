@@ -1,0 +1,7 @@
+= form_for @procedure_action, remote: true do |f|
+  .add-procedure-action
+    .part2
+      = f.text_area :title
+      = f.hidden_field :procedure_id
+  .clearfix
+  .actions = f.submit 'Save'

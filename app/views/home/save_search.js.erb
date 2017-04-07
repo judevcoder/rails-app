@@ -1,0 +1,24 @@
+<%if(@history.present?)%>
+ tab=""
+<%if(@history[:from_sa]!='')%>tab+="<img src='../assets/headers/sub_message.png'>"<%end%>
+<%if(@history[:first_sent]!='')%>tab+="<img src='../assets/headers/sub_first_sent.png'>"<%end%>
+<%if(@history[:convo_sent]!='')%>tab+="<img src='../assets/headers/sub_c_sent.png'>"<%end%>
+<%if(@history[:convo_pend]!='')%>tab+="<img src='../assets/headers/sub_c_pend.png'>"<%end%>
+have=''
+<%if(@history.have_email=="" && @history.have_alt=="")%>
+have='H/P'
+<%elsif @history.have_email=="" %>
+have='H'
+<%elsif @history.have_alt==""%>
+have='P'
+<%end%>
+          
+$('#search_listing').append("<tr id='<%='search_'+@history.id.to_s%>'><td><a class='glyphicon-trash action-icon delete_history' id='<%=@history[:id]%>' href='#{}'></a> <a class='click1' id ='<%= @history[:email]+'-'+@history[:name]+'-'+@history[:phone]+'-'+@history[:country]+'-'+@history[:city]+'-'+@history[:max_age]+'-'+@history[:min_age]+'-'+@history[:from_sa].to_s+'-'+@history[:convo_sent].to_s+'-'+@history[:convo_pend].to_s+'-'+@history[:first_sent].to_s+'-'+@history[:male].to_s+'-'+@history[:female].to_s+'-'+@history[:have_alt].to_s+'-'+@history[:have_email].to_s%>' href='#'>Go</a></td><td><span id='<%='name_'+@history.id.to_s%>'><%=@history.search_name || @history[:created_at].localtime.strftime('%m/%d/%Y %I:%M%p')%> </span><a href='#{}' data-id ='<%=@history.id%>' class='glyphicon glyphicon-pencil action-icon rename_search'></a></td><td>"+tab+"</td><td>"+have+"</td><td><%=@history[:email]%></td><td><%=@history[:name]%></td><td><%=@history[:phone]%></td><td><%=@history[:country]%></td><td><%=@history[:city]%></td><td><%=@history[:min_age]%></td><td><%=@history[:max_age]%></td></tr>");
+<%else%>
+$('<%='#search_'+@history_id[:id].to_s%>').addClass('change_color')
+$.notify("Search already exists", 
+                  { arrowShow: false,
+                    className: 'error',
+                    autoHide: true,
+                    elementPosition: 'top center' });
+<%end%>

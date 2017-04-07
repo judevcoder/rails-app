@@ -1,0 +1,122 @@
+.member-show
+  div.name
+    = @entity.name
+  div.address
+    = @entity.address
+  div.type
+    = @entity.entity_type.name rescue nil
+  div.remaining
+    - if @entity.Corporation?
+      = @entity.corporate_remaining_share
+    - else
+      = @entity.remaining
+  .clearfix
+  div.total
+    = @entity.total
+
+.clearfix
+
+= link_to "Edit", edit_entity_path(@entity), class: "#{edit_xs}"
+= link_to "Back", entities_path, class: "#{xs_default}"
+
+- $member = @entity.members.take || Member.new(super_entity_id: @entity.id)
+.clearfix
+- if @entity.Corporation?
+  = link_to "ShareHolders", entities_corporates_stockholders_path(@entity.key), remote: true, class: "resource-index-corporation #{show_xs}"
+  = link_to "Officers", entities_corporates_officers_path(@entity.key), remote: true, class: "resource-index-corporation #{show_xs}"
+  = link_to "Directors", entities_corporates_directors_path(@entity.key), remote: true, class: "resource-index-corporation #{show_xs}"
+- elsif @entity.LLC?
+  = link_to "Members", entities_llc_members_path(@entity.key), remote: true, class: "resource-index-corporation #{show_xs}"
+  = link_to "Managers", entities_llc_managers_path(@entity.key), remote: true, class: "resource-index-corporation #{show_xs}"
+- elsif @entity.Partnership?
+  = link_to "Partners", entities_partnership_partners_path(@entity.key), remote: true, class: "resource-index-corporation #{show_xs}"
+- elsif @entity.LLP?
+  = link_to "Partners", entities_llp_partners_path(@entity.key), remote: true, class: "resource-index-corporation #{show_xs}"
+- elsif @entity.LimitedPartnership?
+  = link_to "General Partners", entities_limited_partnership_general_partners_path(@entity.key), remote: true, class: "resource-index-corporation #{show_xs}"
+  = link_to "Limited Partners", entities_limited_partnership_limited_partners_path(@entity.key), remote: true, class: "resource-index-corporation #{show_xs}"
+
+.clearfix
+
+.resource-list.corporate-contact-form
+  table#data_table
+    thead
+      tr
+        th
+          | Info
+        th
+          | Email
+        th
+          | Phone Number
+        th
+          | Snail Mail Address
+        - if $member.Corporation?
+          th
+            | Share
+        - if $member.LLC? || $member.LLP?
+          th
+            | Membership Percentage
+        - if $member.LLC? || $member.LLP?
+          th
+            | Tax Member
+        - if $member.LLC? || $member.LLP?
+          th
+            | Managing Member
+        - if $member.TenancyinCommon?
+          th
+            | Undivided Interest
+        - if $member.LimitedPartnership?
+          th
+            | Partnership Interest
+        - if $member.LimitedPartnership?
+          th
+            | General Partner
+        th
+          | Actions
+    tbody
+      - @entity.members.each do |member|
+        tr
+          td
+            = member.name
+          td
+            = member.email
+          td
+            = member.phone_number
+          td
+            = member.snail_mail_address
+          - if $member.Corporation?
+            td
+              = member.number_of_share
+          - if $member.LLC? || $member.LLP?
+            td
+              = member.my_percentage
+          - if $member.LLC? || $member.LLP?
+            td
+              = member.tax_member
+          - if $member.LLC? || $member.LLP?
+            td
+              = member.managing_member
+          - if $member.TenancyinCommon?
+            td
+              = member.undivided_interest
+          - if $member.LimitedPartnership?
+            td
+              = member.partnership_interest
+          - if $member.LimitedPartnership?
+            td
+              = member.general_partner
+          th
+            = link_to 'Edit', edit_member_path(member), remote: true, class: "edit-member #{edit_xs}"
+            = link_to 'Delete', member_path(member), method: :delete, class: "#{delete_xs}"
+
+/! Modal
+#NewMember.modal.fade aria-hidden="true" aria-labelledby="NewMember" role="dialog" tabindex="-5"
+  .modal-dialog
+    .modal-content
+
+javascript:
+  $(window).load(function(){
+    if($(document).has("a.resource-index-corporation")){
+      $("a.resource-index-corporation:first").trigger("click");
+    }
+   });

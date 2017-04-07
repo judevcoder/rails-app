@@ -1,0 +1,9 @@
+= link_to "Basic info", entities_tenancy_by_entirety_basic_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'basic_info' ? 'active' : ''}"
+- if @entity.key.present?
+  .links
+    = link_to "Spouses", entities_tenancy_by_entirety_spouses_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'contact_info' ? 'active' : ''}"
+    = link_to "+", entities_tenancy_by_entirety_spouse_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'contact_info' ? 'active' : ''}"
+- else
+  .links
+    = link_to "Spouses", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the Tenancy By Entirety by filling out required fields in Basic Info and saving"
+    = link_to "+", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the Tenancy By Entirety by filling out required fields in Basic Info and saving"

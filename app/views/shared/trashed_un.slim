@@ -1,0 +1,13 @@
+= form_tag local_path, method: :post do
+  = hidden_field_tag :multi_delete_objects, ''
+  - klazz = [klazz] unless klazz.is_a?(Array)
+  = hidden_field_tag :klazzz, "#{klazz.map(&:to_s).join(',')}"
+  = submit_tag 'Delete Selected', class: 'btn btn-sm btn-danger', id: 'multi_delete_objects_submit', 'data-confirm' => 'false', style: 'display: none;'
+  - unless params[:trashed].to_b
+    = link_to 'Delete Selected', 'javascript:void(0);', class: 'btn btn-sm btn-danger', id: 'multi_delete_objects_valid', 'data-confirm' => 'false'
+  - else
+    = hidden_field_tag :untrashed, true
+    = link_to 'Undelete Selected', 'javascript:void(0);', class: 'btn btn-sm btn-info', id: 'multi_delete_objects_valid', 'data-confirm' => 'false'
+
+  - text_label = params[:trashed].to_b ? 'Back' : 'Show Trashed Record(s)'
+  = link_to text_label, index_path, class: "margin-sm-left btn btn-sm #{(params[:trashed].to_b ? 'btn-primary' : 'btn-default')}"

@@ -1,0 +1,100 @@
+- if @just_created.present?
+  .modal.fade#entity-creation-message tabindex="-3" role="dialog" aria-labelledby="entity-creation-message"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+        .modal-body
+          .corporation-creation-message
+            = "Congratulations you have just created #{@entity.name}."
+        .modal-footer
+          button.btn.btn-primary.should-not-change-date-of-formation-cancel data-dismiss="modal" type="button"  Close
+
+= form_for @entity, url: entities_llp_basic_info_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
+  - if @entity.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this LLP from being saved:"
+      ul
+        - @entity.errors.full_messages.each do |message|
+          li = message
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
+    .form-group.required
+      = f.label "name", class: "control-label"
+      = f.text_field :name, class: "form-control"
+      = f.select :legal_ending, options_for_select(["LLP", ", LLP"], @entity.legal_ending)
+    .form-group
+      = f.label "Ein"
+      = f.text_field :ein_or_ssn, class: "form-control"
+
+    .clearfix
+    .form-group.required
+      label.control-label Date of Formation
+      .clearfix
+      .pull-left
+        = f.date_select :date_of_formation, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto entity_date_of_formation", style: "#{'display: none;' if f.object.m_date_of_formation?}"
+        = f.text_field :date_of_formation, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless f.object.m_date_of_formation?}"
+      .pull-right
+        .pull-left
+          label Input Date Manually &nbsp; &nbsp; &nbsp; &nbsp;
+        .pull-right
+          = f.check_box :m_date_of_formation, data: { class: 'entity_date_of_formation' }, class: 'manually_date'
+
+    .clearfix
+    .form-group.margin-sm-top
+      = f.label "State of Formation"
+      = f.select :jurisdiction, options_for_select(Entity.USSTATES, @entity.jurisdiction), class: "form-control selectize-single"
+    - if @entity.persisted?
+      .field
+        .part123.heading
+          = "#{(100 - Partner.new(super_entity_id: @entity.id).remaining_share_or_interest rescue 0) }% of Partnership Interests have been assigned out of 100%"
+    .clearfix
+      .form-group
+        = f.submit 'Save', class: 'btn btn-sm btn-primary'
+
+
+#popup-should-not-change.corporate
+  = hidden_field_tag "should_not_change[name]", (@entity.persisted? ? @entity.reload["name"] : '')
+  = hidden_field_tag "should_not_change[ein_or_ssn]", (@entity.persisted? ? @entity.ein_or_ssn : '')
+  = hidden_field_tag "should_not_change[date_of_formation]", (@entity.persisted? ? @entity.date_of_formation : '')
+  = hidden_field_tag "should_not_change[submit]", false
+
+  .modal.fade#should-not-change-name tabindex="-1" role="dialog" aria-labelledby="should-not-change-name"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+        .modal-body
+          .heading Name should never change -- are you sure you want to change it?
+        .modal-footer
+          button.btn.btn-default.should-not-change-name-yes type="button"  Yes
+          button.btn.btn-primary.should-not-change-name-cancel data-dismiss="modal" type="button"  Cancel
+
+  .modal.fade#should-not-change-ein tabindex="-2" role="dialog" aria-labelledby="should-not-change-ein"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+        .modal-body
+          .heading EIN number should never change -- are you sure you want to change it?
+        .modal-footer
+          button.btn.btn-default.should-not-change-ein-yes type="button"  Yes
+          button.btn.btn-primary.should-not-change-ein-cancel data-dismiss="modal" type="button"  Cancel
+
+  .modal.fade#should-not-change-date-of-formation tabindex="-3" role="dialog" aria-labelledby="should-not-change-date-of-formation"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+        .modal-body
+          .heading Date Of Formation should never change -- are you sure you want to change it?
+        .modal-footer
+          button.btn.btn-default.should-not-change-date-of-formation-yes type="button"  Yes
+          button.btn.btn-primary.should-not-change-date-of-formation-cancel data-dismiss="modal" type="button"  Cancel
+
+
+/#required_field
+/  | All (*) fields are mandatory

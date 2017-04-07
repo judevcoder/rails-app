@@ -1,0 +1,101 @@
+- url = @client.persisted? ? client_path(@client.key) : clients_path
+- heading = @client.persisted? ? "Edit Client" : "New Client"
+= form_for @client, url: url,remote: (request.xhr?) do |f|
+  - if @client.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@client.errors.count, "error")} prohibited this client from being saved:"
+      ul
+        - @client.errors.full_messages.each do |message|
+          li = message
+
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
+    - unless @client.client_type == "individual"
+      .clearfix
+        h2.heading
+          =heading
+      .clearfix
+      .form-group
+        = label_tag 'Person'
+        = f.radio_button :is_person, true, checked: @client.is_person, class: 'form-control radiobuttons'
+        = f.label "Entity"
+        = f.radio_button :is_person, false, checked: !@client.is_person, class: 'form-control radiobuttons'
+    
+    = f.hidden_field :client_type,value:  params[:client_type] || @client.client_type
+    .form-group style=("#{('display: none;' if @client.is_person)}")
+      .part1
+        | &nbsp;
+      .part2
+        = f.label :entity
+      .part3
+        = f.select :entity_id, options_for_select(current_user.entities_list.order(name: :asc).pluck(:name, :id), f.object.id), {}, class: "selectize-single"
+        .clearfix.add-list-entity-links
+          = link_to "New", "javascript:void(0)", class: "client-form-new-entity pull-left"
+
+    .form-group
+      .part1
+        .contact
+          = "#{(@client.is_person ? '&nbsp;' : 'Contact')}".html_safe
+      .part2.honorific
+        = f.label :honorific
+        = f.check_box :is_honorific, class: ""
+      .part3 style="display: #{(@client.is_honorific ? 'inline' : 'none')}"
+        = f.select :honorific, options_for_select(GeneralMethods.honorific, @client.honorific), {}, {class: "state form-control"}
+    
+
+    .form-group.required
+      = f.label "First Name", class: "control-label"
+      = f.text_field :first_name, class: "form-control"
+
+    .form-group.required
+      = f.label "Last Name",class: "control-label"
+      = f.text_field :last_name, class: "form-control"
+
+    .form-group
+      = f.label :phone1
+      = f.text_field :phone1, class: "form-control"
+
+    .form-group
+      = f.label :phone2
+      = f.text_field :phone2, class: "form-control"
+
+    .form-group
+      = f.label :fax
+      = f.text_field :fax, class: "form-control"
+
+    .form-group
+      = f.label :email
+      = f.text_field :email, class: "form-control"
+    .form-group
+      = f.label :ein_or_ssn, "#{(params[:clinet_type] == "individual") ? 'EIN / SSN' : "SSN"}", "data-toggle" => "tooltip", "title" => "Employment ID Number / Social Security Number"
+      = f.text_field :ein_or_ssn, class: "form-control"
+    .form-group
+      = f.label :postal_address
+      = f.text_field :postal_address, class: "form-control"
+    .form-group
+      = label_tag 'City'
+      = f.text_field :city, class: "form-control city"
+    .form-group
+      = label_tag 'State'
+      = f.select :state, options_for_select((@client.is_person ? GeneralMethods.USSTATES : Entity.USSTATES), @client.state), {}, {class: 'state form-control selectize-single'}
+    .form-group
+      = f.label "Zip"
+      = f.text_field :zip, class: 'zip form-control'
+    .form-group
+      = f.label :notes
+      = f.text_area :notes, class: "form-control"
+    .form-group
+    .clearfix
+    .form-group
+      = f.submit 'Save', class: 'btn btn-sm btn-primary'
+
+    
+
+/! Modal
+#ClientFormNewEntity.modal.fade aria-hidden="true" aria-labelledby="ClientFormNewEntity" role="dialog" tabindex="-5"
+  .modal-dialog
+    .modal-content
+      .model-body
+        | &nbsp;
+      .modal-footer
+        button type="button" class="btn btn-primary btn-xs" data-dismiss="modal"
+          | close

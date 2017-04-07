@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Klass:
+  = @dynamic_field.klass
+p
+  strong Fields:
+  = @dynamic_field.fields
+p
+  strong Validation:
+  = @dynamic_field.validation
+p
+  strong Default value:
+  = @dynamic_field.default_value
+
+= link_to 'Edit', edit_dynamic_field_path(@dynamic_field)
+'|
+= link_to 'Back', dynamic_fields_path

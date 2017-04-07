@@ -1,0 +1,45 @@
+= form_for @entity do |f|
+  - if @entity.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this entity from being saved:"
+      ul
+        - @entity.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    .part1
+      = f.label :name
+    .part2
+      = f.text_field :name
+  .field
+    .part1
+      = f.label :address
+    .part2
+      = f.text_area :address
+  .field
+    .part1
+      = f.label :type_
+    .part2
+      = f.hidden_field :type_
+      strong
+        = MemberType.find(@entity.type_).name rescue 'Please choose correct option'
+  .field
+    .part1
+      = label_tag 'Share/Interest'
+    .part2
+      - if @entity.Corporation?
+        = f.text_field :number_of_share
+      - elsif @entity.LLP? || @entity.LLP?
+        = f.text_field :total_membership_interest
+      - elsif @entity.TenancyinCommon?
+        = f.text_field :total_undivided_interest
+      - elsif @entity.LimitedPartnership?
+        = f.text_field :total_partnership_interest
+      - else
+        = f.text_field :number_of_share
+  .field
+    .part1
+      = f.label "State of Formation"
+    .part2
+      = f.select :jurisdiction, options_for_select(Entity.USSTATES, @entity.jurisdiction), html_options: { class: 'selectize-single'}
+  .actions = f.submit 'Save'

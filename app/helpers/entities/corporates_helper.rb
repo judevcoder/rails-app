@@ -1,0 +1,2 @@
+module Entities::CorporatesHelper
+end

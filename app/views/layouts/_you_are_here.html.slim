@@ -1,0 +1,9 @@
+div.youarehere
+  - if @youarehere.present? && @youarehere.class == Array
+    - index = 0
+    - @youarehere.each do |url|
+      - index += 1
+      .youarehere-url
+        = url.html_safe
+        - if index < @youarehere.size
+          | &nbsp;/&nbsp;

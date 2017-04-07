@@ -1,0 +1,2 @@
+module Entities::TenancyInCommonHelper
+end

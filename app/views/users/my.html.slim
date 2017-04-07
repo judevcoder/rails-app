@@ -1,0 +1,4 @@
+= form_tag({controller: 'users', action: 'my'}, multipart: true) do
+  = text_field_tag 'first_name', @user.first_name
+  = text_field_tag 'last_name', @user.last_name
+  = submit_tag 'save'

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>1031 Exchange</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1"><!--- Empty ---></div>
+    <div class="col-md-2"><!--- Empty ---></div>
+    <div class="col-md-6">
+      <div id="header">
+        <div class="logo"></div>
+        <%= image_tag 'logo.png', :width => '212px', :height=> '73px' %>
+        <div class="cont_bar"></div>
+      </div>
+      <% if flash[:alert] %>
+          <div class='alert-signin'><%= flash[:alert] %></div>
+      <% end %>
+      <% if flash[:notice] %>
+          <div class='alert-signin'><%= flash[:notice] %></div>
+      <% end %>
+    </div>
+    <div class="col-md-2"><!--- Empty ---></div>
+    <div class="col-md-1"><!--- Empty ---></div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-1"><!--- Empty ---></div>
+    <div class="col-md-2"><!--- Empty ---></div>
+    <div class="col-md-6">
+      <%= yield %>
+    </div>
+    <div class="col-md-2"><!--- Empty ---></div>
+    <div class="col-md-1"><!--- Empty ---></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"><!--- Empty ---></div>
+    <div class="col-md-1"><!--- Empty ---></div>
+    <div class="col-md-6">
+      <div class="pull-left">
+        1031 Exchange Management, LLC
+      </div>
+      <div class="pull-right">
+        <a href="/users/sign_in">Login</a>
+      </div>
+    </div>
+    <div class="col-md-1"><!--- Empty ---></div>
+    <div class="col-md-2"><!--- Empty ---></div>
+  </div>
+</div>
+</body>
+</html>

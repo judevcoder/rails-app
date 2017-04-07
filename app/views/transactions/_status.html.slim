@@ -1,0 +1,28 @@
+= form_for(@transaction_main, url: set_status_transaction_path(@transaction_main, main_id: @transaction_main.id, type: params[:type])) do |f|
+
+  - if @transaction_main.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@transaction_main.errors.count, 'error')} prohibited this transaction from being saved:"
+      ul
+        - @transaction_main.errors.full_messages.each do |message|
+          li = message
+
+  - if f.object.sale
+    .col-lg-3.col-md-3.col-sm-12.col-xs-12.margin-md-left
+      .clearfix.margin-sm-top
+        h2.heading_without_padding_large
+          | Sale
+      .form-group
+        = f.select :sale_status, options_for_select(['Pre LOI', 'LOI to PSA', 'Inspection Period', 'Inspection Period to Closing', 'Closing Date Set', 'Post Closing'], f.object.sale.status), {}, class: 'select2 sale_transaction_status'
+
+  - if f.object.purchase
+    .col-lg-3.col-md-3.col-sm-12.col-xs-12.margin-md-left
+      .clearfix.margin-sm-top
+        h2.heading_without_padding_large
+          | Purchase
+      .form-group
+        = f.select :purchase_status, options_for_select(['Pre LOI', 'LOI to PSA', 'Inspection Period', 'Inspection Period to Closing', 'Closing Date Set', 'Post Closing'], f.object.purchase.status), {}, class: 'select2 purchase_transaction_status'
+
+  .clearfix.margin-sm-top
+  .form-group
+    = f.submit 'Save', class: 'btn btn-sm btn-primary'

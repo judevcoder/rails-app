@@ -1,0 +1,34 @@
+.heading
+  = "List of #{@entity.name} 's Spouses"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | Property Address
+      th
+        | Type
+      th
+        | EIN / Social
+      th
+        | Email
+      th
+        | Dividend Interest
+      th
+        | Actions
+  tbody
+    - @spouses.each do |object|
+      tr
+        td
+          = object.try(:name)
+        td
+          = object.member_type.try(:name)
+        td
+          = object.ein_or_ssn
+        td
+          = object.email
+        td
+          = object.my_percentage
+        td.actions
+          = link_to 'E', entities_tenancy_by_entirety_spouse_path( @entity.key, object.id ), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'D', entities_tenancy_by_entirety_spouse_path( object.id ), data: {:confirm => 'Are you sure?'}, :method => :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

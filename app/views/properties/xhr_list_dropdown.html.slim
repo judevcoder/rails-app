@@ -1,0 +1,7 @@
+.ClientFormEntityPickFormList
+  - @entities.each do |entity|
+    - next if entity.name.blank?
+    .clearfix
+    .ind-entity-popup data-id="#{entity.id}" data-klass="#{@klass}" data-name="#{entity.name}"
+      .object-text
+        = entity.name

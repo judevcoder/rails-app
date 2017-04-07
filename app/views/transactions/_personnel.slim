@@ -1,0 +1,64 @@
+.clearfix.margin-lg-top
+  - TransactionPersonnel::FIXED_TITLE.each do |title|
+    - contact = @transaction.transaction_personnel.contacts.find_by(object_title: title)
+    - next if contact.blank?
+    = link_to contact.object_title, personnel_transaction_path(@transaction, sub: 'personnel', sub_sub: contact.object_title, type: params[:type], main_id: params[:main_id]), class: "btn btn-sm btn-default margin-sm-left #{'active' if params[:sub] == 'personnel' && ( (params[:sub_sub] || @transaction_personnel.contacts.first.object_title) == contact.object_title ) } #{'disabled' if params[:main] == 'status'}"
+
+.clearfix.margin-lg-top
+
+- if @transaction.persisted?
+  - options = %w(Active Completed InActive)
+- else
+  - options = [ 'Active']
+
+= nested_form_for(@transaction_personnel, as: :transaction, url: personnel_update_transaction_path(@transaction, sub: params[:sub], sub_sub: params[:sub_sub], main_id: params[:main_id], type: params[:type])) do |f|
+  - if @transaction_personnel.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@transaction_personnel.errors.count, 'error')} prohibited this transaction from being saved:"
+      ul
+        - @transaction_personnel.errors.full_messages.each do |message|
+          li = message
+
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12
+    = f.fields_for :contacts do |c_builder|
+      - if c_builder.object.object_title == (params[:sub_sub] || @transaction_personnel.contacts.first.object_title)
+        .form-group
+          = c_builder.hidden_field :object_title
+          label First Name
+          = c_builder.text_field :first_name, class: 'form-control'
+        .form-group
+          label Last Name
+          = c_builder.text_field :last_name, class: 'form-control'
+        .form-group
+          label Email
+          = c_builder.text_field :email, class: 'form-control'
+        .form-group
+          label Phone1
+          = c_builder.text_field :phone1, class: 'form-control'
+        .form-group
+          label Phone2
+          = c_builder.text_field :phone2, class: 'form-control'
+        .form-group
+          label Fax
+          = c_builder.text_field :phone2, class: 'form-control'
+        .form-group
+          label Street Address
+          = c_builder.text_area :street_address, class: 'form-control'
+        .form-group
+          label City
+          = c_builder.text_field :city, class: 'form-control'
+        .form-group
+          label State
+          = c_builder.select :state, options_for_select(GeneralMethods.USSTATES, c_builder.object.state), {}, class: 'form-control selectize-single'
+        .form-group
+          label Zip
+          = c_builder.text_field :zip, class: 'form-control'
+
+  .clearfix.margin-lg-top
+  .form-group
+    - if TransactionPersonnel::FIXED_TITLE.find_previous(params[:sub_sub])
+      = link_to 'Back', modify_query($header_links[:personnel], sub_sub: TransactionPersonnel::FIXED_TITLE.find_previous(params[:sub_sub])), class: 'btn btn-primary next-prev margin-sm-right'
+    - else
+      = link_to 'Back', $header_links[:properties], class: 'btn btn-primary next-prev margin-sm-right'
+
+    = f.submit 'Save & Next', class: 'btn btn-primary next-prev'

@@ -1,0 +1,36 @@
+!!!
+%html
+  %head
+    %title Messenger
+    = stylesheet_link_tag    "application", media: "all"
+    %link{:href => "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css", :rel => "stylesheet"}
+      %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+        %script{:src => "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"}
+        = csrf_meta_tags
+        -#- if @admin_signed_in?
+  %body
+    .wrapper
+      #header
+        .logo
+          .cont_bar
+      - if flash[:alert]
+        .alert-signin= flash[:alert]
+      .content
+        .wrapper_main_container
+          .main_container
+            = yield
+      #footer.gradient-footer
+        .cont_footer
+          .branding
+            .logo
+            %span
+              DVNO, LLC
+          %ul
+            %li
+              - begin
+                - if params[:action].downcase == 'login'
+                  %a{:href => "/admin/account/signup"} SignUp
+                - else
+                  %a{:href => "/admin/account/login"} Login
+              - rescue
+                %a{:href => "/users/sign_in"} Login

@@ -1,0 +1,34 @@
+= form_tag( {controller: 'procedure/actions', action: 'member', id: @action.key}, method: :post, remote: true, class: 'procedure_action_member' )do
+  = select_tag 'permission_type', options_for_select([['read', 1], ['write', 2], ['admin', 3]])
+  .procedure_action_member
+    .email
+      = text_field_tag 'email', nil, class: 'action-member-email', 'autocomplete' => 'off'
+      span.old-action-member-email style=("display: none")
+        |
+    .autocomplete style=("display: none")
+
+  = submit_tag 'update'
+
+table#data_table
+  thead
+    tr
+      th
+        | Email
+      th
+        | Permission
+      th
+        | Action
+
+  tbody
+    - @action.access_resources.each do |access_resource|
+      tr
+        td
+          = access_resource.user.email rescue 'Error'
+        td
+          - if (access_resource.user.email rescue 'Error') == current_user.email
+            | Owner
+          - else
+            = select_tag 'permission_type', options_for_select([['read', 1], ['write', 2], ['admin', 3]], access_resource.permission_type), 'user-email' => (access_resource.user.email rescue nil), 'resource_key' => @action.key
+        td
+          - unless (access_resource.user.email rescue 'Error') == current_user.email
+            = link_to 'remove', {controller: 'procedure/actions', action: 'member', id: @action.key, email: (access_resource.user.email rescue 'Error')}, method: :delete, remote: true, class: 'tw-delete'

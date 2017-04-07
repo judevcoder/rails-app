@@ -1,0 +1,108 @@
+- if @transaction.persisted?
+  - options = %w(Active Completed InActive)
+- else
+  - options = [ 'Active']
+
+= form_for(@transaction, as: :transaction) do |f|
+  = hidden_field_tag :sub, params[:sub]
+  = hidden_field_tag :type, params[:type]
+  = hidden_field_tag :main_id, params[:main_id]
+
+  - if @transaction.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@transaction.errors.count, 'error')} prohibited this transaction from being saved:"
+      ul
+        - @transaction.errors.full_messages.each do |message|
+          li = transaction_message_filter(message)
+
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12
+    .clearfix.margin-sm-top
+      h2.heading_without_padding_large
+        = "Relinquishing Seller #{require_field}".html_safe
+    .form-group
+      .pull-left.margin-sm-top
+        .heading_blue
+          span Person
+          span.margin-md-left = f.radio_button :seller_person_is, true, checked: f.object.seller_person_is?, class: 'form-control radiobuttons'
+      .pull-left.margin-sm-top
+        .heading_blue
+          span Entity
+          span.margin-md-left = f.radio_button :seller_person_is, false, checked: !f.object.seller_person_is?, class: 'form-control radiobuttons'
+
+    .clearfix
+    .form-group
+      = hidden_field_tag :seller_info, @transaction.try(:seller_info)
+      = hidden_field_tag :status_alert, "#{ params[:status_alert] || (f.object.status.present? ? nil : 'Sale Pre LOI')}"
+      = hidden_field_tag :transaction_klazz, @transaction.class.to_s
+      = f.hidden_field :transaction_main_id
+
+    .form-group.sale-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.seller_person_is?)}")
+      = f.select :seller_entity_id, options_for_select(Entity.where.not(name: [nil, '']).pluck(:name, :id), f.object.seller_entity_id), {include_blank: true}, class: 'selectize-single'
+      - if f.object.persisted? && f.object.seller_entity.present?
+        .clearfix.margin-sm-top
+        = link_to f.object.seller_entity.name, entity_path(f.object.seller_entity.key), target: '_blank'
+
+    .form-group.sale-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.seller_person_is?)}")
+      = label_tag 'Honorific'
+      span.margin-md-left
+        = f.check_box :seller_honorific_is, class: ""
+      .clearfix.margin-sm-top.transaction_seller_honorific style="display: #{(f.object.seller_honorific_is? ? 'inline' : 'none')}"
+        = f.select :seller_honorific, options_for_select(GeneralMethods.honorific, f.object.seller_honorific), {}, { class: "state form-control" }
+
+    .form-group.sale-tr-pr-detail style=("#{('display: none;' unless f.object.seller_person_is?)}")
+      = label_tag 'First Name'
+      = f.text_field :seller_first_name, class: "form-control"
+
+    .form-group.sale-tr-pr-detail style=("#{('display: none;' unless f.object.seller_person_is?)}")
+      = label_tag 'Last Name'
+      = f.text_field :seller_last_name, class: "form-control"
+
+    .clearfix.margin-sm-top
+      h2.heading_without_padding_large
+        = "Relinquishing Purchaser".html_safe
+    .form-group
+      .pull-left.margin-sm-top
+        .heading_blue
+          span Person
+          span.margin-md-left = f.radio_button :purchaser_person_is, true, checked: f.object.purchaser_person_is?, class: 'form-control radiobuttons'
+
+      .pull-left.margin-sm-top
+        .heading_blue
+          span Entity
+          span = f.radio_button :purchaser_person_is, false, checked: !f.object.purchaser_person_is?, class: 'form-control radiobuttons'
+
+    .clearfix
+    .form-group.purchase-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.purchaser_person_is?)}")
+      = f.select :purchaser_entity_id, options_for_select(Entity.where.not(name: [nil, '']).pluck(:name, :id), f.object.purchaser_entity_id), {include_blank: true}, class: 'selectize-single'
+      - if f.object.persisted? && f.object.purchaser_entity.present?
+        .clearfix.margin-sm-top
+        = link_to f.object.purchaser_entity.name, entity_path(f.object.purchaser_entity.key), target: '_blank'
+
+    .form-group.purchase-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.purchaser_person_is?)}")
+      = label_tag 'Honorific'
+      span.margin-md-left
+        = f.check_box :purchaser_honorific_is, class: ""
+      .clearfix.margin-sm-top.transaction_purchaser_honorific style="display: #{(f.object.purchaser_honorific_is? ? 'inline' : 'none')}"
+        = f.select :purchaser_honorific, options_for_select(GeneralMethods.honorific, f.object.purchaser_honorific), {}, { class: "state form-control" }
+
+    .form-group.purchase-tr-pr-detail style=("#{('display: none;' unless f.object.purchaser_person_is?)}")
+      = label_tag 'First Name'
+      = f.text_field :purchaser_first_name, class: "form-control"
+
+    .form-group.purchase-tr-pr-detail style=("#{('display: none;' unless f.object.purchaser_person_is?)}")
+      = label_tag 'Last Name'
+      = f.text_field :purchaser_last_name, class: "form-control"
+
+    - initial_status = f.object.status.blank? || f.object.new_record?
+    - if initial_status && f.object.is_a?(TransactionSale) && !f.object.has_purchase?
+      .clearfix.margin-sm-top
+      h2.heading_without_padding_large
+        = initial_status ? 'Initial Status' : 'Status'
+
+      .clearfix
+      .form-group.margin-sm-top
+        = f.select :status, options_for_select(['Pre LOI', 'LOI to PSA', 'Inspection Period', 'Inspection Period to Closing', 'Closing Date Set', 'Post Closing'], f.object.status), {}, class: "select2 #{(initial_status ? 'initial_status' : '')} #{f.object.Sale? ? 'sale_transaction_status' : 'purchase_transaction_status'}"
+
+    .clearfix.margin-lg-top
+    .form-group
+      = f.submit 'Save & Next', class: 'btn btn-primary next-prev'

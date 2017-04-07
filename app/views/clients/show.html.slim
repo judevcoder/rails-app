@@ -1,0 +1,70 @@
+.field
+  .part1
+    | Entity:
+  .part2
+    - if @client.is_person?
+      | N/A
+    - else
+      = @client.entity
+.field
+  .part1
+    | First Name:
+  .part2
+    = @client.first_name
+.field
+  .part1
+    | Last Name:
+  .part2
+    = @client.last_name
+.field
+  .part1
+    | Phone1:
+  .part2
+    = @client.phone1
+.field
+  .part1
+    | Phone2:
+  .part2
+    = @client.phone2
+.field
+  .part1
+    | Fax:
+  .part2
+    = @client.fax
+.field
+  .part1
+    | Email:
+  .part2
+    = @client.email
+.field
+  .part1
+    | Postal Address:
+  .part2
+    = @client.postal_address
+.field
+  .part1
+    | City:
+  .part2
+    = @client.city
+.field
+  .part1
+    | State:
+  .part2
+    = @client.state
+.field
+  .part1
+    | Zip:
+  .part2
+    = @client.zip
+.field
+  .part1
+    | Notes:
+  .part2
+    = @client.notes
+
+.clearfix
+= link_to 'Edit', edit_client_path(@client.key), class: "btn btn-primary btn-xs"
+.clearfix
+- @transactions = @client.transaction_sales
+/== render template: 'transactions/index'
+= link_to 'Add Transaction', new_transaction_path(pid: @client.key), class: "btn btn-primary btn-xs"

@@ -1,0 +1,21 @@
+.clearfix
+div.col-lg-10
+  - @comments.each do |comment|
+    div.comment-main
+      div.comment-right.pull-left
+        | name
+        .clearfix
+        div.comment-list data-id="#{comment.id}"
+          .ind-comment
+            = simple_format(comment.comment) rescue ''
+          .clearfix
+          
+    .clearfix
+    .comment-time
+      = "#{time_ago_in_words(comment.created_at)} ago"
+    hr
+- unless @xhr_request
+  div.col-lg-2
+    = link_to 'Members', {controller: 'procedure/actions', action: 'member', id: @action.key}, remote: true, class: 'action_member tw-edit'
+    = link_to 'Checklists', {controller: 'procedure/actions', action: 'checklist', id: @action.key}, remote: true, class: 'action_checklists tw-edit'
+    

@@ -1,0 +1,139 @@
+// Project#show
+div.project-heading
+  border-radius: 5px
+  box-shadow: 0 1px 2px rgba(0,0,0,.23)
+  clear: both
+  cursor: pointer
+  display: block
+  margin: 15px 5px 5px 5px
+  overflow: hidden
+  padding: 9px 11px
+  text-overflow: ellipsis
+  .title
+    font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana"
+    color: #262626
+    font-size: 15px
+    line-height: 16px
+    font-style: normal
+    font-variant: jis90
+    padding: 5px 2px
+    font-weight: bold
+    clear: both
+  .description
+    font-size: 12px
+    line-height: 13px
+    color: #2E2F30
+    font-style: italic
+    padding-top: 10px
+    clear: both
+  .created_at
+    float: right
+    padding-right: 100px
+    padding-top: 10px
+    font-size: 11px
+    color: #15488E
+    font-weight: 300
+
+div.property-heading
+  @extend .project-heading
+
+.project-index
+  .project
+    display: block
+    padding: 10px
+    background: #148BB3
+    color: white
+    margin: 5px
+    width: 400px
+    height: auto
+    cursor: pointer
+    font-weight: bold
+    line-height: 14px
+    font-size: 15px
+  .description
+    font-style: italic
+    font-size: 11px
+    font-weight: 300
+    color: #E8ECED
+    width: 400px
+  .settings
+    position: absolute
+    width: 200px
+    height: 100px
+    background: #ffffff
+    padding: 5px
+    z-index: 2
+    display: inline-block
+    border-radius: 3px
+    border: 1px solid #d6dadc
+    border-bottom-color: #c4c9cc
+    box-shadow: 0 1px 6px rgba(0,0,0,.15)
+    a
+      font-size: 12px
+      text-decoration: none
+      font-weight: 400
+  .action
+    float: right
+.projectSettings-content
+  height: 400px
+  padding: 20px 10px
+  background: #edeff0
+
+.project-title
+  font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana"
+  color: #262626
+  font-size: 15px
+  font-style: normal
+  font-variant: jis90
+  padding: 5px 2px
+  font-weight: bold
+  clear: both
+  input
+    width: 400px !important
+
+.project-description
+  font-size: 12px
+  color: #2E2F30
+  font-style: italic
+  padding-top: 10px
+  clear: both
+  textarea
+    width: 400px !important
+    height: 150px !important
+.add-new-project
+  .heading
+    padding: 10px
+    font-size: 15px
+    line-height: 16px
+    font-weight: 600
+
+.heading
+  font-family: arial, sans-serif
+  font-size: 14px
+  color: #393972
+  position: relative
+  margin-bottom: 20px
+  font-weight: bold
+
+.heading_without_padding
+  font-family: arial, sans-serif
+  font-size: 16px
+  color: #393972
+  position: relative
+  margin-bottom: 20px
+  font-weight: bold
+
+.heading_without_padding_large
+  font-family: arial, sans-serif
+  font-size: 20px
+  color: #393972
+  position: relative
+  margin-bottom: 20px
+  font-weight: bold
+
+.heading_blue
+  font-family: arial, sans-serif
+  font-size: 14px
+  color: #393972
+  position: relative
+  font-weight: bold

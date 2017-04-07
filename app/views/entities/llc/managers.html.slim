@@ -1,0 +1,30 @@
+.heading
+  = "List of #{@entity.name}'s Managers"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | First Name
+      th
+        | Last Name
+      th
+        | Email
+      th
+        | phone1
+      th
+        | Actions
+  tbody
+    - @managers.each do |manager|
+      tr
+        td
+          = manager.first_name
+        td
+          = manager.last_name
+        td
+          = manager.email
+        td
+          = manager.phone1
+        td
+          = link_to 'Edit', entities_llc_managers_path(@entity.key, manager.id), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'Delete', entities_llc_managers_path(manager.id), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

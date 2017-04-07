@@ -1,0 +1,34 @@
+.heading
+  = "List of #{@entity.try(:name)}'s General Partners"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | First Name
+      th
+        | Last Name
+      th
+        | Entity
+      th
+        | Email  
+      th
+        | phone1
+      th
+        | Actions
+  tbody
+    - @partners.each do |partner|
+      tr
+        td
+          = partner.first_name
+        td
+          = partner.last_name
+        td
+          = partner.entity.try(:name)
+        td
+          = partner.email
+        td
+          = partner.phone1
+        td
+          = link_to 'Edit', entities_limited_partnership_general_partner_path(@entity.key, partner.id), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'Delete', entities_limited_partnership_general_partner_path(partner.id, key: @entity.key), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

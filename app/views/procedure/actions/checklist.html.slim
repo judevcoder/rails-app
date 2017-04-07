@@ -1,0 +1,10 @@
+- @checklists.each do |checklist|
+  .checklist-update-main
+    span.checklist-title data-id = "#{checklist.id}" p-data-id="#{@key}"
+      = checklist.title
+    span.action-delete   = link_to 'x', {controller: 'procedure/actions', action: 'checklist', 'id' => checklist.id}, method: :delete, 'data-id' => @key, class: 'checklist-delete', remote: true
+
+div.clearfix
+= form_tag(({controller: 'procedure/actions', action: 'checklist', 'id' => @key}), method: :post, remote: true, class: 'add-checklist', 'data-id' => @key) do
+  = text_field_tag :title
+  = submit_tag 'save'

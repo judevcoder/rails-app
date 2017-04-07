@@ -1,0 +1,30 @@
+.heading
+  = "List of #{@entity.name}'s Officers"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | First Name
+      th
+        | Last Name
+      th
+        | Email
+      th
+        | Phone1
+      th
+        | Actions
+  tbody
+    - @officers.each do |officer|
+      tr
+        td
+          = officer.first_name
+        td
+          = officer.last_name
+        td
+          = officer.email
+        td
+          = officer.email
+        th
+          = link_to 'Edit', entities_corporates_officer_path(@entity.key, officer.id), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'Delete', entities_corporates_officer_path(officer.id), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

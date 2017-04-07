@@ -1,0 +1,83 @@
+.member-form-model
+  = form_for @member, remote: true, :data => {"data-parsley-validate" => ""} do |f|
+    - if @member.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@member.errors.count, "error")} prohibited this project from being saved:"
+        ul
+          - @member.errors.full_messages.each do |message|
+            li = message
+    = f.hidden_field :resource_id
+    .field-small
+      .part1
+        | First Name / Entity Name
+      .part2
+        = f.text_field :first_name_or_entity_name
+    .field-small
+      .part1
+        | Last Name
+      .part2
+        = f.text_field :last_name
+    .field-small
+      .part1
+        | Email
+      .part2
+        = f.text_field :email
+    .field-small
+      .part1
+        | Phone Number
+      .part2
+        = f.text_field :phone_number
+    .field-small
+      .part1
+        | Snail Mail Address
+      .part2
+        = f.text_area :snail_mail_address
+    - if @member.Corporation?
+      .field-small
+        .part1
+          | Number of Share
+        .part2
+          = f.text_field :number_of_share, :data => {"data-parsley-max" => "#{@member.remaining_share_or_interest}"}
+    - if @member.LLC? || @member.LLP?
+      .field-small
+        .part1
+          | Membership Percentage
+        .part2
+          = f.text_field :membership_percentage, :data => {"data-parsley-max" => "#{@member.remaining_share_or_interest}"}
+    - if @member.LLC? || @member.LLP?
+      .field-small
+        .part1
+          | Tax Member
+        .part2
+          = f.hidden_field :tax_member, value: false
+          = f.check_box :tax_member, {}, true
+    - if @member.LLC? || @member.LLP?
+      .field-small
+        .part1
+          | Managing Member
+        .part2
+          = f.hidden_field :managing_member, value: false
+          = f.check_box :managing_member, {}, true
+    -  if @member.TenancyinCommon?
+      .field-small
+        .part1
+          | Undivided Interest
+        .part2
+          = f.text_field :undivided_interest, :data => {"data-parsley-max" => "#{@member.remaining_share_or_interest}"}
+    - if @member.LimitedPartnership?
+      .field-small
+        .part1
+          | Partnership Interest
+        .part2
+          = f.text_field :partnership_interest, :data => {"data-parsley-max" => "#{@member.remaining_share_or_interest}"}
+    -  if @member.LimitedPartnership?
+      .field-small
+        .part1
+          | General Partner
+        .part2
+          = f.hidden_field :general_partner, value: false
+          = f.check_box :general_partner, {}, true
+    .field-small
+      .part1
+        = f.submit
+  .clearfix

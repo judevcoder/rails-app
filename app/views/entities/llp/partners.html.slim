@@ -1,0 +1,30 @@
+.heading
+  = "List of #{@entity.name}'s Partners"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | First Name
+      th
+        | Last Name
+      th
+        | Email
+      th
+        | phone1
+      th
+        | Actions
+  tbody
+    - @partners.each do |partner|
+      tr
+        td
+          = partner.first_name
+        td
+          = partner.last_name
+        td
+          = partner.email
+        td
+          = partner.phone1
+        td
+          = link_to 'Edit', entities_llp_partners_path(@entity.key, partner.id), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'Delete', entities_llp_partners_path(partner.id), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

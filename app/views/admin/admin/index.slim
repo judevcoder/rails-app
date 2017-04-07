@@ -1,0 +1,6 @@
+.clearfix.margin-lg-top
+- if resources.present?
+  = display_standard_table(resources.first.class, resources, {table_id: 'data_table'})
+
+  .clearfix.margin-lg-top
+  = will_paginate resources

@@ -1,0 +1,2 @@
+class DynamicField < ApplicationRecord
+end

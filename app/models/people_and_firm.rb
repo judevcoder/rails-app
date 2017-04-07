@@ -1,0 +1,3 @@
+class PeopleAndFirm < ApplicationRecord
+
+end

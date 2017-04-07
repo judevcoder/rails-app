@@ -1,0 +1,11 @@
+.project.pull-left
+  .title = @property.title
+  .clearfix
+  .description = @property.description
+  .clearfix
+  .show-path
+    = link_to 'Show', property_path(@property.key), class: 'tw-show'
+    = link_to 'Edit', edit_property_path(@property.key), class: 'tw-edit'
+    = link_to 'Settings', property_setting_path(id: @property.key), class: 'tw-edit'
+    = link_to 'Destroy', property_path(@property.key), data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'tw-delete'
+  .clearfix

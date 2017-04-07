@@ -1,0 +1,21 @@
+= form_for @dynamic_field do |f|
+  - if @dynamic_field.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@dynamic_field.errors.count, "error")} prohibited this dynamic_field from being saved:"
+      ul
+        - @dynamic_field.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :klass
+    = f.text_field :klass
+  .field
+    = f.label :fields
+    = f.text_area :fields
+  .field
+    = f.label :validation
+    = f.text_area :validation
+  .field
+    = f.label :default_value
+    = f.text_area :default_value
+  .actions = f.submit 'Save'

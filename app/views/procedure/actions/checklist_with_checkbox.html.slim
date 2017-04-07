@@ -1,0 +1,6 @@
+- @checklists.each do |checklist|
+  .checklist-main
+    = check_box_tag 'checklist_checked', nil, checklist.checked, 'data-id' => checklist.id
+    span.checklist_title style=("#{(checklist.checked ? 'text-decoration: line-through' : '')}")
+      = checklist.title
+  .clearfix

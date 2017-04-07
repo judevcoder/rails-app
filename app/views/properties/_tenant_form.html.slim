@@ -1,0 +1,47 @@
+= nested_form_for @property, remote: (request.xhr?), html: { class: "new_property#{('_xhr' if request.xhr?)}" } do |f|
+  = hidden_field_tag :type_is, params[:type_is]
+  - if @property.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@property.errors.count, "error")} prohibited this Property from being saved:"
+      ul
+        - @property.errors.full_messages.each do |message|
+          li = message
+
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12
+    .clearfix
+    .form-group
+      = label_tag 'Tenant'
+      = f.select :tenant_is, Property::TENANTS, {}, class: 'form-control selectize-single'
+    .form-group
+      = label_tag 'Contact Name'
+      = f.text_field :tenant_contact_name, class: 'form-control'
+    .form-group
+      = label_tag 'Contact Company'
+      = f.text_field :tenant_contact_company, class: 'form-control'
+    .form-group
+      = label_tag 'Contact Phone'
+      = f.text_field :tenant_contact_phone, class: 'form-control'
+    .form-group
+      = label_tag 'Contact Email'
+      = f.text_field :tenant_contact_email, class: 'form-control'
+    .form-group
+      = label_tag 'Contact Fax'
+      = f.text_field :tenant_contact_fax, class: 'form-control'
+    .form-group
+      = label_tag 'Contact Street Address'
+      = f.text_area :tenant_contact_street_address, class: 'form-control'
+    .form-group
+      = label_tag 'State'
+      = f.text_area :tenant_state, class: 'form-control'
+    .form-group
+      = label_tag 'City'
+      = f.text_area :tenant_city, class: 'form-control'
+    .form-group
+      = label_tag 'County'
+      = f.text_area :tenant_county, class: 'form-control'
+    .form-group
+      = label_tag 'Store Number'
+      = f.text_field :tenants_store_number, class: 'form-control'
+  .clearfix
+  .form-group
+    = f.submit 'Save', class: 'btn btn-sm btn-primary'
