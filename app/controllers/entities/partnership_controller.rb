@@ -74,6 +74,7 @@ class Entities::PartnershipController < ApplicationController
       end
     elsif request.delete?
       partner = Partner.find( params[:id] )
+      @entity = partner.super_entity
       partner.delete
       @partners = partner.super_entity.partners
       return render layout: false, template: "entities/partnership/partners"

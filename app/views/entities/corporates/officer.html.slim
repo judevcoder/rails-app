@@ -1,4 +1,5 @@
 = form_for @officer, url: entities_corporates_officer_path(@entity.key, @officer.id), remote: true, html: {class: "entity-page-xhr"} do |f|
+  
   - if @officer.errors.any?
     #error_explanation
       h2 = "#{pluralize(@officer.errors.count, "error")} prohibited this Officer from being saved:"
@@ -13,8 +14,8 @@
         = f.select :person_type, options_for_select(["President", "Vice-President", "Secretary", "Treasurer", "Chief Operating Officer", "Chief Technology Officer", "Chief Financial Officer", "Other"], @officer.person_type), {}, {class: "state"}
         - if @officer.person_type.present? && !["President", "Vice-President", "Secretary", "Treasurer", "Chief Operating Officer", "Chief Technology Officer", "Chief Financial Officer"].include?(@officer.person_type)
           input type="text" value="#{@officer.person_type}" name="officer[person_type]" id="officer_person_type" style="clear: both; display: block; margin-top: 5px; margin-bottom: 5px; width: 60%"
-    .form-group
-      = f.label :office
+    .form-group.required
+      = f.label :office, class: "control-label"
       = f.text_area :office, class: "form-control"
     .form-group
       .part2.honorific

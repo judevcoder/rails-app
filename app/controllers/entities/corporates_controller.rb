@@ -73,6 +73,7 @@ class Entities::CorporatesController < ApplicationController
       end
     elsif request.delete?
       director = Director.find(params[:id])
+      @entity = director.super_entity
       director.delete
       @directors = director.super_entity.directors
       return render layout: false, template: "entities/corporates/directors"
@@ -115,6 +116,7 @@ class Entities::CorporatesController < ApplicationController
       end
     elsif request.delete?
       officer = Officer.find(params[:id])
+      @entity = officer.entity
       officer.delete
       @officers = officer.entity.officers
       return render layout: false, template: "entities/corporates/officers"

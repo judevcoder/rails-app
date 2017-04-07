@@ -4,16 +4,8 @@
       h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Judge from being saved:"
       ul
         - override_active_record_errors(@entity.errors.messages, {}).each do |message|
-          li = message
-  .field
-    .part123
-      .heading
-        = "Edit The Honorable #{@entity.name}'s Contact Info"
-  
+          li = message  
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
-    .clearfix
-      .h4
-        = "Edit The Honorable #{@entity.name}'s Contact Info"
     .form-group
       = f.label :county
       = f.text_field :county, class: "form-control"

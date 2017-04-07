@@ -73,6 +73,7 @@ class Entities::TrustController < ApplicationController
       end
     elsif request.delete?
       settlor = Settlor.find( params[:id] )
+      @entity = settlor.super_entity
       settlor.delete
       @settlors = settlor.super_entity.settlors
       return render layout: false, template: "entities/trust/settlors"
@@ -115,6 +116,7 @@ class Entities::TrustController < ApplicationController
       end
     elsif request.delete?
       trustee = Trustee.find( params[:id] )
+      @entity = trustee.super_entity
       trustee.delete
       @trustees = trustee.super_entity.trustees
       return render layout: false, template: "entities/trust/trustees"
@@ -157,6 +159,7 @@ class Entities::TrustController < ApplicationController
       end
     elsif request.delete?
       beneficiary = Beneficiary.find( params[:id] )
+      @entity = beneficiary.super_entity
       beneficiary.delete
       @beneficiaries = beneficiary.super_entity.beneficiaries
       return render layout: false, template: "entities/trust/beneficiaries"

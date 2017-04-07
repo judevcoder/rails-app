@@ -31,6 +31,8 @@ class Entity < ApplicationRecord
   has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"
   has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"
   has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"
+  has_many :principales, ->{where(class_name: "Principal")}, class_name: "Principal", foreign_key: "super_entity_id"
+  has_many :agents, ->{where(class_name: "Agent")}, class_name: "Agent", foreign_key: "super_entity_id"
   has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"
   has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"
   has_many :settlors, ->{where(class_name: "Settlor")}, class_name: "Settlor", foreign_key: "super_entity_id"

@@ -158,6 +158,16 @@ Rails.application.routes.draw do
     get "power_of_attorney/basic_info/(:entity_key)" => "power_of_attorney#basic_info", as: :power_of_attorney_basic_info
     post "power_of_attorney/basic_info/(:entity_key)" => "power_of_attorney#basic_info"
     patch "power_of_attorney/basic_info/:entity_key" => "power_of_attorney#basic_info"
+    #get "power_of_attorney/limited_partners/:entity_key/(:id)" => "power_of_attorney#limited_partners", as: :limited_partnership_limited_partners
+    get "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal", as: :power_of_attorney_principal
+    post "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
+    patch "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
+    delete "power_of_attorney/principal/:id" => "power_of_attorney#principal"
+
+    get "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent", as: :power_of_attorney_agent
+    post "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent"
+    patch "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent"
+    delete "power_of_attorney/agent/:id" => "power_of_attorney#agent"
 
   end
 

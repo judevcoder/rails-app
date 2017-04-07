@@ -26,5 +26,5 @@ table#data_table
         td
           = settlor.phone1
         td
-          = link_to "Edit", entities_trust_settlors_path( @entity.key, settlor.id ), remote: true, class: "#{edit_xs} entity-page-xhr"
-          = link_to "Delete", entities_trust_settlors_path( settlor.id ), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"
+          = link_to "Edit", entities_trust_settlor_path( @entity.key, settlor.id ), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to "Delete", entities_trust_settlor_path( settlor.id ), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

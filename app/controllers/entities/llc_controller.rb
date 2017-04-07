@@ -74,6 +74,7 @@ class Entities::LlcController < ApplicationController
     elsif request.delete?
       manager = Manager.find( params[:id] )
       manager.delete
+      @entity = manager.super_entity
       @managers = manager.super_entity.managers
       return render layout: false, template: "entities/llc/managers"
     end

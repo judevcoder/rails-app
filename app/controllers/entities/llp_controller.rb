@@ -57,24 +57,25 @@ class Entities::LlpController < ApplicationController
     if request.post?
       @partner                 = Partner.new( partner_params )
       @partner.super_entity_id = @entity.id
-      @partner.class_name      = "LimitedPartner"
+      @partner.class_name      = "Partner"
       if @partner.save
-        @partners             = @partner.super_entity.limited_partners
+        @partners             = @partner.super_entity.partners
         return render layout: false, template: "entities/llp/partners"
       else
         return render layout: false, template: "entities/llp/partner"
       end
     elsif request.patch?
       if @partner.update(partner_params)
-        @partners             = @partner.super_entity.limited_partners
+        @partners             = @partner.super_entity.partners
         return render layout: false, template: "entities/llp/partners"
-      else
+      else  
         return render layout: false, template: "entities/llp/partner"
       end
     elsif request.delete?
       partner = Partner.find( params[:id] )
+      @entity = partner.super_entity
       partner.delete
-      @partners = partner.super_entity.limited_partners
+      @partners = partner.super_entity.partners
       return render layout: false, template: "entities/llp/partners"
     end
     render layout: false if request.xhr?
@@ -83,7 +84,7 @@ class Entities::LlpController < ApplicationController
   def partners
     @entity               = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
-    @partners             = @entity.limited_partners
+    @partners             = @entity.partners
     render layout: false if request.xhr?
   end
 

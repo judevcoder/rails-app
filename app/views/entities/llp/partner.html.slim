@@ -47,13 +47,13 @@
       = f.label :postal_address
       = f.text_field :postal_address, class: "form-control"
     .form-group
-      label City, State, Zip
+      label City
       = f.text_field :city, class: 'city form-control'
     .form-group
-      label City, State, Zip
+      label State
       = f.select :state, options_for_select(GeneralMethods.USSTATES, @partner.state), html_options: {class: 'state form-control selectize-single'}
     .form-group
-      label City, State, Zip
+      label Zip
       = f.text_field :zip, class: 'zip form-control'
     .form-group
       = f.label :notes
