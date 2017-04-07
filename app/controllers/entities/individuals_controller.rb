@@ -16,7 +16,7 @@ class Entities::IndividualsController < ApplicationController
       @entity.basic_info_only = true
       if @entity.save
         AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})
-        return render json: {redirect: view_context.entities_individuals_basic_info_path( @entity.key ), just_created: true}
+        return redirect_to clients_path
       end
     elsif request.patch?
       @entity                 = Entity.find_by(key: key)
