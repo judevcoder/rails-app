@@ -19,6 +19,7 @@ class EntityTenancyInCommon < ApplicationRecord
   validates_length_of :country2, maximum: 250, if: "self.country2.present?"
   validates_length_of :index, maximum: 250, if: "self.index.present?"
   validates_numericality_of :part, maximum: 2, if: "self.part.present?"
+  validate :uniqueness
 
   belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"
   has_many :members, class_name: "Member", foreign_key: "super_entity_id"
@@ -39,6 +40,10 @@ class EntityTenancyInCommon < ApplicationRecord
 
   def set_default_val
     self.number_of_assets = 100
+  end
+  
+  def uniqueness
+    check_uniqueness([:name])
   end
 
 end

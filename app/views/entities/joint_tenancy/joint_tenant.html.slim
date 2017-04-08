@@ -3,7 +3,7 @@
     #error_explanation
       h2 = "#{pluralize(@joint_tenant.errors.count, "error")} prohibited this Joint Tenant from being saved:"
       ul
-        - override_active_record_errors(@joint_tenant.errors.messages, {}).each do |message|
+        - override_active_record_errors(@joint_tenant.errors.messages, {share_error: 'All Interest are assigned!'}).each do |message|
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12          
     .form-group
@@ -47,7 +47,7 @@
       = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"
     .form-group
       = f.label "Undivided interest remaining to be assigned"
-      = text_field_tag "remaining_number_of_assets", @joint_tenant.remaining_share_or_interest, "disabled" => "disabled", "autocomplete" => "off", class: "assets-share form-control"
-      = hidden_field_tag "remaining_number_of_assets", sumup_values(@joint_tenant.remaining_share_or_interest, @joint_tenant.my_percentage), "disabled" => "disabled"
+      = text_field_tag "remaining_number_of_assets", minp_values(@joint_tenant.remaining_share_or_interest, f.object.my_percentage), "disabled" => "disabled", "autocomplete" => "off", class: "assets-share form-control"
+      = hidden_field_tag "remaining_number_of_assets", @joint_tenant.remaining_share_or_interest
     .form-group
       = f.submit "Save", class: "btn btn-primary"

@@ -3,7 +3,7 @@
     #error_explanation
       h2 = "#{pluralize(@beneficiary.errors.count, "error")} prohibited this Beneficiary from being saved:"
       ul
-        - @beneficiary.errors.full_messages.each do |message|
+        - override_active_record_errors(@beneficiary.errors.messages, {share_error: 'All Interest are assigned!'}).each do |message|
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
     .form-group
@@ -68,10 +68,10 @@
       .col-sm-6
         label Remaining Beneficiary Interest to be Assigned
         br
-        = text_field_tag "remaining_number_of_assets", @beneficiary.remaining_share_or_interest, "disabled" => "disabled", "autocomplete" => "off", class: "assets-share form-control"
+        = text_field_tag "remaining_number_of_assets", minp_values(@beneficiary.remaining_share_or_interest, f.object.my_percentage), "disabled" => "disabled", "autocomplete" => "off", class: "assets-share form-control"
         .percentage-text
           | %
-        = hidden_field_tag "remaining_number_of_assets", sumup_values(@beneficiary.remaining_share_or_interest, @beneficiary.my_percentage), "disabled" => "disabled"
+        = hidden_field_tag "remaining_number_of_assets", @beneficiary.remaining_share_or_interest
     .form-group
       .actions = f.submit "Save", class: "btn btn-primary"
 

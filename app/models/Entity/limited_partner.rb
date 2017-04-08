@@ -11,7 +11,10 @@ class LimitedPartner < PeopleAndFirm
   belongs_to :entity
   validate :validate_my_percentage
 
+  attr_accessor :share_error
+
   def entity_presence
+
     unless self.is_person?
       if self.entity.blank?
         errors.add(:entity, "is invalid, Please add it before saving")
@@ -21,6 +24,12 @@ class LimitedPartner < PeopleAndFirm
   end
 
   def validate_my_percentage
+
+    if self.remaining_share_or_interest_ <= 0
+      errors.add(:share_error, "now remaining is Zero")
+      return
+    end
+
     if self.my_percentage.blank?
       errors.add(:partnership_interest, "can not be blank")
       return
@@ -31,8 +40,8 @@ class LimitedPartner < PeopleAndFirm
       return
     end
 
-    if self.my_percentage.to_f >= self.remaining_share_or_interest_
-      errors.add(:partnership_interest, "must be less than #{self.remaining_share_or_interest_} %")
+    if self.my_percentage.to_f > self.remaining_share_or_interest_
+      errors.add(:partnership_interest, "must be less than or equal to #{self.remaining_share_or_interest_} %")
       return
     end
   end

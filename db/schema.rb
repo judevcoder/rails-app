@@ -339,7 +339,7 @@ ActiveRecord::Schema.define(version: 20170405155101) do
     t.string   "ownership_status"
     t.decimal  "price",                                                             precision: 15, scale: 2
     t.decimal  "current_rent",                                                      precision: 15, scale: 2
-    t.decimal   "cap_rate", precision: 15, scale: 2
+    t.decimal  "cap_rate",                                                          precision: 15, scale: 2
     t.boolean  "owner_person_is"
     t.integer  "owner_entity_id"
     t.integer  "owner_person_id"

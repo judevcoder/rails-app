@@ -58,7 +58,11 @@ module ApplicationHelper
   def sumup_values val1, val2
     (val1 || 0) + (val2 || 0) rescue 0
   end
-  
+
+  def minp_values val1, val2
+    (val1 || 0) - (val2 || 0) rescue 0
+  end
+
   def override_active_record_errors(errors_hash, replace_keys = {})
     keys_with_order, new_h, messages = errors_hash.keys, {}, []
     replace_keys.each do |old_key, new_key|

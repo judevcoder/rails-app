@@ -3,7 +3,7 @@
     #error_explanation
       h2 = "#{pluralize(@spouse.errors.count, "error")} prohibited this Spouse from being saved:"
       ul
-        - override_active_record_errors(@spouse.errors.messages, {}).each do |message|
+        - override_active_record_errors(@spouse.errors.messages, {share_error: 'All Interest are assigned!'}).each do |message|
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12          
     .form-group
@@ -42,12 +42,5 @@
     .form-group
       label Zip
       = f.text_field :zip, class: 'zip form-control'
-    .form-group
-      label Undivided Interest of this Member
-      = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"
-    .form-group
-      label Undivided Interest Remaining to be Assigned
-      = text_field_tag "remaining_number_of_assets", @spouse.remaining_share_or_interest, "disabled" => "disabled", "autocomplete" => "off", class: "assets-share form-control"
-      = hidden_field_tag "remaining_number_of_assets", sumup_values(@spouse.remaining_share_or_interest, @spouse.my_percentage), "disabled" => "disabled"
     .form-group
       = f.submit "Save", class: "btn btn-primary"

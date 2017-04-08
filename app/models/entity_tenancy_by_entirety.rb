@@ -20,6 +20,7 @@ class EntityTenancyByEntirety < ApplicationRecord
   validates_length_of :index, maximum: 250, if: "self.index.present?"
   validates_numericality_of :part, maximum: 2, if: "self.part.present?"
   validate :property_address
+  validate :uniqueness
 
   belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"
   belongs_to :property
@@ -48,6 +49,10 @@ class EntityTenancyByEntirety < ApplicationRecord
     if self.property.blank?
       errors.add(:property, "is not valid , Please choose correct or add before saving")
     end
+  end
+  
+  def uniqueness
+    check_uniqueness([:name])
   end
 
 end

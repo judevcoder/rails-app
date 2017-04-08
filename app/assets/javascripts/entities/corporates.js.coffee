@@ -110,6 +110,9 @@ $ ->
     , 300)
 
   $(document).on "keypress keyup keydown click change", "input[id$=_my_percentage]", ->
+    remaining_number_of_assets_cal(300)
+
+  remaining_number_of_assets_cal = (timeout)->
     setTimeout(->
       try
         total_val = parseInt($(document).find("input[id$=_my_percentage]").val())
@@ -122,7 +125,7 @@ $ ->
       total_val = 0 if isNaN(total_val)
       remaining_val = 0 if isNaN(remaining_val)
       $(document).find("input[type='text'][id$=remaining_number_of_assets]").val(remaining_val - total_val)
-    , 300)
+    , timeout)
 
   enable_datetimepicker_corporation()
 

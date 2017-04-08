@@ -9,7 +9,15 @@ class TenantInCommon < PeopleAndFirm
   belongs_to :super_entity, class_name: "SuperEntity"
   belongs_to :entity
 
+  attr_accessor :share_error
+
   def validate_my_percentage
+
+    if self.remaining_share_or_interest_ <= 0
+      errors.add(:share_error, "now remaining is Zero")
+      return
+    end
+
     if self.my_percentage.blank?
       errors.add(:undivided_interest, "can not be blank")
       return
@@ -20,8 +28,8 @@ class TenantInCommon < PeopleAndFirm
       return
     end
 
-    if self.my_percentage.to_f >= self.remaining_share_or_interest_
-      errors.add(:undivided_interest, "must be less than #{self.remaining_share_or_interest_} %")
+    if self.my_percentage.to_f > self.remaining_share_or_interest_
+      errors.add(:undivided_interest, "must be less than or equal to #{self.remaining_share_or_interest_} %")
       return
     end
 
