@@ -110,21 +110,38 @@ $ ->
     , 300)
 
   $(document).on "keypress keyup keydown click change", "input[id$=_my_percentage]", ->
-    remaining_number_of_assets_cal(300)
+    remaining_number_of_assets_cal(300, this)
 
-  remaining_number_of_assets_cal = (timeout)->
+  remaining_number_of_assets_cal = (timeout, self)->
     setTimeout(->
+
+      current_value                             = $(self).val()
+      remaining_number_of_assets_text           = $(document).find("input[type='text'][id$=remaining_number_of_assets]")
+      remaining_number_of_assets_hidden         = $(document).find("input[type='hidden'][id$=remaining_number_of_assets]")
+      remaining_number_of_assets_hidden_warning = $(document).find("input[type='hidden'][id$=remaining_number_of_assets_warning]")
+
       try
-        total_val = parseInt($(document).find("input[id$=_my_percentage]").val())
+        total_val = parseInt(current_value)
       catch
         total_val = 0
+
       try
-        remaining_val = parseInt($(document).find("input[type='hidden'][id$=remaining_number_of_assets]").val())
+        remaining_val = parseInt(remaining_number_of_assets_hidden.val())
       catch
         remaining_val = 0
-      total_val = 0 if isNaN(total_val)
+
+      try
+        init_val = parseInt(remaining_number_of_assets_text.data('init'))
+      catch
+        init_val = 0
+
+      total_val     = 0 if isNaN(total_val)
       remaining_val = 0 if isNaN(remaining_val)
-      $(document).find("input[type='text'][id$=remaining_number_of_assets]").val(remaining_val - total_val)
+      init_val      = 0 if isNaN(init_val)
+      val_insert    = ((remaining_val + init_val) - total_val)
+      val_insert    = remaining_number_of_assets_hidden_warning.val() if val_insert < 0
+
+      remaining_number_of_assets_text.val(val_insert)
     , timeout)
 
   enable_datetimepicker_corporation()

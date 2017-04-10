@@ -47,8 +47,11 @@
       = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"
     .form-group.required
       label Undivided Interest Remaining to be Assigned
-      = text_field_tag "remaining_number_of_assets", minp_values(@tenant_in_common.remaining_share_or_interest, f.object.my_percentage), "disabled" => "disabled", "autocomplete" => "off", class: "assets-share form-control"
+      = text_field_tag "remaining_number_of_assets", @tenant_in_common.remaining_share_or_interest,
+              "disabled" => "disabled", "autocomplete" => "off", class: "assets-share form-control",
+              "data-init" => (f.object.my_percentage_was.present? ? f.object.my_percentage : 0)
       = hidden_field_tag "remaining_number_of_assets", @tenant_in_common.remaining_share_or_interest
+      = hidden_field_tag "remaining_number_of_assets_warning", 'Undivided Interest Cannot Be Negative'
     .form-group
       = f.submit "Save", class: "btn btn-primary"
       

@@ -40,6 +40,11 @@ class LimitedPartner < PeopleAndFirm
       return
     end
 
+    if self.my_percentage.to_f == self.total_remaining_share_or_interest
+      errors.add(:partnership_interest, " can not be 100%")
+      return false
+    end
+
     if self.my_percentage.to_f > self.remaining_share_or_interest_
       errors.add(:partnership_interest, "must be less than or equal to #{self.remaining_share_or_interest_} %")
       return

@@ -66,8 +66,11 @@
       = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"
     .form-group
       label Remaining Member Interest to be Assigned
-      = text_field_tag "remaining_number_of_assets", minp_values(@member.remaining_share_or_interest, f.object.my_percentage), "disabled" => "disabled", "autocomplete" => "off", class: "assets-share"
+      = text_field_tag "remaining_number_of_assets", @member.remaining_share_or_interest,
+              "disabled" => "disabled", "autocomplete" => "off", class: "assets-share",
+              "data-init" => (f.object.my_percentage_was.present? ? f.object.my_percentage : 0)
       = hidden_field_tag "remaining_number_of_assets", @member.remaining_share_or_interest
+      = hidden_field_tag "remaining_number_of_assets_warning", 'Interest Cannot Be Negative'
     .form-group
       label Tax Matters Member
       = f.check_box :tax_member

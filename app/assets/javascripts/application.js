@@ -224,3 +224,20 @@ $( document ).ready(function() {
   });
 });
 
+$( document ).ready(function() {
+  $('#new-property-type').click(function () {
+    return typewatch(function() {
+      console.log("dgdfhs");
+      return $(document).find("div#PropertyTypeList").show();
+      }, 10);
+  });
+
+  $(document).on('click', function(e) {
+    var container;
+    container = $("div#PropertyTypeList");
+    if (!container.is(e.target) && (container.has(e.target).length === 0)) {
+      return container.hide();
+    }
+  });
+});
+

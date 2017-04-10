@@ -69,8 +69,11 @@
       = text_field_tag "number_of_assets", @stockholder.total_stock_share, "disabled" => "disabled", class: "form-control"
     .form-group
       label Remaining Total Stock Share
-      = text_field_tag "remaining_number_of_assets", minp_values(@stockholder.remaining_share_or_interest, f.object.my_percentage), "disabled" => "disabled", "autocomplete" => "off", class: "form-control"
+      = text_field_tag "remaining_number_of_assets", @stockholder.remaining_share_or_interest,
+              "disabled" => "disabled", "autocomplete" => "off", class: "form-control",
+              "data-init" => (f.object.my_percentage_was.present? ? f.object.my_percentage : 0)
       = hidden_field_tag "remaining_number_of_assets", @stockholder.remaining_share_or_interest
+      = hidden_field_tag "remaining_number_of_assets_warning", 'Stock Share Cannot Be Negative'
     .form-group
       = f.submit 'Save', class: "btn btn-primary"
 

@@ -36,12 +36,9 @@
     .clearfix
     .form-group.required.margin-sm-top
       label.control-label Property Title
-      = f.text_field :name, id: "other", class: "form-control"
-      = f.hidden_field :property_id
-      .autocomplete style=("display: none")
+      = f.select :property_id, options_for_select(Property.where(id: AccessResource.get_ids(resource_klass: 'Property', user: current_user)).pluck(:title, :id), f.object.property_id), {}, class: 'selectize-single'
       .clearfix.add-list-entity-links
         = link_to "New", "javascript:void(0)", class: "resource-form-new-property pull-left"
-        = link_to "Pick From List", "javascript:void(0)", class: "resource-form-properties pull-right"
     .form-group
       = f.label "Street Address"
       = f.text_field :address, class: 'city form-control'
@@ -54,13 +51,8 @@
     .form-group
       label Zip
       = f.text_field :zip, class: 'zip form-control'
-    - if @entity.persisted?
-      .form-group
-        .part123.heading
-          = "#{(100 - Spouse.new(super_entity_id: @entity.id).remaining_share_or_interest rescue 0) }% of Undivided Interest have been assigned out of 100%"
-    .clearfix
-      .form-group
-        = f.submit 'Save', class: 'btn btn-sm btn-primary'
+    .form-group
+      = f.submit 'Save', class: 'btn btn-sm btn-primary'
 
 #popup-should-not-change.corporate
   = hidden_field_tag "should_not_change[name]", (@entity.persisted? ? @entity.reload["name"] : '')

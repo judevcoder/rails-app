@@ -83,7 +83,7 @@ class Entities::TenancyInCommonController < ApplicationController
   private
   def entity_tenancy_in_common_params
     params.require(:entity_tenancy_in_common).permit(:name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
-                                                :first_name, :last_name, :phone1, :phone2, :fax, :email,
+                                                :first_name, :last_name, :phone1, :phone2, :fax, :email, :property_id,
                                                 :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
                                                 :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
                                                 :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index)
@@ -91,7 +91,7 @@ class Entities::TenancyInCommonController < ApplicationController
 
   def tenant_in_common_params
     params.require(:tenant_in_common).permit(:name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
-                                   :first_name, :last_name, :phone1, :phone2, :fax, :email,
+                                   :first_name, :last_name, :phone1, :phone2, :fax, :email, :property_id,
                                    :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
                                    :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
                                    :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :country2, :part, :my_percentage)

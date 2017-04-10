@@ -13,7 +13,11 @@
   .top-header-link
     = link_to 'Properties', properties_path, class: "btn btn-default #{@current_page == 'property' ? 'active' : ''}"
     .add
-      = link_to 'Add', new_property_path
+      = link_to 'Add', "javascript:void(0)", id: 'new-property-type'
+      #PropertyTypeList style=("display: none;")
+        = link_to 'Purchased', new_property_path(ownership_status: 'Purchased'), class: 'transaction-type-list'
+        = link_to 'Prospective Purchase', new_property_path(ownership_status: 'Prospective Purchase'), class: 'transaction-type-list'
+
   .top-header-link
     = link_to 'Clients', clients_path, class: "btn btn-default #{@current_page == 'client' ? 'active' : ''}"
     .add

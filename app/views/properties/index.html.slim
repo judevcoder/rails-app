@@ -19,7 +19,7 @@ table#data_table
     - @properties.each do |property|
       tr
         td.align-with-th = check_box_tag :object_select, false, false, 'data-id' => property.id
-        td
+        td = property.ownership_status
         td = property.owner.try(:first_name)
         td = property.title
         td = property.location_county
@@ -42,3 +42,29 @@ table#data_table
     = will_paginate @properties
     .clearfix
     = render template: 'shared/per_page_set'
+
+
+javascript: 
+  $( document ).ready(function() {
+    $( "#purchased" ).click(function() {
+      if ($('#purchased_accepted').is(":checked")){
+        $('#purchased_accepted').prop( "checked", false);
+        $('#prospective_purchase_accepted').prop( "checked", true );
+      }
+      else{
+        $('#purchased_accepted').prop( "checked", true );
+      }
+      $( "#search-form" ).submit();
+    });
+
+    $( "#prospective_purchase" ).click(function() {
+      if ($('#prospective_purchase_accepted').is(":checked")){
+        $('#prospective_purchase_accepted').prop( "checked", false);
+        $('#purchased_accepted').prop( "checked", true );
+      }
+      else{
+        $('#prospective_purchase_accepted').prop( "checked", true );
+      }
+      $( "#search-form" ).submit();
+    });
+  });

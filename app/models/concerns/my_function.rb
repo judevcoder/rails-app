@@ -121,6 +121,8 @@ module MyFunction
   end
   
   def check_uniqueness(column_names)
+    return true
+    ##### DISABLE FOR NOW #########
     __false__ = true
     column_names.each do |column_name|
       if self.respond_to?(:class) && self.class.respond_to?(:table_name) && self.class.table_name == 'entities'

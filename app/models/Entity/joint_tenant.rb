@@ -15,22 +15,27 @@ class JointTenant < PeopleAndFirm
 
     if self.remaining_share_or_interest_ <= 0
       errors.add(:share_error, "now remaining is Zero")
-      return
+      return false
     end
 
     if self.my_percentage.blank?
       errors.add(:undivided_interest, "can not be blank")
-      return
+      return false
     end
 
     if self.my_percentage.to_f <= 0
       errors.add(:undivided_interest, "must be more than zero")
-      return
+      return false
+    end
+
+    if self.my_percentage.to_f == self.total_remaining_share_or_interest
+      errors.add(:undivided_interest, " can not be 100%")
+      return false
     end
 
     if self.my_percentage.to_f > self.remaining_share_or_interest_
       errors.add(:undivided_interest, "must be less than or equal to #{self.remaining_share_or_interest_} %")
-      return
+      return false
     end
 
   end

@@ -8,6 +8,15 @@ class PropertiesController < ApplicationController
     @properties = Property.with_deleted.where(id: AccessResource.get_ids(resource_klass: 'Property', user: current_user))
     @properties = @properties.where(deleted_at: nil) unless params[:trashed].to_b
     @properties = @properties.where.not(deleted_at: nil) if params[:trashed].to_b
+    if params["purchased"]
+      if ((params["purchased"]["accepted"] == "1") && (params["prospective_purchase"]["accepted"] == "1"))
+      elsif ((params["purchased"]["accepted"] == "0") && (params["prospective_purchase"]["accepted"] == "0"))
+        @properties = @properties.where.not(ownership_status: ['Prospective Purchase', 'Purchased'])     
+      else
+        @properties = @properties.where(ownership_status: 'Purchased') if params["purchased"]["accepted"] == "1"
+        @properties = @properties.where(ownership_status: 'Prospective Purchase') if params["prospective_purchase"]["accepted"] == "1"
+      end  
+    end
     @properties = @properties.order(created_at: :desc).paginate(page: params[:page], per_page: sessioned_per_page)
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\"> List </a></h4></div>".html_safe
     
