@@ -17,9 +17,7 @@ html
     .row.middle
       div.clearfix
       /= "#{notice}" if notice
-      /= "#{alert}" if alert
-      div.clearfix
-      = render partial: 'layouts/you_are_here'
+      /= "#{alert}" if alert      
     .clearfix.margin-lg-left
       .margin-md-left
           = render_breadcrumbs :separator => "<div class=\"pull-left\"><h4>&nbsp;&nbsp;/&nbsp;&nbsp;</h4></div>".html_safe

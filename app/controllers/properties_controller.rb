@@ -8,6 +8,7 @@ class PropertiesController < ApplicationController
     @properties = Property.with_deleted.where(id: AccessResource.get_ids(resource_klass: 'Property', user: current_user))
     @properties = @properties.where(deleted_at: nil) unless params[:trashed].to_b
     @properties = @properties.where.not(deleted_at: nil) if params[:trashed].to_b
+    @last = @properties.try(:last).try(:id) || 0
     if params["purchased"]
       if ((params["purchased"]["accepted"] == "1") && (params["prospective_purchase"]["accepted"] == "1"))
       elsif ((params["purchased"]["accepted"] == "0") && (params["prospective_purchase"]["accepted"] == "0"))

@@ -17,7 +17,7 @@ table#data_table
       th Action
   tbody
     - @properties.each do |property|
-      tr
+      tr.new-record
         td.align-with-th = check_box_tag :object_select, false, false, 'data-id' => property.id
         td = property.ownership_status
         td = property.owner.try(:first_name)
@@ -41,8 +41,6 @@ table#data_table
   .pull-right
     = will_paginate @properties
     .clearfix
-    = render template: 'shared/per_page_set'
-
 
 javascript: 
   $( document ).ready(function() {
