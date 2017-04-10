@@ -39,7 +39,7 @@ class PropertiesController < ApplicationController
     respond_to do |format|
       if @property.save
         AccessResource.add_access({ user: current_user, resource: @property })
-        format.html { redirect_to edit_property_path(@property.key) }
+        format.html { redirect_to properties_path }
         format.js { render json: @property.to_json, status: :ok }
         format.json { render action: 'show', status: :created, location: @property }
       else

@@ -36,13 +36,6 @@ class Property < ApplicationRecord
   end
   
   def check_price_current_rent_cap_rate
-    p "in check price"
-    p self.cap_rate.present?
-    p self.cap_rate
-    p self.price.present?
-    p self.price
-    p self.current_rent.present?
-    p self.current_rent
     if !self.cap_rate.present? && self.price.present? && self.current_rent.present?
       self.cap_rate = (self.current_rent * 100.0)/(self.price * 1.0)
       return
@@ -53,13 +46,6 @@ class Property < ApplicationRecord
       self.current_rent = (self.cap_rate * self.price * 1.0)/100.0
       return
     end
-    p "after"
-    p self.cap_rate.present?
-    p self.cap_rate
-    p self.price.present?
-    p self.price
-    p self.current_rent.present?
-    p self.current_rent
   end
 
   US_STATES =
