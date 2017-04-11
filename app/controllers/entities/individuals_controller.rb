@@ -14,6 +14,7 @@ class Entities::IndividualsController < ApplicationController
       @entity                 = Entity.new( individuals_params )
       @entity.type_           = MemberType.new.getIndividualId
       @entity.basic_info_only = true
+      @entity.name = @entity.first_name + ' ' + @entity.last_name
       if @entity.save
         AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})
         return redirect_to clients_path

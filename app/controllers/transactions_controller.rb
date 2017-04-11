@@ -24,6 +24,16 @@ class TransactionsController < ApplicationController
   
   # GET /project/new
   def new
+    @contacts = Contact.where('company_role ilike ? ', "Counter%")
+    ret = []
+    @contacts.each { |contact|
+      contact.name = contact.try(:company_name) || ""
+      if contact.name.blank?
+        contact.name = contact.first_name + ' ' + contact.last_name
+      end
+      ret.push([contact.name, contact.id])
+    }
+    @contacts = ret
     if params[:transaction_type] == '1031 Still Selling' || params[:type] == 'purchase'
       
       @transaction_main = TransactionMain.find_by(id: params[:main_id]) || TransactionMain.create(user_id: current_user.id, init: true)
@@ -49,6 +59,7 @@ class TransactionsController < ApplicationController
   
   # GET /project/1/edit
   def edit
+    
   end
   
   # GET /Transaction/1/properties_edit

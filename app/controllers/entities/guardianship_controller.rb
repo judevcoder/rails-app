@@ -17,9 +17,11 @@ class Entities::GuardianshipController < ApplicationController
       @entity                 = EntityGuardianship.new( entity_guardianship_params )
       @entity.type_           = MemberType.new.getGuardianshipId
       @entity.basic_info_only = true
+      @entity.name = "In re " + @entity.first_name + " " + @entity.last_name + " , AIP"
       if @entity.save
         AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})
-        return render json: {redirect: view_context.entities_guardianship_basic_info_path( @entity.key ), just_created: true}
+        #return render json: {redirect: view_context.entities_guardianship_basic_info_path( @entity.key ), just_created: true}
+        return redirect_to clients_path
       end
     elsif request.patch?
       @entity                 = EntityGuardianship.find_by( key: key )

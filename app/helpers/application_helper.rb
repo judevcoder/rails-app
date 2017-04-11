@@ -274,14 +274,16 @@ module ApplicationHelper
   
   def client_entity(entity)
     case entity.entity_type.try(:name)
+      when "Individual"
+        entity.name
       when "LLC"
         entity.name
       when "LLP"
         entity.name
       when "Sole Proprietorship"
-        entity.name2
+        entity.name2 
       when "Power of Attorney"
-        ""
+        "#{entity.first_name2} #{entity.last_name2} POA for #{entity.first_name} #{entity.last_name}"
       when "Guardianship"
         "In re #{entity.full_name}, AIP"
       when "Trust"

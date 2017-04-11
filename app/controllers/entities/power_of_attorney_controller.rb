@@ -14,9 +14,12 @@ class Entities::PowerOfAttorneyController < ApplicationController
       @entity                 = PowerOfAttorney.new( power_of_attorney_params )
       @entity.type_           = MemberType.new.get_power_of_attorney_id
       @entity.basic_info_only = true
+      @entity.name = @entity.first_name2 + ' ' + @entity.last_name2 + ' POA for ' + 
+        @entity.first_name + ' ' + @entity.last_name
       if @entity.save
         AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})
-        return render json: {redirect: view_context.entities_power_of_attorney_basic_info_path( @entity.key ), just_created: true}
+        #return render json: {redirect: view_context.entities_power_of_attorney_basic_info_path( @entity.key ), just_created: true}
+        return redirect_to clients_path
       end
     elsif request.patch?
       @entity                 = PowerOfAttorney.find_by( key: key )

@@ -15,9 +15,14 @@ class Entities::SoleProprietorshipController < ApplicationController
       @entity                 = Entity.new( entity_params )
       @entity.type_           = MemberType.new.getSoleProprietorshipId
       @entity.basic_info_only = true
+      @entity.name = @entity.name2
+      if !@entity.name || @entity.name.blank?
+        @entity.name = @entity.first_name + ' ' + @entity.last_name
+      end
       if @entity.save
         AccessResource.add_access({user: current_user, resource: @entity})
-        return render json: {redirect: view_context.entities_sole_proprietorship_basic_info_path( @entity.key ), just_created: true}
+        #return render json: {redirect: view_context.entities_sole_proprietorship_basic_info_path( @entity.key ), just_created: true}
+        return redirect_to clients_path
       end
     elsif request.patch?
       @entity                 = Entity.find_by( key: key )

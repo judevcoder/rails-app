@@ -4,6 +4,8 @@ class Contact < ApplicationRecord
   
   validates_presence_of :first_name, :last_name, :email
   validate :email_check
+
+  attr_accessor :name
   
   ROLE = ["Counter-Party",
           "Counter-Party Broker or Agent",
@@ -45,6 +47,19 @@ class Contact < ApplicationRecord
     if self.email.present? && !self.email.email?
       errors.add(:email, ' is invalid !')
     end
+  end
+
+  def self.TransactionContacts
+    @contacts = Contact.where('company_role ilike ? ', "Counter%")
+    ret = []
+    @contacts.each { |contact|
+      contact.name = contact.try(:company_name) || ""
+      if contact.name.blank?
+        contact.name = contact.first_name + ' ' + contact.last_name
+      end
+      ret.push([contact.name, contact.id])
+    }
+    return ret
   end
 
 

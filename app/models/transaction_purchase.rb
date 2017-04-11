@@ -26,24 +26,25 @@ class TransactionPurchase < ApplicationRecord
   has_one :transaction_personnel, foreign_key: :transaction_id, dependent: :destroy
   
   has_one :entity
+  has_one :contact
   
   belongs_to :transaction_main
   
-  belongs_to :seller_entity, class_name: 'Entity'
-  belongs_to :purchaser_entity, class_name: 'Entity'
+  belongs_to :replacement_seller_contact, class_name: 'Contact'
+  belongs_to :replacement_purchaser_entity, class_name: 'Entity'
   
   after_create :access_resource
   after_save :add_key
   
-  validate :seller_and_purchaser_match
+  #validate :seller_and_purchaser_match
   
-  validates_presence_of :purchaser_entity_id, if: '!self.purchaser_person_is?', message: 'Replacement Purchaser`s Entity can not be blank'
+  validates_presence_of :replacement_purchaser_entity_id, if: '!self.purchaser_person_is?', message: 'Replacement Purchaser`s Entity can not be blank'
   
-  validates_presence_of :seller_first_name, if: 'self.seller_person_is?', message: "Replacement Seller's first name can not be blank"
-  validates_presence_of :seller_last_name, if: 'self.seller_person_is?', message: "Replacement Seller's last name can not be blank"
+  validates_presence_of :replacement_seller_first_name, if: 'self.seller_person_is?', message: "Replacement Seller's first name can not be blank"
+  validates_presence_of :replacement_seller_last_name, if: 'self.seller_person_is?', message: "Replacement Seller's last name can not be blank"
   
-  validates_presence_of :purchaser_first_name, if: 'self.purchaser_person_is?', message: "Replacement Purchaser's first name can not be blank"
-  validates_presence_of :purchaser_last_name, if: 'self.purchaser_person_is?', message: "Replacement Purchaser's last name can not be blank"
+  validates_presence_of :replacement_purchaser_first_name, if: 'self.purchaser_person_is?', message: "Replacement Purchaser's first name can not be blank"
+  validates_presence_of :replacement_purchaser_last_name, if: 'self.purchaser_person_is?', message: "Replacement Purchaser's last name can not be blank"
   
   validates_presence_of :purchase_only_closing_date, if: 'self.purchase_only?', message: 'Closing Date can not be blank'
   validates_presence_of :purchase_only_qi_funds, if: 'self.purchase_only?', message: 'QI Funds can not be blank'
@@ -118,17 +119,17 @@ class TransactionPurchase < ApplicationRecord
   
   def purchaser_name
     if !self.purchaser_person_is?
-      self.purchaser_entity.try(:name)
+      self.replacement_purchaser_entity.try(:name)
     else
-      "#{self.purchaser_first_name} #{self.purchaser_last_name}"
+      "#{self.replacement_purchaser_first_name} #{self.replacement_purchaser_last_name}"
     end
   end
   
   def seller_name
     if !self.seller_person_is?
-      self.seller_entity.try(:name)
+      self.replacement_seller_contact.try(:name)
     else
-      "#{self.seller_first_name} #{self.seller_last_name}"
+      "#{self.replacement_seller_first_name} #{self.replacement_seller_last_name}"
     end
   end
   
@@ -142,24 +143,8 @@ class TransactionPurchase < ApplicationRecord
   
   private
   def seller_and_purchaser_match
-    
-    ## Entity Check
-    if !self.purchaser_person_is? && !self.seller_person_is?
-      if self.purchaser_entity_id.present? && self.seller_entity_id.present? && self.purchaser_entity_id == self.seller_entity_id
-        errors.add('Seller and Purchaser', ' can not be same!')
-        return false
-      end
-    end
-    
-    ## Person Check
-    if self.purchaser_person_is? && self.seller_person_is?
-      if ((self.purchaser_first_name.present? || self.seller_first_name.present?) && self.purchaser_first_name == self.seller_first_name) &&
-        ((self.purchaser_last_name.present? || self.seller_last_name.present?) && self.purchaser_last_name == self.seller_last_name)
-        errors.add('Seller and Purchaser', ' can not be same!')
-        return false
-      end
-    end
-  
+    ## Seller is an Entity and Purchaser is a Contact
+    return true  
   end
 
   public

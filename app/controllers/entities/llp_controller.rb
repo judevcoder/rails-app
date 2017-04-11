@@ -17,7 +17,8 @@ class Entities::LlpController < ApplicationController
       @entity.basic_info_only = true
       if @entity.save
         AccessResource.add_access({user: current_user, resource: @entity})
-        return render json: {redirect: view_context.entities_llp_basic_info_path( @entity.key ), just_created: true}
+        #return render json: {redirect: view_context.entities_llp_basic_info_path( @entity.key ), just_created: true}
+        return redirect_to clients_path
       end
     elsif request.patch?
       @entity                 = Entity.find_by( key: key )

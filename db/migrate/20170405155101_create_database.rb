@@ -440,7 +440,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
     t.boolean  "m_second_deposit_date_due",                              default: false
   end
 
-  create_table "transactions", force: true do |t|
+  create_table "transactions", force: :cascade do |t|
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -454,21 +454,33 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
     t.float    "sale_price"
     t.datetime "deleted_at"
     t.integer  "transaction_main_id"
-    t.string   "purchaser_first_name"
-    t.string   "purchaser_last_name"
-    t.boolean  "purchaser_honorific_is",                  default: false
-    t.string   "purchaser_honorific"
-    t.integer  "purchaser_entity_id"
-    t.string   "seller_first_name"
-    t.string   "seller_last_name"
-    t.boolean  "seller_honorific_is",                     default: false
-    t.string   "seller_honorific"
-    t.integer  "seller_entity_id"
+    t.string   "relinquishing_purchaser_first_name"
+    t.string   "relinquishing_purchaser_last_name"
+    t.boolean  "relinquishing_purchaser_honorific_is",                  default: false
+    t.string   "relinquishing_purchaser_honorific"
+    t.integer  "relinquishing_purchaser_contact_id"
+    t.string   "relinquishing_seller_first_name"
+    t.string   "relinquishing_seller_last_name"
+    t.boolean  "relinquishing_seller_honorific_is",                     default: false
+    t.string   "relinquishing_seller_honorific"
+    t.integer  "relinquishing_seller_entity_id"
+    t.string   "replacement_purchaser_first_name"
+    t.string   "replacement_purchaser_last_name"
+    t.boolean  "replacement_purchaser_honorific_is",                  default: false
+    t.string   "replacement_purchaser_honorific"
+    t.integer  "replacement_purchaser_entity_id"
+    t.string   "replacement_seller_first_name"
+    t.string   "replacement_seller_last_name"
+    t.boolean  "replacement_seller_honorific_is",                     default: false
+    t.string   "replacement_seller_honorific"
+    t.integer  "replacement_seller_contact_id"
     t.integer  "is_purchase"
     t.boolean  "seller_person_is",                        default: false
     t.date     "purchase_only_closing_date"
     t.float    "purchase_only_qi_funds"
     t.boolean  "m_purchase_only_closing_date",            default: false
+    t.index ["deleted_at"], name: "index_transactions_on_deleted_at", using: :btree
+    t.index ["key"], name: "index_transactions_on_key", using: :btree
   end
 
   add_index "transactions", ["deleted_at"], name: "index_transactions_on_deleted_at", using: :btree
