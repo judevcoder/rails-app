@@ -11,14 +11,7 @@
 
 
   .col-lg-6.col-md-6.col-sm-12.col-xs-12
-    .clearfix
-    .form-group
-    - if @property.ostatus == "Purchased"
-      label Owning Client
-      = f.select :owner_entity_id, options_for_select(Entity.where.not(name: [nil, ''], type_: [7,8,9]).pluck(:name, :id), f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
-    - else
-      label Owning Contact/Counter Party
-      = f.select :owner_entity_id, options_for_select(Contact.TransactionContacts, f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
+    .clearfix    
     .form-group
       = label_tag 'Tenant'
       = f.select :tenant_is, Property::TENANTS, {}, class: 'form-control'
@@ -31,6 +24,13 @@
     .form-group
       = label_tag 'Description'
       = f.text_area :description, class: 'form-control'
+    .form-group
+    - if @property.ostatus == "Purchased"
+      label Owning Client
+      = f.select :owner_entity_id, options_for_select(Entity.where.not(name: [nil, ''], type_: [7,8,9]).pluck(:name, :id), f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
+    - else
+      label Owner
+      = f.select :owner_entity_id, options_for_select(Contact.TransactionContacts, f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
     .form-group
       = label_tag "#{params[:ownership_status] == 'Prospective Purchase' ? 'Offering Price' : 'Purchase Price'}"
       .input-group
