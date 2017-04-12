@@ -11,7 +11,14 @@
 
 
   .col-lg-6.col-md-6.col-sm-12.col-xs-12
-    .clearfix    
+    .clearfix
+    .form-group
+    - if @property.ostatus == "Purchased"
+      label Owning Client
+      = f.select :owner_entity_id, options_for_select(Entity.where.not(name: [nil, ''], type_: [7,8,9]).pluck(:name, :id), f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
+    - else
+      label Owning Contact/Counter Party
+      = f.select :owner_entity_id, options_for_select(Contact.TransactionContacts, f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
     .form-group
       = label_tag 'Tenant'
       = f.select :tenant_is, Property::TENANTS, {}, class: 'form-control'

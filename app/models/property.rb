@@ -131,7 +131,7 @@ class Property < ApplicationRecord
       end
     else
       if ownership_status == "Purchased"
-        Client.find_by_id(owner_entity_id)
+        Entity.find_by_id(owner_entity_id)
       else
         Contact.find_by_id(owner_entity_id)
       end
