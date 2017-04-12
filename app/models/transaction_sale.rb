@@ -87,7 +87,7 @@ class TransactionSale < ApplicationRecord
   
   def purchaser_name
     if !self.purchaser_person_is?
-      self.relinquishing_purchaser_entity.try(:name)
+      self.relinquishing_purchaser_contact.try(:name)
     else
       "#{self.relinquishing_purchaser_first_name} #{self.relinquishing_purchaser_last_name}"
     end

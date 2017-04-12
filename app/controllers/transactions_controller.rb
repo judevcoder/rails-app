@@ -24,16 +24,6 @@ class TransactionsController < ApplicationController
   
   # GET /project/new
   def new
-    @contacts = Contact.where('company_role ilike ? ', "Counter%")
-    ret = []
-    @contacts.each { |contact|
-      contact.name = contact.try(:company_name) || ""
-      if contact.name.blank?
-        contact.name = contact.first_name + ' ' + contact.last_name
-      end
-      ret.push([contact.name, contact.id])
-    }
-    @contacts = ret
     if params[:transaction_type] == '1031 Still Selling' || params[:type] == 'purchase'
       
       @transaction_main = TransactionMain.find_by(id: params[:main_id]) || TransactionMain.create(user_id: current_user.id, init: true)
@@ -85,6 +75,40 @@ class TransactionsController < ApplicationController
     @transaction         = params[:transaction_klazz].constantize.new(transaction_params)
     @transaction_main    = @transaction.transaction_main
     @transaction.user_id = current_user.id
+    purchase = params[:is_purchase] || false
+    if purchase 
+      if @transaction.replacement_seller_contact_id
+        seller = Contact.where(id: @transaction.replacement_seller_contact_id).first
+        if seller 
+          @transaction.replacement_seller_first_name = seller.first_name
+          @transaction.replacement_seller_last_name = seller.last_name
+        end
+      end
+      if @transaction.replacement_purchaser_entity_id
+        purchaser = Entity.where(id: @transaction.replacement_purchaser_entity_id).first
+        if purchaser 
+          @transaction.replacement_purchaser_honorific = purchaser.honorific
+          @transaction.replacement_purchaser_first_name = purchaser.first_name || purchaser.name
+          @transaction.replacement_purchaser_last_name = purchaser.last_name
+        end
+      end 
+    else
+      if @transaction.relinquishing_seller_entity_id
+        seller = Entity.where(id: @transaction.relinquishing_seller_entity_id).first
+        if seller 
+          @transaction.relinquishing_seller_honorific = seller.honorific
+          @transaction.relinquishing_seller_first_name = seller.first_name || seller.name
+          @transaction.relinquishing_seller_last_name = seller.last_name
+        end
+      end
+      if @transaction.relinquishing_purchaser_contact_id
+        purchaser = Contact.where(id: @transaction.relinquishing_purchaser_contact_id).first
+        if purchaser 
+          @transaction.relinquishing_purchaser_first_name = purchaser.first_name
+          @transaction.relinquishing_purchaser_last_name = purchaser.last_name
+        end
+      end 
+    end
     respond_to do |format|
       if @transaction.save
         AccessResource.add_access({ user: current_user, resource: @transaction })

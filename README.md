@@ -7,4 +7,8 @@
 * Run rails db:seed - to seed data
 
 The local server will be accessible at http://localhost:3000 by default.
+
+## 1031 Staging 
+
+* This app is staged on heroku: https://safe-brook-19751.herokuapp.com/
  
