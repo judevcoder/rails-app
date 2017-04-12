@@ -4,6 +4,8 @@ class Property < ApplicationRecord
 
   serialize :net_nature_of_lease, Array
 
+  attr_accessor :ostatus
+
   include MyFunction
   has_many :comments, as: :commentable
   has_many :procedures

@@ -50,7 +50,7 @@ class Contact < ApplicationRecord
   end
 
   def self.TransactionContacts
-    @contacts = Contact.where('company_role ilike ? ', "Counter%")
+    @contacts = Contact.where('company_role ilike ? ', "Counter-Party")
     ret = []
     @contacts.each { |contact|
       contact.name = contact.try(:company_name) || ""

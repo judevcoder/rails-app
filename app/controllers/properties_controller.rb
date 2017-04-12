@@ -33,7 +33,9 @@ class PropertiesController < ApplicationController
   # GET /properties/new
   def new
     @property = Property.new
-    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/properties/new\"> Basic Info </a></h4></div>".html_safe
+    @property.ostatus = params["ownership_status"]
+    add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + new_property_path(ownership_status: params["ownership_status"]) + 
+      "\'> Basic Info - " + params["ownership_status"] + " </a></h4></div>").html_safe
     render layout: false if request.xhr?
   end
   
