@@ -481,8 +481,6 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
     t.date     "purchase_only_closing_date"
     t.float    "purchase_only_qi_funds"
     t.boolean  "m_purchase_only_closing_date",            default: false
-    t.index ["deleted_at"], name: "index_transactions_on_deleted_at", using: :btree
-    t.index ["key"], name: "index_transactions_on_key", using: :btree
   end
 
   add_index "transactions", ["deleted_at"], name: "index_transactions_on_deleted_at", using: :btree
