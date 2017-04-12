@@ -16,7 +16,7 @@
     #error_explanation
       h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this LLP from being saved:"
       ul
-        - @entity.errors.full_messages.each do |message|
+        - override_active_record_errors(@entity.errors.messages, {base: ''}).each do |message|
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
     .form-group.required

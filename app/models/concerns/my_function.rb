@@ -120,21 +120,34 @@ module MyFunction
     self.entity_type.try(:name) == "Power of Attorney"
   end
   
-  def check_uniqueness(column_names)
-    return true
-    ##### DISABLE FOR NOW #########
+  def check_uniqueness
     __false__ = true
-    column_names.each do |column_name|
-      if self.respond_to?(:class) && self.class.respond_to?(:table_name) && self.class.table_name == 'entities'
-        if self.send(column_name).present?
-          if self.class.where.not(id: self.id).where(column_name => self.send(column_name)).present?
-            errors.add(column_name, ' already taken')
-            __false__ = false
-          end
+    if self.respond_to?(:errors) && self.errors.blank? && self.respond_to?(:class) && self.class.respond_to?(:column_names) && self.class.table_name == 'entities'
+      column_names   = self.class.column_names - ['id', 'created_at', 'updated_at', 'key']
+      condition_hash = {}
+      column_names.each do |column_name|
+        if self[column_name.to_sym].present?
+          condition_hash[column_name.to_sym] = self[column_name.to_sym]
         end
+      
       end
+      
+      if self.class.where.not(id: self.id).where(condition_hash).first
+        __false__ = false
+        self.errors.add(:base, 'Seems Duplicate Record !')
+      end
+    
     end
     __false__
+  end
+  
+  def valid_date_of_formation
+    if self.respond_to?(:class) && self.class.table_name == 'entities'
+      if self.date_of_formation.present? && self.date_of_formation > Time.zone.now
+        self.errors.add(:date_of_formation, 'Can not be Future Date !')
+        return false
+      end
+    end
   end
 
 end

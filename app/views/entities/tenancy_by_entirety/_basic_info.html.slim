@@ -16,10 +16,10 @@
     #error_explanation
       h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Tenancy by The Entirety from being saved:"
       ul
-        - override_active_record_errors(@entity.errors.messages, {name: :property_title}).each do |message|
+        - override_active_record_errors(@entity.errors.messages, {name: :property_title, base: ''}).each do |message|
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
-    
+
     .clearfix
     .form-group.required
       label.control-label Date of Formation

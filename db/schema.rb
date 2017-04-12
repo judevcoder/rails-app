@@ -166,7 +166,9 @@ ActiveRecord::Schema.define(version: 20170405155101) do
     t.boolean  "m_date_of_formation",                   default: false
     t.boolean  "m_date_of_appointment",                 default: false
     t.boolean  "m_date_of_commission",                  default: false
+    t.integer  "user_id"
     t.index ["deleted_at"], name: "index_entities_on_deleted_at", using: :btree
+    t.index ["user_id"], name: "index_entities_on_user_id", using: :btree
   end
 
   create_table "keys", force: :cascade do |t|

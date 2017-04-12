@@ -23,6 +23,9 @@ class Entity < ApplicationRecord
   validates_length_of :index, maximum: 250, if: "self.index.present?"
   validates_numericality_of :part, less_than_or_equal_to: 99, if: "self.part.present?"
 
+  validate :check_uniqueness
+  validate :valid_date_of_formation
+  
   belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"
   belongs_to :property
   has_many :members, class_name: "Member", foreign_key: "super_entity_id"

@@ -16,7 +16,7 @@
     #error_explanation
       h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Guardianship from being saved:"
       ul
-        - override_active_record_errors(@entity.errors.messages, {name: :judge, name2: "Name of Ward", ein_or_ssn: "Social Security"}).each do |message|
+        - override_active_record_errors(@entity.errors.messages, {name: :judge, name2: "Name of Ward", ein_or_ssn: "Social Security", base: ''}).each do |message|
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
   

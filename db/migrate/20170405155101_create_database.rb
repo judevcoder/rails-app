@@ -156,9 +156,11 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
     t.boolean  "m_date_of_formation",                   default: false
     t.boolean  "m_date_of_appointment",                 default: false
     t.boolean  "m_date_of_commission",                  default: false
+    t.integer  "user_id"
   end
 
   add_index "entities", ["deleted_at"], name: "index_entities_on_deleted_at", using: :btree
+  add_index "entities", ["user_id"], name: "index_entities_on_user_id", using: :btree
 
   create_table "keys", force: true do |t|
     t.string   "key"

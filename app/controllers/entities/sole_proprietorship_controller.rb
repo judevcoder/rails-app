@@ -1,20 +1,21 @@
 class Entities::SoleProprietorshipController < ApplicationController
-
+  
   before_action :current_page
   before_action :check_xhr_page
   before_action :add_breadcrum
-
+  
   def basic_info
     key = params[:entity_key]
     if request.get?
-      @entity       = Entity.find_by( key: key )
+      @entity = Entity.find_by(key: key)
       entity_check() if @entity.present?
-      @entity     ||= Entity.new( type_: params[:type] )
+      @entity       ||= Entity.new(type_: params[:type])
       @just_created = params[:just_created].to_b
     elsif request.post?
-      @entity                 = Entity.new( entity_params )
+      @entity                 = Entity.new(entity_params)
       @entity.type_           = MemberType.new.getSoleProprietorshipId
       @entity.basic_info_only = true
+      @entity.user_id         = current_user.id
       @entity.name = @entity.name2
       if !@entity.name || @entity.name.blank?
         @entity.name = @entity.first_name + ' ' + @entity.last_name
@@ -25,16 +26,16 @@ class Entities::SoleProprietorshipController < ApplicationController
         return redirect_to clients_path
       end
     elsif request.patch?
-      @entity                 = Entity.find_by( key: key )
+      @entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.new.getSoleProprietorshipId
       @entity.basic_info_only = true
-      @entity.update( entity_params )
+      @entity.update(entity_params)
     else
       raise UnknownRequestFormat
     end
     render layout: false if request.xhr?
   end
-
+  
   def contact_info
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
@@ -49,7 +50,7 @@ class Entities::SoleProprietorshipController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-
+  
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def entity_params
@@ -58,11 +59,11 @@ class Entities::SoleProprietorshipController < ApplicationController
                                    :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
                                    :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific)
   end
-
+  
   def current_page
     @current_page = "entity"
   end
-
+  
   def check_xhr_page
     unless request.xhr?
       if params[:action] != "basic_info"
