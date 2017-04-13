@@ -68,12 +68,30 @@ class TransactionsController < ApplicationController
   
   # GET /Transaction/1/properties_update
   def properties_update
-    if @transaction.update(transaction_property_params)
-      # redirect_to properties_edit_transaction_path(@transaction, sub: params[:sub], main_id: params[:main_id], type: params[:type])
-      redirect_to personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id])
-    else
-      render action: :properties_edit
+    pid = params[:transaction][:transaction_properties_attributes]["0".to_sym][:property_id]
+    flag = false
+    
+    if !(params["type"]).nil? && params["type"] == "purchase" && @transaction.replacement_seller_contact_id.nil? 
+      property = Property.where(id: pid).first
+      if !property.owner_entity_id.nil?
+        contact = Contact.where(id: property.owner_entity_id).first
+        @transaction.replacement_seller_contact_id = contact.id
+        @transaction.replacement_seller_first_name = contact.company_name || contact.first_name
+        @transaction.replacement_seller_last_name = contact.last_name
+        flag = true
+      end
+    end 
+
+    begin
+      TransactionSale.transaction do 
+        @transaction.save! if flag
+        @transaction.update!(transaction_property_params)
+      end
+      return redirect_to personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id])
+    rescue Exception => e  
+     render action: :properties_edit
     end
+    
   end
   
   # POST /project
@@ -144,7 +162,7 @@ class TransactionsController < ApplicationController
         AccessResource.add_access({ user: current_user, resource: @transaction })
         @transaction.transaction_main.update_column(:init, false)
         # format.html { redirect_to edit_transaction_path(@transaction, type: @transaction.get_sale_purchase_text, main_id: @transaction.transaction_main, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
-        format.html { redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
+        format.html { redirect_to properties_edit_transaction_path(@transaction, sub: 'property', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
         format.json { render action: 'show', status: :created, location: @transaction }
       else
         format.html { render action: 'new' }

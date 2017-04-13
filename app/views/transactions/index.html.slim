@@ -57,7 +57,7 @@
           td = (var.second_deposit_date_due.days_gone rescue '')
           td = var.closing_date.try(:days_gone)
           td
-            = link_to 'E', edit_transaction_path(var, type: 'purchase', main_id: transaction.main.id), class: 'btn btn-sm btn-warning margin-xs-left'
+            = link_to 'E', properties_edit_transaction_path(var, sub: 'property', type: 'purchase', main_id: transaction.main.id), class: 'btn btn-sm btn-warning margin-xs-left'
             = link_to 'D', transaction_path(var, type: 'purchase', main_id: transaction.main.id), method: :delete, class: 'btn btn-sm btn-danger margin-xs-left', data: { confirm: 'Are you sure ?' }
 
 - else
