@@ -61,7 +61,7 @@
         = f.hidden_field :transaction_main_id
 
       .form-group.sale-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.seller_person_is?)}")
-        = f.select :rplmnt_seller_contact_id, options_for_select(Contact.TransactionContacts(true), f.object.replacement_seller_contact_id), {include_blank: true}, class: 'selectize-single'
+        = f.select :rplmnt_seller_contact_id, options_for_select(Contact.TransactionContacts("company"), f.object.replacement_seller_contact_id), {include_blank: true}, class: 'selectize-single'
         - if f.object.persisted? && f.object.replacement_seller_contact.present?
           .clearfix.margin-sm-top
           = link_to f.object.replacement_seller_contact.name, contact_path(f.object.replacement_seller_contact.id), target: '_blank'

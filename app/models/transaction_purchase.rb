@@ -9,7 +9,7 @@ class TransactionPurchase < ApplicationRecord
   
   default_scope -> { where(is_purchase: 1) }
 
-  attr_accessor :rplmnt_seller_contact_id, :rplmnt_purchaser_entity_id, :prop_owner
+  attr_accessor :rplmnt_seller_contact_id, :rplmnt_purchaser_entity_id, :prop_owner, :prop_status
   
   has_many :comments, as: :commentable, dependent: :destroy
 

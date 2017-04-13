@@ -30,7 +30,7 @@
       = f.select :owner_entity_id, options_for_select(Entity.where.not(name: [nil, ''], type_: [7,8,9]).pluck(:name, :id), f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
     - else
       label Owner
-      = f.select :owner_entity_id, options_for_select(Contact.TransactionContacts, f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
+      = f.select :owner_entity_id, options_for_select(Contact.TransactionContacts("all"), f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
     .form-group
       = label_tag "#{params[:ownership_status] == 'Prospective Purchase' ? 'Offering Price' : 'Purchase Price'}"
       .input-group

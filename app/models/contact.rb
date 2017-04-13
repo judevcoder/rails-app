@@ -49,13 +49,14 @@ class Contact < ApplicationRecord
     end
   end
 
-  def self.TransactionContacts(company=false)
-    if company 
+  def self.TransactionContacts(type_="individual")
+    if type_ == "company" 
       @contacts = Contact.where('company_role ilike ? and company_name is not null', "Counter-Party")
-    else
+    elsif type_ == "individual"
       @contacts = Contact.where('company_role ilike ? and company_name is null', "Counter-Party")
+    else
+      @contacts = Contact.where('company_role ilike ? ', "Counter-Party")
     end   
-    #@contacts = Contact.where('company_role ilike ? ', "Counter-Party")
     ret = []
     @contacts.each { |contact|
       contact.name = contact.try(:company_name) || ""

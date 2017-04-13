@@ -15,7 +15,10 @@
     = f.fields_for :transaction_properties do |transaction_property_form|
       .form-group
         label Property
-        = transaction_property_form.select :property_id, options_for_select(Property.where('owner_entity_id = ? and title is not null', @transaction.prop_owner).pluck(:title, :id), transaction_property_form.object.property_id), {}, class: 'form-control selectize-single'
+        - if @transaction.prop_owner == 0
+          = transaction_property_form.select :property_id, options_for_select(Property.where('ownership_status = ? and title is not null', @transaction.prop_status).pluck(:title, :id), transaction_property_form.object.property_id), {}, class: 'form-control selectize-single'
+        - else 
+          = transaction_property_form.select :property_id, options_for_select(Property.where('owner_entity_id = ? and ownership_status = ? and title is not null', @transaction.prop_owner, @transaction.prop_status).pluck(:title, :id), transaction_property_form.object.property_id), {}, class: 'form-control selectize-single'
       .form-group
         label Sale Price
         .input-group
