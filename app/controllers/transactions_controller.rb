@@ -54,6 +54,11 @@ class TransactionsController < ApplicationController
   
   # GET /Transaction/1/properties_edit
   def properties_edit
+    if params["type"] == "sale"
+      @transaction.prop_owner = @transaction.relinquishing_seller_entity_id
+    else
+      @transaction.prop_owner = @transaction.replacement_seller_contact_id
+    end    
     if @transaction.transaction_properties.blank?
       @transaction.transaction_properties.build
     end
@@ -75,8 +80,15 @@ class TransactionsController < ApplicationController
     @transaction         = params[:transaction_klazz].constantize.new(transaction_params)
     @transaction_main    = @transaction.transaction_main
     @transaction.user_id = current_user.id
-    purchase = params[:is_purchase] || false
-    if purchase 
+    purchase = params[:is_purchase] || "false"
+    
+    if purchase == "true"
+      if @transaction.seller_person_is == false 
+        @transaction.replacement_seller_contact_id = @transaction.rplmnt_seller_contact_id
+      end
+      if @transaction.purchaser_person_is == false 
+        @transaction.replacement_purchaser_entity_id = @transaction.rplmnt_purchaser_entity_id
+      end
       if @transaction.replacement_seller_contact_id
         seller = Contact.where(id: @transaction.replacement_seller_contact_id).first
         if seller 
@@ -93,6 +105,12 @@ class TransactionsController < ApplicationController
         end
       end 
     else
+      if @transaction.seller_person_is == false 
+        @transaction.relinquishing_seller_entity_id = @transaction.relqn_seller_entity_id
+      end
+      if @transaction.purchaser_person_is == false 
+        @transaction.relinquishing_purchaser_contact_id = @transaction.relqn_purchaser_contact_id
+      end
       if @transaction.relinquishing_seller_entity_id
         seller = Entity.where(id: @transaction.relinquishing_seller_entity_id).first
         if seller 

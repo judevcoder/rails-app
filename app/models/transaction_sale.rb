@@ -3,11 +3,13 @@ class TransactionSale < ApplicationRecord
   
   acts_as_paranoid
   
-  include MyFunction
+  include MyFunction  
   
   enum type_is: { '1031 Exchange' => 0 }
   
   default_scope -> { where(is_purchase: 0) }
+
+  attr_accessor :relqn_seller_entity_id, :relqn_purchaser_contact_id, :prop_owner
   
   has_many :comments, as: :commentable
   belongs_to :property
@@ -59,13 +61,13 @@ class TransactionSale < ApplicationRecord
   
   #validate :seller_and_purchaser_match
   
-  validates_presence_of :relinquishing_seller_entity_id, if: '!self.seller_person_is?', message: 'Relinquishing Seller`s Entity can not be blank'
+  validates_presence_of :relinquishing_seller_entity_id #, if: '!self.seller_person_is?', message: 'Relinquishing Seller`s Entity can not be blank'
   
-  validates_presence_of :relinquishing_seller_first_name, if: 'self.seller_person_is?', message: 'Relinquishing Seller first name can not be blank'
-  validates_presence_of :relinquishing_seller_last_name, if: 'self.seller_person_is?', message: 'Relinquishing Seller last name can not be blank'
+  #validates_presence_of :relinquishing_seller_first_name, if: 'self.seller_person_is?', message: 'Relinquishing Seller first name can not be blank'
+  #validates_presence_of :relinquishing_seller_last_name, if: 'self.seller_person_is?', message: 'Relinquishing Seller last name can not be blank'
   
-  validates_presence_of :relinquishing_purchaser_first_name, if: 'self.purchaser_person_is?', message: 'Relinquishing Purchaser first name can not be blank'
-  validates_presence_of :relinquishing_purchaser_last_name, if: 'self.purchaser_person_is?', message: 'Relinquishing Purchaser last name can not be blank'
+  #validates_presence_of :relinquishing_purchaser_first_name, if: 'self.purchaser_person_is?', message: 'Relinquishing Purchaser first name can not be blank'
+  #validates_presence_of :relinquishing_purchaser_last_name, if: 'self.purchaser_person_is?', message: 'Relinquishing Purchaser last name can not be blank'
   
   def qualified_intermediary
     super || create_qualified_intermediary

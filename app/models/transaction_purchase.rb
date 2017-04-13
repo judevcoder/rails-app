@@ -8,6 +8,8 @@ class TransactionPurchase < ApplicationRecord
   enum type_is: { '1031 Exchange' => 0 }
   
   default_scope -> { where(is_purchase: 1) }
+
+  attr_accessor :rplmnt_seller_contact_id, :rplmnt_purchaser_entity_id, :prop_owner
   
   has_many :comments, as: :commentable, dependent: :destroy
 
@@ -38,13 +40,13 @@ class TransactionPurchase < ApplicationRecord
   
   #validate :seller_and_purchaser_match
   
-  validates_presence_of :replacement_purchaser_entity_id, if: '!self.purchaser_person_is?', message: 'Replacement Purchaser`s Entity can not be blank'
+  validates_presence_of :replacement_purchaser_entity_id #, if: '!self.purchaser_person_is?', message: 'Replacement Purchaser`s Entity can not be blank'
   
-  validates_presence_of :replacement_seller_first_name, if: 'self.seller_person_is?', message: "Replacement Seller's first name can not be blank"
-  validates_presence_of :replacement_seller_last_name, if: 'self.seller_person_is?', message: "Replacement Seller's last name can not be blank"
+  #validates_presence_of :replacement_seller_first_name, if: 'self.seller_person_is?', message: "Replacement Seller's first name can not be blank"
+  #validates_presence_of :replacement_seller_last_name, if: 'self.seller_person_is?', message: "Replacement Seller's last name can not be blank"
   
-  validates_presence_of :replacement_purchaser_first_name, if: 'self.purchaser_person_is?', message: "Replacement Purchaser's first name can not be blank"
-  validates_presence_of :replacement_purchaser_last_name, if: 'self.purchaser_person_is?', message: "Replacement Purchaser's last name can not be blank"
+  #validates_presence_of :replacement_purchaser_first_name, if: 'self.purchaser_person_is?', message: "Replacement Purchaser's first name can not be blank"
+  #validates_presence_of :replacement_purchaser_last_name, if: 'self.purchaser_person_is?', message: "Replacement Purchaser's last name can not be blank"
   
   validates_presence_of :purchase_only_closing_date, if: 'self.purchase_only?', message: 'Closing Date can not be blank'
   validates_presence_of :purchase_only_qi_funds, if: 'self.purchase_only?', message: 'QI Funds can not be blank'
