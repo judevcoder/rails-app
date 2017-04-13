@@ -104,6 +104,11 @@ class TransactionsController < ApplicationController
           @transaction.replacement_purchaser_honorific = purchaser.honorific
           @transaction.replacement_purchaser_first_name = purchaser.first_name || purchaser.name
           @transaction.replacement_purchaser_last_name = purchaser.last_name
+          # Mirror the replacement buyer to relinquishing seller
+          @transaction.relinquishing_seller_entity_id = purchaser.id
+          @transaction.relinquishing_seller_honorific = purchaser.honorific
+          @transaction.relinquishing_seller_first_name = purchaser.first_name || purchaser.name
+          @transaction.relinquishing_seller_last_name = purchaser.last_name
         end
       end 
     else
@@ -115,11 +120,16 @@ class TransactionsController < ApplicationController
       end
       if @transaction.relinquishing_seller_entity_id
         seller = Entity.where(id: @transaction.relinquishing_seller_entity_id).first
-        if seller 
+        if !seller.nil?
           @transaction.relinquishing_seller_honorific = seller.honorific
           @transaction.relinquishing_seller_first_name = seller.first_name || seller.name
           @transaction.relinquishing_seller_last_name = seller.last_name
-        end
+          # Mirror the relinquishing seller to replacement buyer
+          @transaction.replacement_purchaser_entity_id = seller.id
+          @transaction.replacement_purchaser_honorific = seller.honorific
+          @transaction.replacement_purchaser_first_name = seller.first_name || seller.name
+          @transaction.replacement_purchaser_last_name = seller.last_name
+        end        
       end
       if @transaction.relinquishing_purchaser_contact_id
         purchaser = Contact.where(id: @transaction.relinquishing_purchaser_contact_id).first
