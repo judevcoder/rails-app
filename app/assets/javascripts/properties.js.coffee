@@ -59,7 +59,7 @@ $ ->
       $(document).find('#location_street_address_from_county_tax_authorities').hide()
 
   setTitleValue = ->
-    if $('#property_location_city').val().length > 0 && $('#property_title').val().length > 0
+    if $('#property_location_city').val().length > 0
       $(document).find('.tilte_basic_info').show()
       property_title = $('#property_tenant_is').val() + ', ' + $('#property_location_city').val()
       $('#property_title').val(property_title)
@@ -73,7 +73,7 @@ $ ->
     return
 
   $(document).ready ->
-    #titleHideShow()
+    titleHideShow()
 
   $(document).on 'keyup', '#property_location_city', ->
     titleHideShow()

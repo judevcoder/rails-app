@@ -5,6 +5,7 @@
 .col-lg-12.col-md-12.col-sm-12.col-xs-12.margin-lg-top
   .clearfix
   .form
+    = hidden_field_tag :entity_info, @transaction.entity_info
     - if params[:sub].blank? || params[:sub] == 'parties'
       = render partial: 'transactions/parties'
     - elsif params[:sub] == 'terms'

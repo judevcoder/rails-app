@@ -9,7 +9,8 @@ class TransactionSale < ApplicationRecord
   
   default_scope -> { where(is_purchase: 0) }
 
-  attr_accessor :relqn_seller_entity_id, :relqn_purchaser_contact_id, :prop_owner, :prop_status
+  attr_accessor :relqn_seller_entity_id, :relqn_purchaser_contact_id, 
+    :prop_owner, :prop_status, :entity_info
   
   has_many :comments, as: :commentable
   belongs_to :property
@@ -96,6 +97,7 @@ class TransactionSale < ApplicationRecord
   end
   
   def seller_name
+    return self.relinquishing_seller_entity.try(:name)
     if !self.seller_person_is?
       self.relinquishing_seller_entity.try(:name)
     else

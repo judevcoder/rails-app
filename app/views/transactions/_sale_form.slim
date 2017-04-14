@@ -38,18 +38,13 @@
       = f.hidden_field :transaction_main_id
 
     .form-group.sale-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.seller_person_is?)}")
-      = f.select :relqn_seller_entity_id, options_for_select(Entity.where.not(name: [nil, ''], type_: [1]).pluck(:name, :id), f.object.relqn_seller_entity_id), {include_blank: false}, class: 'selectize-single'
+      = f.select :relqn_seller_entity_id, options_for_select(Entity.where.not(name: [nil, ''], type_: [1]).pluck(:name, :id), f.object.relqn_seller_entity_id), {include_blank: true}, class: 'selectize-single'
       - if f.object.persisted? && f.object.relinquishing_seller_entity.present?
         .clearfix.margin-sm-top
         = link_to f.object.relinquishing_seller_entity.name, entity_path(f.object.relinquishing_seller_entity.key), target: '_blank'
 
     .form-group.sale-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.seller_person_is?)}")
-      = label_tag 'Honorific'
-      span.margin-md-left
-        = f.select :relinquishing_seller_honorific, options_for_select(GeneralMethods.honorific, f.object.relinquishing_seller_honorific), {}, { class: "state form-control" }
-
-    .form-group.sale-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.seller_person_is?)}")
-      = f.select :relinquishing_seller_entity_id, options_for_select(Entity.where.not(name: [nil, ''], type_: 2..100).pluck(:name, :id), f.object.relinquishing_seller_entity_id), {include_blank: false}, class: 'selectize-single'
+      = f.select :relinquishing_seller_entity_id, options_for_select(Entity.where.not(name: [nil, ''], type_: 2..100).pluck(:name, :id), f.object.relinquishing_seller_entity_id), {include_blank: true}, class: 'selectize-single'
       - if f.object.persisted? && f.object.relinquishing_seller_entity.present?
         .clearfix.margin-sm-top
         = link_to f.object.relinquishing_seller_entity.name, entity_path(f.object.relinquishing_seller_entity.key), target: '_blank'
@@ -75,11 +70,6 @@
         .clearfix.margin-sm-top
         = link_to f.object.relinquishing_purchaser_contact.name, contact_path(f.object.relinquishing_purchaser_contact.id), target: '_blank'
 
-    .form-group.purchase-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.purchaser_person_is?)}")
-      = label_tag 'Honorific'
-      span.margin-md-left
-        = f.select :relinquishing_purchaser_honorific, options_for_select(GeneralMethods.honorific, f.object.relinquishing_purchaser_honorific), {}, { class: "state form-control" }
-      
     .form-group.purchase-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.purchaser_person_is?)}")
       = f.select :relinquishing_purchaser_contact_id, options_for_select(Contact.TransactionContacts, f.object.relinquishing_purchaser_contact_id), {include_blank: true}, class: 'selectize-single'
       - if f.object.persisted? && f.object.relinquishing_purchaser_contact.present?

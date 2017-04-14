@@ -29,12 +29,28 @@ class TransactionsController < ApplicationController
       @transaction_main = TransactionMain.find_by(id: params[:main_id]) || TransactionMain.create(user_id: current_user.id, init: true)
       
       @transaction = if params[:type] == 'purchase'
-                       TransactionPurchase.new(transaction_main_id: @transaction_main.id)
+                       t = TransactionSale.where(transaction_main_id: @transaction_main.id).first
+                       t1 = TransactionPurchase.new({
+                         transaction_main_id: @transaction_main.id,
+                         relinquishing_seller_entity_id: t.relinquishing_seller_entity_id,
+                         relinquishing_seller_honorific: t.relinquishing_seller_honorific,
+                         relinquishing_seller_first_name: t.relinquishing_seller_first_name,
+                         relinquishing_seller_last_name: t.relinquishing_purchaser_last_name,
+                         replacement_purchaser_entity_id: t.replacement_purchaser_entity_id,
+                         replacement_purchaser_honorific: t.replacement_purchaser_honorific,
+                         replacement_purchaser_first_name: t.replacement_seller_first_name,
+                         replacement_purchaser_last_name: t.replacement_purchaser_last_name,
+                         purchaser_person_is: t.seller_person_is
+                       })   
+                       t1.save
+                       t1                  
                      else
                        TransactionSale.new(transaction_main_id: @transaction_main.id)
                      end
       
       @transaction.is_purchase = (params[:type] == 'sale' || params[:type].blank?) ? 0 : 1
+      @transaction.prop_owner = @transaction.replacement_seller_contact_id || 0
+      @transaction.prop_status = "Prospective Purchase"
     
     elsif params[:transaction_type] == '1031 Already Sold'
       @transaction_main        = TransactionMain.create(user_id: current_user.id, init: true, purchase_only: true)
@@ -42,7 +58,20 @@ class TransactionsController < ApplicationController
       @transaction.is_purchase = 1
     elsif params[:type] == 'sale' && params[:main_id].present?
       @transaction_main        = TransactionMain.find_by(id: params[:main_id])
-      @transaction             = TransactionSale.new(transaction_main_id: @transaction_main.id)
+      t = TransactionPurchase.where(transaction_main_id: @transaction_main.id).first
+      @transaction = TransactionSale.new({
+        transaction_main_id: @transaction_main.id,
+        relinquishing_seller_entity_id: t.relinquishing_seller_entity_id,
+        relinquishing_seller_honorific: t.relinquishing_seller_honorific,
+        relinquishing_seller_first_name: t.relinquishing_seller_first_name,
+        relinquishing_seller_last_name: t.relinquishing_purchaser_last_name,
+        replacement_purchaser_entity_id: t.replacement_purchaser_entity_id,
+        replacement_purchaser_honorific: t.replacement_purchaser_honorific,
+        replacement_purchaser_first_name: t.replacement_seller_first_name,
+        replacement_purchaser_last_name: t.replacement_purchaser_last_name,
+        seller_person_is: t.purchaser_person_is
+      })   
+      @transaction.save
       @transaction.is_purchase = 0
     end
   end
@@ -56,7 +85,7 @@ class TransactionsController < ApplicationController
   def properties_edit
     if params["type"] == "sale"
       @transaction.prop_owner = @transaction.relinquishing_seller_entity_id || 0
-      @transaction.prop_status = "Purchased"
+      @transaction.prop_status = "Purchased"      
     else
       @transaction.prop_owner = @transaction.replacement_seller_contact_id || 0
       @transaction.prop_status = "Prospective Purchase"
@@ -64,16 +93,35 @@ class TransactionsController < ApplicationController
     if @transaction.transaction_properties.blank?
       @transaction.transaction_properties.build
     end
+    @transaction.entity_info = @transaction.seller_name || @transaction.purchaser_name
   end
   
   # GET /Transaction/1/properties_update
   def properties_update
-    if @transaction.update(transaction_property_params)
-      # redirect_to properties_edit_transaction_path(@transaction, sub: params[:sub], main_id: params[:main_id], type: params[:type])
-      redirect_to personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id])
-    else
-      render action: :properties_edit
+    pid = params[:transaction][:transaction_properties_attributes]["0".to_sym][:property_id]
+    flag = false
+    
+    if !(params["type"]).nil? && params["type"] == "purchase" && @transaction.replacement_seller_contact_id.nil? 
+      property = Property.where(id: pid).first
+      if !property.owner_entity_id.nil?
+        contact = Contact.where(id: property.owner_entity_id).first
+        @transaction.replacement_seller_contact_id = contact.id
+        @transaction.replacement_seller_first_name = contact.company_name || contact.first_name
+        @transaction.replacement_seller_last_name = contact.last_name
+        flag = true
+      end
+    end 
+
+    begin
+      TransactionSale.transaction do 
+        @transaction.save! if flag
+        @transaction.update!(transaction_property_params)
+      end
+      return redirect_to personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id])
+    rescue Exception => e  
+     render action: :properties_edit
     end
+    
   end
   
   # POST /project
@@ -104,6 +152,11 @@ class TransactionsController < ApplicationController
           @transaction.replacement_purchaser_honorific = purchaser.honorific
           @transaction.replacement_purchaser_first_name = purchaser.first_name || purchaser.name
           @transaction.replacement_purchaser_last_name = purchaser.last_name
+          # Mirror the replacement buyer to relinquishing seller
+          @transaction.relinquishing_seller_entity_id = purchaser.id
+          @transaction.relinquishing_seller_honorific = purchaser.honorific
+          @transaction.relinquishing_seller_first_name = purchaser.first_name || purchaser.name
+          @transaction.relinquishing_seller_last_name = purchaser.last_name
         end
       end 
     else
@@ -115,11 +168,16 @@ class TransactionsController < ApplicationController
       end
       if @transaction.relinquishing_seller_entity_id
         seller = Entity.where(id: @transaction.relinquishing_seller_entity_id).first
-        if seller 
+        if !seller.nil?
           @transaction.relinquishing_seller_honorific = seller.honorific
           @transaction.relinquishing_seller_first_name = seller.first_name || seller.name
           @transaction.relinquishing_seller_last_name = seller.last_name
-        end
+          # Mirror the relinquishing seller to replacement buyer
+          @transaction.replacement_purchaser_entity_id = seller.id
+          @transaction.replacement_purchaser_honorific = seller.honorific
+          @transaction.replacement_purchaser_first_name = seller.first_name || seller.name
+          @transaction.replacement_purchaser_last_name = seller.last_name
+        end        
       end
       if @transaction.relinquishing_purchaser_contact_id
         purchaser = Contact.where(id: @transaction.relinquishing_purchaser_contact_id).first
@@ -134,7 +192,7 @@ class TransactionsController < ApplicationController
         AccessResource.add_access({ user: current_user, resource: @transaction })
         @transaction.transaction_main.update_column(:init, false)
         # format.html { redirect_to edit_transaction_path(@transaction, type: @transaction.get_sale_purchase_text, main_id: @transaction.transaction_main, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
-        format.html { redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
+        format.html { redirect_to properties_edit_transaction_path(@transaction, sub: 'property', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
         format.json { render action: 'show', status: :created, location: @transaction }
       else
         format.html { render action: 'new' }

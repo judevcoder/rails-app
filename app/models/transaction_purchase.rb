@@ -9,7 +9,8 @@ class TransactionPurchase < ApplicationRecord
   
   default_scope -> { where(is_purchase: 1) }
 
-  attr_accessor :rplmnt_seller_contact_id, :rplmnt_purchaser_entity_id, :prop_owner, :prop_status
+  attr_accessor :rplmnt_seller_contact_id, :rplmnt_purchaser_entity_id, 
+    :prop_owner, :prop_status, :entity_info
   
   has_many :comments, as: :commentable, dependent: :destroy
 
@@ -120,6 +121,7 @@ class TransactionPurchase < ApplicationRecord
   end
   
   def purchaser_name
+    return self.replacement_purchaser_entity.try(:name)
     if !self.purchaser_person_is?
       self.replacement_purchaser_entity.try(:name)
     else
