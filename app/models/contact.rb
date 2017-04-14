@@ -29,11 +29,11 @@ class Contact < ApplicationRecord
           "Other Consultant"]
 
   def self.prospective_entity
-    where("role != ? OR client_type is NULL", "Counter-Party")
+    where("company_role != ? OR client_type is NULL", "Counter-Party")
   end
 
   def self.prospective_person
-    where(role: "Counter-Party")
+    where(company_role: "Counter-Party")
   end
 
   # Views
@@ -51,11 +51,11 @@ class Contact < ApplicationRecord
 
   def self.TransactionContacts(type_="individual")
     if type_ == "company"
-      @contacts = Contact.where('role ilike ? and company_name is not null', "Counter-Party")
+      @contacts = Contact.where('company_role ilike ? and company_name is not null', "Counter-Party")
     elsif type_ == "individual"
-      @contacts = Contact.where('role ilike ? and company_name is null', "Counter-Party")
+      @contacts = Contact.where('company_role ilike ? and company_name is null', "Counter-Party")
     else
-      @contacts = Contact.where('role ilike ? ', "Counter-Party")
+      @contacts = Contact.where('company_role ilike ? ', "Counter-Party")
     end
     ret = []
     @contacts.each { |contact|
