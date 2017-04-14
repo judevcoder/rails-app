@@ -262,7 +262,7 @@ class TransactionsController < ApplicationController
     if @transaction.transaction_personnel.blank?
       @transaction.create_transaction_personnel
     end
-    @transaction.transaction_personnel.create_contacts
+    #@transaction.transaction_personnel.create_contacts
     @transaction_personnel = @transaction.transaction_personnel
   end
   
