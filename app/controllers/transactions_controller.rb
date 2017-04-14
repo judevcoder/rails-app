@@ -206,7 +206,7 @@ class TransactionsController < ApplicationController
   def update
     @transaction = params[:transaction_klazz].constantize.find(params[:id])
     if @transaction.update(transaction_params)
-      redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id, status_alert: (CGI.escape(params[:status_alert]) rescue nil))
+      redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id) 
     else
       render action: :edit
     end
