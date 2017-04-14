@@ -29,12 +29,28 @@ class TransactionsController < ApplicationController
       @transaction_main = TransactionMain.find_by(id: params[:main_id]) || TransactionMain.create(user_id: current_user.id, init: true)
       
       @transaction = if params[:type] == 'purchase'
-                       TransactionPurchase.new(transaction_main_id: @transaction_main.id)
+                       t = TransactionSale.where(transaction_main_id: @transaction_main.id).first
+                       t1 = TransactionPurchase.new({
+                         transaction_main_id: @transaction_main.id,
+                         relinquishing_seller_entity_id: t.relinquishing_seller_entity_id,
+                         relinquishing_seller_honorific: t.relinquishing_seller_honorific,
+                         relinquishing_seller_first_name: t.relinquishing_seller_first_name,
+                         relinquishing_seller_last_name: t.relinquishing_purchaser_last_name,
+                         replacement_purchaser_entity_id: t.replacement_purchaser_entity_id,
+                         replacement_purchaser_honorific: t.replacement_purchaser_honorific,
+                         replacement_purchaser_first_name: t.replacement_seller_first_name,
+                         replacement_purchaser_last_name: t.replacement_purchaser_last_name,
+                         purchaser_person_is: t.seller_person_is
+                       })   
+                       t1.save
+                       t1                  
                      else
                        TransactionSale.new(transaction_main_id: @transaction_main.id)
                      end
       
       @transaction.is_purchase = (params[:type] == 'sale' || params[:type].blank?) ? 0 : 1
+      @transaction.prop_owner = @transaction.replacement_seller_contact_id || 0
+      @transaction.prop_status = "Prospective Purchase"
     
     elsif params[:transaction_type] == '1031 Already Sold'
       @transaction_main        = TransactionMain.create(user_id: current_user.id, init: true, purchase_only: true)
@@ -42,7 +58,20 @@ class TransactionsController < ApplicationController
       @transaction.is_purchase = 1
     elsif params[:type] == 'sale' && params[:main_id].present?
       @transaction_main        = TransactionMain.find_by(id: params[:main_id])
-      @transaction             = TransactionSale.new(transaction_main_id: @transaction_main.id)
+      t = TransactionPurchase.where(transaction_main_id: @transaction_main.id).first
+      @transaction = TransactionSale.new({
+        transaction_main_id: @transaction_main.id,
+        relinquishing_seller_entity_id: t.relinquishing_seller_entity_id,
+        relinquishing_seller_honorific: t.relinquishing_seller_honorific,
+        relinquishing_seller_first_name: t.relinquishing_seller_first_name,
+        relinquishing_seller_last_name: t.relinquishing_purchaser_last_name,
+        replacement_purchaser_entity_id: t.replacement_purchaser_entity_id,
+        replacement_purchaser_honorific: t.replacement_purchaser_honorific,
+        replacement_purchaser_first_name: t.replacement_seller_first_name,
+        replacement_purchaser_last_name: t.replacement_purchaser_last_name,
+        seller_person_is: t.purchaser_person_is
+      })   
+      @transaction.save
       @transaction.is_purchase = 0
     end
   end
