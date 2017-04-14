@@ -1,12 +1,12 @@
 class Contact < ApplicationRecord
-  
+
   acts_as_paranoid
-  
+
   validates_presence_of :first_name, :last_name, :email
   validate :email_check
 
   attr_accessor :name
-  
+
   ROLE = ["Counter-Party",
           "Counter-Party Broker or Agent",
           "Counter-Party Legal",
@@ -27,22 +27,22 @@ class Contact < ApplicationRecord
           "Legal Consultant",
           "Accountant",
           "Other Consultant"]
-  
+
   def self.prospective_entity
     where("company_role != ? OR client_type is NULL", "Counter-Party")
-  end  
-  
+  end
+
   def self.prospective_person
     where(company_role: "Counter-Party")
-  end  
-  
+  end
+
   # Views
   def name
     "#{self.first_name} #{self.last_name}"
   end
 
   private
-  
+
   def email_check
     if self.email.present? && !self.email.email?
       errors.add(:email, ' is invalid !')
@@ -50,13 +50,13 @@ class Contact < ApplicationRecord
   end
 
   def self.TransactionContacts(type_="individual")
-    if type_ == "company" 
+    if type_ == "company"
       @contacts = Contact.where('company_role ilike ? and company_name is not null', "Counter-Party")
     elsif type_ == "individual"
       @contacts = Contact.where('company_role ilike ? and company_name is null', "Counter-Party")
     else
       @contacts = Contact.where('company_role ilike ? ', "Counter-Party")
-    end   
+    end
     ret = []
     @contacts.each { |contact|
       contact.name = contact.try(:company_name) || ""

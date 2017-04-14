@@ -11,7 +11,7 @@
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
     .clearfix
       h4
-        ' Company Contact 
+        ' Company Contact
     .clearfix
     - if params[:contact_type] == "company"
       .form-group
@@ -21,9 +21,9 @@
     .form-group
       = f.label :company_role, "#{(params[:contact_type] == "company") ? 'Company Role' : 'Role'}"
       = f.select :company_role, Contact::ROLE, {}, class: 'form-control selectize-single'
-  
+
     .form-group
-      = f.label :first_name, "First Name" 
+      = f.label :first_name, "First Name"
       = f.text_field :first_name, class: "form-control"
 
     .form-group
@@ -49,23 +49,23 @@
     .form-group
       = f.label :ein_or_ssn, "#{(params[:contact_type] == "company") ? 'EIN' : "SSN"}"
       = f.text_field :ein_or_ssn, class: "form-control"
-    
+
     .form-group
       = f.label :postal_address, "Postal Address"
       = f.text_field :postal_address, class: "form-control"
-    
+
     .form-group
       = label_tag 'City'
       = f.text_field :city, class: "form-control city"
-    
+
     .form-group
       = label_tag 'State'
       = f.select :state, Property::US_STATES, {}, class: 'form-control selectize-single'
-    
+
     .form-group
       = f.label "Zip"
       = f.text_field :zip, class: 'zip form-control'
-    
+
     .form-group
       = f.label :notes
       = f.text_area :notes, class: "form-control"
