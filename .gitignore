@@ -52,3 +52,6 @@ dvnobackup.sql
 /config/initializers/debug.rb
 /config/initializers/1key_and_scope.rb
 /config/initializers/1_key.rb
+
+# Ignore any db dumps
+*.dump

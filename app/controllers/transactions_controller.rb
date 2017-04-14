@@ -56,7 +56,7 @@ class TransactionsController < ApplicationController
   def properties_edit
     if params["type"] == "sale"
       @transaction.prop_owner = @transaction.relinquishing_seller_entity_id || 0
-      @transaction.prop_status = "Purchased"
+      @transaction.prop_status = "Purchased"      
     else
       @transaction.prop_owner = @transaction.replacement_seller_contact_id || 0
       @transaction.prop_status = "Prospective Purchase"
@@ -64,6 +64,7 @@ class TransactionsController < ApplicationController
     if @transaction.transaction_properties.blank?
       @transaction.transaction_properties.build
     end
+    @transaction.entity_info = @transaction.seller_name || @transaction.purchaser_name
   end
   
   # GET /Transaction/1/properties_update

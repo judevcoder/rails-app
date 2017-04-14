@@ -71,7 +71,7 @@ $ ->
 
   try
     if getJsonFromUrl()['status_alert'] == 'Sale+Pre+LOI'
-      seller = $(document).find('input#seller_info').val()
+      seller = $(document).find('input#entity_info').val()
       sweet_alert_text_success(sale_pre_loi_text(seller))
     else if getJsonFromUrl()['status_alert'] == 'Sale+LOI+to+PSA'
       sweet_alert_text_success(sale_loi_to_psa())
@@ -89,8 +89,8 @@ $ ->
   $(document).on 'change', 'select.purchase_transaction_status', ->
     $(document).find('#status_alert').val "Purchase #{$(this, 'selected:option').val()}"
 
-  purchase_pre_loi_text = -> "<strong>Congratulations!</strong>  You have just initiated a 1031 Exchange
-                            on behalf of [Purchaser]. You can now identify the property
+  purchase_pre_loi_text = (purchaser) -> "<strong>Congratulations!</strong>  You have just initiated a 1031 Exchange
+                            on behalf of " + purchaser + ". You can now identify the property
                             that you wish to purchase to replace the one that you relinquished,
                             Please be sure to input the contact info for your Qualified Intermediary, and
                             input the progress of your Exchange  by updating the Status dropdown.
@@ -131,7 +131,8 @@ $ ->
 
   try
     if getJsonFromUrl()['status_alert'] == 'Purchase+Pre+LOI'
-      sweet_alert_text_success(purchase_pre_loi_text())
+      purchaser = $(document).find('input#entity_info').val()
+      sweet_alert_text_success(purchase_pre_loi_text(purchaser))
     else if getJsonFromUrl()['status_alert'] == 'Purchase+LOI+to+PSA'
       sweet_alert_text_success(purchase_loi_to_psa())
     else if getJsonFromUrl()['status_alert'] == 'Purchase+Inspection+Period'
