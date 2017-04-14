@@ -9,13 +9,7 @@ $ ->
   $(document).on 'click', '#transaction_seller_person_is_false', ->
     if this.checked
       $(document).find('div.sale-tr-pr-detail').hide();
-      $(document).find('div.sale-tr-et-detail').show();
-
-  $(document).on 'click', '#transaction_seller_honorific_is', ->
-    if this.checked
-      $(document).find('div.transaction_seller_honorific').show();
-    else
-      $(document).find('div.transaction_seller_honorific').hide();
+      $(document).find('div.sale-tr-et-detail').show();  
 
   # Purchase
   $(document).on 'click', '#transaction_purchaser_person_is_true', ->
@@ -26,16 +20,7 @@ $ ->
   $(document).on 'click', '#transaction_purchaser_person_is_false', ->
     if this.checked
       $(document).find('div.purchase-tr-pr-detail').hide();
-      $(document).find('div.purchase-tr-et-detail').show();
-
-  $(document).on 'click', '#transaction_purchaser_honorific_is', ->
-    if this.checked
-      $(document).find('div.transaction_purchaser_honorific').show();
-    else
-      $(document).find('div.transaction_purchaser_honorific').hide();
-
-  $(document).on 'change', 'select.sale_transaction_status', ->
-    $(document).find('#status_alert').val "Sale #{$(this, 'selected:option').val()}"
+      $(document).find('div.purchase-tr-et-detail').show(); 
 
 
   sale_pre_loi_text = (seller)-> '<strong>Congratulations!</strong> You have just initiated a 1031 Exchange on behalf of <strong>'+seller+'</strong>. You can now identify the ' +
@@ -85,9 +70,6 @@ $ ->
       sweet_alert_text_success(sale_post_closing())
 
   catch
-
-  $(document).on 'change', 'select.purchase_transaction_status', ->
-    $(document).find('#status_alert').val "Purchase #{$(this, 'selected:option').val()}"
 
   purchase_pre_loi_text = (purchaser) -> "<strong>Congratulations!</strong>  You have just initiated a 1031 Exchange
                             on behalf of " + purchaser + ". You can now identify the property
