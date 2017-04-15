@@ -59,7 +59,26 @@ $ ->
       create: false
       sortField: 'text'
 
+  selectize_single_contact = ->
+    $(document).find('select.selectize-single-contact').selectize
+      create: false
+      sortField: 'text'
+      onChange: (value) ->
+        if (!value.length)
+          return
+        else
+          $.blockUI()
+          typewatch ->
+            if value == 'Counter-Party'
+              $(document).find('#contact-role_wrapper').hide()
+            else
+              $(document).find('#contact-role_wrapper').show()
+            $.unblockUI()
+          , 500
+
   selectize_single()
+  selectize_single_contact()
 
   $(document).ajaxComplete ->
     selectize_single()
+    selectize_single_contact()
