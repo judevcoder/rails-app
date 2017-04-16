@@ -78,6 +78,13 @@ class TransactionsController < ApplicationController
   
   # GET /project/1/edit
   def edit
+    if params["type"] == "sale"
+      @transaction.relqn_seller_entity_id = @transaction.relinquishing_seller_entity_id if @transaction.seller_person_is
+      @transaction.relqn_purchaser_contact_id = @transaction.relinquishing_purchaser_contact_id if @transaction.purchaser_person_is      
+    else
+      @transaction.rplmnt_seller_contact_id = @transaction.replacement_seller_contact_id if @transaction.seller_person_is
+      @transaction.rplmnt_purchaser_entity_id = @transaction.replacement_purchaser_entity_id if @transaction.purchaser_person_is
+    end
     
   end
   
@@ -130,6 +137,37 @@ class TransactionsController < ApplicationController
     @transaction         = params[:transaction_klazz].constantize.new(transaction_params)
     @transaction_main    = @transaction.transaction_main
     @transaction.user_id = current_user.id
+    @ct = nil
+    @ct = fix_transaction
+    respond_to do |format|
+      if @transaction.save && (@ct.save if !@ct.nil?)
+        AccessResource.add_access({ user: current_user, resource: @transaction })
+        @transaction.transaction_main.update_column(:init, false)
+        # format.html { redirect_to edit_transaction_path(@transaction, type: @transaction.get_sale_purchase_text, main_id: @transaction.transaction_main, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
+        format.html { redirect_to properties_edit_transaction_path(@transaction, sub: 'property', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @transaction }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  # PATCH/PUT /project/1
+  # PATCH/PUT /project/1.json
+  def update
+    @transaction = params[:transaction_klazz].constantize.find(params[:id])
+    @transaction.assign_attributes(transaction_params)
+    @ct = nil
+    @ct = fix_transaction
+    if @transaction.save && (@ct.save if !@ct.nil?) #update(transaction_params)
+      redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id) 
+    else
+      render action: :edit
+    end
+  end
+
+  def fix_transaction
     purchase = params[:is_purchase] || "false"
     
     if purchase == "true"
@@ -187,29 +225,25 @@ class TransactionsController < ApplicationController
         end
       end 
     end
-    respond_to do |format|
-      if @transaction.save
-        AccessResource.add_access({ user: current_user, resource: @transaction })
-        @transaction.transaction_main.update_column(:init, false)
-        # format.html { redirect_to edit_transaction_path(@transaction, type: @transaction.get_sale_purchase_text, main_id: @transaction.transaction_main, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
-        format.html { redirect_to properties_edit_transaction_path(@transaction, sub: 'property', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @transaction }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-  
-  # PATCH/PUT /project/1
-  # PATCH/PUT /project/1.json
-  def update
-    @transaction = params[:transaction_klazz].constantize.find(params[:id])
-    if @transaction.update(transaction_params)
-      redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id, status_alert: (CGI.escape(params[:status_alert]) rescue nil))
+
+    if @transaction.is_a?(TransactionSale)
+      @ct = TransactionPurchase.where(transaction_main_id: @transaction.transaction_main_id).first
+      return nil if @ct.nil?
+      @ct.replacement_purchaser_entity_id = @transaction.relinquishing_seller_entity_id
+      @ct.purchaser_person_is = @transaction.seller_person_is
+      @ct.replacement_purchaser_honorific = @transaction.relinquishing_seller_honorific
+      @ct.replacement_purchaser_first_name = @transaction.relinquishing_seller_first_name
+      @ct.replacement_purchaser_last_name = @transaction.relinquishing_seller_last_name
     else
-      render action: :edit
+      @ct = TransactionSale.where(transaction_main_id: @transaction.transaction_main_id).first
+      return nil if @ct.nil?
+      @ct.relinquishing_seller_entity_id = @transaction.replacement_purchaser_entity_id
+      @ct.seller_person_is = @transaction.purchaser_person_is
+      @ct.relinquishing_seller_honorific = @transaction.replacement_purchaser_honorific
+      @ct.relinquishing_seller_first_name = @transaction.replacement_purchaser_first_name
+      @ct.relinquishing_seller_last_name = @transaction.replacement_purchaser_last_name
     end
+    return @ct
   end
   
   # DELETE /project/1
@@ -262,7 +296,7 @@ class TransactionsController < ApplicationController
     if @transaction.transaction_personnel.blank?
       @transaction.create_transaction_personnel
     end
-    @transaction.transaction_personnel.create_contacts
+    #@transaction.transaction_personnel.create_contacts
     @transaction_personnel = @transaction.transaction_personnel
   end
   
