@@ -91,11 +91,11 @@ CLIENT_PARTICIPANT_ROLE = ["Principal",
     end
     ret = []
     @contacts.each { |contact|
-      contact.name = contact.try(:company_name) || ""
-      if contact.name.blank?
-        contact.name = contact.first_name + ' ' + contact.last_name
+      cname = contact.try(:company_name) || ""
+      if cname.blank?
+        cname = contact.first_name + ' ' + contact.last_name
       end
-      ret.push([contact.name, contact.id])
+      ret.push([cname, contact.id])
     }
     return ret
   end
