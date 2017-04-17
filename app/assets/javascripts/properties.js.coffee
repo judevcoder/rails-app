@@ -69,7 +69,7 @@ $ ->
       $(document).find('.tilte_basic_info').show()
       setTitleValue()
     else
-      $(document).find('.tilte_basic_info').hide()
+      #$(document).find('.tilte_basic_info').hide()
     return
 
   $(document).ready ->
