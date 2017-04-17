@@ -177,27 +177,27 @@ module ApplicationHelper
   def owned_by(entity)
     case entity.entity_type.try(:name)
       when "LLC"
-        entity.members.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
+        entity.members.map(&:name)
       when "LLP"
-        entity.limited_partners.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
+        entity.limited_partners.map(&:name)
       when "Sole Proprietorship"
-        ["#{entity.full_name} - #{entity.percentage_of_ownership}%"]
+        [entity.full_name]
       when "Power of Attorney"
-        ["#{entity.full_name} - #{entity.percentage_of_ownership}%"]
+        [entity.full_name]
       when "Guardianship"
-        ["#{entity.full_name} - #{entity.percentage_of_ownership}%"]
+        [entity.full_name]
       when "Trust"
-        entity.beneficiaries.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
+        entity.beneficiaries.map(&:name)
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
         []
       when "Limited Partnership"
-        entity.general_partners.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" } + entity.limited_partners.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
+        entity.general_partners.map(&:name) + entity.limited_partners.map(&:name)
       when "Tenancy in Common"
         []
       when "Corporation"
         entity.stockholders.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
       when "Partnership"
-        entity.partners.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
+        entity.partners.map(&:name)
       when "Tenancy by the Entirety"
         []
       else
