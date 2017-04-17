@@ -146,6 +146,6 @@ class Entity < ApplicationRecord
   
 
   def name
-    "#{super}#{(self.legal_ending.present? ? (self.legal_ending[0] == ',' ? self.legal_ending : ' ' + self.legal_ending) : '')}"
+    "#{super}" #" #{(self.legal_ending.present? ? (self.legal_ending[0] == ',' ? self.legal_ending : ' ' + self.legal_ending) : '')}"
    end 
 end
