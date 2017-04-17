@@ -34,6 +34,7 @@ class ContactsController < ApplicationController
       flash[:error] = "Specified contact not found."
       return redirect_to contacts_path
     end
+    params[:contact_type] = "company" if !@contact.company_name.nil?
     @contact.assign_attributes(contact_params)
     @contact.role = "Counter-Party"
     if @contact.contact_type == "Client Participant"
