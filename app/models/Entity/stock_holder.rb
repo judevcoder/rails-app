@@ -42,6 +42,14 @@ class StockHolder < PeopleAndFirm
     ((total_stock_share.try(:to_i) || 0) - val.to_i).to_i rescue ""
   end
 
+  def percentage_of_ownership
+    if self.total_stock_share
+      ((self.my_percentage.try(:to_f)/self.total_stock_share)*100).to_i rescue ""
+    else
+      ""
+    end
+  end
+
   def reset_first_name_or_entity_id
     if self.is_person?
       self.entity_id = nil
@@ -71,7 +79,7 @@ class StockHolder < PeopleAndFirm
     end
 
   end
-  
+
     # Views
   def name
     "#{self.first_name} #{self.last_name}"

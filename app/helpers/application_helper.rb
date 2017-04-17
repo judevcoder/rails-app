@@ -1,24 +1,24 @@
 require 'base64'
 
 module ApplicationHelper
-  
+
   def extract_emails string
     string.try(:scan, /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)
   end
-  
+
   def current_FULLPATH
     request.original_fullpath
   end
-  
+
   def base64_encode t
     Base64.strict_encode64(t)
   end
-  
+
   def title(page_title = '1031 Exchange', options={})
     content_for(:title, page_title.to_s)
     content_tag(:h1, page_title, options)
-  end  
-  
+  end
+
   def image_via_mimetype(mimetype)
     if mimetype.include?('pdf')
       'pdf.png'
@@ -38,23 +38,23 @@ module ApplicationHelper
       'other.png'
     end
   end
-  
+
   def xs_default
     "btn btn-default btn-xs buttons-margin"
   end
-  
+
   def show_xs
     "btn btn-default btn-xs btn-primary buttons-margin"
   end
-  
+
   def edit_xs
     "btn btn-default btn-xs btn-warning buttons-margin"
   end
-  
+
   def delete_xs
     "btn btn-default btn-xs btn-danger buttons-margin"
   end
-  
+
   def sumup_values val1, val2
     (val1 || 0) + (val2 || 0) rescue 0
   end
@@ -87,15 +87,15 @@ module ApplicationHelper
     }
     messages
   end
-  
+
   def require_field
     '<span style="color: red; padding-left: 5px">*</span>'.html_safe
   end
-  
+
   def remove_from_errors
     []
   end
-  
+
   def transaction_message_filter(message)
     if message.include?('Purchase only closing date ')
       message.gsub('Purchase only closing date ', '')
@@ -125,7 +125,7 @@ module ApplicationHelper
       message
     end
   end
-  
+
   def gsub_error_message(message, gsubs=[])
     done = false
     until done do
@@ -139,7 +139,7 @@ module ApplicationHelper
     end
     message
   end
-  
+
   def modify_query(url, options={})
     uri        = URI(url)
     query_hash = Rack::Utils.parse_query(uri.query)
@@ -147,17 +147,17 @@ module ApplicationHelper
     uri.query = Rack::Utils.build_query(query_hash)
     uri.to_s
   end
-  
+
   def display_standard_table(resource_klass, collection = {}, options={})
-    
+
     columns = (resource_klass.view_index_columns.collect { |t| t[:show] }.flatten + ['Action'])
-    
+
     thead = content_tag :thead do
       content_tag :tr do
         columns.collect { |column| content_tag(:th, column) }.join().html_safe
       end
     end
-    
+
     tbody = content_tag :tbody do
       collection.collect { |elem|
         content_tag :tr do
@@ -168,44 +168,44 @@ module ApplicationHelper
         end
       }.join().html_safe
     end
-    
+
     content_tag :table, id: options[:table_id] do
       thead.concat(tbody)
     end
   end
-  
+
   def owned_by(entity)
     case entity.entity_type.try(:name)
       when "LLC"
-        entity.members.map(&:name)
+        entity.members.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
       when "LLP"
-        entity.limited_partners.map(&:name)
+        entity.limited_partners.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
       when "Sole Proprietorship"
-        [entity.full_name]
+        ["#{entity.full_name} - #{entity.percentage_of_ownership}%"]
       when "Power of Attorney"
-        [entity.full_name]
+        ["#{entity.full_name} - #{entity.percentage_of_ownership}%"]
       when "Guardianship"
-        [entity.full_name]
+        ["#{entity.full_name} - #{entity.percentage_of_ownership}%"]
       when "Trust"
-        entity.beneficiaries.map(&:name)
+        entity.beneficiaries.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
         []
       when "Limited Partnership"
-        entity.general_partners.map(&:name) + entity.limited_partners.map(&:name)
+        entity.general_partners.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" } + entity.limited_partners.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
       when "Tenancy in Common"
         []
       when "Corporation"
-        entity.stockholders.map(&:name)
+        entity.stockholders.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
       when "Partnership"
-        entity.partners.map(&:name)
+        entity.partners.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
       when "Tenancy by the Entirety"
         []
       else
         [""]
     end
   end
-  
-  
+
+
   def first_name_of_entity(entity)
     case entity.entity_type.try(:name)
       when "LLC"
@@ -238,7 +238,7 @@ module ApplicationHelper
         ""
     end
   end
-  
+
   def last_name_of_entity(entity)
     case entity.entity_type.try(:name)
       when "LLC"
@@ -271,7 +271,7 @@ module ApplicationHelper
         ""
     end
   end
-  
+
   def client_entity(entity)
     case entity.entity_type.try(:name)
       when "Individual"
@@ -281,7 +281,7 @@ module ApplicationHelper
       when "LLP"
         entity.name
       when "Sole Proprietorship"
-        entity.name2 
+        entity.name2
       when "Power of Attorney"
         "#{entity.first_name2} #{entity.last_name2} POA for #{entity.first_name} #{entity.last_name}"
       when "Guardianship"
