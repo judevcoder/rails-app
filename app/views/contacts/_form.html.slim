@@ -1,4 +1,4 @@
-- url = @contact.persisted? ? contact_path(@contact.key) : contacts_path
+- url = @contact.persisted? ? contact_path(@contact.id) : contacts_path
 - heading = @contact.persisted? ? "Edit Client" : "New Client"
 = form_for @contact, url: url,remote: (request.xhr?) do |f|
   - if @contact.errors.any?

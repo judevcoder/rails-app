@@ -27,6 +27,31 @@ class ContactsController < ApplicationController
       end
     end
   end
+
+  def update
+    @contact = Contact.find_by(id: params[:id])
+    if @contact.nil?
+      flash[:error] = "Specified contact not found."
+      return redirect_to contacts_path
+    end
+    @contact.assign_attributes(contact_params)
+    @contact.role = "Counter-Party"
+    if @contact.contact_type == "Client Participant"
+      @contact.role = @contact.cp_role
+    elsif @contact.contact_type == "Personnel"
+      @contact.role = @contact.per_role
+    end
+    
+    respond_to do |format|
+      if @contact.save
+        format.html { redirect_to contacts_path }
+        format.js {render layout: false, template: "contacts/new"}
+      else
+        format.html { render action: 'edit' }
+        format.js {render layout: false, template: "contacts/new"}
+      end
+    end
+  end
   
   def index
     @contacts = Contact.with_deleted
@@ -36,7 +61,30 @@ class ContactsController < ApplicationController
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/contacts\">Contacts </a></h4></div>".html_safe
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/contacts/new\"> List </a></h4></div>".html_safe
   end
-  
+
+  def edit
+    @contact = Contact.find_by(id: params[:id])
+    params[:contact_type] = "company" if !@contact.company_name.nil?
+    if @contact.nil?
+      flash[:error] = "Specified contact not found."
+      return redirect_to contacts_path
+    end
+    if @contact.contact_type == "Client Participant"
+      @contact.cp_role = @contact.role
+    elsif @contact.contact_type == "Personnel"
+      @contact.per_role = @contact.role
+    end
+  end
+
+  def destroy
+    @contact = Contact.find_by(id: params[:id])    
+    @contact.try(:destroy)
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
+  end
+    
   def multi_delete
     common_multi_delete
   end

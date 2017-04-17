@@ -74,7 +74,7 @@ class PropertiesController < ApplicationController
         format.html { redirect_to edit_property_path(@property.key, type_is: params[:type_is]) }
         format.json { render action: 'show', status: :created, location: @property }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'edit' }
         format.json { render json: @property.errors, status: :unprocessable_entity }
       end
     end
