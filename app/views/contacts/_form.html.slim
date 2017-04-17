@@ -15,12 +15,17 @@
     .clearfix
     - if params[:contact_type] == "company"
       .form-group
+        = f.hidden_field :is_company, value: true
         = f.label :company_name, "Company Name"
         = f.text_field :company_name, class: "form-control"
 
     .form-group
-      = f.label :company_role, "#{(params[:contact_type] == "company") ? 'Company Role' : 'Role'}"
-      = f.select :company_role, Contact::ROLE, {}, class: 'form-control selectize-single'
+      label Type
+      = f.select :contact_type, options_for_select(['Personnel', 'Client Participant', 'Counter-Party'], f.object.contact_type), {}, class: 'form-control selectize-single-contact'
+
+    .form-group#contact-role_wrapper
+      = f.label :role, "#{(params[:contact_type] == "company") ? 'Company Role' : 'Role'}"
+      = f.select :role, Contact::ROLE, {}, class: 'form-control selectize-single'
 
     .form-group
       = f.label :first_name, "First Name"

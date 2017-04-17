@@ -4,6 +4,7 @@ class Contact < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email
   validate :email_check
+  validate :company_name_check
 
   attr_accessor :name
 
@@ -29,11 +30,11 @@ class Contact < ApplicationRecord
           "Other Consultant"]
 
   def self.prospective_entity
-    where("company_role != ? OR client_type is NULL", "Counter-Party")
+    where("role != ? OR client_type is NULL", "Counter-Party")
   end
 
   def self.prospective_person
-    where(company_role: "Counter-Party")
+    where(role: "Counter-Party")
   end
 
   # Views
@@ -41,7 +42,18 @@ class Contact < ApplicationRecord
     "#{self.first_name} #{self.last_name}"
   end
 
+  def is_company?
+    self.is_company
+  end
+
   private
+
+  def company_name_check
+    if self.is_company? && !self.company_name.present?
+      errors.add(:company_name, ' can\'t be blank!')
+      return false
+    end
+  end
 
   def email_check
     if self.email.present? && !self.email.email?
@@ -51,11 +63,11 @@ class Contact < ApplicationRecord
 
   def self.TransactionContacts(type_="individual")
     if type_ == "company"
-      @contacts = Contact.where('company_role ilike ? and company_name is not null', "Counter-Party")
+      @contacts = Contact.where('role ilike ? and company_name is not null', "Counter-Party")
     elsif type_ == "individual"
-      @contacts = Contact.where('company_role ilike ? and company_name is null', "Counter-Party")
+      @contacts = Contact.where('role ilike ? and company_name is null', "Counter-Party")
     else
-      @contacts = Contact.where('company_role ilike ? ', "Counter-Party")
+      @contacts = Contact.where('role ilike ? ', "Counter-Party")
     end
     ret = []
     @contacts.each { |contact|

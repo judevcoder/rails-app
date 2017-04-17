@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405155101) do
+ActiveRecord::Schema.define(version: 20170415125744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,20 +87,21 @@ ActiveRecord::Schema.define(version: 20170405155101) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.string   "type"
+    t.string   "contact_type"
     t.string   "type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "object_title"
-    t.string   "company_role"
+    t.string   "role"
     t.string   "company_name"
     t.string   "ein_or_ssn"
     t.string   "postal_address"
     t.text     "notes"
     t.datetime "deleted_at"
+    t.boolean  "is_company",     default: false
+    t.index ["contact_type", "type_id"], name: "index_contacts_on_contact_type_and_type_id", using: :btree
     t.index ["deleted_at"], name: "index_contacts_on_deleted_at", using: :btree
     t.index ["email"], name: "index_contacts_on_email", using: :btree
-    t.index ["type", "type_id"], name: "index_contacts_on_type_and_type_id", using: :btree
   end
 
   create_table "dynamic_fields", force: :cascade do |t|
@@ -119,7 +120,7 @@ ActiveRecord::Schema.define(version: 20170405155101) do
     t.string   "jurisdiction"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer   "number_of_assets"
+    t.integer  "number_of_assets"
     t.integer  "total_membership_interest",             default: 100
     t.integer  "total_undivided_interest",              default: 100
     t.integer  "total_partnership_interest",            default: 100
@@ -450,40 +451,40 @@ ActiveRecord::Schema.define(version: 20170405155101) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "key",                          limit: 20
+    t.string   "key",                                  limit: 20
     t.date     "start_date"
     t.integer  "client_id"
     t.integer  "type_is"
-    t.boolean  "purchaser_person_is",                     default: false
+    t.boolean  "purchaser_person_is",                             default: false
     t.integer  "property_id"
     t.float    "sale_price"
     t.datetime "deleted_at"
     t.integer  "transaction_main_id"
     t.string   "relinquishing_purchaser_first_name"
     t.string   "relinquishing_purchaser_last_name"
-    t.boolean  "relinquishing_purchaser_honorific_is",                  default: false
+    t.boolean  "relinquishing_purchaser_honorific_is",            default: false
     t.string   "relinquishing_purchaser_honorific"
     t.integer  "relinquishing_purchaser_contact_id"
     t.string   "relinquishing_seller_first_name"
     t.string   "relinquishing_seller_last_name"
-    t.boolean  "relinquishing_seller_honorific_is",                     default: false
+    t.boolean  "relinquishing_seller_honorific_is",               default: false
     t.string   "relinquishing_seller_honorific"
     t.integer  "relinquishing_seller_entity_id"
     t.string   "replacement_purchaser_first_name"
     t.string   "replacement_purchaser_last_name"
-    t.boolean  "replacement_purchaser_honorific_is",                  default: false
+    t.boolean  "replacement_purchaser_honorific_is",              default: false
     t.string   "replacement_purchaser_honorific"
     t.integer  "replacement_purchaser_entity_id"
     t.string   "replacement_seller_first_name"
     t.string   "replacement_seller_last_name"
-    t.boolean  "replacement_seller_honorific_is",                     default: false
+    t.boolean  "replacement_seller_honorific_is",                 default: false
     t.string   "replacement_seller_honorific"
     t.integer  "replacement_seller_contact_id"
     t.integer  "is_purchase"
-    t.boolean  "seller_person_is",                        default: false
+    t.boolean  "seller_person_is",                                default: false
     t.date     "purchase_only_closing_date"
     t.float    "purchase_only_qi_funds"
-    t.boolean  "m_purchase_only_closing_date",            default: false
+    t.boolean  "m_purchase_only_closing_date",                    default: false
     t.index ["deleted_at"], name: "index_transactions_on_deleted_at", using: :btree
     t.index ["key"], name: "index_transactions_on_key", using: :btree
   end

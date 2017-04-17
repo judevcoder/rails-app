@@ -5,6 +5,8 @@ table#data_table
       th
         | Company
       th
+        | Type
+      th
         | Role
       th
         | Contact First Name
@@ -27,7 +29,9 @@ table#data_table
         td
           = contact.company_name
         td
-          = contact.company_role
+          = contact.contact_type
+        td
+          = contact.role
         td
           = contact.first_name
         td
