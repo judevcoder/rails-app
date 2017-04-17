@@ -57,7 +57,7 @@ $ ->
   selectize_single = ->
     $(document).find('select.selectize-single').selectize
       create: false
-      sortField: 'text'
+      sortField: 'text'  
 
   selectize_single_contact = ->
     $(document).find('select.selectize-single-contact').selectize
@@ -73,8 +73,15 @@ $ ->
               $(document).find('#contact-role_wrapper').hide()
             else
               $(document).find('#contact-role_wrapper').show()
+              if value == 'Personnel'
+                $(document).find('#cp-role-wrapper').hide()
+                $(document).find('#per-role-wrapper').show()
+              else
+                $(document).find('#cp-role-wrapper').show()
+                $(document).find('#per-role-wrapper').hide()
             $.unblockUI()
           , 500
+
 
   selectize_single()
   selectize_single_contact()

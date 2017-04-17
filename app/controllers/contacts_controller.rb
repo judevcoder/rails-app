@@ -10,6 +10,13 @@ class ContactsController < ApplicationController
   
   def create
     @contact = Contact.new(contact_params)
+    @contact.role = "Counter-Party"
+    if @contact.contact_type == "Client Participant"
+      @contact.role = @contact.cp_role
+    elsif @contact.contact_type == "Personnel"
+      @contact.role = @contact.per_role
+    end
+    
     respond_to do |format|
       if @contact.save
         format.html { redirect_to contacts_path }

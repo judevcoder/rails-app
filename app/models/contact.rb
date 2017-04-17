@@ -6,10 +6,9 @@ class Contact < ApplicationRecord
   validate :email_check
   validate :company_name_check
 
-  attr_accessor :name
+  attr_accessor :name, :per_role, :cp_role
 
-  ROLE = ["Counter-Party",
-          "Counter-Party Broker or Agent",
+  PERSONNEL_ROLE = ["Counter-Party Broker or Agent",
           "Counter-Party Legal",
           "Counter-Party Consultant",
           "Tenant",
@@ -28,6 +27,27 @@ class Contact < ApplicationRecord
           "Legal Consultant",
           "Accountant",
           "Other Consultant"]
+
+CLIENT_PARTICIPANT_ROLE = ["Principal",
+          "Agent",
+          "Judge",
+          "Guardian",
+          "Ward",
+          "Settlor",
+          "Trustee",
+          "Beneficiary",
+          "LLC Member",
+          "LLC Outside Manager",
+          "LP General Partner",
+          "LP Limited Partner",
+          "Partner",
+          "Limited Liability Partner",
+          "Corporate Director",
+          "Corporate Officer",
+          "Corporate Stockholder",
+          "Tenant in Common",
+          "Tenant by Entirety",
+          "Joint Tenant"]
 
   def self.prospective_entity
     where("role != ? OR client_type is NULL", "Counter-Party")
