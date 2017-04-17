@@ -2,11 +2,11 @@ class Contact < ApplicationRecord
 
   acts_as_paranoid
 
-  validates_presence_of :first_name, :last_name #, :email
+  #validates_presence_of :first_name, :last_name #, :email
   validate :email_check
   validate :company_name_check
 
-  attr_accessor :name, :per_role, :cp_role
+  attr_accessor :name, :per_role, :cp_role, :cprefix
 
   PERSONNEL_ROLE = ["Counter-Party Broker or Agent",
           "Counter-Party Legal",

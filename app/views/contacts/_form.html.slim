@@ -10,8 +10,7 @@
 
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
     .clearfix
-      h4
-        ' Company Contact
+      h4 = ""
     .clearfix
     - if params[:contact_type] == "company"
       .form-group
@@ -31,11 +30,11 @@
         = f.select :cp_role, Contact::CLIENT_PARTICIPANT_ROLE, {}, class: 'form-control selectize-single'
 
     .form-group
-      = f.label :first_name, "First Name"
+      = f.label :first_name, "#{@contact.cprefix}First Name"
       = f.text_field :first_name, class: "form-control"
 
     .form-group
-      = f.label :last_name, "Last Name"
+      = f.label :last_name, "#{@contact.cprefix}First Name"
       = f.text_field :last_name, class: "form-control"
 
     .form-group

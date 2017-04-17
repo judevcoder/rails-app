@@ -3,6 +3,7 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
+    @contact.cprefix =  (params[:contact_type] == "company") ? "Contact " : ""
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/contacts\">Contacts </a></h4></div>".html_safe
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/contacts/new\">Add #{(params[:contact_type] || "contact").titleize} </a></h4></div>".html_safe
     render layout: false, template: "contacts/new" if request.xhr?
@@ -11,6 +12,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
     params[:contact_type] = "company" if !@contact.company_name.nil?
+    @contact.cprefix =  (params[:contact_type] == "company") ? "Contact " : ""
     @contact.role = "Counter-Party"
     if @contact.contact_type == "Client Participant"
       @contact.role = @contact.cp_role
@@ -36,6 +38,7 @@ class ContactsController < ApplicationController
       return redirect_to contacts_path
     end
     params[:contact_type] = "company" if !@contact.company_name.nil?
+    @contact.cprefix =  (params[:contact_type] == "company") ? "Contact " : ""
     @contact.assign_attributes(contact_params)
     @contact.role = "Counter-Party"
     if @contact.contact_type == "Client Participant"
@@ -67,6 +70,7 @@ class ContactsController < ApplicationController
   def edit
     @contact = Contact.find_by(id: params[:id])
     params[:contact_type] = "company" if !@contact.company_name.nil?
+    @contact.cprefix =  (params[:contact_type] == "company") ? "Contact " : ""
     if @contact.nil?
       flash[:error] = "Specified contact not found."
       return redirect_to contacts_path
