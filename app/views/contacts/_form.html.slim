@@ -17,6 +17,10 @@
         = f.hidden_field :is_company, value: true
         = f.label :company_name, "Company Name"
         = f.text_field :company_name, class: "form-control"
+        div#legal-ending-wrapper
+          = f.select :legal_ending, options_for_select(["", "Inc.", "Corp.", "Ltd.", "LLC", "LLP", "LP", "Partners", "Partnership"], @contact.legal_ending)
+    - else 
+        = f.hidden_field :is_company, value: false
 
     .form-group
       label Type
@@ -27,7 +31,7 @@
       div#per-role-wrapper
         = f.select :per_role, Contact::PERSONNEL_ROLE, {}, class: 'form-control selectize-single'
       div#cp-role-wrapper
-        = f.select :cp_role, Contact::CLIENT_PARTICIPANT_ROLE, {}, class: 'form-control selectize-single'
+        = f.select :cp_role, Contact::CLIENT_PARTICIPANT_ROLE, {}, class: 'form-control selectize-single'      
 
     .form-group
       = f.label :first_name, "#{@contact.cprefix}First Name"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415125744) do
+ActiveRecord::Schema.define(version: 20170417101029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20170415125744) do
     t.text     "notes"
     t.datetime "deleted_at"
     t.boolean  "is_company",     default: false
+    t.string   "legal_ending"
     t.index ["contact_type", "type_id"], name: "index_contacts_on_contact_type_and_type_id", using: :btree
     t.index ["deleted_at"], name: "index_contacts_on_deleted_at", using: :btree
     t.index ["email"], name: "index_contacts_on_email", using: :btree

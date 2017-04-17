@@ -69,8 +69,12 @@ $ ->
         else
           $.blockUI()
           typewatch ->
+            entityFlag = $('#contact_is_company').val()
+            $(document).find('#legal-ending-wrapper').hide()
             if value == 'Counter-Party'
               $(document).find('#contact-role_wrapper').hide()
+              if entityFlag
+                $(document).find('#legal-ending-wrapper').show()
             else
               $(document).find('#contact-role_wrapper').show()
               if value == 'Personnel'
@@ -79,6 +83,8 @@ $ ->
               else
                 $(document).find('#cp-role-wrapper').show()
                 $(document).find('#per-role-wrapper').hide()
+                if entityFlag
+                  $(document).find('#legal-ending-wrapper').show()
             $.unblockUI()
           , 500
 
