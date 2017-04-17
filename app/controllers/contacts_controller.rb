@@ -10,6 +10,7 @@ class ContactsController < ApplicationController
   
   def create
     @contact = Contact.new(contact_params)
+    params[:contact_type] = "company" if !@contact.company_name.nil?
     @contact.role = "Counter-Party"
     if @contact.contact_type == "Client Participant"
       @contact.role = @contact.cp_role
