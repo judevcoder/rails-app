@@ -93,6 +93,17 @@ class Entity < ApplicationRecord
     val.to_i || 0
   end
 
+  def self.TransactionEntity(etype="entity")
+    if etype == "individual"
+      a = Entity.where.not(name: [nil, ''], type_: 2..100).pluck(:name, :id)
+      b = Entity.where("(name2 is null or name2 = '') and type_ = ?", 2).pluck(:name, :id)
+    else
+      a = Entity.where.not(name: [nil, ''], type_: [1,2]).pluck(:name, :id)  
+      b = Entity.where("name2 is not null and name2 <> '' and type_ = ?", 2).pluck(:name, :id)
+    end
+    return (a+b).uniq
+  end
+
   private
   def ein_or_ssn_length_Corporation
     if self.Corporation?
