@@ -19,7 +19,7 @@ hr
 
 - if params[:type] != 'status'
   .clearfix.margin-lg-top
-    - persisted = !params[:main_id].nil?
+    - persisted = @transaction.persisted?
     - if @transaction.is_a?(TransactionSale)
 
       - disabled = nil
