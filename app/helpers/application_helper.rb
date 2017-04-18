@@ -205,6 +205,48 @@ module ApplicationHelper
     end
   end
 
+  def owns(entity)
+    result = []
+    entities = Entity.with_deleted.where(id: AccessResource.get_ids({user: current_user, resource_klass: 'Entity'}))
+
+    if Member.find_by_entity_id(entity.id)
+      entities.each do |e|
+        result += e.members.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      end
+    end
+
+    if LimitedPartner.find_by_entity_id(entity.id)
+      entities.each do |e|
+        result += e.limited_partners.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      end
+    end
+
+    if Beneficiary.find_by_entity_id(entity.id)
+      entities.each do |e|
+        result += e.beneficiaries.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      end
+    end
+
+    if GeneralPartner.find_by_entity_id(entity.id)
+      entities.each do |e|
+        result += e.general_partners.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      end
+    end
+
+    if StockHolder.find_by_entity_id(entity.id)
+      entities.each do |e|
+        result += e.stockholders.map {|m| ["#{e.name} - #{m.percentage_of_ownership}", edit_entity_path(e.key)]}
+      end
+    end
+
+    if Partner.find_by_entity_id(entity.id)
+      entities.each do |e|
+        result += e.partners.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      end
+    end
+
+    return result
+  end
 
   def first_name_of_entity(entity)
     case entity.entity_type.try(:name)
