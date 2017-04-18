@@ -177,31 +177,31 @@ module ApplicationHelper
   def owned_by(entity)
     case entity.entity_type.try(:name)
       when "LLC"
-        entity.members.map(&:name)
+        entity.members.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "LLP"
-        entity.limited_partners.map(&:name)
+        entity.limited_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Sole Proprietorship"
-        [entity.full_name]
+        [[entity.full_name, '#']]
       when "Power of Attorney"
-        [entity.full_name]
+        [[entity.full_name, '#']]
       when "Guardianship"
-        [entity.full_name]
+        [[entity.full_name, '#']]
       when "Trust"
-        entity.beneficiaries.map(&:name)
+        entity.beneficiaries.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
-        []
+        [[]]
       when "Limited Partnership"
-        entity.general_partners.map(&:name) + entity.limited_partners.map(&:name)
+        entity.general_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.limited_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Tenancy in Common"
-        []
+        [[]]
       when "Corporation"
-        entity.stockholders.map { |m| "#{m.name} - #{m.percentage_of_ownership}%" }
+        entity.stockholders.map { |m| ["#{m.name} - #{m.percentage_of_ownership}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Partnership"
-        entity.partners.map(&:name)
+        entity.partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Tenancy by the Entirety"
-        []
+        [[]]
       else
-        [""]
+        [["", "#"]]
     end
   end
 
