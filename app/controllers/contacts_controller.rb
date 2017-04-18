@@ -12,6 +12,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
     params[:contact_type] = "company" if !@contact.company_name.nil?
+    @contact.legal_ending = nil if @contact.company_name.nil?
     @contact.cprefix =  (params[:contact_type] == "company") ? "Contact " : ""
     @contact.role = "Counter-Party"
     if @contact.contact_type == "Client Participant"
@@ -38,6 +39,7 @@ class ContactsController < ApplicationController
       return redirect_to contacts_path
     end
     params[:contact_type] = "company" if !@contact.company_name.nil?
+    @contact.legal_ending = nil if @contact.company_name.nil?
     @contact.cprefix =  (params[:contact_type] == "company") ? "Contact " : ""
     @contact.assign_attributes(contact_params)
     @contact.role = "Counter-Party"

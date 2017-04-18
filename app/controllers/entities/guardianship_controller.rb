@@ -29,7 +29,11 @@ class Entities::GuardianshipController < ApplicationController
       @entity                 = EntityGuardianship.find_by(key: key)
       @entity.type_           = MemberType.new.getGuardianshipId
       @entity.basic_info_only = true
-      @entity.update(entity_guardianship_params)
+      @entity.assign_attributes(entity_guardianship_params)
+      @entity.name = "In re " + @entity.first_name + " " + @entity.last_name + " , AIP"
+      if @entity.save
+       return redirect_to clients_path
+      end
     else
       raise UnknownRequestFormat
     end

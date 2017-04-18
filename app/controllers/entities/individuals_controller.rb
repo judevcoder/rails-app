@@ -24,7 +24,11 @@ class Entities::IndividualsController < ApplicationController
       @entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.new.getIndividualId
       @entity.basic_info_only = true
-      @entity.update(individuals_params)
+      @entity.assign_attributes(individuals_params)
+      @entity.name = @entity.first_name + ' ' + @entity.last_name
+      if @entity.save
+        return redirect_to clients_path
+      end
     else
       raise UnknownRequestFormat
     end

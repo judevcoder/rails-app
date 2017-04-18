@@ -28,8 +28,15 @@ class Entities::SoleProprietorshipController < ApplicationController
     elsif request.patch?
       @entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.new.getSoleProprietorshipId
-      @entity.basic_info_only = true
-      @entity.update(entity_params)
+      @entity.basic_info_only = true   
+      @entity.assign_attributes(entity_params)
+      @entity.name = @entity.name2
+      if !@entity.name || @entity.name.blank?
+        @entity.name = @entity.first_name + ' ' + @entity.last_name
+      end   
+      if @entity.save(entity_params)
+        return redirect_to clients_path
+      end
     else
       raise UnknownRequestFormat
     end
