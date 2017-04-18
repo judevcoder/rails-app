@@ -21,7 +21,7 @@ table#data_table
       th
         | Contact Last Name
       th
-        | Phone Number  
+        | Phone Number
       th
         | Email
       th
@@ -38,8 +38,9 @@ table#data_table
           = entity.name if ["Tenancy in Common","Joint Tenancy with Rights of Survivorship (JTWROS)","Tenancy by the Entirety"].include? entity.entity_type.try(:name)
         td
           - owned_by(entity).each do |name|
-            span.badge 
-              = name
+            a href = edit_entity_path(entity) style="display: block"
+              span.badge
+                = name
         td
           = entity.jurisdiction
         td
@@ -50,7 +51,7 @@ table#data_table
           = first_name_of_entity entity
         td
           = last_name_of_entity entity
-        td 
+        td
           = entity.phone1
         td
           = entity.email
