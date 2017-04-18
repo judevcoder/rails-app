@@ -25,59 +25,59 @@ hr
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status'
       - $header_links[:parties] = persisted ? edit_transaction_path(@transaction, sub: 'parties', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'Parties', $header_links[:parties], class: "#{css_class}"
+      = link_to 'Parties', $header_links[:parties], class: "#{css_class} #{'active' if params[:sub] == 'parties' || params[:sub].blank? }"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
       - $header_links[:terms] = persisted ? terms_transaction_path(@transaction, sub: 'terms', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'Terms', $header_links[:terms], class: "#{css_class}"
+      = link_to 'Terms', $header_links[:terms], class: "#{css_class} #{'active' if params[:sub] == 'terms'}"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
       - $header_links[:qi] = persisted ? edit_qualified_intermediary_transaction_path(@transaction, sub: 'qi', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'QI', $header_links[:qi], class: "#{css_class}"
+      = link_to 'QI', $header_links[:qi], class: "#{css_class} #{'active' if params[:sub] == 'qi'}"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
       - $header_links[:properties] = persisted ? properties_edit_transaction_path(@transaction, sub: 'property', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'Properties', $header_links[:properties], class: "#{css_class}"
+      = link_to 'Properties', $header_links[:properties], class: "#{css_class} #{'active' if params[:sub] == 'property'}"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
       - $header_links[:personnel] = persisted ? personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'Personnel', $header_links[:personnel], class: "#{css_class}"
+      = link_to 'Personnel', $header_links[:personnel], class: "#{css_class} #{'active' if params[:sub] == 'personnel'}"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
-      = link_to 'Documents', '#', class: "#{css_class}"
+      = link_to 'Documents', '#', class: "#{css_class} #{'active' if params[:sub] == 'documents'} #{disabled}"
 
     - else @transaction.is_a?(TransactionPurchase)
 
       - disabled = 'disabled' if params[:type] == 'status'
       - $header_links[:parties] = persisted ? edit_transaction_path(@transaction, sub: 'parties', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'Parties', $header_links[:parties], class: "#{css_class}"
+      = link_to 'Parties', $header_links[:parties], class: "#{css_class} #{'active' if params[:sub] == 'parties' || params[:sub].blank? }"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record? || (['', 'Pre LOI']).include?(@transaction.status)
       - $header_links[:terms] = persisted ? terms_transaction_path(@transaction, sub: 'terms', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'Terms', $header_links[:terms], class: "#{css_class}"
+      = link_to 'Terms', $header_links[:terms], class: "#{css_class} #{'active' if params[:sub] == 'terms'}"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
       - $header_links[:qi] = persisted ? edit_qualified_intermediary_transaction_path(@transaction, sub: 'qi', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'QI', $header_links[:qi], class: "#{css_class}"
+      = link_to 'QI', $header_links[:qi], class: "#{css_class} #{'active' if params[:sub] == 'qi'}"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
       - $header_links[:properties] = persisted ? properties_edit_transaction_path(@transaction, sub: 'property', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'Properties', $header_links[:properties], class: "#{css_class}"
+      = link_to 'Properties', $header_links[:properties], class: "#{css_class} #{'active' if params[:sub] == 'property'}"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
       - $header_links[:personnel] = persisted ? personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id]) : '#'
-      = link_to 'Personnel', $header_links[:personnel], class: "#{css_class}"
+      = link_to 'Personnel', $header_links[:personnel], class: "#{css_class} #{'active' if params[:sub] == 'personnel'}"
 
       - disabled = nil
       - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record? || (['', 'Pre LOI']).include?(@transaction.status)
-      = link_to 'Documents', '#', class: "#{css_class}"
+      = link_to 'Documents', '#', class: "#{css_class} #{'active' if params[:sub] == 'documents'}"
 
