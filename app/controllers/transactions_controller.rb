@@ -139,8 +139,12 @@ class TransactionsController < ApplicationController
     @transaction.user_id = current_user.id
     @ct = nil
     @ct = fix_transaction
+    cflag = true
     respond_to do |format|
-      if @transaction.save && (@ct.save if !@ct.nil?)
+      if !@ct.nil?
+        cflag = @ct.save
+      end      
+      if @transaction.save && cflag
         AccessResource.add_access({ user: current_user, resource: @transaction })
         @transaction.transaction_main.update_column(:init, false)
         # format.html { redirect_to edit_transaction_path(@transaction, type: @transaction.get_sale_purchase_text, main_id: @transaction.transaction_main, status_alert: (CGI.escape(params[:status_alert]) rescue nil)), notice: 'Transaction was successfully created.' }
