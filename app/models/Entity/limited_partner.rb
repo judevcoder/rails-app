@@ -51,4 +51,12 @@ class LimitedPartner < PeopleAndFirm
     end
   end
 
+  def name
+    if self.entity.present?
+      self.entity.name
+    else
+      "#{self.first_name} #{self.last_name}"
+    end
+  end
+
 end

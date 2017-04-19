@@ -35,12 +35,15 @@ table#data_table
         td
           = entity.entity_type.try(:name)
         td
-          = entity.name if ["Tenancy in Common","Joint Tenancy with Rights of Survivorship (JTWROS)","Tenancy by the Entirety"].include? entity.entity_type.try(:name)
+          - owns(entity).each do |name|
+            a href = name[1] style="display: block"
+              span.badge
+                = name[0]
         td
           - owned_by(entity).each do |name|
-            a href = edit_entity_path(entity) style="display: block"
+            a href = name[1] style="display: block"
               span.badge
-                = name
+                = name[0]
         td
           = entity.jurisdiction
         td
