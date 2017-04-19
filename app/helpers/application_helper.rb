@@ -209,40 +209,52 @@ module ApplicationHelper
     result = []
     entities = Entity.with_deleted.where(id: AccessResource.get_ids({user: current_user, resource_klass: 'Entity'}))
 
-    if Member.find_by_entity_id(entity.id)
-      entities.each do |e|
-        result += e.members.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
-      end
+    if m = Member.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)] unless e.nil?
+      # entities.each do |e|
+      #   result += e.members.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      # end
     end
 
-    if LimitedPartner.find_by_entity_id(entity.id)
-      entities.each do |e|
-        result += e.limited_partners.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
-      end
+    if m = LimitedPartner.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)] unless e.nil?
+      # entities.each do |e|
+      #   result += e.limited_partners.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      # end
     end
 
-    if Beneficiary.find_by_entity_id(entity.id)
-      entities.each do |e|
-        result += e.beneficiaries.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
-      end
+    if m = Beneficiary.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)] unless e.nil?
+      # entities.each do |e|
+      #   result += e.beneficiaries.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      # end
     end
 
-    if GeneralPartner.find_by_entity_id(entity.id)
-      entities.each do |e|
-        result += e.general_partners.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
-      end
+    if m = GeneralPartner.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)] unless e.nil?
+      # entities.each do |e|
+      #   result += e.general_partners.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      # end
     end
 
-    if StockHolder.find_by_entity_id(entity.id)
-      entities.each do |e|
-        result += e.stockholders.map {|m| ["#{e.name} - #{m.percentage_of_ownership}", edit_entity_path(e.key)]}
-      end
+    if m = StockHolder.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name} - #{m.percentage_of_ownership}", edit_entity_path(e.key)] unless e.nil?
+      # entities.each do |e|
+      #   result += e.stockholders.map {|m| ["#{e.name} - #{m.percentage_of_ownership}", edit_entity_path(e.key)]}
+      # end
     end
 
-    if Partner.find_by_entity_id(entity.id)
-      entities.each do |e|
-        result += e.partners.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
-      end
+    if m = Partner.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)] unless e.nil?
+      # entities.each do |e|
+      #   result += e.partners.map {|m| ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)]}
+      # end
     end
 
     return result
