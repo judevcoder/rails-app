@@ -102,6 +102,7 @@ class Entity < ApplicationRecord
       b = Entity.where("name2 is not null and name2 <> '' and type_ = ?", 2).pluck(:name, :id, :type_)
     end
     c = (a+b).uniq
+    MemberType.InitMemberTypes if MemberType.member_types.nil?
     c.each do |item|
       item[0] = item[0] + " (" + MemberType.member_types[item[2]] + ")"
     end
