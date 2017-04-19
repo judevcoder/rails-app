@@ -17,7 +17,7 @@ $ ->
 
   $(document).on 'click', 'input#object_all', ->
     checked = this.checked
-    $.each $(document).find('input#object_select'), ->
+    $.each $(document).find('input[name="object_select"]'), ->
       $(this).prop('checked', checked)
 
     typewatch ->
