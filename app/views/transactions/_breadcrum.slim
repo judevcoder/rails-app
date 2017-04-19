@@ -1,7 +1,7 @@
 .margin-md-left
   .pull-left
     h4
-      = link_to 'Transaction ', transactions_path
+      = link_to 'Transactions ', transactions_path
 
   - if defined?(@transaction) && @transaction.present? && @transaction.Sale? && params[:type] != 'status'
     .pull-left

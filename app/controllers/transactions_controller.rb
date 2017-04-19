@@ -3,7 +3,7 @@ class TransactionsController < ApplicationController
                                          :qualified_intermediary, :properties_edit, :properties_update,
                                          :terms, :terms_update, :personnel, :personnel_update, :get_status, :set_status]
   before_action :current_page
-  before_action :add_breadcrum  
+  before_action :add_breadcrum, only: [:index]
   # GET /project
   # GET /project.json
   def index
