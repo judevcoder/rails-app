@@ -17,7 +17,7 @@ class Entities::TenancyInCommonController < ApplicationController
       @just_created = params[:just_created].to_b
     elsif request.post?
       @entity                 = EntityTenancyInCommon.new(entity_tenancy_in_common_params)
-      @entity.type_           = MemberType.new.getTenancyinCommonId
+      @entity.type_           = MemberType.getTenancyinCommonId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
       
@@ -27,7 +27,7 @@ class Entities::TenancyInCommonController < ApplicationController
       end
     elsif request.patch?
       @entity                 = EntityTenancyInCommon.find_by(key: key)
-      @entity.type_           = MemberType.new.getTenancyinCommonId
+      @entity.type_           = MemberType.getTenancyinCommonId
       @entity.basic_info_only = true
       @entity.update(entity_tenancy_in_common_params)
     else

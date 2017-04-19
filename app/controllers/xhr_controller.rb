@@ -12,7 +12,7 @@ class XhrController < ApplicationController
   end
 
   def entity_type_list
-    @types = MemberType.new.custom_order
+    @types = MemberType.objects
   end
 
 end

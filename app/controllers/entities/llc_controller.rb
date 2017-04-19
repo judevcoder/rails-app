@@ -14,7 +14,7 @@ class Entities::LlcController < ApplicationController
       @just_created = params[:just_created].to_b
     elsif request.post?
       @entity                 = Entity.new(entity_params)
-      @entity.type_           = MemberType.new.getLLCId
+      @entity.type_           = MemberType.getLLCId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
 
@@ -25,7 +25,7 @@ class Entities::LlcController < ApplicationController
       end
     elsif request.patch?
       #@entity                 = Entity.find_by(key: key)
-      @entity.type_           = MemberType.new.getLLCId
+      @entity.type_           = MemberType.getLLCId
       @entity.basic_info_only = true
       @entity.update(entity_params)
     else

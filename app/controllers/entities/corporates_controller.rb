@@ -14,7 +14,7 @@ class Entities::CorporatesController < ApplicationController
       @just_created = params[:just_created].to_b      
     elsif request.post?
       @entity                 = Entity.new(entity_params)
-      @entity.type_           = MemberType.new.getCorporationId
+      @entity.type_           = MemberType.getCorporationId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
       if @entity.save
@@ -23,7 +23,7 @@ class Entities::CorporatesController < ApplicationController
       end
     elsif request.patch?
       #@entity                 = Entity.find_by(key: key)
-      @entity.type_           = MemberType.new.getCorporationId
+      @entity.type_           = MemberType.getCorporationId
       @entity.basic_info_only = true
       @entity.update(entity_params)
     else

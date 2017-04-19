@@ -16,7 +16,7 @@
     .form-group#trustee_entity style=("#{('display: none;' if @trustee.is_person)}")
       = f.label :entity
       = f.select :entity_id, options_for_select(current_user.entities_list.where.not(id: @trustee.super_entity).order(name: :asc).pluck(:name, :id), f.object.id), {}, class: "selectize-single"
-      = hidden_field_tag "trustee[entity_type_id]", MemberType.new.getTrustId
+      = hidden_field_tag "trustee[entity_type_id]", MemberType.getTrustId
       .clearfix.add-list-entity-links
         = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group

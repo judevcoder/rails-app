@@ -5,69 +5,86 @@ class MemberType < ApplicationRecord
 
   has_many :members
 
+  cattr_accessor :member_types, :objects, :named_memberids
+
   def custom_order
-    objects = []
+    #objects = []
+    #["Individual", "Sole Proprietorship", "Power of Attorney", "Guardianship", "Estate", "Trust", "Tenancy in Common",
+    # "Joint Tenancy with Rights of Survivorship (JTWROS)", "Tenancy by the Entirety", "Partnership", "LLC", "LLP",
+    # "Limited Partnership", "Corporation"].each do |name|
+    #  objects << MemberType.find_or_create_by(name: name)
+    #end
+    self.class.objects
+  end
+
+  def self.getCorporationId
+    MemberType.named_memberids["Corporation"] 
+  end
+
+  def self.getLLCId
+    MemberType.named_memberids["LLC"]
+  end
+
+  def self.getLLPId
+    MemberType.named_memberids["LLP"]
+  end
+
+  def self.getPartnershipId
+    MemberType.named_memberids["Partnership"]
+  end
+
+  def self.getLimitedPartnershipId
+    MemberType.named_memberids["Limited Partnership"]
+  end
+
+  def self.getSoleProprietorshipId
+    MemberType.named_memberids["Sole Proprietorship"]
+  end
+
+  def self.getEstateId
+    MemberType.named_memberids["Estate"]
+  end
+
+  def self.getTrustId
+    MemberType.named_memberids["Trust"]
+  end
+
+  def self.getGuardianshipId
+    MemberType.named_memberids["Guardianship"]
+  end
+
+  def self.getTenancyinCommonId
+    MemberType.named_memberids["Tenancy in Common"]
+  end
+
+  def self.getJointTenancyId
+    MemberType.named_memberids["Joint Tenancy with Rights of Survivorship (JTWROS)"]
+  end
+
+  def self.getTenancyByTheEntiretyId
+    MemberType.named_memberids["Tenancy by the Entirety"]
+  end
+
+  def self.getPowerOfAttorneyId
+    MemberType.named_memberids["Power of Attorney"]
+  end
+  
+  def self.getIndividualId
+    MemberType.named_memberids["Individual"]
+  end
+
+  def self.InitMemberTypes
+    self.member_types = {}
+    self.named_memberids = {}
+    self.objects = []
     ["Individual", "Sole Proprietorship", "Power of Attorney", "Guardianship", "Estate", "Trust", "Tenancy in Common",
      "Joint Tenancy with Rights of Survivorship (JTWROS)", "Tenancy by the Entirety", "Partnership", "LLC", "LLP",
      "Limited Partnership", "Corporation"].each do |name|
-      objects << MemberType.find_or_create_by(name: name)
+      object = MemberType.find_or_create_by(name: name)
+      self.member_types.store(object.id, object.name)
+      self.named_memberids.store(object.name, object.id)
+      self.objects << object
     end
-    objects
-  end
-
-  def getCorporationId
-    MemberType.find_or_create_by(name: "Corporation").id
-  end
-
-  def getLLCId
-    MemberType.find_or_create_by(name: "LLC").id
-  end
-
-  def getLLPId
-    MemberType.find_or_create_by(name: "LLP").id
-  end
-
-  def getPartnershipId
-    MemberType.find_or_create_by(name: "Partnership").id
-  end
-
-  def getLimitedPartnershipId
-    MemberType.find_or_create_by(name: "Limited Partnership").id
-  end
-
-  def getSoleProprietorshipId
-    MemberType.find_or_create_by(name: "Sole Proprietorship").id
-  end
-
-  def getEstateId
-    MemberType.find_or_create_by(name: "Estate").id
-  end
-
-  def getTrustId
-    MemberType.find_or_create_by(name: "Trust").id
-  end
-
-  def getGuardianshipId
-    MemberType.find_or_create_by(name: "Guardianship").id
-  end
-
-  def getTenancyinCommonId
-    MemberType.find_or_create_by(name: "Tenancy in Common").id
-  end
-
-  def getJointTenancyId
-    MemberType.find_or_create_by(name: "Joint Tenancy with Rights of Survivorship (JTWROS)").id
-  end
-
-  def getTenancyByTheEntiretyId
-    MemberType.find_or_create_by(name: "Tenancy by the Entirety").id
-  end
-
-  def get_power_of_attorney_id
-    MemberType.find_or_create_by(name: "Power of Attorney").id
   end
   
-  def getIndividualId
-    MemberType.find_or_create_by(name: "Individual").id
-  end
 end

@@ -14,7 +14,7 @@ class Entities::PowerOfAttorneyController < ApplicationController
       @just_created = params[:just_created].to_b
     elsif request.post?
       @entity                 = PowerOfAttorney.new(power_of_attorney_params)
-      @entity.type_           = MemberType.new.get_power_of_attorney_id
+      @entity.type_           = MemberType.getPowerOfAttorneyId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
       @entity.name = @entity.first_name2 + ' ' + @entity.last_name2 + ' POA for ' + 
@@ -26,7 +26,7 @@ class Entities::PowerOfAttorneyController < ApplicationController
       end
     elsif request.patch?
       @entity                 = PowerOfAttorney.find_by(key: key)
-      @entity.type_           = MemberType.new.get_power_of_attorney_id
+      @entity.type_           = MemberType.getPowerOfAttorneyId
       @entity.basic_info_only = true
       @entity.update(entity_params)
     else

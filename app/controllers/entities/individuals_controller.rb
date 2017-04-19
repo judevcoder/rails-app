@@ -13,7 +13,7 @@ class Entities::IndividualsController < ApplicationController
       @just_created = params[:just_created].to_b
     elsif request.post?
       @entity                 = Entity.new(individuals_params)
-      @entity.type_           = MemberType.new.getIndividualId
+      @entity.type_           = MemberType.getIndividualId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
       @entity.name = @entity.first_name + ' ' + @entity.last_name
@@ -23,7 +23,7 @@ class Entities::IndividualsController < ApplicationController
       end
     elsif request.patch?
       @entity                 = Entity.find_by(key: key)
-      @entity.type_           = MemberType.new.getIndividualId
+      @entity.type_           = MemberType.getIndividualId
       @entity.basic_info_only = true
       @entity.assign_attributes(individuals_params)
       @entity.name = @entity.first_name + ' ' + @entity.last_name

@@ -16,7 +16,7 @@ class Entities::TenancyByEntiretyController < ApplicationController
       @just_created = params[:just_created].to_b
     elsif request.post?
       @entity                 = EntityTenancyByEntirety.new(entity_tenancy_by_entirety_params)
-      @entity.type_           = MemberType.new.getTenancyByTheEntiretyId
+      @entity.type_           = MemberType.getTenancyByTheEntiretyId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
       
@@ -26,7 +26,7 @@ class Entities::TenancyByEntiretyController < ApplicationController
       end
     elsif request.patch?
       #@entity                 = EntityTenancyByEntirety.find_by(key: key)
-      @entity.type_           = MemberType.new.getTenancyByTheEntiretyId
+      @entity.type_           = MemberType.getTenancyByTheEntiretyId
       @entity.basic_info_only = true
       @entity.update(entity_tenancy_by_entirety_params)
     else

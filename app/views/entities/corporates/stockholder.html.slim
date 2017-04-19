@@ -16,7 +16,7 @@
     .form-group#stockholder_entity style=("#{('display: none;' if @stockholder.is_person)}")
       = f.label :entity
       = f.select :entity_id, options_for_select(current_user.entities_list.where.not(id: @stockholder.super_entity).order(name: :asc).pluck(:name, :id), f.object.entity_id), {}, class: 'selectize-single'
-      = hidden_field_tag "stock_holder[entity_type_id]", MemberType.new.getCorporationId
+      = hidden_field_tag "stock_holder[entity_type_id]", MemberType.getCorporationId
       .clearfix.add-list-entity-links
         = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group

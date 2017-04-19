@@ -17,7 +17,7 @@ class Entities::GuardianshipController < ApplicationController
       @just_created = params[:just_created].to_b
     elsif request.post?
       @entity                 = EntityGuardianship.new(entity_guardianship_params)
-      @entity.type_           = MemberType.new.getGuardianshipId
+      @entity.type_           = MemberType.getGuardianshipId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
       @entity.name = "In re " + @entity.first_name + " " + @entity.last_name + " , AIP"
@@ -28,7 +28,7 @@ class Entities::GuardianshipController < ApplicationController
       end
     elsif request.patch?
       #@entity                 = EntityGuardianship.find_by(key: key)
-      @entity.type_           = MemberType.new.getGuardianshipId
+      @entity.type_           = MemberType.getGuardianshipId
       @entity.basic_info_only = true
       @entity.assign_attributes(entity_guardianship_params)
       @entity.name = "In re " + @entity.first_name + " " + @entity.last_name + " , AIP"

@@ -14,7 +14,7 @@ class Entities::SoleProprietorshipController < ApplicationController
       @just_created = params[:just_created].to_b
     elsif request.post?
       @entity                 = Entity.new(entity_params)
-      @entity.type_           = MemberType.new.getSoleProprietorshipId
+      @entity.type_           = MemberType.getSoleProprietorshipId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
       @entity.name = @entity.name2
@@ -28,7 +28,7 @@ class Entities::SoleProprietorshipController < ApplicationController
       end
     elsif request.patch?
       #@entity                 = Entity.find_by(key: key)
-      @entity.type_           = MemberType.new.getSoleProprietorshipId
+      @entity.type_           = MemberType.getSoleProprietorshipId
       @entity.basic_info_only = true   
       @entity.assign_attributes(entity_params)
       @entity.name = @entity.name2
