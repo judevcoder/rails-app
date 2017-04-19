@@ -82,6 +82,11 @@ class ContactsController < ApplicationController
     elsif @contact.contact_type == "Personnel"
       @contact.per_role = @contact.role
     end
+    ctype_ = "Individual"
+    ctype_ = "Company" if @contact.is_company
+    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/contacts\">Contacts </a></h4></div>".html_safe
+    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/contacts/new\">Edit #{ctype_} Contact: #{@contact.name} </a></h4></div>".html_safe
+    
   end
 
   def destroy
