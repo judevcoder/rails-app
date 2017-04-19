@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417101029) do
+ActiveRecord::Schema.define(version: 20170419155958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 20170417101029) do
     t.boolean  "m_date_of_appointment",                                     default: false
     t.boolean  "m_date_of_formation",                                       default: false
     t.boolean  "m_date_of_commission",                                      default: false
+    t.integer  "contact_id"
   end
 
   create_table "procedure_action_checklists", force: :cascade do |t|
