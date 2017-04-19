@@ -2,6 +2,7 @@ class Entities::PowerOfAttorneyController < ApplicationController
   
   before_action :current_page
   before_action :check_xhr_page
+  before_action :set_entity, only: [:basic_info]
   before_action :add_breadcrum
   
   def basic_info
@@ -152,9 +153,22 @@ class Entities::PowerOfAttorneyController < ApplicationController
     end
   end
   
+  def set_entity
+    key = params[:entity_key]
+    @entity = Entity.find_by(key: key)
+  end
+  
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
-    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Power Of Attorney </a></h4></div>".html_safe
-    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe unless params[:action] == "basic_info"
+    if params[:entity_key] and @entity.present? and !@entity.new_record?
+      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Power of Attorney: #{@entity.name}</a></h4></div>").html_safe
+    else
+      add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Power of Attorney </a></h4></div>".html_safe
+    end    
+    
+    if params[:action] != "basic_info"
+      add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
+    end
   end
+
 end

@@ -2,12 +2,13 @@ class Entities::LimitedPartnershipController < ApplicationController
   
   before_action :current_page
   before_action :check_xhr_page
+  before_action :set_entity, only: [:basic_info]
   before_action :add_breadcrum
   
   def basic_info
-    key = params[:entity_key]
+    #key = params[:entity_key]
     if request.get?
-      @entity = Entity.find_by(key: key)
+      #@entity = Entity.find_by(key: key)
       entity_check() if @entity.present?
       @entity       ||= Entity.new(type_: params[:type])
       @just_created = params[:just_created].to_b
@@ -23,7 +24,7 @@ class Entities::LimitedPartnershipController < ApplicationController
         return redirect_to clients_path
       end
     elsif request.patch?
-      @entity                 = Entity.find_by(key: key)
+      #@entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.new.getLimitedPartnershipId
       @entity.basic_info_only = true
       @entity.update(entity_params)
@@ -165,9 +166,22 @@ class Entities::LimitedPartnershipController < ApplicationController
     end
   end
   
+  def set_entity
+    key = params[:entity_key]
+    @entity = Entity.find_by(key: key)
+  end
+  
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
-    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Limited Partnership </a></h4></div>".html_safe
-    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe unless params[:action] == "basic_info"
+    if params[:entity_key] and @entity.present? and !@entity.new_record?
+      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Limited Partnership: #{@entity.name}</a></h4></div>").html_safe
+    else
+      add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Limited Partnership </a></h4></div>".html_safe
+    end    
+    
+    if params[:action] != "basic_info"
+      add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
+    end
   end
+  
 end

@@ -2,12 +2,13 @@ class Entities::GuardianshipController < ApplicationController
   
   before_action :current_page
   before_action :check_xhr_page
+  before_action :set_entity, only: [:basic_info]
   before_action :add_breadcrum
   
   def basic_info
-    key = params[:entity_key]
+    #key = params[:entity_key]
     if request.get?
-      @entity = Entity.find_by(key: key)
+      #@entity = Entity.find_by(key: key)
       if @entity.present?
         entity_check()
         @entity = EntityGuardianship.find_by(key: key)
@@ -26,7 +27,7 @@ class Entities::GuardianshipController < ApplicationController
         return redirect_to clients_path
       end
     elsif request.patch?
-      @entity                 = EntityGuardianship.find_by(key: key)
+      #@entity                 = EntityGuardianship.find_by(key: key)
       @entity.type_           = MemberType.new.getGuardianshipId
       @entity.basic_info_only = true
       @entity.assign_attributes(entity_guardianship_params)
@@ -84,11 +85,23 @@ class Entities::GuardianshipController < ApplicationController
       end
     end
   end
+
+  def set_entity
+    key = params[:entity_key]
+    @entity = Entity.find_by(key: key)
+  end
   
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
-    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Guardianship </a></h4></div>".html_safe
-    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe unless params[:action] == "basic_info"
+    if params[:entity_key] and @entity.present? and !@entity.new_record?
+      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Guardianship: #{@entity.name}</a></h4></div>").html_safe
+    else
+      add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Guardianship </a></h4></div>".html_safe
+    end    
+    
+    if params[:action] != "basic_info"
+      add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
+    end
   end
 
 end
