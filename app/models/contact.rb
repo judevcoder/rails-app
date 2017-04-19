@@ -8,6 +8,8 @@ class Contact < ApplicationRecord
 
   attr_accessor :name, :per_role, :cp_role, :cprefix
 
+  has_one :stockholder
+
   PERSONNEL_ROLE = ["Counter-Party Broker or Agent",
           "Counter-Party Legal",
           "Counter-Party Consultant",
@@ -61,9 +63,9 @@ CLIENT_PARTICIPANT_ROLE = ["Principal",
   def name
     if !company_name.nil?
        "#{self.company_name} #{self.legal_ending}"
-    else 
+    else
       "#{self.first_name} #{self.last_name}"
-    end        
+    end
   end
 
   def is_company?

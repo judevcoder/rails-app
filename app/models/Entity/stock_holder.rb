@@ -15,6 +15,7 @@ class StockHolder < PeopleAndFirm
 
   belongs_to :super_entity, class_name: "SuperEntity"
   belongs_to :entity
+  belongs_to :contact
   after_save :add_key
 
   attr_accessor :share_error
