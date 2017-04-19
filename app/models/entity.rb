@@ -95,13 +95,17 @@ class Entity < ApplicationRecord
 
   def self.TransactionEntity(etype="entity")
     if etype == "individual"
-      a = Entity.where.not(name: [nil, ''], type_: 2..100).pluck(:name, :id)
-      b = Entity.where("(name2 is null or name2 = '') and type_ = ?", 2).pluck(:name, :id)
+      a = Entity.where.not(name: [nil, ''], type_: 2..100).pluck(:name, :id, :type_)
+      b = Entity.where("(name2 is null or name2 = '') and type_ = ?", 2).pluck(:name, :id, :type_)
     else
-      a = Entity.where.not(name: [nil, ''], type_: [1,2]).pluck(:name, :id)  
-      b = Entity.where("name2 is not null and name2 <> '' and type_ = ?", 2).pluck(:name, :id)
+      a = Entity.where.not(name: [nil, ''], type_: [1,2]).pluck(:name, :id, :type_)  
+      b = Entity.where("name2 is not null and name2 <> '' and type_ = ?", 2).pluck(:name, :id, :type_)
     end
-    return (a+b).uniq
+    c = (a+b).uniq
+    c.each do |item|
+      item[0] = item[0] + " (" + MemberType.member_types[item[2]] + ")"
+    end
+    return c
   end
 
   private
