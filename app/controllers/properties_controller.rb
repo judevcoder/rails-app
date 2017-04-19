@@ -35,7 +35,7 @@ class PropertiesController < ApplicationController
     @property = Property.new
     @property.ostatus = params["ostatus"]
     add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + new_property_path(ostatus: params["ostatus"]) + 
-      "\'> Basic Info - " + params["ostatus"] + " </a></h4></div>").html_safe
+      "\'> Add Property - " + params["ostatus"] + " </a></h4></div>").html_safe
     render layout: false if request.xhr?
   end
   
@@ -43,7 +43,7 @@ class PropertiesController < ApplicationController
   def edit    
     @property.ostatus = @property.ownership_status
     add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + edit_property_path(@property.key) + 
-      "\'> Basic Info - " + @property.ownership_status + " </a></h4></div>").html_safe
+      "\'> Edit " + @property.ownership_status + " Property - " + @property.title + " </a></h4></div>").html_safe
   end
   
   # POST /properties
