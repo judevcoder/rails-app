@@ -4,8 +4,15 @@ $ ->
       $(document).find(".contact").html('Contact');
       $(document).find("input[id$=_entity]").parent().show();
 
-      if $(document).find("div[id$=_entity]").length > 0
-        $(document).find("div[id$=_entity]").show();
+      $.ajax
+        type: "POST"
+        url: "/xhr/clients_options_html"
+        data: {is_person: "false", id: $("select[id$=_entity_id]").attr("data-id")}
+        dataType: "html"
+        success: (val) ->
+          $(document).find("select[id$=_entity_id]").html(val);
+        error: (e) ->
+          console.log e
 
       sort_select_options($(document).find("select[id$=_state]")[0], false)
 
@@ -14,10 +21,28 @@ $ ->
       $(document).find(".contact").html('&nbsp;');
       $(document).find("input[id$=_entity]").parent().hide();
 
-      if $(document).find("div[id$=_entity]").length > 0
-        $(document).find("div[id$=_entity]").hide();
+      $.ajax
+        type: "POST"
+        url: "/xhr/clients_options_html"
+        data: {is_person: "true", id: $("select[id$=_entity_id]").attr("data-id")}
+        dataType: "html"
+        success: (val) ->
+          $(document).find("select[id$=_entity_id]").html(val);
+        error: (e) ->
+          console.log e
 
       sort_select_options($(document).find("select[id$=_state]")[0], true)
+
+  $(document).on 'click', "select[id$=_entity_id]", ->
+    currentType = $(this).find("option:selected").attr('data-type');
+
+    if currentType == "contact"
+      oldType = "entity_id";
+    else
+      oldType = "contact_id";
+
+    currentName = $(this).attr("name");
+    $(this).attr("name", currentName.replace(oldType, currentType + "_id"));
 
   $(document).on "click", "a.resource-form-new-entity", ->
     url = '/entities/new?stockholder=true'

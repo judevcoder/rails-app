@@ -4,6 +4,10 @@ class XhrController < ApplicationController
 
   layout false
 
+  def clients_options_html
+    obj = SuperEntity.find(params[:id])
+    @html = options_html('stockholder', params[:is_person], obj)
+  end
 
   def client_entity
     val          = params[:val]

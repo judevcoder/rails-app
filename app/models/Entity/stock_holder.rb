@@ -5,10 +5,10 @@ class StockHolder < PeopleAndFirm
 
   default_scope{ where(class_name: "StockHolder")}
   validate :entity_presence
-  validate :reset_first_name_or_entity_id
-  validates_presence_of :first_name, :last_name
+  # validate :reset_first_name_or_entity_id
+  # validates_presence_of :first_name, :last_name
   validates_length_of :first_name, :last_name, :email, :postal_address, :fax, :phone1, :phone2, :city, :state, :zip, maximum: 250
-  validates :email, email: true, if: "self.email.present?"
+  # validates :email, email: true, if: "self.email.present?"
   validates_length_of :ein_or_ssn, is: 9, if: "self.ein_or_ssn.present?"
   validates_format_of :ein_or_ssn, :with => /\A([A-Za-z0-9]+)\Z/i, message: " is invalid", if: "self.ein_or_ssn.present?"
   validate :validate_my_percentage
@@ -21,11 +21,9 @@ class StockHolder < PeopleAndFirm
   attr_accessor :share_error
 
   def entity_presence
-    unless self.is_person?
-      if self.entity.blank?
-        errors.add(:entity, "is invalid, Please add it before saving")
-        return
-      end
+    if self.entity.blank? && self.contact.blank? && self.first_name.blank? && self.last_name.blank?
+      errors.add(:entity, "is invalid, Please add it before saving")
+      return
     end
   end
 
@@ -85,6 +83,8 @@ class StockHolder < PeopleAndFirm
   def name
     if self.entity.present?
       self.entity.name
+    elsif self.contact.present?
+      self.contact.name
     else
       "#{self.first_name} #{self.last_name}"
     end

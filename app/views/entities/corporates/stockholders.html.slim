@@ -20,16 +20,33 @@ table#data_table
     - @stockholders.each do |stockholder|
       tr
         td
-          - if stockholder.is_person?
-            = "#{stockholder.first_name} #{stockholder.last_name}"
-          - else
+          - if stockholder.entity.present?
             = stockholder.entity.try(:name)
+          - elsif stockholder.contact.present?
+            = stockholder.contact.try(:name)
+          - else
+            = "#{stockholder.first_name} #{stockholder.last_name}"
         td
-          = stockholder.type_
+          - if stockholder.entity.present?
+            = stockholder.entity.entity_type.try(:name)
+          - elsif stockholder.contact.present?
+            = stockholder.contact.try(:contact_type)
+          - else
+            = stockholder.type_
         td
-          = stockholder.ein_or_ssn
+          - if stockholder.entity.present?
+            = stockholder.entity.try(:ein_or_ssn)
+          - elsif stockholder.contact.present?
+            = stockholder.contact.try(:ein_or_ssn)
+          - else
+            = stockholder.ein_or_ssn
         td
-          = stockholder.email
+          - if stockholder.entity.present?
+            = stockholder.entity.try(:email)
+          - elsif stockholder.contact.present?
+            = stockholder.contact.try(:email)
+          - else
+            = stockholder.email
         td
           = stockholder.my_percentage
         td.actions
