@@ -1,11 +1,6 @@
-= link_to "Basic info", entities_partnership_basic_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'basic_info' ? 'active' : ''}"
 - if @entity.key.present?
+  = link_to "Basic info", entities_partnership_basic_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'basic_info' ? 'active' : ''}"
   = link_to "Contact info", entities_partnership_contact_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'contact_info' ? 'active' : ''}"
   = link_to "Partners", entities_partnership_partners_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'partners' ? 'active' : ''}"
   = link_to "+", entities_partnership_partner_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left stockholder-add entity-page-xhr #{params[:action] == 'partners' ? 'active' : ''}"
   = link_to "Owns", "#", remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'contact_info' ? 'active' : ''}"
-- else
-  = link_to "Contact info", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the Partnership by filling out required fields in Basic Info and saving"
-  = link_to "Partners", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the Partnership by filling out required fields in Basic Info and saving"
-  = link_to "+", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the Partnership by filling out required fields in Basic Info and saving"
-  = link_to "Owns", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the Partnership by filling out required fields in Basic Info and saving"

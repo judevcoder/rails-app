@@ -9,10 +9,10 @@ class Entities::GuardianshipController < ApplicationController
     #key = params[:entity_key]
     if request.get?
       #@entity = Entity.find_by(key: key)
-      if @entity.present?
-        entity_check()
-        @entity = EntityGuardianship.find_by(key: key)
-      end
+      #if @entity.present?
+      #  entity_check()
+      #  @entity = EntityGuardianship.find_by(key: key)
+      #end
       @entity       ||= EntityGuardianship.new(type_: params[:type])
       @just_created = params[:just_created].to_b
     elsif request.post?
@@ -89,6 +89,10 @@ class Entities::GuardianshipController < ApplicationController
   def set_entity
     key = params[:entity_key]
     @entity = Entity.find_by(key: key)
+    if @entity.present?
+      entity_check()
+      @entity = EntityGuardianship.find_by(key: key)
+    end
   end
   
   def add_breadcrum

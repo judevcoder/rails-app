@@ -1,5 +1,5 @@
-= link_to "Basic info", entities_corporates_basic_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'basic_info' ? 'active' : ''}"
 - if @entity.key.present?
+  = link_to "Basic info", entities_corporates_basic_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'basic_info' ? 'active' : ''}"
   = link_to "Contact info", entities_corporates_contact_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'contact_info' ? 'active' : ''}"
   = link_to "Stockholders", entities_corporates_stockholders_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'stockholders' ? 'active' : ''}"
 
@@ -12,11 +12,3 @@
   = link_to "Directors", entities_corporates_directors_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'directors' ? 'active' : ''}"
 
   = link_to "+", entities_corporates_director_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left director-add entity-page-xhr #{params[:action] == 'directors' ? 'active' : ''}"
-- else
-  = link_to "Contact info", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the corporation by filling out required fields in Basic Info and saving"
-  = link_to "Stockholders", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the corporation by filling out required fields in Basic Info and saving"
-  = link_to "+", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the corporation by filling out required fields in Basic Info and saving"
-  = link_to "Officers", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the corporation by filling out required fields in Basic Info and saving"
-  = link_to "+", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the corporation by filling out required fields in Basic Info and saving"
-  = link_to "Directors", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the corporation by filling out required fields in Basic Info and saving"
-  = link_to "+", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => "Please create the corporation by filling out required fields in Basic Info and saving"

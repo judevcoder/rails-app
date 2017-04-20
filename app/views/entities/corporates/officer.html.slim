@@ -8,53 +8,6 @@
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12          
     .form-group
-      .part2.honorific
-        = f.label :person_type
-      .part3
-        = f.select :person_type, options_for_select(["President", "Vice-President", "Secretary", "Treasurer", "Chief Operating Officer", "Chief Technology Officer", "Chief Financial Officer", "Other"], @officer.person_type), {}, {class: "state"}
-        - if @officer.person_type.present? && !["President", "Vice-President", "Secretary", "Treasurer", "Chief Operating Officer", "Chief Technology Officer", "Chief Financial Officer"].include?(@officer.person_type)
-          input type="text" value="#{@officer.person_type}" name="officer[person_type]" id="officer_person_type" style="clear: both; display: block; margin-top: 5px; margin-bottom: 5px; width: 60%"
-    .form-group.required
-      = f.label :office, class: "control-label"
-      = f.text_area :office, class: "form-control"
-    .form-group
-      .part2.honorific
-        = f.label :honorific
-        = f.check_box :is_honorific
-      .part3 style="display: #{(@officer.is_honorific ? 'inline' : 'none')}"
-        = f.select :honorific, options_for_select(GeneralMethods.honorific, @officer.honorific), {}, {class: "state"}
-    .form-group.required
-      = f.label :first_name, class: "control-label"
-      = f.text_field :first_name, class: "form-control"
-    .form-group.required
-      = f.label :last_name, class: "control-label"
-      = f.text_field :last_name, class: "form-control"
-    .form-group
-      = f.label :phone1
-      = f.text_field :phone1, "placeholder" => "example: +(country code) (phone number)", class: "form-control"
-    .form-group
-      = f.label :phone2
-      = f.text_field :phone2, "placeholder" => "example: +(country code) (phone number)", class: "form-control"
-    .form-group
-      = f.label :fax
-      = f.text_field :fax, class: "form-control"
-    .form-group
-      = f.label :email
-      = f.text_field :email, class: "form-control"
-    .form-group
-      label Postal Address
-      = f.text_field :postal_address
-    .form-group
-      label City
-      = f.text_field :city, class: 'city form-control'
-    .form-group    
-      label State
-      = f.select :state, options_for_select(GeneralMethods.USSTATES, @officer.state), html_options: {class: 'state form-control selectize-single'}
-    .form-group    
-      label Zip
-      = f.text_field :zip, class: 'zip form-control'
-    .form-group
-      = f.label :notes
-      = f.text_area :notes, class: "form-control"
+      label Placeholder : DropDown For Entities
     .form-group
       = f.submit 'Save', class: "btn btn-primary"

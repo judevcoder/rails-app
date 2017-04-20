@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :user_enabled
   before_action :miniprofiler
+  before_action :check_member_init
   
   
   def save_current_url
@@ -27,6 +28,10 @@ class ApplicationController < ActionController::Base
         puts session[:last_url]
       end
     end
+  end
+
+  def check_member_init
+    MemberType.InitMemberTypes if (MemberType.objects.nil? || MemberType.objects.empty?) 
   end
   
   protected
