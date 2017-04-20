@@ -25,7 +25,7 @@ class Entity < ApplicationRecord
 
   validate :check_uniqueness
   validate :valid_date_of_formation
-  
+
   belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"
   belongs_to :property
   has_many :members, class_name: "Member", foreign_key: "super_entity_id"
@@ -44,7 +44,7 @@ class Entity < ApplicationRecord
   has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"
   has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"
   has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"
-  
+
   after_save :add_key
   before_save :set_default_val
 
@@ -98,7 +98,7 @@ class Entity < ApplicationRecord
       a = Entity.where.not(name: [nil, ''], type_: 2..100).pluck(:name, :id, :type_)
       b = Entity.where("(name2 is null or name2 = '') and type_ = ?", 2).pluck(:name, :id, :type_)
     else
-      a = Entity.where.not(name: [nil, ''], type_: [1,2]).pluck(:name, :id, :type_)  
+      a = Entity.where.not(name: [nil, ''], type_: [1,2]).pluck(:name, :id, :type_)
       b = Entity.where("name2 is not null and name2 <> '' and type_ = ?", 2).pluck(:name, :id, :type_)
     end
     MemberType.InitMemberTypes if MemberType.member_types.nil?
@@ -164,9 +164,9 @@ class Entity < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
-  
+
 
   def name
-    "#{super}" #" #{(self.legal_ending.present? ? (self.legal_ending[0] == ',' ? self.legal_ending : ' ' + self.legal_ending) : '')}"
-   end 
+    "#{super} #{self.legal_ending}" #" #{(self.legal_ending.present? ? (self.legal_ending[0] == ',' ? self.legal_ending : ' ' + self.legal_ending) : '')}"
+   end
 end
