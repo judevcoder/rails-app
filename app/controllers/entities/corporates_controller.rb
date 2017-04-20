@@ -147,8 +147,6 @@ class Entities::CorporatesController < ApplicationController
     end
     if request.post?
       @stockholder                 = StockHolder.new(stockholder_params)
-      puts "----------------------"
-      puts @stockholder.entity_id
       @stockholder.super_entity_id = @entity.id
       @stockholder.class_name      = "StockHolder"
       if @stockholder.save

@@ -343,32 +343,32 @@ module ApplicationHelper
   def options_html(type, is_person, super_entity)
     if type == "stockholder"
       if is_person == "true"
-        result = "<option></option><optgroup label='Client Individuals'>"
+        result = "<option>Select One...</option><optgroup label='Client Individuals'>"
 
         current_user.entities_list.where.not(id: super_entity).order(name: :asc).where(type_: [1, 2, 3, 4]).each do |entity|
-          result += "<option value=#{entity.id} data-type='entity'>#{entity.name}</option>"
+          result += "<option value=#{entity.id} data-type='entity'>#{entity.name} (#{MemberType.member_types[entity.type_]})</option>"
         end
 
         result += "</optgroup><optgroup label='Contact Individuals'>"
 
         Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
-          result += "<option value=#{contact.id} data-type='contact'>#{contact.name}</option>"
+          result += "<option value=#{contact.id} data-type='contact'>#{contact.name} (#{contact.contact_type})</option>"
         end
 
         result += "</optgroup>"
         return result.html_safe
       else
-        result = "<option></option><optgroup label='Client Entities'>"
+        result = "<option>Select One...</option><optgroup label='Client Entities'>"
 
         #Should exclude Individual, Tenancy in Common, Tenancy by the Entirety & Joint Tenancy
         current_user.entities_list.where.not(id: super_entity).order(name: :asc).where.not(type_: [1, 7, 8, 9]).each do |entity|
-          result += "<option value=#{entity.id} data-type='entity'>#{entity.name}</option>"
+          result += "<option value=#{entity.id} data-type='entity'>#{entity.name} (#{MemberType.member_types[entity.type_]})</option>"
         end
 
         result += "</optgroup><optgroup label='Contact Companies'>"
 
         Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
-          result += "<option value=#{contact.id} data-type='contact'>#{contact.name}</option>"
+          result += "<option value=#{contact.id} data-type='contact'>#{contact.name} (#{contact.contact_type})</option>"
         end
 
         result += "</optgroup>"
