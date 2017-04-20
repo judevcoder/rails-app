@@ -101,12 +101,17 @@ class Entity < ApplicationRecord
       a = Entity.where.not(name: [nil, ''], type_: [1,2]).pluck(:name, :id, :type_)  
       b = Entity.where("name2 is not null and name2 <> '' and type_ = ?", 2).pluck(:name, :id, :type_)
     end
-    c = (a+b).uniq
     MemberType.InitMemberTypes if MemberType.member_types.nil?
-    c.each do |item|
-      item[0] = item[0] + " (" + MemberType.member_types[item[2]] + ")"
-    end
-    return c
+    return (a+b).uniq.map! {
+        |item| ["#{item[0]} (#{MemberType.member_types[item[2]]})", item[1]]
+    }
+  end
+
+  def self.PurchasedPropertyEntity
+    MemberType.InitMemberTypes if MemberType.member_types.nil?
+    Entity.where.not(name: [nil, ''], type_: [7,8,9]).pluck(:name, :id, :type_).map! {
+        |item| ["#{item[0]} (#{MemberType.member_types[item[2]]})", item[1]]
+    }
   end
 
   private
