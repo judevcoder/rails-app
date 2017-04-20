@@ -4,7 +4,7 @@ class GeneralPartner < PeopleAndFirm
 
   default_scope{ where(class_name: "GeneralPartner")}
   validate :entity_presence
-  validates_presence_of :first_name, :last_name
+  # validates_presence_of :first_name, :last_name
   validates_length_of :first_name, :last_name, :email, :phone_number, maximum: 250
   validate :remaining_share_or_interest_check
   belongs_to :super_entity, class_name: "SuperEntity"

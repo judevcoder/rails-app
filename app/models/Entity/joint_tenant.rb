@@ -3,7 +3,7 @@ class JointTenant < PeopleAndFirm
   include ModelMethods
 
   default_scope{ where(class_name: "JointTenant")}
-  validates_presence_of :first_name, :last_name
+  # validates_presence_of :first_name, :last_name
   validates_length_of :first_name, :last_name, :email, :phone_number, maximum: 250
   validate :validate_my_percentage
   belongs_to :super_entity, class_name: "SuperEntity"
