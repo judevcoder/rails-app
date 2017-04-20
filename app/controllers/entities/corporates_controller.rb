@@ -1,17 +1,17 @@
 class Entities::CorporatesController < ApplicationController
-  
+
   before_action :current_page
   before_action :check_xhr_page
   before_action :set_entity, only: [:basic_info]
   before_action :add_breadcrum
-    
+
   def basic_info
     #key = params[:entity_key]
     if request.get?
       #@entity = Entity.find_by(key: key)
       entity_check() if @entity.present?
       @entity       ||= Entity.new(type_: params[:type])
-      @just_created = params[:just_created].to_b      
+      @just_created = params[:just_created].to_b
     elsif request.post?
       @entity                 = Entity.new(entity_params)
       @entity.type_           = MemberType.getCorporationId
@@ -31,7 +31,7 @@ class Entities::CorporatesController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def contact_info
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
@@ -46,7 +46,7 @@ class Entities::CorporatesController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def director
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Director </a></h4></div>".html_safe
     unless request.delete?
@@ -82,7 +82,7 @@ class Entities::CorporatesController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def directors
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Directors </a></h4></div>".html_safe
     @entity = Entity.find_by(key: params[:entity_key])
@@ -90,7 +90,7 @@ class Entities::CorporatesController < ApplicationController
     @directors = @entity.directors
     render layout: false if request.xhr?
   end
-  
+
   def officer
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Officer </a></h4></div>".html_safe
     unless request.delete?
@@ -125,7 +125,7 @@ class Entities::CorporatesController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def officers
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Officers </a></h4></div>".html_safe
     @entity = Entity.find_by(key: params[:entity_key])
@@ -133,7 +133,7 @@ class Entities::CorporatesController < ApplicationController
     @officers = @entity.officers
     render layout: false if request.xhr?
   end
-  
+
   def stockholder
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Officers </a></h4></div>".html_safe
     unless request.delete?
@@ -147,6 +147,8 @@ class Entities::CorporatesController < ApplicationController
     end
     if request.post?
       @stockholder                 = StockHolder.new(stockholder_params)
+      puts "----------------------"
+      puts @stockholder.entity_id
       @stockholder.super_entity_id = @entity.id
       @stockholder.class_name      = "StockHolder"
       if @stockholder.save
@@ -172,14 +174,14 @@ class Entities::CorporatesController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def stockholders(entity_key = params[:entity_key])
     @entity = Entity.find_by(key: entity_key)
     raise ActiveRecord::RecordNotFound if @entity.blank?
     @stockholders = @entity.stockholders
     render layout: false if request.xhr?
   end
-  
+
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def entity_params
@@ -193,27 +195,25 @@ class Entities::CorporatesController < ApplicationController
     key = params[:entity_key]
     @entity = Entity.find_by(key: key)
   end
-    
+
   def stockholder_params
-    params.require(:stock_holder).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
-                                         :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
-                                         :my_percentage, :notes, :honorific, :is_honorific)
+    params.require(:stock_holder).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2, :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn, :my_percentage, :notes, :honorific, :is_honorific, :contact_id)
   end
-  
+
   def officer_params
     params.require(:officer).permit(:office, :first_name, :last_name, :phone1, :phone2, :fax, :email,
                                     :postal_address, :city, :state, :zip, :notes, :honorific, :is_honorific, :person_type)
   end
-  
+
   def director_params
     params.require(:director).permit(:first_name, :last_name, :phone1, :phone2,
                                      :fax, :email, :postal_address, :city, :state, :zip, :honorific, :is_honorific)
   end
-  
+
   def current_page
     @current_page = "entity"
   end
-  
+
   def check_xhr_page
     unless request.xhr?
       if params[:action] != "basic_info"
@@ -221,15 +221,15 @@ class Entities::CorporatesController < ApplicationController
       end
     end
   end
-  
+
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
       add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Corporation: #{@entity.name}</a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Corporation </a></h4></div>".html_safe
-    end    
-    
+    end
+
     if params[:action] != "basic_info"
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
     end

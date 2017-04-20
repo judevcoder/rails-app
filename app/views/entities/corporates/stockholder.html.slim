@@ -5,7 +5,7 @@
       ul
         - override_active_record_errors(@stockholder.errors.messages, {share_error: 'All Stock Share are assigned!'}).each do |message|
           li = message
-  .col-lg-4.close-md-4.col-sm-12.col-xs-12        
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
     .form-group
       .option-1
         = f.label "Individual"
@@ -13,12 +13,17 @@
       .option-2
         = f.label "Entity"
         = f.radio_button :is_person, false, checked: !@stockholder.is_person
-    .form-group#stockholder_entity style=("#{('display: none;' if @stockholder.is_person)}")
+
+    .form-group#stockholder_entity
       label Owner Entity
-      = f.select :entity_id, options_for_select(current_user.EntitesForClient(@stockholder.super_entity_id), f.object.entity_id), {}, class: 'selectize-single'
+
+      - if @stockholder.is_person
+        = f.select :entity_id, options_html('stockholder', "true", @stockholder.super_entity), {}, class: "form-control", data: {id: @stockholder.super_entity.id}
+      - else
+        = f.select :entity_id, options_html('stockholder', "false", @stockholder.super_entity), {}, class: "form-control", data: {id: @stockholder.super_entity.id}
       = hidden_field_tag "stock_holder[entity_type_id]", MemberType.getCorporationId
-    .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"    
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group
       label Stock Share
       = f.text_field :my_percentage, "autocomplete" => "off", class: "form-control"
