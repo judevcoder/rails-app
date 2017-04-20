@@ -75,8 +75,15 @@ class User < ApplicationRecord
     ]
   end
   
-  def entities_list
-    Entity.where(id: AccessResource.get_ids({user: self, resource_klass: 'Entity'})).where.not(name: [nil, ''])
+  def entities_list(nid=0)
+    Entity.where(id: AccessResource.get_ids({user: self, resource_klass: 'Entity'})-[nid] ).where.not(name: [nil, ''])
   end
 
+  def EntitesForClient(nid=0)
+    Entity.where(id: AccessResource.get_ids({user: self, resource_klass: 'Entity'})-[nid]).
+      where.not(name: [nil, '']).order(name: :asc).pluck(:name, :id, :type_).map! {
+        |x| ["#{x[0]} (#{MemberType.member_types[x[2]]})", x[1]]
+      }
+  end
+  
 end

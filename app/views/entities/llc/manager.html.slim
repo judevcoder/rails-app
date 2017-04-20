@@ -16,7 +16,7 @@
         = f.radio_button :is_person, false, checked: !@manager.is_person
     .form-group#manager_entity style=("#{('display: none;' if @manager.is_person)}")
       label Owner Entity
-      = f.select :entity_id, options_for_select(current_user.entities_list.where.not(id: @manager.super_entity).order(name: :asc).pluck(:name, :id), f.object.id), {}, class: "selectize-single"
+      = f.select :entity_id, options_for_select(current_user.EntitesForClient(@manager.super_entity_id), f.object.id), {}, class: "selectize-single"
       = hidden_field_tag "manager[entity_type_id]", MemberType.getLLCId
     .clearfix.add-list-entity-links
         = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"    
