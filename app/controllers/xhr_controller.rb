@@ -13,6 +13,8 @@ class XhrController < ApplicationController
 
   def entity_type_list
     @types = MemberType.objects
+    MemberType.InitMemberTypes if @types.nil?
+    @types = MemberType.objects
   end
 
 end
