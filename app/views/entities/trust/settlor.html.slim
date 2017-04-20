@@ -14,7 +14,7 @@
         = f.label "Entity"
         = f.radio_button :is_person, false, checked: !@settlor.is_person
     .form-group#settlor_entity style=("#{('display: none;' if @settlor.is_person)}")
-      = f.label :entity
+      label Owner Entity
       = f.select :entity_id, options_for_select(current_user.entities_list.where.not(id: @settlor.super_entity).order(name: :asc).pluck(:name, :id), f.object.id), {}, class: "selectize-single"
       = hidden_field_tag "settlor[entity_type_id]", MemberType.getTrustId
     .clearfix.add-list-entity-links
