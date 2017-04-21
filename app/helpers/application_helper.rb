@@ -370,7 +370,7 @@ module ApplicationHelper
           result += "</optgroup>"                    
         end
 
-        result += "<optgroup label='Contact Individuals'>"
+        result += "<optgroup label='Contacts'>"
 
         Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
           if sel_flag && "c#{contact.id}" == cid
@@ -379,7 +379,7 @@ module ApplicationHelper
           else
             sel_str = ""
           end
-          result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name} (#{contact.contact_type})</option>"
+          result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name}</option>"
         end
 
         result += "</optgroup>"
@@ -411,7 +411,7 @@ module ApplicationHelper
           result += "</optgroup>"                    
         end
 
-        result += "</optgroup><optgroup label='Contact Companies'>"
+        result += "</optgroup><optgroup label='Contacts '>"
 
         Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
           if sel_flag && "c#{contact.id}" == cid
@@ -420,7 +420,7 @@ module ApplicationHelper
           else
             sel_str = ""
           end
-          result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name} (#{contact.contact_type})</option>"
+          result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name}</option>"
         end
 
         result += "</optgroup>"
