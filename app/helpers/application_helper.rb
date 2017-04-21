@@ -385,6 +385,7 @@ module ApplicationHelper
       object_array = Entity.PurchasedPropertyEntityWithType
     end
     groups = {}
+    object_array.sort_by! {|e| e[2]}
     # item is an 4 tuple - <name>, <id>, <type_>, <type_name>
     object_array.each do |item|
       key = item[3]
