@@ -345,21 +345,34 @@ module ApplicationHelper
     sel_str = ""
     if type == "stockholder"
       if is_person == "true"
-        result = "<option>Select One...</option><optgroup label='Client Individuals'>"
+        result = "<option>Select One...</option>"
 
-        current_user.entities_list.where.not(id: super_entity).order(name: :asc).where(type_: [1, 2, 3, 4]).each do |entity|
-          if sel_flag && "e#{entity.id}" == cid
-            sel_flag = false
-            sel_str = " selected='selected' "
+        groups = {}
+        current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc).each do |entity|
+          key = "#{MemberType.member_types[entity.type_]}"
+          if groups[key].nil?
+            groups[key] = [entity]
           else
-            sel_str = ""
+            groups[key] << entity
+          end          
+        end
+        groups.each do |k,v|
+          result += "<optgroup label='#{k}'>"
+          v.each do |entity|        
+            if sel_flag && "e#{entity.id}" == cid
+              sel_flag = false
+              sel_str = " selected='selected' "
+            else
+              sel_str = ""
+            end
+            result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} </option>"
           end
-          result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} (#{MemberType.member_types[entity.type_]})</option>"
+          result += "</optgroup>"                    
         end
 
-        result += "</optgroup><optgroup label='Contact Individuals'>"
+        result += "<optgroup label='Contact Individuals'>"
 
-        Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
+        Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
           if sel_flag && "c#{contact.id}" == cid
             sel_flag = false
             sel_str = " selected='selected' "
@@ -372,17 +385,30 @@ module ApplicationHelper
         result += "</optgroup>"
         return result.html_safe
       else
-        result = "<option>Select One...</option><optgroup label='Client Entities'>"
+        result = "<option>Select One...</option>"
 
+        groups = {}
         #Should exclude Individual, Tenancy in Common, Tenancy by the Entirety & Joint Tenancy
-        current_user.entities_list.where.not(id: super_entity).order(name: :asc).where.not(type_: [1, 7, 8, 9]).each do |entity|
-          if sel_flag && "e#{entity.id}" == cid
-            sel_flag = false
-            sel_str = " selected='selected' "
+        current_user.entities_list(super_entity.id).where.not(type_: [1, 7, 8, 9]).order(type_: :asc).each do |entity|
+          key = "#{MemberType.member_types[entity.type_]}"
+          if groups[key].nil?
+            groups[key] = [entity]
           else
-            sel_str = ""
+            groups[key] << entity
+          end          
+        end
+        groups.each do |k,v|
+          result += "<optgroup label='#{k}'>"
+          v.each do |entity|        
+            if sel_flag && "e#{entity.id}" == cid
+              sel_flag = false
+              sel_str = " selected='selected' "
+            else
+              sel_str = ""
+            end
+            result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} </option>"
           end
-          result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} (#{MemberType.member_types[entity.type_]})</option>"
+          result += "</optgroup>"                    
         end
 
         result += "</optgroup><optgroup label='Contact Companies'>"
