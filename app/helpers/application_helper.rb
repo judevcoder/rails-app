@@ -340,19 +340,33 @@ module ApplicationHelper
     end
   end
 
-  def options_html(type, is_person, super_entity)
+  def options_html(type, is_person, super_entity, cid="00")
+    sel_flag = true
+    sel_str = ""
     if type == "stockholder"
       if is_person == "true"
         result = "<option>Select One...</option><optgroup label='Client Individuals'>"
 
         current_user.entities_list.where.not(id: super_entity).order(name: :asc).where(type_: [1, 2, 3, 4]).each do |entity|
-          result += "<option value=#{entity.id} data-type='entity'>#{entity.name} (#{MemberType.member_types[entity.type_]})</option>"
+          if sel_flag && "e#{entity.id}" == cid
+            sel_flag = false
+            sel_str = " selected='selected' "
+          else
+            sel_str = ""
+          end
+          result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} (#{MemberType.member_types[entity.type_]})</option>"
         end
 
         result += "</optgroup><optgroup label='Contact Individuals'>"
 
         Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
-          result += "<option value=#{contact.id} data-type='contact'>#{contact.name} (#{contact.contact_type})</option>"
+          if sel_flag && "c#{contact.id}" == cid
+            sel_flag = false
+            sel_str = " selected='selected' "
+          else
+            sel_str = ""
+          end
+          result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name} (#{contact.contact_type})</option>"
         end
 
         result += "</optgroup>"
@@ -362,13 +376,25 @@ module ApplicationHelper
 
         #Should exclude Individual, Tenancy in Common, Tenancy by the Entirety & Joint Tenancy
         current_user.entities_list.where.not(id: super_entity).order(name: :asc).where.not(type_: [1, 7, 8, 9]).each do |entity|
-          result += "<option value=#{entity.id} data-type='entity'>#{entity.name} (#{MemberType.member_types[entity.type_]})</option>"
+          if sel_flag && "e#{entity.id}" == cid
+            sel_flag = false
+            sel_str = " selected='selected' "
+          else
+            sel_str = ""
+          end
+          result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} (#{MemberType.member_types[entity.type_]})</option>"
         end
 
         result += "</optgroup><optgroup label='Contact Companies'>"
 
         Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
-          result += "<option value=#{contact.id} data-type='contact'>#{contact.name} (#{contact.contact_type})</option>"
+          if sel_flag && "c#{contact.id}" == cid
+            sel_flag = false
+            sel_str = " selected='selected' "
+          else
+            sel_str = ""
+          end
+          result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name} (#{contact.contact_type})</option>"
         end
 
         result += "</optgroup>"

@@ -141,12 +141,13 @@ class Entities::CorporatesController < ApplicationController
       id      = params[:id]
       raise ActiveRecord::RecordNotFound if @entity.blank?
       @stockholder                 = StockHolder.find(id) if id.present?
-      @stockholder                 ||= StockHolder.new
+      @stockholder                 ||= StockHolder.new      
       @stockholder.super_entity_id = @entity.id
       @stockholder.class_name      = "StockHolder"
     end
     if request.post?
       @stockholder                 = StockHolder.new(stockholder_params)
+      @stockholder.use_temp_id
       @stockholder.super_entity_id = @entity.id
       @stockholder.class_name      = "StockHolder"
       if @stockholder.save
@@ -156,7 +157,9 @@ class Entities::CorporatesController < ApplicationController
         return render layout: false, template: "entities/corporates/stockholder"
       end
     elsif request.patch?
-      if @stockholder.update(stockholder_params)
+      @stockholder.assign_attributes(stockholder_params)
+      @stockholder.use_temp_id      
+      if @stockholder.save
         @stockholders = @entity.stockholders
         return render layout: false, template: "entities/corporates/stockholders"
       else
@@ -169,7 +172,10 @@ class Entities::CorporatesController < ApplicationController
       raise ActiveRecord::RecordNotFound if @entity.blank?
       @stockholders = @entity.stockholders
       return render layout: false, template: "entities/corporates/stockholders"
+    else
+      
     end
+    @stockholder.gen_temp_id
     render layout: false if request.xhr?
   end
 
@@ -195,7 +201,7 @@ class Entities::CorporatesController < ApplicationController
   end
 
   def stockholder_params
-    params.require(:stock_holder).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2, :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn, :my_percentage, :notes, :honorific, :is_honorific, :contact_id)
+    params.require(:stock_holder).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2, :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn, :my_percentage, :notes, :honorific, :is_honorific, :contact_id)
   end
 
   def officer_params
