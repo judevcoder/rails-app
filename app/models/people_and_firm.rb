@@ -2,25 +2,13 @@ class PeopleAndFirm < ApplicationRecord
     attr_accessor :temp_id
 
     def gen_temp_id
-        p "in gen_temp"
-        p  self.entity_id.nil?
-        p  self.contact_id.nil?
-        p  self.temp_id
         if !self.entity_id.nil? && self.contact_id.nil?
             self.temp_id = "e#{self.entity_id}"
-            p "111"
-            p self.temp_id
-            return
         elsif self.entity_id.nil? && !self.contact_id.nil?
-            p "222"
             self.temp_id = "c#{self.contact_id}"
-            p self.temp_id
-            return
         else
             self.temp_id = nil
-            return
         end
-        return
     end
 
     def use_temp_id

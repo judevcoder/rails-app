@@ -136,13 +136,9 @@ class Entities::CorporatesController < ApplicationController
 
   def stockholder
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Officers </a></h4></div>".html_safe
-    p "in stockholder"
-    p params
     unless request.delete?
       @entity = Entity.find_by(key: params[:entity_key])
       id      = params[:id]
-      p "entity"
-      p @entity
       raise ActiveRecord::RecordNotFound if @entity.blank?
       @stockholder                 = StockHolder.find(id) if id.present?
       @stockholder                 ||= StockHolder.new      
@@ -179,11 +175,7 @@ class Entities::CorporatesController < ApplicationController
     
       
     end
-    p "before gen temp"
-    p @stockholder
     @stockholder.gen_temp_id
-    p "after fen temp"
-    p @stockholder
     render layout: false if request.xhr?
   end
 
