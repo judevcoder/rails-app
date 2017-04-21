@@ -114,6 +114,27 @@ class Entity < ApplicationRecord
     }
   end
 
+  def self.TransactionEntityWithType(etype="entity")
+    if etype == "individual"
+      a = Entity.where.not(name: [nil, ''], type_: 2..100).pluck(:name, :id, :type_)
+      b = Entity.where("(name2 is null or name2 = '') and type_ = ?", 2).pluck(:name, :id, :type_)
+    else
+      a = Entity.where.not(name: [nil, ''], type_: [1,2]).pluck(:name, :id, :type_)
+      b = Entity.where("name2 is not null and name2 <> '' and type_ = ?", 2).pluck(:name, :id, :type_)
+    end
+    MemberType.InitMemberTypes if MemberType.member_types.nil?
+    return (a+b).uniq.map! {
+        |item| [item[0], item[1], item[2], "#{MemberType.member_types[item[2]]}"]
+    }
+  end
+
+  def self.PurchasedPropertyEntityWithType
+    MemberType.InitMemberTypes if MemberType.member_types.nil?
+    Entity.where.not(name: [nil, ''], type_: [7,8,9]).pluck(:name, :id, :type_).map! {
+        |item| [item[0], item[1], item[2], "#{MemberType.member_types[item[2]]}"]
+    }
+  end
+
   private
   def ein_or_ssn_length_Corporation
     if self.Corporation?

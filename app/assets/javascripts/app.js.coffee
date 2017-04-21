@@ -56,8 +56,7 @@ $ ->
 
   selectize_single = ->
     $(document).find('select.selectize-single').selectize
-      create: false
-      sortField: 'text'  
+      create: false      
 
   selectize_single_contact = ->
     $(document).find('select.selectize-single-contact').selectize

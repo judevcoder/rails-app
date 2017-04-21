@@ -376,4 +376,62 @@ module ApplicationHelper
       end
     end
   end
+
+  def options_html_entities(sel_id, type_, sub_type_="entity")
+    object_array = []
+    if type_ == "transactions"
+      object_array = Entity.TransactionEntityWithType(sub_type_)
+    elsif type_ == "properties"
+      object_array = Entity.PurchasedPropertyEntityWithType
+    end
+    groups = {}
+    # item is an 4 tuple - <name>, <id>, <type_>, <type_name>
+    object_array.each do |item|
+      key = item[3]
+      groups[key] = [] if groups[key].nil?
+      groups[key] << item
+    end
+    result = "<option>Select One...</option>"
+    selflag = true
+    groups.each do |k, v|
+      result += "<optgroup label='#{k}'>"
+      v.each do |entity|        
+        if selflag && sel_id == entity[1]
+          result += "<option value=#{entity[1]} data-type='entity' selected='selected'>#{entity[0]}</option>"
+          selflag = false
+        else
+          result += "<option value=#{entity[1]} data-type='entity'>#{entity[0]}</option>"
+        end
+      end
+      result += "</optgroup>"
+    end
+    return result.html_safe
+  end
+
+  def options_html_entities_transaction(sel_id, etype="entity")
+    entity_array = Entity.TransactionEntityWithType(etype)
+    groups = {}
+    # item is an entity 4 tuple - <name>, <id>, <type_>, <type_name>
+    entity_array.each do |item|
+      key = item[3]
+      groups[key] = [] if groups[key].nil?
+      groups[key] << item
+    end
+    result = "<option>Select One...</option>"
+    selflag = true
+    groups.each do |k, v|
+      result += "<optgroup label='#{k}'>"
+      v.each do |entity|        
+        if selflag && sel_id == entity[1]
+          result += "<option value=#{entity[1]} data-type='entity' selected='selected'>#{entity[0]}</option>"
+          selflag = false
+        else
+          result += "<option value=#{entity[1]} data-type='entity'>#{entity[0]}</option>"
+        end
+      end
+      result += "</optgroup>"
+    end
+    return result.html_safe
+  end
+
 end

@@ -85,13 +85,13 @@
 
     .clearfix
     .form-group.purchase-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.purchaser_person_is?)}")
-      = f.select :rplmnt_purchaser_entity_id, options_for_select(Entity.TransactionEntity, f.object.replacement_purchaser_entity_id), {include_blank: true}, class: 'form-control selectize-single'
+      = f.select :rplmnt_purchaser_entity_id, options_html_entities(f.object.relinquishing_seller_entity_id, "transactions"), {}, class: 'form-control selectize-single'
       - if f.object.persisted? && f.object.replacement_purchaser_entity.present?
         .clearfix.margin-sm-top
         = link_to f.object.replacement_purchaser_entity.name, entity_path(f.object.replacement_purchaser_entity.key), target: '_blank'
 
     .form-group.purchase-tr-pr-detail style=("#{('display: none;' unless f.object.purchaser_person_is?)}")
-      = f.select :replacement_purchaser_entity_id, options_for_select(Entity.TransactionEntity("individual"), f.object.replacement_purchaser_entity_id), {include_blank: true}, class: 'form-control selectize-single'
+      = f.select :replacement_purchaser_entity_id, options_html_entities(f.object.relinquishing_seller_entity_id, "transactions", "individual"), {}, class: 'form-control selectize-single'
 
     .clearfix.margin-lg-top
     .form-group

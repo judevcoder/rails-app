@@ -38,13 +38,13 @@
       = f.hidden_field :transaction_main_id
 
     .form-group.sale-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.seller_person_is?)}")
-      = f.select :relqn_seller_entity_id, options_for_select(Entity.TransactionEntity, f.object.relinquishing_seller_entity_id), {include_blank: true}, class: 'selectize-single'
+      = f.select :relqn_seller_entity_id, options_html_entities(f.object.relinquishing_seller_entity_id, "transactions"), {}, class: 'selectize-single'
       - if f.object.persisted? && f.object.relinquishing_seller_entity.present?
         .clearfix.margin-sm-top
         = link_to f.object.relinquishing_seller_entity.name, entity_path(f.object.relinquishing_seller_entity.key), target: '_blank'
 
     .form-group.sale-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.seller_person_is?)}")
-      = f.select :relinquishing_seller_entity_id, options_for_select(Entity.TransactionEntity("individual"), f.object.relinquishing_seller_entity_id), {include_blank: true}, class: 'selectize-single'
+      = f.select :relinquishing_seller_entity_id, options_html_entities(f.object.relinquishing_seller_entity_id, "transactions", "individual"), {}, class: 'selectize-single'
       - if f.object.persisted? && f.object.relinquishing_seller_entity.present?
         .clearfix.margin-sm-top
         = link_to f.object.relinquishing_seller_entity.name, entity_path(f.object.relinquishing_seller_entity.key), target: '_blank'

@@ -27,7 +27,7 @@
     .form-group
     - if @property.ostatus == "Purchased"
       label Owning Client
-      = f.select :owner_entity_id, options_for_select(Entity.PurchasedPropertyEntity, f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
+      = f.select :owner_entity_id, options_html_entities(f.object.owner_entity_id, "properties"), {}, class: 'selectize-single'
     - else
       label Owner
       = f.select :owner_entity_id, options_for_select(Contact.TransactionContacts("all"), f.object.owner_entity_id), {include_blank: true}, class: 'selectize-single'
