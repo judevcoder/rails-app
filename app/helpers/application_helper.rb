@@ -340,6 +340,22 @@ module ApplicationHelper
     end
   end
 
+  RULES = {
+    "stockholder" => {
+      "individual" => {
+        "entity_types_allowed" => [1,2,3,4],
+        "contact_role_allowed" => "Corporate Stockholder" 
+      },
+      "non-individual" => {
+        "entity_types_not_allowed" => [1, 7, 8, 9],
+        "contact_role_allowed" => "Corporate Stockholder"
+      }
+    },
+    "officers" => {},
+    "directors" => {},
+    "beneficiary" => {}
+  }
+
   def options_html(type, is_person, super_entity, cid="00")
     sel_flag = true
     sel_str = ""
