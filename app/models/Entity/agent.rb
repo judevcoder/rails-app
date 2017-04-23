@@ -1,8 +1,8 @@
-class Principal < PeopleAndFirm
+class Agent < PeopleAndFirm
 
   include MyFunction
 
-  default_scope{ where(class_name: "Principal")}
+  default_scope{ where(class_name: "Agent")}
   validate :entity_presence
   # validate :phone_validation
   # validates_presence_of :first_name, :last_name

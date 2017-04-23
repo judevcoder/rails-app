@@ -18,9 +18,9 @@
       label Owner Entity
 
       - if @stockholder.is_person
-        = f.select :temp_id, options_html('stockholder', "true", @stockholder.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @stockholder.super_entity.id}
+        = f.select :temp_id, options_html('stockholder', "true", @stockholder.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @stockholder.super_entity.id, clienttype: 'stockholder'}
       - else
-        = f.select :temp_id, options_html('stockholder', "false", @stockholder.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @stockholder.super_entity.id}
+        = f.select :temp_id, options_html('stockholder', "false", @stockholder.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @stockholder.super_entity.id, clienttype: 'stockholder'}
       = hidden_field_tag "stock_holder[member_type_id]", MemberType.getCorporationId
       = hidden_field_tag :cid, @stockholder.temp_id
       .clearfix.add-list-entity-links

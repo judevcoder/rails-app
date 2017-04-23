@@ -21,7 +21,7 @@ class StockHolder < PeopleAndFirm
   attr_accessor :share_error
 
   def entity_presence
-    if self.entity.blank? && self.contact.blank? && self.first_name.blank? && self.last_name.blank?
+    if self.entity.blank? && self.contact.blank? && self.first_name.blank? && self.last_name.blank? && self.temp_id.blank?
       errors.add(:entity, "is invalid, Please add it before saving")
       return
     end

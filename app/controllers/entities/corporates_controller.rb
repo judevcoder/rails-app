@@ -135,13 +135,13 @@ class Entities::CorporatesController < ApplicationController
   end
 
   def stockholder
-    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Officers </a></h4></div>".html_safe
+    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Stockholder </a></h4></div>".html_safe
     unless request.delete?
       @entity = Entity.find_by(key: params[:entity_key])
       id      = params[:id]
       raise ActiveRecord::RecordNotFound if @entity.blank?
       @stockholder                 = StockHolder.find(id) if id.present?
-      @stockholder                 ||= StockHolder.new      
+      @stockholder                 ||= StockHolder.new
       @stockholder.super_entity_id = @entity.id
       @stockholder.class_name      = "StockHolder"
     end
@@ -158,7 +158,7 @@ class Entities::CorporatesController < ApplicationController
       end
     elsif request.patch?
       @stockholder.assign_attributes(stockholder_params)
-      @stockholder.use_temp_id      
+      @stockholder.use_temp_id
       if @stockholder.save
         @stockholders = @entity.stockholders
         return render layout: false, template: "entities/corporates/stockholders"
@@ -172,14 +172,13 @@ class Entities::CorporatesController < ApplicationController
       raise ActiveRecord::RecordNotFound if @entity.blank?
       @stockholders = @entity.stockholders
       return render layout: false, template: "entities/corporates/stockholders"
-    
-      
     end
     @stockholder.gen_temp_id
     render layout: false if request.xhr?
   end
 
   def stockholders(entity_key = params[:entity_key])
+    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Stockholders </a></h4></div>".html_safe
     @entity = Entity.find_by(key: entity_key)
     raise ActiveRecord::RecordNotFound if @entity.blank?
     @stockholders = @entity.stockholders
