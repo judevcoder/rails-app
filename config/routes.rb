@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get "individuals/basic_info/(:entity_key)" => "individuals#basic_info", as: :individuals_basic_info
     post "individuals/basic_info/(:entity_key)" => "individuals#basic_info"
     patch "individuals/basic_info/:entity_key" => "individuals#basic_info"
-    
+
     get "corporates/basic_info/(:entity_key)" => "corporates#basic_info", as: :corporates_basic_info
     post "corporates/basic_info/(:entity_key)" => "corporates#basic_info"
     patch "corporates/basic_info/:entity_key" => "corporates#basic_info"
@@ -159,11 +159,13 @@ Rails.application.routes.draw do
     post "power_of_attorney/basic_info/(:entity_key)" => "power_of_attorney#basic_info"
     patch "power_of_attorney/basic_info/:entity_key" => "power_of_attorney#basic_info"
     #get "power_of_attorney/limited_partners/:entity_key/(:id)" => "power_of_attorney#limited_partners", as: :limited_partnership_limited_partners
+    get "power_of_attorney/principals/:entity_key/(:id)" => "power_of_attorney#principals", as: :power_of_attorney_principals
     get "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal", as: :power_of_attorney_principal
     post "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
     patch "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
     delete "power_of_attorney/principal/:id" => "power_of_attorney#principal"
 
+    get "power_of_attorney/agents/:entity_key/(:id)" => "power_of_attorney#agents", as: :power_of_attorney_agents
     get "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent", as: :power_of_attorney_agent
     post "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent"
     patch "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent"
@@ -268,19 +270,19 @@ Rails.application.routes.draw do
     end
 
     resources :clients do
-      
+
     end
 
     resources :transactions do
-      
+
     end
 
     resources :properties do
-      
+
     end
   end
 
-  
+
   devise_for :users, :controllers => { }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -289,7 +291,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  
+
 
   get ':controller(/:action(/:id))'
   post ':controller(/:action(/:id))'

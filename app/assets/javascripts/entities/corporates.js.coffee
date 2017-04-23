@@ -7,7 +7,7 @@ $ ->
       $.ajax
         type: "POST"
         url: "/xhr/clients_options_html"
-        data: {is_person: "false", id: $("select[id$=_temp_id]").attr("data-id"), cid: $("#cid").val() }
+        data: {is_person: "false", id: $("select[id$=_temp_id]").attr("data-id"), cid: $("#cid").val(), client_type: $("select[id$=_temp_id]").attr("data-clienttype")}
         dataType: "html"
         success: (val) ->
           $(document).find("select[id$=_temp_id]").html(val);
@@ -20,11 +20,11 @@ $ ->
     if this.checked
       $(document).find(".contact").html('&nbsp;');
       $(document).find("input[id$=_entity]").parent().hide();
-      
+
       $.ajax
         type: "POST"
         url: "/xhr/clients_options_html"
-        data: {is_person: "true", id: $("select[id$=_temp_id]").attr("data-id"), cid: $("#cid").val()}
+        data: {is_person: "true", id: $("select[id$=_temp_id]").attr("data-id"), cid: $("#cid").val(), client_type: $("select[id$=_temp_id]").attr("data-clienttype")}
         dataType: "html"
         success: (val) ->
           $(document).find("select[id$=_temp_id]").html(val);

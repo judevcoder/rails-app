@@ -13,12 +13,17 @@
       .option-2
         = f.label "Entity"
         = f.radio_button :is_person, false, checked: !@beneficiary.is_person
-    .form-group#beneficiary_entity style=("#{('display: none;' if @beneficiary.is_person)}")
+    .form-group#beneficiary_entity
       label Owner Entity
-      = f.select :entity_id, options_for_select(current_user.EntitesForClient(@beneficiary.super_entity_id), f.object.id), {}, class: "selectize-single"
-      = hidden_field_tag "beneficiary[entity_type_id]", MemberType.getTrustId
-    .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"    
+
+      - if @beneficiary.is_person
+        = f.select :temp_id, options_html('beneficiary', "true", @beneficiary.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @beneficiary.super_entity.id, clienttype: 'beneficiary'}
+      - else
+        = f.select :temp_id, options_html('beneficiary', "false", @beneficiary.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @beneficiary.super_entity.id, clienttype: 'beneficiary'}
+      = hidden_field_tag "beneficiary[member_type_id]", MemberType.getTrustId
+      = hidden_field_tag :cid, @beneficiary.temp_id
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group
       .col-sm-6
         label Beneficiary Interest
@@ -45,7 +50,7 @@
       .modal-header
         button type="button" class="close" data-dismiss="modal" aria-label="Close"
           span aria-hidden="true" &times;
-        h4.modal-title New Entity for Trust
+        h4.modal-title New Entity for Beneficiary
       .model-body
         | &nbsp;
       .modal-footer

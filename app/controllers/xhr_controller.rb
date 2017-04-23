@@ -6,7 +6,7 @@ class XhrController < ApplicationController
 
   def clients_options_html
     obj = SuperEntity.find(params[:id])
-    @html = options_html('stockholder', params[:is_person], obj)
+    @html = options_html(params[:client_type], params[:is_person], obj, params[:cid])
   end
 
   def client_entity

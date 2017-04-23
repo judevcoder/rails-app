@@ -1,5 +1,7 @@
 - if @entity.key.present?
   = link_to "Basic info", entities_power_of_attorney_basic_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left #{params[:action] == "basic_info" ? 'active' : ''}"
-  = link_to "Principal", entities_power_of_attorney_principal_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'principal' ? 'active' : ''}"
-  = link_to "Agent", entities_power_of_attorney_agent_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'agent' ? 'active' : ''}"
+  = link_to "Principals", entities_power_of_attorney_principals_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'principal' ? 'active' : ''}"
+  = link_to "+", entities_power_of_attorney_principal_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'principal' ? 'active' : ''}"
+  = link_to "Agents", entities_power_of_attorney_agents_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'agent' ? 'active' : ''}"
+  = link_to "+", entities_power_of_attorney_agent_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'agent' ? 'active' : ''}"
   = link_to "Owns", "#", class: "btn btn-sm btn-default margin-sm-left pull-left", "data-toggle" => "tooltip", "title" => "Please create the Power Of Attorney by filling out required fields in Basic Info and saving"

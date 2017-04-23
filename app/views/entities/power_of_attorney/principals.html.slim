@@ -1,0 +1,54 @@
+.heading
+  = "List of #{@entity.name}'s Principals"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | Name
+      th
+        | Type
+      th
+        | EIN / Social
+      th
+        | Email
+      th
+        | Number of Share
+      th
+        | Actions
+  tbody
+    - @principales.each do |principal|
+      tr
+        td
+          - if principal.entity.present?
+            = principal.entity.try(:name)
+          - elsif principal.contact.present?
+            = principal.contact.try(:name)
+          - else
+            = "#{principal.first_name} #{principal.last_name}"
+        td
+          - if principal.entity.present?
+            = principal.entity.entity_type.try(:name)
+          - elsif principal.contact.present?
+            = principal.contact.try(:contact_type)
+          - else
+            = principal.type_
+        td
+          - if principal.entity.present?
+            = principal.entity.try(:ein_or_ssn)
+          - elsif principal.contact.present?
+            = principal.contact.try(:ein_or_ssn)
+          - else
+            = principal.ein_or_ssn
+        td
+          - if principal.entity.present?
+            = principal.entity.try(:email)
+          - elsif principal.contact.present?
+            = principal.contact.try(:email)
+          - else
+            = principal.email
+        td
+          = principal.my_percentage
+        td.actions
+          = link_to 'E', entities_power_of_attorney_principal_path(@entity.key, principal.id), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'D', entities_power_of_attorney_principal_path(principal.id), data: {:confirm => 'Are you sure?'}, :method => :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

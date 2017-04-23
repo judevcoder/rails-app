@@ -183,11 +183,11 @@ module ApplicationHelper
       when "Sole Proprietorship"
         [[entity.full_name, '#']]
       when "Power of Attorney"
-        [[entity.full_name, '#']]
+        entity.principales.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.agents.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Guardianship"
         [[entity.full_name, '#']]
       when "Trust"
-        entity.beneficiaries.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.beneficiaries.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.trustees.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
         [[]]
       when "Limited Partnership"
@@ -223,6 +223,11 @@ module ApplicationHelper
       result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)] unless e.nil?
     end
 
+    if m = Trustee.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name}", edit_entity_path(e.key)] unless e.nil?
+    end
+
     if m = GeneralPartner.find_by_entity_id(entity.id)
       e = m.super_entity
       result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)] unless e.nil?
@@ -236,6 +241,16 @@ module ApplicationHelper
     if m = Partner.find_by_entity_id(entity.id)
       e = m.super_entity
       result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)] unless e.nil?
+    end
+
+    if m = Principal.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name}", edit_entity_path(e.key)] unless e.nil?
+    end
+
+    if m = Agent.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name}", edit_entity_path(e.key)] unless e.nil?
     end
 
     return result
@@ -344,7 +359,7 @@ module ApplicationHelper
     "stockholder" => {
       "individual" => {
         "entity_types_allowed" => [1,2,3,4],
-        "contact_role_allowed" => "Corporate Stockholder" 
+        "contact_role_allowed" => "Corporate Stockholder"
       },
       "non-individual" => {
         "entity_types_not_allowed" => [1, 7, 8, 9],
@@ -359,7 +374,7 @@ module ApplicationHelper
   def options_html(type, is_person, super_entity, cid="00")
     sel_flag = true
     sel_str = ""
-    if type == "stockholder"
+    if type == "stockholder" || type == "principal" || type == "agent" || type == "trustee" || type == "beneficiary"
       if is_person == "true"
         result = "<option>Select One...</option>"
 
@@ -370,11 +385,11 @@ module ApplicationHelper
             groups[key] = [entity]
           else
             groups[key] << entity
-          end          
+          end
         end
         groups.each do |k,v|
           result += "<optgroup label='#{k}'>"
-          v.each do |entity|        
+          v.each do |entity|
             if sel_flag && "e#{entity.id}" == cid
               sel_flag = false
               sel_str = " selected='selected' "
@@ -383,7 +398,7 @@ module ApplicationHelper
             end
             result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} </option>"
           end
-          result += "</optgroup>"                    
+          result += "</optgroup>"
         end
 
         result += "<optgroup label='Contacts'>"
@@ -411,11 +426,11 @@ module ApplicationHelper
             groups[key] = [entity]
           else
             groups[key] << entity
-          end          
+          end
         end
         groups.each do |k,v|
           result += "<optgroup label='#{k}'>"
-          v.each do |entity|        
+          v.each do |entity|
             if sel_flag && "e#{entity.id}" == cid
               sel_flag = false
               sel_str = " selected='selected' "
@@ -424,7 +439,7 @@ module ApplicationHelper
             end
             result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} </option>"
           end
-          result += "</optgroup>"                    
+          result += "</optgroup>"
         end
 
         result += "</optgroup><optgroup label='Contacts '>"
@@ -464,7 +479,7 @@ module ApplicationHelper
     selflag = true
     groups.each do |k, v|
       result += "<optgroup label='#{k}'>"
-      v.each do |entity|        
+      v.each do |entity|
         if selflag && sel_id == entity[1]
           result += "<option value=#{entity[1]} data-type='entity' selected='selected'>#{entity[0]}</option>"
           selflag = false
@@ -490,7 +505,7 @@ module ApplicationHelper
     selflag = true
     groups.each do |k, v|
       result += "<optgroup label='#{k}'>"
-      v.each do |entity|        
+      v.each do |entity|
         if selflag && sel_id == entity[1]
           result += "<option value=#{entity[1]} data-type='entity' selected='selected'>#{entity[0]}</option>"
           selflag = false
