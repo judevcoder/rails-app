@@ -187,7 +187,7 @@ module ApplicationHelper
       when "Guardianship"
         [[entity.full_name, '#']]
       when "Trust"
-        entity.beneficiaries.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.beneficiaries.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.trustees.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
         [[]]
       when "Limited Partnership"
@@ -221,6 +221,11 @@ module ApplicationHelper
     if m = Beneficiary.find_by_entity_id(entity.id)
       e = m.super_entity
       result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key)] unless e.nil?
+    end
+
+    if m = Trustee.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name}", edit_entity_path(e.key)] unless e.nil?
     end
 
     if m = GeneralPartner.find_by_entity_id(entity.id)
@@ -369,7 +374,7 @@ module ApplicationHelper
   def options_html(type, is_person, super_entity, cid="00")
     sel_flag = true
     sel_str = ""
-    if type == "stockholder" || type == "principal" || type == "agent"
+    if type == "stockholder" || type == "principal" || type == "agent" || type == "trustee" || type == "beneficiary"
       if is_person == "true"
         result = "<option>Select One...</option>"
 

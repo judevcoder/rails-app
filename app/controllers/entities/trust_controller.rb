@@ -1,10 +1,10 @@
 class Entities::TrustController < ApplicationController
-  
+
   before_action :current_page
   before_action :check_xhr_page
   before_action :set_entity, only: [:basic_info]
   before_action :add_breadcrum
-  
+
   def basic_info
     #key = params[:entity_key]
     if request.get?
@@ -17,7 +17,7 @@ class Entities::TrustController < ApplicationController
       @entity.type_           = MemberType.getTrustId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
-      
+
       if @entity.save
         AccessResource.add_access({ user: current_user, resource: @entity })
         #return render json: {redirect: view_context.entities_trust_basic_info_path( @entity.key ), just_created: true}
@@ -33,7 +33,7 @@ class Entities::TrustController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def contact_info
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
@@ -48,7 +48,7 @@ class Entities::TrustController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def settlor
     unless request.delete?
       @entity = Entity.find_by(key: params[:entity_key])
@@ -84,14 +84,14 @@ class Entities::TrustController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def settlors
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
     @settlors = @entity.settlors
     render layout: false if request.xhr?
   end
-  
+
   def trustee
     unless request.delete?
       @entity = Entity.find_by(key: params[:entity_key])
@@ -104,6 +104,7 @@ class Entities::TrustController < ApplicationController
     end
     if request.post?
       @trustee                 = Trustee.new(trustee_params)
+      @trustee.use_temp_id
       @trustee.super_entity_id = @entity.id
       if @trustee.save
         @trustees = @trustee.super_entity.trustees
@@ -114,6 +115,7 @@ class Entities::TrustController < ApplicationController
     elsif request.patch?
       if @trustee.update(trustee_params)
         @trustees = @trustee.super_entity.trustees
+        @trustee.use_temp_id
         return render layout: false, template: "entities/trust/trustees"
       else
         return render layout: false, template: "entities/trust/trustee"
@@ -125,16 +127,17 @@ class Entities::TrustController < ApplicationController
       @trustees = trustee.super_entity.trustees
       return render layout: false, template: "entities/trust/trustees"
     end
+    @trustee.gen_temp_id
     render layout: false if request.xhr?
   end
-  
+
   def trustees
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
     @trustees = @entity.trustees
     render layout: false if request.xhr?
   end
-  
+
   def beneficiary
     unless request.delete?
       @entity = Entity.find_by(key: params[:entity_key])
@@ -147,6 +150,7 @@ class Entities::TrustController < ApplicationController
     end
     if request.post?
       @beneficiary                 = Beneficiary.new(beneficiary_params)
+      @beneficiary.use_temp_id
       @beneficiary.super_entity_id = @entity.id
       if @beneficiary.save
         @beneficiaries = @beneficiary.super_entity.beneficiaries
@@ -156,6 +160,7 @@ class Entities::TrustController < ApplicationController
       end
     elsif request.patch?
       if @beneficiary.update(beneficiary_params)
+        @beneficiary.use_temp_id
         @beneficiaries = @beneficiary.super_entity.beneficiaries
         return render layout: false, template: "entities/trust/beneficiaries"
       else
@@ -168,16 +173,17 @@ class Entities::TrustController < ApplicationController
       @beneficiaries = beneficiary.super_entity.beneficiaries
       return render layout: false, template: "entities/trust/beneficiaries"
     end
+    @beneficiary.gen_temp_id
     render layout: false if request.xhr?
   end
-  
+
   def beneficiaries
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
     @beneficiaries = @entity.beneficiaries
     render layout: false if request.xhr?
   end
-  
+
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def entity_params
@@ -186,29 +192,29 @@ class Entities::TrustController < ApplicationController
                                    :postal_address, :city, :state, :zip, :date_of_formation, :m_date_of_formation,
                                    :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific)
   end
-  
+
   def settlor_params
     params.require(:settlor).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                     :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
                                     :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member)
   end
-  
+
   def beneficiary_params
-    params.require(:beneficiary).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
+    params.require(:beneficiary).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                         :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
-                                        :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member)
+                                        :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member, :contact_id)
   end
-  
+
   def trustee_params
-    params.require(:trustee).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
+    params.require(:trustee).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                     :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
-                                    :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member)
+                                    :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member, :contact_id)
   end
-  
+
   def current_page
     @current_page = "entity"
   end
-  
+
   def check_xhr_page
     unless request.xhr?
       if params[:action] != "basic_info"
@@ -216,20 +222,20 @@ class Entities::TrustController < ApplicationController
       end
     end
   end
-  
+
   def set_entity
     key = params[:entity_key]
     @entity = Entity.find_by(key: key)
   end
-  
+
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
       add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Trust: #{@entity.name}</a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Trust </a></h4></div>".html_safe
-    end    
-    
+    end
+
     if params[:action] != "basic_info"
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
     end
