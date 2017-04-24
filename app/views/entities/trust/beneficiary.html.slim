@@ -14,7 +14,7 @@
         = f.label "Entity"
         = f.radio_button :is_person, false, checked: !@beneficiary.is_person
     .form-group#beneficiary_entity
-      label Beneficial Entity
+      label.is-person-hide style=("#{('display: none;' if @beneficiary.is_person)}") Beneficial Entity
 
       - if @beneficiary.is_person
         = f.select :temp_id, options_html('beneficiary', "true", @beneficiary.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @beneficiary.super_entity.id, clienttype: 'beneficiary'}

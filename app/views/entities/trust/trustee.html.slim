@@ -15,7 +15,7 @@
         = f.radio_button :is_person, false, checked: !@trustee.is_person
 
     .form-group#trustee_entity
-      label Trustee Entity
+      label.is-person-hide style=("#{('display: none;' if @trustee.is_person)}") Trustee Entity
 
       - if @trustee.is_person
         = f.select :temp_id, options_html('trustee', "true", @trustee.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @trustee.super_entity.id, clienttype: 'trustee'}

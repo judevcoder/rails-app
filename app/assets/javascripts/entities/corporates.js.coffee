@@ -3,6 +3,7 @@ $ ->
     if this.checked
       $(document).find(".contact").html('Contact');
       $(document).find("input[id$=_entity]").parent().show();
+      $(document).find(".is-person-hide").show();
 
       $.ajax
         type: "POST"
@@ -20,6 +21,7 @@ $ ->
     if this.checked
       $(document).find(".contact").html('&nbsp;');
       $(document).find("input[id$=_entity]").parent().hide();
+      $(document).find(".is-person-hide").hide();
 
       $.ajax
         type: "POST"
@@ -180,7 +182,7 @@ $ ->
 
   $(document).on "ajax:success", "a.entity-page-xhr, form.entity-page-xhr", (data, xhr, status)->
     if (typeof xhr) == "object" && xhr.redirect != undefined
-      window.location.href = xhr.redirect+"?just_created="+xhr.just_created      
+      window.location.href = xhr.redirect+"?just_created="+xhr.just_created
     else
       console.log(xhr)
       $(document).find("div.corporate-contact-form").html(xhr)
@@ -218,7 +220,7 @@ $ ->
 
   $(document).on "click", "img[id='comma']", ->
     toggle_comma("on")
-  
+
   $(document).on "click", "img[id='comma-grey']", ->
     toggle_comma("off")
 
@@ -228,7 +230,7 @@ $ ->
       $("#comma").show()
       $("#comma-grey").hide()
       $("#entity_has_comma").val(true)
-    else 
+    else
       $("#comma").hide()
       $("#comma-grey").show()
       $("#entity_has_comma").val(false)
