@@ -51,6 +51,7 @@ gem 'bootstrap-will_paginate'
 gem 'rack-mini-profiler', require: false
 
 gem 'thin'
+gem 'passenger'
 
 gem 'exception_notification'
 # gem 'delayed_job'

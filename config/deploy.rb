@@ -43,6 +43,6 @@ set :passenger_restart_with_touch, true
 namespace :deploy do
   desc "reload the database with seed data"
   task :seed do
-    run "cd #{current_path}; rake db:seed RAILS_ENV=#{rails_env}"
+    run "cd #{current_path}; rake db:seed RAILS_ENV=PRODUCTION"
   end
 end
