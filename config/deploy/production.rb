@@ -30,6 +30,7 @@ server '96.126.127.130', user: 'developer', roles: %w{app db web}
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
+set :rvm_ruby_version, '2.3.3'
 
 
 
