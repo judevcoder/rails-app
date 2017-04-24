@@ -16,7 +16,7 @@
         = f.radio_button :is_person, false, checked: !@agent.is_person
 
     .form-group#agent_entity
-      label Owner Entity
+      label.is-person-hide style=("#{('display: none;' if @agent.is_person)}") Agent Entity
 
       - if @agent.is_person
         = f.select :temp_id, options_html('agent', "true", @agent.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @agent.super_entity.id, clienttype: 'agent'}

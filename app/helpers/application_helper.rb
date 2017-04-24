@@ -325,11 +325,11 @@ module ApplicationHelper
   def client_entity(entity)
     case entity.entity_type.try(:name)
       when "Individual"
-        entity.name
+        entity.display_name
       when "LLC"
-        entity.name
+        entity.display_name
       when "LLP"
-        entity.name
+        entity.display_name
       when "Sole Proprietorship"
         entity.name2
       when "Power of Attorney"
@@ -337,17 +337,17 @@ module ApplicationHelper
       when "Guardianship"
         "In re #{entity.full_name}, AIP"
       when "Trust"
-        entity.name
+        entity.display_name
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
         ""
       when "Limited Partnership"
-        entity.name
+        entity.display_name
       when "Tenancy in Common"
         ""
       when "Corporation"
-        entity.name
+        entity.display_name
       when "Partnership"
-        entity.name
+        entity.display_name
       when "Tenancy by the Entirety"
         ""
       else
