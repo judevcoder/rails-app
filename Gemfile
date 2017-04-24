@@ -87,4 +87,4 @@ group :development do
   gem 'capistrano-rails', '= 1.1.8'
 end
 
-ruby "~> 2.3.0"
+ruby "2.3.1"
