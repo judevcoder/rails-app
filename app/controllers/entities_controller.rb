@@ -134,7 +134,8 @@ class EntitiesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def entity_params
     params.require(:entity).permit(:name, :address, :type_, :jurisdiction, :number_of_assets,
-                                   :date_of_formation, :m_date_of_formation, :number_of_share)
+                                   :date_of_formation, :m_date_of_formation, :number_of_share,
+                                   :has_comma, :legal_ending)
   end
 
   private

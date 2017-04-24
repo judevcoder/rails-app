@@ -139,19 +139,22 @@ class Entities::LimitedPartnershipController < ApplicationController
     params.require(:entity).permit(:name, :address, :type_, :jurisdiction, :number_of_assets,
                                    :first_name, :last_name, :phone1, :phone2, :fax, :email,
                                    :postal_address, :city, :state, :zip, :date_of_formation, :m_date_of_formation,
-                                   :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific)
+                                   :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, 
+                                   :honorific, :is_honorific, :has_comma, :legal_ending)
   end
   
   def general_partner_params
     params.require(:general_partner).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                             :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
-                                            :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member)
+                                            :stock_share, :notes, :honorific, :is_honorific, :my_percentage, 
+                                            :tax_member, :has_comma, :legal_ending)
   end
   
   def limited_partner_params
     params.require(:limited_partner).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                             :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
-                                            :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member)
+                                            :stock_share, :notes, :honorific, :is_honorific, :my_percentage, 
+                                            :tax_member, :has_comma, :legal_ending)
   end
   
   def current_page
@@ -174,7 +177,7 @@ class Entities::LimitedPartnershipController < ApplicationController
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
-      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Limited Partnership: #{@entity.name}</a></h4></div>").html_safe
+      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Limited Partnership: #{@entity.display_name}</a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Limited Partnership </a></h4></div>".html_safe
     end    

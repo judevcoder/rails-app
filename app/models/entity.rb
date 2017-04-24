@@ -135,6 +135,12 @@ class Entity < ApplicationRecord
     }
   end
 
+  def display_name
+    comma_str = ""
+    comma_str = ", " if self.has_comma
+    "#{name}#{comma_str} #{self.legal_ending}" #" #{(self.legal_ending.present? ? (self.legal_ending[0] == ',' ? self.legal_ending : ' ' + self.legal_ending) : '')}"
+   end
+
   private
   def ein_or_ssn_length_Corporation
     if self.Corporation?
@@ -186,8 +192,8 @@ class Entity < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-
   def name
-    "#{super} #{self.legal_ending}" #" #{(self.legal_ending.present? ? (self.legal_ending[0] == ',' ? self.legal_ending : ' ' + self.legal_ending) : '')}"
-   end
+    "#{super}"
+  end
+  
 end

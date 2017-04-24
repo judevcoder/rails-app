@@ -54,6 +54,8 @@ $ ->
       input_object.hide()
       input_object.attr('name', null)
 
+  
+  
   selectize_single = ->
     $(document).find('select.selectize-single').selectize
       create: false      
@@ -94,3 +96,5 @@ $ ->
   $(document).ajaxComplete ->
     selectize_single()
     selectize_single_contact()
+
+  

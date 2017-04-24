@@ -180,7 +180,7 @@ $ ->
 
   $(document).on "ajax:success", "a.entity-page-xhr, form.entity-page-xhr", (data, xhr, status)->
     if (typeof xhr) == "object" && xhr.redirect != undefined
-      window.location.href = xhr.redirect+"?just_created="+xhr.just_created
+      window.location.href = xhr.redirect+"?just_created="+xhr.just_created      
     else
       console.log(xhr)
       $(document).find("div.corporate-contact-form").html(xhr)
@@ -188,6 +188,11 @@ $ ->
       enable_datetimepicker_corporation()
       $.scrollTo(0)
       $.unblockUI()
+      v = $("#entity_has_comma").val()
+      if v == "true"
+        toggle_comma("off")
+      else
+        toggle_comma("on")
 
   hashquery = queryString.parse(location.search)
   if hashquery.xhr != undefined
@@ -210,3 +215,32 @@ $ ->
       $(document).find(".is-corporation").show()
     else
       $(document).find(".is-corporation").hide()
+
+  $(document).on "click", "img[id='comma']", ->
+    toggle_comma("on")
+  
+  $(document).on "click", "img[id='comma-grey']", ->
+    toggle_comma("off")
+
+  toggle_comma = (what) ->
+    #alert("here now " + what)
+    if what == "off"
+      $("#comma").show()
+      $("#comma-grey").hide()
+      $("#entity_has_comma").val(true)
+    else 
+      $("#comma").hide()
+      $("#comma-grey").show()
+      $("#entity_has_comma").val(false)
+    #is_comma = $(document).find('input.has_comma_val').val()
+    #alert("Lets see " + is_comma)
+
+  $(document).ready ->
+    #alert("all is well")
+    v = $("#entity_has_comma").val()
+    #alert("what is " + v)
+    if v == "true"
+      toggle_comma("off")
+    else
+      toggle_comma("on")
+
