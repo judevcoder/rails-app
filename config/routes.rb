@@ -164,6 +164,7 @@ Rails.application.routes.draw do
     post "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
     patch "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
     delete "power_of_attorney/principal/:id" => "power_of_attorney#principal"
+    get "power_of_attorney/owns/(:entity_key)" => "power_of_attorney#owns", as: :power_of_attorney_owns
 
     get "power_of_attorney/agents/:entity_key/(:id)" => "power_of_attorney#agents", as: :power_of_attorney_agents
     get "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent", as: :power_of_attorney_agent

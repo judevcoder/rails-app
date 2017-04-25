@@ -136,6 +136,13 @@ class Entities::PowerOfAttorneyController < ApplicationController
     render layout: false if request.xhr?
   end
 
+  def owns
+    @entity = Entity.find_by(key: params[:entity_key])
+    raise ActiveRecord::RecordNotFound if @entity.blank?
+    @agents = @entity.agents
+    render layout: false if request.xhr?
+  end
+
 
   # Never trust parameters from the scary internet, only allow the white list through.
   private
@@ -188,14 +195,14 @@ class Entities::PowerOfAttorneyController < ApplicationController
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
-      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Power of Attorney: <span id='edit-title'>#{@entity.name}</span></a></h4></div>").html_safe
+     add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Power of Attorney: #{@entity.name}</a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Power of Attorney </a></h4></div>".html_safe
     end
 
-    if params[:action] != "basic_info"
-      add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
-    end
+    #if params[:action] != "basic_info"
+    #  add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
+    #end
   end
 
 end
