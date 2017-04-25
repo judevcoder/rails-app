@@ -28,7 +28,12 @@ class Entities::PowerOfAttorneyController < ApplicationController
       @entity                 = PowerOfAttorney.find_by(key: key)
       @entity.type_           = MemberType.getPowerOfAttorneyId
       @entity.basic_info_only = true
-      @entity.update(entity_params)
+      @entity.assign_attributes(entity_params)
+      @entity.name = @entity.first_name2 + ' ' + @entity.last_name2 + ' POA for ' +
+        @entity.first_name + ' ' + @entity.last_name
+      if @entity.save
+        redirect_to edit_entity_path(@entity.key)
+      end
     else
       raise UnknownRequestFormat
     end
@@ -183,7 +188,7 @@ class Entities::PowerOfAttorneyController < ApplicationController
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
-      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Power of Attorney: #{@entity.name}</a></h4></div>").html_safe
+      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Power of Attorney: <span id='edit-title'>#{@entity.name}</span></a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Power of Attorney </a></h4></div>".html_safe
     end

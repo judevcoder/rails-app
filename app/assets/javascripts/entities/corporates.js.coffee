@@ -191,10 +191,15 @@ $ ->
       $.scrollTo(0)
       $.unblockUI()
       v = $("#entity_has_comma").val()
+      name = $("#entity_name").val()
+      legal_ending_str = $("#entity_legal_ending").val()
+      comma_str = " "
       if v == "true"
         toggle_comma("off")
+        comma_str = ", "
       else
         toggle_comma("on")
+      $('#edit-title').html(name+comma_str+legal_ending_str)
 
   hashquery = queryString.parse(location.search)
   if hashquery.xhr != undefined

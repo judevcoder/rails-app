@@ -27,7 +27,9 @@ class Entities::LlpController < ApplicationController
       #@entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.getLLPId
       @entity.basic_info_only = true
-      @entity.update(entity_params)
+      if @entity.update(entity_params)
+        return redirect_to edit_entity_path(@entity.key)
+      end
     else
       raise UnknownRequestFormat
     end
@@ -129,7 +131,7 @@ class Entities::LlpController < ApplicationController
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
-      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit LLP: #{@entity.display_name}</a></h4></div>").html_safe
+      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit LLP:<span id='edit-title'> #{@entity.display_name}</span></a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } LLP </a></h4></div>".html_safe
     end    

@@ -27,7 +27,9 @@ class Entities::TrustController < ApplicationController
       #@entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.getTrustId
       @entity.basic_info_only = true
-      @entity.update(entity_params)
+      if @entity.update(entity_params)
+        return redirect_to edit_entity_path(@entity.key)
+      end
     else
       raise UnknownRequestFormat
     end
