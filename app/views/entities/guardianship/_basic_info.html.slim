@@ -77,7 +77,11 @@
       = f.select :jurisdiction, options_for_select(Entity.USSTATES.sort, @entity.jurisdiction), html_options: {class: 'selectize-single'}
     .clearfix
       .form-group
-        = f.submit 'Save', class: 'btn btn-sm btn-primary'
+        - if @entity.persisted?
+          - c_str = "Warning, you just made changes to #{@entity.display_name} Are you sure you want to proceed to do this? " 
+          = f.submit 'Save', class: 'btn btn-sm btn-primary', data: { confirm: c_str }
+        - else
+          = f.submit 'Save', class: 'btn btn-sm btn-primary'
 
 #popup-should-not-change.corporate
   = hidden_field_tag "should_not_change[name]", (@entity.persisted? ? @entity.reload["name"] : '')
