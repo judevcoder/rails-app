@@ -26,10 +26,12 @@ class Entities::TenancyInCommonController < ApplicationController
         return render json: { redirect: view_context.entities_tenancy_in_common_basic_info_path(@entity.key), just_created: true }
       end
     elsif request.patch?
-      @entity                 = EntityTenancyInCommon.find_by(key: key)
+      #@entity                 = EntityTenancyInCommon.find_by(key: key)
       @entity.type_           = MemberType.getTenancyinCommonId
       @entity.basic_info_only = true
-      @entity.update(entity_tenancy_in_common_params)
+      if @entity.update(entity_tenancy_in_common_params)
+        return redirect_to edit_entity_path(@entity.key)
+      end
     else
       raise UnknownRequestFormat
     end

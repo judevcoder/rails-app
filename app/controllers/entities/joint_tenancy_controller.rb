@@ -29,7 +29,9 @@ class Entities::JointTenancyController < ApplicationController
       #@entity                 = EntityJointTenancy.find_by(key: key)
       @entity.type_           = MemberType.getJointTenancyId
       @entity.basic_info_only = true
-      @entity.update(entity_joint_tenancy_params)
+      if @entity.update(entity_joint_tenancy_params)
+        return redirect_to edit_entity_path(@entity.key)
+      end
     else
       raise UnknownRequestFormat
     end

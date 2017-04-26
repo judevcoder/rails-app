@@ -28,7 +28,9 @@ class Entities::TenancyByEntiretyController < ApplicationController
       #@entity                 = EntityTenancyByEntirety.find_by(key: key)
       @entity.type_           = MemberType.getTenancyByTheEntiretyId
       @entity.basic_info_only = true
-      @entity.update(entity_tenancy_by_entirety_params)
+      if @entity.update(entity_tenancy_by_entirety_params)
+        return redirect_to edit_entity_path(@entity.key)
+      end
     else
       raise UnknownRequestFormat
     end

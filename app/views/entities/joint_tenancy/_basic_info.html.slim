@@ -11,7 +11,7 @@
         .modal-footer
           button.btn.btn-primary.should-not-change-date-of-formation-cancel data-dismiss="modal" type="button"  Close
 
-= form_for @entity, url: entities_joint_tenancy_basic_info_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
+= form_for @entity, url: entities_joint_tenancy_basic_info_path( @entity.key ), html: { class: "entity-page-xhr" } do |f|
   - if @entity.errors.any?
     #error_explanation
       h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Joint Tenancy from being saved:"
@@ -62,7 +62,7 @@
     .clearfix
       .form-group
         - if @entity.persisted?
-          - c_str = "Warning, you just made changes to #{@entity.display_name} Are you sure you want to proceed to do this? " 
+          - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? " 
           = f.submit 'Save', class: 'btn btn-sm btn-primary', data: { confirm: c_str }
         - else
           = f.submit 'Save', class: 'btn btn-sm btn-primary'
