@@ -20,15 +20,15 @@ class Entities::LimitedPartnershipController < ApplicationController
 
       if @entity.save
         AccessResource.add_access({ user: current_user, resource: @entity })
-        #return render json: { redirect: view_context.entities_limited_partnership_basic_info_path(@entity.key), just_created: true }
-        return redirect_to clients_path
+        return render json: { redirect: view_context.entities_limited_partnership_basic_info_path(@entity.key), just_created: true }
+        #return redirect_to clients_path
       end
     elsif request.patch?
       #@entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.getLimitedPartnershipId
       @entity.basic_info_only = true
       if @entity.update(entity_params)
-        return redirect_to edit_entity_path(@entity.key)
+        #return redirect_to edit_entity_path(@entity.key)
       end
     else
       raise UnknownRequestFormat
@@ -179,7 +179,7 @@ class Entities::LimitedPartnershipController < ApplicationController
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
-      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Limited Partnership:<span id='edit-title'> #{@entity.display_name}</span></a></h4></div>").html_safe
+      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Limited Partnership: <span id='edit-title-lp'>#{@entity.display_name}</span></a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Limited Partnership </a></h4></div>".html_safe
     end

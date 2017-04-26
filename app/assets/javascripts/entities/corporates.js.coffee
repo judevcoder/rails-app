@@ -181,25 +181,27 @@ $ ->
     $.blockUI()
 
   $(document).on "ajax:success", "a.entity-page-xhr, form.entity-page-xhr", (data, xhr, status)->
+    v = $("#entity_has_comma").val()
+    name = $("#entity_name").val()
+    legal_ending_str = $("#entity_legal_ending").val()
+    comma_str = " "
+    if v == "true"
+      toggle_comma("off")
+      comma_str = ", "
+    else
+      toggle_comma("on")
+    if name
+      name = name.trim()
+      $('#edit-title-corp').html(name+comma_str+legal_ending_str)
     if (typeof xhr) == "object" && xhr.redirect != undefined
       window.location.href = xhr.redirect+"?just_created="+xhr.just_created
     else
-      console.log(xhr)
+      #console.log(xhr)
       $(document).find("div.corporate-contact-form").html(xhr)
       manage_jsGrid_UI()
       enable_datetimepicker_corporation()
       $.scrollTo(0)
       $.unblockUI()
-      v = $("#entity_has_comma").val()
-      name = $("#entity_name").val()
-      legal_ending_str = $("#entity_legal_ending").val()
-      comma_str = " "
-      if v == "true"
-        toggle_comma("off")
-        comma_str = ", "
-      else
-        toggle_comma("on")
-      $('#edit-title').html(name+comma_str+legal_ending_str)
 
   hashquery = queryString.parse(location.search)
   if hashquery.xhr != undefined
