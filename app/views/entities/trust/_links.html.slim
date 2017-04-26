@@ -1,5 +1,5 @@
 - if @entity.key.present?
-  = link_to "Basic info", entities_trust_basic_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left entity-page-xhr #{params[:action] == "basic_info" ? 'active' : ''}"
+  = link_to "Basic info", entities_trust_basic_info_path(@entity.key), class: "btn btn-sm btn-default margin-sm-left entity-page-xhr #{params[:action] == "basic_info" ? 'active' : ''}"
   = link_to "Contact info", entities_trust_contact_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left entity-page-xhr #{params[:action] == "contact_info" ? 'active' : ''}"
   = link_to "Settlors", entities_trust_settlors_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left entity-page-xhr #{params[:action] == "settlors" ? 'active' : ''}"
   = link_to "+", entities_trust_settlor_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left stockholder-add entity-page-xhr #{params[:action] == "settlors" ? 'active' : ''}"

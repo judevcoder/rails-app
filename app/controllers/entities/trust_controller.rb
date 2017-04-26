@@ -20,15 +20,15 @@ class Entities::TrustController < ApplicationController
 
       if @entity.save
         AccessResource.add_access({ user: current_user, resource: @entity })
-        #return render json: {redirect: view_context.entities_trust_basic_info_path( @entity.key ), just_created: true}
-        return redirect_to clients_path
+        return render json: {redirect: view_context.entities_trust_basic_info_path( @entity.key ), just_created: true}
+        #return redirect_to clients_path
       end
     elsif request.patch?
       #@entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.getTrustId
       @entity.basic_info_only = true
       if @entity.update(entity_params)
-        return redirect_to edit_entity_path(@entity.key)
+        #return redirect_to edit_entity_path(@entity.key)
       end
     else
       raise UnknownRequestFormat
@@ -233,7 +233,7 @@ class Entities::TrustController < ApplicationController
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
-      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Trust: #{@entity.name}</a></h4></div>").html_safe
+      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Trust: <span id='edit-title-trust'>#{@entity.name}</span></a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Trust </a></h4></div>".html_safe
     end
