@@ -33,7 +33,7 @@ class Entities::GuardianshipController < ApplicationController
       @entity.assign_attributes(entity_guardianship_params)
       @entity.name = "In re " + @entity.first_name + " " + @entity.last_name + " , AIP"
       if @entity.save
-       return redirect_to clients_path
+       return redirect_to edit_entity_path(@entity.key)
       end
     else
       raise UnknownRequestFormat

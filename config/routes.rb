@@ -98,6 +98,7 @@ Rails.application.routes.draw do
     get "sole_proprietorship/contact_info/:entity_key" => "sole_proprietorship#contact_info", as: :sole_proprietorship_contact_info
     post "sole_proprietorship/contact_info/:entity_key" => "sole_proprietorship#contact_info"
     patch "sole_proprietorship/contact_info/:entity_key" => "sole_proprietorship#contact_info"
+    get "sole_proprietorship/owns/(:entity_key)" => "sole_proprietorship#owns", as: :sole_proprietorship_owns
     # Guardianship
     get "guardianship/basic_info/(:entity_key)" => "guardianship#basic_info", as: :guardianship_basic_info
     post "guardianship/basic_info/(:entity_key)" => "guardianship#basic_info"

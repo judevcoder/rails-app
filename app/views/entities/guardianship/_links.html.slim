@@ -1,5 +1,5 @@
 - if @entity.key.present?
-  = link_to "Basic info", entities_guardianship_basic_info_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'basic_info' ? 'active' : ''}"
+  = link_to "Basic info", entities_guardianship_basic_info_path(@entity.key), class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'basic_info' ? 'active' : ''}"
   = link_to "Guardian", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => ""
   = link_to "Ward", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => ""
   = link_to "Judge", entities_guardianship_judge_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'contact_info' ? 'active' : ''}"

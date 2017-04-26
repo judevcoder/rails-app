@@ -78,7 +78,7 @@
     .clearfix
       .form-group
         - if @entity.persisted?
-          - c_str = "Warning, you just made changes to #{@entity.display_name} Are you sure you want to proceed to do this? " 
+          - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? " 
           = f.submit 'Save', class: 'btn btn-sm btn-primary', data: { confirm: c_str }
         - else
           = f.submit 'Save', class: 'btn btn-sm btn-primary'
