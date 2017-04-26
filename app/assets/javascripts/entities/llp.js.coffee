@@ -9,7 +9,6 @@ $ ->
     toggle_comma("off")
 
   toggle_comma = (what) ->
-    #alert("here now " + what)
     if what == "off"
       $("#comma").show()
       $("#comma-grey").hide()
@@ -18,31 +17,29 @@ $ ->
       $("#comma").hide()
       $("#comma-grey").show()
       $("#entity_has_comma").val(false)
-    #is_comma = $(document).find('input.has_comma_val').val()
-    #alert("Lets see " + is_comma)
 
   $(document).ready ->
-    #alert("all is well")
     v = $("#entity_has_comma").val()
-    #alert("what is " + v)
     if v == "true"
       toggle_comma("off")
     else
       toggle_comma("on")
 
   $(document).on "ajax:success", "a.entity-page-xhr, form.entity-page-xhr", (data, xhr, status)->
+    v = $("#entity_has_comma").val()
+    name = $("#entity_name").val()
+    legal_ending_str = $("#entity_legal_ending").val()
+    comma_str = " "
+    if v == "true"
+      toggle_comma("off")
+      comma_str = ", "
+    else
+      toggle_comma("on")
+    if name
+      name = name.trim()
+      $('#edit-title-llp').html(name+comma_str+legal_ending_str)
     if (typeof xhr) == "object" && xhr.redirect != undefined
       window.location.href = xhr.redirect+"?just_created="+xhr.just_created      
     else
       $.scrollTo(0)
       $.unblockUI()
-      v = $("#entity_has_comma").val()
-      name = $("#entity_name").val()
-      legal_ending_str = $("#entity_legal_ending").val()
-      comma_str = " "
-      if v == "true"
-        toggle_comma("off")
-        comma_str = ", "
-      else
-        toggle_comma("on")
-      #$('#edit-title').html(name+comma_str+legal_ending_str)
