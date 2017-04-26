@@ -137,8 +137,8 @@ class Entity < ApplicationRecord
 
   def display_name
     comma_str = ""
-    comma_str = ", " if self.has_comma
-    "#{name}#{comma_str} #{self.legal_ending}" #" #{(self.legal_ending.present? ? (self.legal_ending[0] == ',' ? self.legal_ending : ' ' + self.legal_ending) : '')}"
+    comma_str = "," if self.has_comma
+    "#{self.name.strip}#{comma_str} #{self.legal_ending}" #" #{(self.legal_ending.present? ? (self.legal_ending[0] == ',' ? self.legal_ending : ' ' + self.legal_ending) : '')}"
    end
 
    def trim_name
