@@ -39,15 +39,20 @@ class EntityTenancyByEntirety < ApplicationRecord
   has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"
   has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"
 
-  def name
-    self.property.title rescue nil
-  end
+  #def name
+  #  self.property.title rescue nil
+  #end
   
   after_save :add_key
-  before_save :set_default_val
+  before_save :set_default_val, :set_name
 
   def set_default_val
     self.number_of_assets = 100
+  end
+
+  def set_name
+    self.name = self.property.title || ""
+    self.jurisdiction = self.property.location_state
   end
 
   def property_address

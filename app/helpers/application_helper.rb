@@ -189,17 +189,32 @@ module ApplicationHelper
       when "Trust"
         entity.beneficiaries.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.trustees.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
-        [[]]
+        o = entity.property.owner
+        if o.is_a?(Entity)
+          [[o.name, edit_entity_path(o.key)]]
+        else
+          [[o.name, edit_contact_path(o)]]
+        end 
       when "Limited Partnership"
         entity.general_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.limited_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Tenancy in Common"
-        [[]]
+        o = entity.property.owner
+        if o.is_a?(Entity)
+          [[o.name, edit_entity_path(o.key)]]
+        else
+          [[o.name, edit_contact_path(o)]]
+        end 
       when "Corporation"
         entity.stockholders.map { |m| ["#{m.name} - #{m.percentage_of_ownership}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Partnership"
         entity.partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Tenancy by the Entirety"
-        [[]]
+        o = entity.property.owner
+        if o.is_a?(Entity)
+          [[o.name, edit_entity_path(o.key)]]
+        else
+          [[o.name, edit_contact_path(o)]]
+        end        
       else
         [["", "#"]]
     end
@@ -339,17 +354,17 @@ module ApplicationHelper
       when "Trust"
         entity.display_name
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
-        ""
+        entity.name
       when "Limited Partnership"
         entity.display_name
       when "Tenancy in Common"
-        ""
+        entity.name
       when "Corporation"
         entity.display_name
       when "Partnership"
         entity.display_name
       when "Tenancy by the Entirety"
-        ""
+        entity.name
       else
         ""
     end

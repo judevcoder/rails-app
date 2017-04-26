@@ -11,7 +11,7 @@
         .modal-footer
           button.btn.btn-primary.should-not-change-date-of-formation-cancel data-dismiss="modal" type="button"  Close
 
-= form_for @entity, url: entities_joint_tenancy_basic_info_path( @entity.key ), html: { class: "entity-page-xhr" } do |f|
+= form_for @entity, url: entities_joint_tenancy_basic_info_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
   - if @entity.errors.any?
     #error_explanation
       h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Joint Tenancy from being saved:"
@@ -36,25 +36,10 @@
 
     .clearfix
     .form-group.required.margin-sm-top
-      = f.label "Property Title", class: "control-label"
-      = f.text_field :name, id: "other", class: 'form-control'
-      = f.hidden_field :property_id
-      .autocomplete style=("display: none")
+      label.control-label Property Title
+      = f.select :property_id, options_for_select(Property.where(id: AccessResource.get_ids(resource_klass: 'Property', user: current_user), ownership_status: 'Purchased').pluck(:title, :id), f.object.property_id), {}, class: 'selectize-single'
       .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-property pull-left"
-        = link_to "Pick From List", "javascript:void(0)", class: "resource-form-properties pull-right"
-    .form-group
-      = f.label "Street Address"
-      = f.text_field :address, class: 'city form-control'
-    .form-group
-      = f.label "City"
-      = f.text_field :city, class: 'city form-control'
-    .form-group  
-      = f.label "State"
-      = f.select :state, options_for_select(GeneralMethods.USSTATES.sort, @entity.state), html_options: {class: 'state selectize-single'}
-    .form-group  
-      = f.label "Zip"
-      = f.text_field :zip, class: 'zip form-control'
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-property pull-left"      
     - if @entity.persisted?
       .field
         .part123.heading

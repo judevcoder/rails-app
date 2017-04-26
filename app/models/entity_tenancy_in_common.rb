@@ -7,7 +7,7 @@ class EntityTenancyInCommon < ApplicationRecord
   class_attribute :basic_info_only
   validates :email, email: true, if: "self.email.present?"
   # validate :phone_validation
-  validates_presence_of :name
+  #validates_presence_of :name
   validates_length_of :name, maximum: 250
   validates_length_of :name2, maximum: 250
   validates_length_of :first_name, :last_name, maximum: 250
@@ -23,6 +23,7 @@ class EntityTenancyInCommon < ApplicationRecord
   validate :valid_date_of_formation
 
   belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"
+  belongs_to :property
   has_many :members, class_name: "Member", foreign_key: "super_entity_id"
   has_many :officers
   has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"
@@ -37,10 +38,15 @@ class EntityTenancyInCommon < ApplicationRecord
   has_many :tenants_in_common, ->{where(class_name: "TenantInCommon")}, class_name: "TenantInCommon", foreign_key: "super_entity_id"
 
   after_save :add_key
-  before_save :set_default_val
+  before_save :set_default_val, :set_name
 
   def set_default_val
     self.number_of_assets = 100
+  end
+
+  def set_name
+    self.name = self.property.title || ""
+    self.jurisdiction = self.property.location_state
   end
 
 end

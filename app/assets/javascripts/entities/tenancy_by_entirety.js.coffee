@@ -1,6 +1,6 @@
 $ ->
   $(document).on "click", "a.resource-form-new-property", ->
-    url = "/properties/new"
+    url = "/properties/new?ostatus=Purchased"
     $(this).closest('.autocomplete').hide()
     $.ajax
       type: "get"
@@ -42,9 +42,20 @@ $ ->
       $("div#ResourceFormNewProperty").find(".model-body").html(xhr.responseText)
       enable_datetimepicker_corporation()
     $.unblockUI()
+
   $(document).on "click", "div.entity-object-action", ->
     val = $(this).text()
     id  = $(this).parent().attr("data-id")
     $("input[name$='entity_tenancy_by_entirety[property_id]']").val(id)
     $("input[name$='entity_tenancy_by_entirety[name]']").val(val)
     $(document).find("div#ResourceFormProperties").modal("hide")
+
+  $(document).on "ajax:success", "a.entity-page-xhr, form.entity-page-xhr", (data, xhr, status)->
+    name = $("#entity_tenancy_by_entirety_property_id option:selected").text()
+    if name 
+      $('#edit-title-tbe').html(name)
+    if (typeof xhr) == "object" && xhr.redirect != undefined
+      window.location.href = xhr.redirect+"?just_created="+xhr.just_created      
+    else
+      $.scrollTo(0)
+      $.unblockUI()
