@@ -46,7 +46,7 @@ class Entity < ApplicationRecord
   has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"
 
   after_save :add_key
-  before_save :set_default_val
+  before_save :set_default_val, :trim_name
 
   class << self
     def USSTATES
@@ -139,6 +139,10 @@ class Entity < ApplicationRecord
     comma_str = ""
     comma_str = ", " if self.has_comma
     "#{name}#{comma_str} #{self.legal_ending}" #" #{(self.legal_ending.present? ? (self.legal_ending[0] == ',' ? self.legal_ending : ' ' + self.legal_ending) : '')}"
+   end
+
+   def trim_name
+     self.name.strip!
    end
 
   private

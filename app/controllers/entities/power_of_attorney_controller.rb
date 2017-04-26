@@ -21,8 +21,8 @@ class Entities::PowerOfAttorneyController < ApplicationController
         @entity.first_name + ' ' + @entity.last_name
       if @entity.save
         AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})
-        #return render json: {redirect: view_context.entities_power_of_attorney_basic_info_path( @entity.key ), just_created: true}
-        return redirect_to clients_path
+        return render json: {redirect: view_context.entities_power_of_attorney_basic_info_path( @entity.key ), just_created: true}
+        #return redirect_to clients_path
       end
     elsif request.patch?
       @entity                 = PowerOfAttorney.find_by(key: key)
@@ -32,7 +32,7 @@ class Entities::PowerOfAttorneyController < ApplicationController
       @entity.name = @entity.first_name2 + ' ' + @entity.last_name2 + ' POA for ' +
         @entity.first_name + ' ' + @entity.last_name
       if @entity.save
-        redirect_to edit_entity_path(@entity.key)
+        #redirect_to edit_entity_path(@entity.key)
       end
     else
       raise UnknownRequestFormat
@@ -195,7 +195,7 @@ class Entities::PowerOfAttorneyController < ApplicationController
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
-     add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Power of Attorney: #{@entity.name}</a></h4></div>").html_safe
+     add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Power of Attorney: <span id='edit-title-poa'>#{@entity.name}</span></a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Power of Attorney </a></h4></div>".html_safe
     end
