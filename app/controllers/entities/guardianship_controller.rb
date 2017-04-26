@@ -20,20 +20,20 @@ class Entities::GuardianshipController < ApplicationController
       @entity.type_           = MemberType.getGuardianshipId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
-      @entity.name = "In re " + @entity.first_name + " " + @entity.last_name + " , AIP"
+      @entity.name = "In re " + @entity.first_name + " " + @entity.last_name + ", AIP"
       if @entity.save
         AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})
-        #return render json: {redirect: view_context.entities_guardianship_basic_info_path( @entity.key ), just_created: true}
-        return redirect_to clients_path
+        return render json: {redirect: view_context.entities_guardianship_basic_info_path( @entity.key ), just_created: true}
+        #return redirect_to clients_path
       end
     elsif request.patch?
       #@entity                 = EntityGuardianship.find_by(key: key)
       @entity.type_           = MemberType.getGuardianshipId
       @entity.basic_info_only = true
       @entity.assign_attributes(entity_guardianship_params)
-      @entity.name = "In re " + @entity.first_name + " " + @entity.last_name + " , AIP"
+      @entity.name = "In re " + @entity.first_name + " " + @entity.last_name + ", AIP"
       if @entity.save
-       return redirect_to edit_entity_path(@entity.key)
+       #return redirect_to edit_entity_path(@entity.key)
       end
     else
       raise UnknownRequestFormat
@@ -98,7 +98,7 @@ class Entities::GuardianshipController < ApplicationController
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
-      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Guardianship: #{@entity.name}</a></h4></div>").html_safe
+      add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Guardianship: <span id='edit-title-g'>#{@entity.name}</span></a></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Guardianship </a></h4></div>".html_safe
     end    

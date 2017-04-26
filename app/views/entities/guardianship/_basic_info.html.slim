@@ -11,7 +11,7 @@
         .modal-footer
           button.btn.btn-primary.should-not-change-date-of-formation-cancel datadismiss="modal" type="button"  Close
 
-= form_for @entity, url: entities_guardianship_basic_info_path( @entity.key ), html: { class: "entity-page-xhr" } do |f|
+= form_for @entity, url: entities_guardianship_basic_info_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
   - if @entity.errors.any?
     #error_explanation
       h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Guardianship from being saved:"
@@ -21,25 +21,25 @@
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
   
     .form-group
-      = f.label :judge_first_name
+      label Judge First Name
       = f.text_field :judge_first_name, class: "form-control"
     .form-group
-      = f.label :judge_last_name
+      label Judge Last Name
       = f.text_field :judge_last_name, class: "form-control"
     .form-group
-      = f.label "Guardian First Name"
+      label Guardian First Name
       = f.text_field :guardian_first_name, class: "form-control"
     .form-group
-      = f.label "Guardian Last Name"
+      label Guardian Last Name
       = f.text_field :guardian_last_name, class: "form-control"
     .form-group.required
-      = f.label "Ward First Name", class: "control-label"
+      label.control-label Ward First Name
       = f.text_field :first_name, class: "form-control"
     .form-group.required
-      = f.label "Ward Last Name", class: "control-label"
+      label.control-label Ward Last Name
       = f.text_field :last_name, class: "form-control"
     .form-group
-      = f.label "Social Security"
+      label Social Security
       = f.text_field :ein_or_ssn, class: "form-control"
 
     .clearfix
