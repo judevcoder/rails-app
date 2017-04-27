@@ -199,9 +199,9 @@ module ApplicationHelper
         entity.general_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.limited_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Tenancy in Common"
         o = entity.property.owner
-        if o.is_a?(Entity)
+        if !o.nil? and o.is_a?(Entity)
           [[o.name, edit_entity_path(o.key)]]
-        else
+        elsif !o.nil? and o.is_a?(Contact)
           [[o.name, edit_contact_path(o)]]
         end 
       when "Corporation"
@@ -210,9 +210,9 @@ module ApplicationHelper
         entity.partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Tenancy by the Entirety"
         o = entity.property.owner
-        if o.is_a?(Entity)
+        if !o.nil? and o.is_a?(Entity)
           [[o.name, edit_entity_path(o.key)]]
-        else
+        elsif !o.nil? and o.is_a?(Contact)
           [[o.name, edit_contact_path(o)]]
         end        
       else
