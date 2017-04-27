@@ -36,14 +36,16 @@ table#data_table
           = entity.entity_type.try(:name)
         td
           - owns(entity).each do |name|
-            a href = name[1] style="display: block"
-              span.badge
-                = name[0]
+            - if (name.try(:length) || 0) > 1
+              a href = name[1] style="display: block"
+                span.badge
+                  = name[0]
         td
           - owned_by(entity).each do |name|
-            a href = name[1] style="display: block"
-              span.badge
-                = name[0]
+            - if (name.try(:length) || 0) > 1
+              a href = name[1] style="display: block"
+                span.badge
+                  = name[0]
         td
           = entity.jurisdiction
         td
