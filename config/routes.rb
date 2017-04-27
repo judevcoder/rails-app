@@ -106,6 +106,9 @@ Rails.application.routes.draw do
     get "guardianship/judge/:entity_key" => "guardianship#judge", as: :guardianship_judge
     post "guardianship/judge/:entity_key" => "guardianship#judge"
     patch "guardianship/judge/:entity_key" => "guardianship#judge"
+    get "guardianship/guardian/:entity_key" => "guardianship#guardian", as: :guardianship_guardian
+    post "guardianship/guardian/:entity_key" => "guardianship#guardian"
+    patch "guardianship/guardian/:entity_key" => "guardianship#guardian"
     # Tenancy in common
     get "tenancy_in_common/basic_info/(:entity_key)" => "tenancy_in_common#basic_info", as: :tenancy_in_common_basic_info
     post "tenancy_in_common/basic_info/(:entity_key)" => "tenancy_in_common#basic_info"

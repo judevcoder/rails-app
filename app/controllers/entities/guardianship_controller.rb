@@ -55,6 +55,22 @@ class Entities::GuardianshipController < ApplicationController
     end
     render layout: false if request.xhr?
   end
+
+  def guardian
+    @entity = Entity.find_by(key: params[:entity_key])
+    raise ActiveRecord::RecordNotFound if @entity.blank?
+    params[:action] = 'guardian'
+    if request.get?
+      #TODO
+    elsif request.patch?
+      @entity.basic_info_only = false
+      @entity.update(entity_params)
+      return render layout: false, template: "entities/guardianship/guardian"
+    else
+      raise UnknownRequestFormat
+    end
+    render layout: false if request.xhr?
+  end
   
   # Never trust parameters from the scary internet, only allow the white list through.
   private

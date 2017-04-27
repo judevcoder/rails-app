@@ -1,0 +1,18 @@
+= form_for @entity, url: entities_guardianship_guardian_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
+  = hidden_field_tag :int_action, 'Guardian Details'
+  - if @entity.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Judge from being saved:"
+      ul
+        - override_active_record_errors(@entity.errors.messages, {}).each do |message|
+          li = message  
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
+    .form-group
+      label Guardian First Name
+      = f.text_field :guardian_first_name, class: "form-control"
+    .form-group
+      label Guardian Last Name
+      = f.text_field :guardian_last_name, class: "form-control"
+    .clearfix
+      .form-group
+        = f.submit 'Save', class: 'btn btn-sm btn-primary'
