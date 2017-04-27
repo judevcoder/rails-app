@@ -1,48 +1,45 @@
-= form_for @entity, url: entities_guardianship_judge_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
+= form_for @judge, url: entities_guardianship_judge_path( @entity.key, @judge.id ), remote: true, html: { class: "entity-page-xhr" } do |f|
   = hidden_field_tag :int_action, 'Judge Details'
-  - if @entity.errors.any?
+  - if @judge.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Judge from being saved:"
+      h2 = "#{pluralize(@judge.errors.count, "error")} prohibited this Judge from being saved:"
       ul
-        - override_active_record_errors(@entity.errors.messages, {}).each do |message|
-          li = message  
+        - override_active_record_errors(@judge.errors.messages, {}).each do |message|
+          li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
     .form-group
-      = f.label :county
-      = f.text_field :county, class: "form-control"
-    .form-group    
-      = f.label :part
-      = f.text_field :part, class: "form-control"
+      .option-1
+        = f.label "Individual"
+        = f.radio_button :is_person, true, checked: @judge.is_person
+      .option-2
+        = f.label "Entity"
+        = f.radio_button :is_person, false, checked: !@judge.is_person
+
+    .form-group#judge_entity
+      label.is-person-hide style=("#{('display: none;' if @judge.is_person)}") Owning Entity
+
+      - if @judge.is_person
+        = f.select :temp_id, options_html('judge', "true", @judge.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @judge.super_entity.id, clienttype: 'judge'}
+      - else
+        = f.select :temp_id, options_html('judge', "false", @judge.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @judge.super_entity.id, clienttype: 'judge'}
+      = hidden_field_tag "judge[member_type_id]", MemberType.getGuardianshipId
+      = hidden_field_tag :cid, @judge.temp_id
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group
-      = f.label :first_name
-      = f.text_field :judge_first_name, class: "form-control"
-    .form-group
-      = f.label :last_name
-      = f.text_field :judge_last_name, class: "form-control"
-    .form-group
-      = f.label :phone1
-      = f.text_field :phone1, "placeholder" => "example: +(country code) (phone number)", class: "form-control"
-    .form-group
-      = f.label :phone2
-      = f.text_field :phone2, "placeholder" => "example: +(country code) (phone number)", class: "form-control"
-    .form-group
-      = f.label :fax
-      = f.text_field :fax, class: "form-control"
-    .form-group
-      = f.label :email
-      = f.text_field :email, class: "form-control"
-    .form-group
-      label Postal Address
-      = f.text_field :postal_address, class: "form-control"
-    .form-group
-      label City
-      = f.text_field :city, class: 'city form-control'
-    .form-group
-      label State
-      = f.select :state, options_for_select(GeneralMethods.USSTATES, @entity.state), html_options: {class: 'state form-control selectize-single'}
-    .form-group
-      label Zip
-      = f.text_field :zip, class: 'zip form-control'
-    .clearfix
-      .form-group
-        = f.submit 'Save', class: 'btn btn-sm btn-primary'
+      = f.submit 'Save', class: "btn btn-primary"
+
+
+/! Modal
+#ResourceFormNewEntity.modal.fade aria-hidden="true" aria-labelledby="ResourceFormNewEntity" role="dialog" tabindex="-5"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4.modal-title New Entity for Judge
+      .model-body
+        | &nbsp;
+      .modal-footer
+        button type="button" class="btn btn-primary btn-xs" data-dismiss="modal"
+          | close

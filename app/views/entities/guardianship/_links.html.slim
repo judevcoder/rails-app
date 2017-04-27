@@ -1,6 +1,16 @@
 - if @entity.key.present?
   = link_to "Basic info", entities_guardianship_basic_info_path(@entity.key), class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'basic_info' ? 'active' : ''}"
-  = link_to "Guardian", entities_guardianship_guardian_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'guardian' ? 'active' : ''}"
+  - if @entity.guardian.present?
+    = link_to "Guardian", entities_guardianship_guardian_path(@entity.key, @entity.guardian.id), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'guardian' ? 'active' : ''}"
+  - else
+    = link_to "Guardian", entities_guardianship_guardian_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'guardian' ? 'active' : ''}"
   /= link_to "Ward", "#", class: "btn btn-sm btn-default margin-sm-left pull-left grey_out", "data-toggle" => "tooltip", "title" => ""
-  = link_to "Judge", entities_guardianship_judge_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'contact_info' ? 'active' : ''}"
+  - if @entity.judge.present?
+    = link_to "Judge", entities_guardianship_judge_path(@entity.key, @entity.judge.id), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'judge' ? 'active' : ''}"
+  - else
+    = link_to "Judge", entities_guardianship_judge_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'judge' ? 'active' : ''}"
+  - if @entity.ward.present?
+    = link_to "Ward", entities_guardianship_ward_path(@entity.key, @entity.ward.id), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'ward' ? 'active' : ''}"
+  - else
+    = link_to "Ward", entities_guardianship_ward_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'ward' ? 'active' : ''}"
   /= link_to "Owns", "#", remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'contact_info' ? 'active' : ''}"

@@ -103,12 +103,18 @@ Rails.application.routes.draw do
     get "guardianship/basic_info/(:entity_key)" => "guardianship#basic_info", as: :guardianship_basic_info
     post "guardianship/basic_info/(:entity_key)" => "guardianship#basic_info"
     patch "guardianship/basic_info/:entity_key" => "guardianship#basic_info"
-    get "guardianship/judge/:entity_key" => "guardianship#judge", as: :guardianship_judge
-    post "guardianship/judge/:entity_key" => "guardianship#judge"
-    patch "guardianship/judge/:entity_key" => "guardianship#judge"
-    get "guardianship/guardian/:entity_key" => "guardianship#guardian", as: :guardianship_guardian
-    post "guardianship/guardian/:entity_key" => "guardianship#guardian"
-    patch "guardianship/guardian/:entity_key" => "guardianship#guardian"
+    get "guardianship/judge/:entity_key/(:id)" => "guardianship#judge", as: :guardianship_judge
+    post "guardianship/judge/:entity_key/(:id)" => "guardianship#judge"
+    patch "guardianship/judge/:entity_key/(:id)" => "guardianship#judge"
+    delete "guardianship/judge/:id" => "guardianship#judge"
+    get "guardianship/guardian/:entity_key/(:id)" => "guardianship#guardian", as: :guardianship_guardian
+    post "guardianship/guardian/:entity_key/(:id)" => "guardianship#guardian"
+    patch "guardianship/guardian/:entity_key/(:id)" => "guardianship#guardian"
+    delete "guardianship/guardian/:id" => "guardianship#guardian"
+    get "guardianship/ward/:entity_key/(:id)" => "guardianship#ward", as: :guardianship_ward
+    post "guardianship/ward/:entity_key/(:id)" => "guardianship#ward"
+    patch "guardianship/ward/:entity_key/(:id)" => "guardianship#ward"
+    delete "guardianship/ward/:id" => "guardianship#ward"
     # Tenancy in common
     get "tenancy_in_common/basic_info/(:entity_key)" => "tenancy_in_common#basic_info", as: :tenancy_in_common_basic_info
     post "tenancy_in_common/basic_info/(:entity_key)" => "tenancy_in_common#basic_info"

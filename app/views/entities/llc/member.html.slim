@@ -6,20 +6,26 @@
       ul
         - override_active_record_errors(@member.errors.messages, {share_error: 'All Interest are assigned!'}).each do |message|
           li = message
-  .col-lg-4.close-md-4.col-sm-12.col-xs-12          
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
     .form-group
       .option-1
         = f.label "Individual"
         = f.radio_button :is_person, true, checked: @member.is_person
       .option-2
-        label Entity
+        = f.label "Entity"
         = f.radio_button :is_person, false, checked: !@member.is_person
-    .form-group#member_entity style=("#{('display: none;' if @member.is_person)}")
-      label Owner Entity
-      = f.select :entity_id, options_for_select(current_user.EntitesForClient(@member.super_entity_id), f.object.id), {}, class: "selectize-single"
-      = hidden_field_tag "member[entity_type_id]", MemberType.getLLCId
-    .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"    
+
+    .form-group#member_entity
+      label.is-person-hide style=("#{('display: none;' if @member.is_person)}") Owning Entity
+
+      - if @member.is_person
+        = f.select :temp_id, options_html('member', "true", @member.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @member.super_entity.id, clienttype: 'member'}
+      - else
+        = f.select :temp_id, options_html('member', "false", @member.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @member.super_entity.id, clienttype: 'member'}
+      = hidden_field_tag "stock_holder[member_type_id]", MemberType.getLLCId
+      = hidden_field_tag :cid, @member.temp_id
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group
       label Member Interest for this Member
       = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"
