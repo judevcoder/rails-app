@@ -2,7 +2,7 @@ class Entities::GuardianshipController < ApplicationController
   
   before_action :current_page
   before_action :check_xhr_page
-  before_action :set_entity, only: [:basic_info]
+  before_action :set_entity, only: [:basic_info, :guardian, :judge]
   before_action :add_breadcrum
   
   def basic_info
@@ -42,13 +42,17 @@ class Entities::GuardianshipController < ApplicationController
   end
   
   def judge
-    @entity = Entity.find_by(key: params[:entity_key])
-    raise ActiveRecord::RecordNotFound if @entity.blank?
+    #@entity = Entity.find_by(key: params[:entity_key])
+    #raise ActiveRecord::RecordNotFound if @entity.blank?
     if request.get?
       #TODO
     elsif request.patch?
+      @entity.type_           = MemberType.getGuardianshipId
       @entity.basic_info_only = false
-      @entity.update(entity_params)
+      @entity.assign_attributes(entity_guardianship_params)
+      if @entity.save
+        #return redirect_to edit_entity_path(@entity.key)
+      end
       return render layout: false, template: "entities/guardianship/judge"
     else
       raise UnknownRequestFormat
@@ -57,14 +61,20 @@ class Entities::GuardianshipController < ApplicationController
   end
 
   def guardian
-    @entity = Entity.find_by(key: params[:entity_key])
-    raise ActiveRecord::RecordNotFound if @entity.blank?
+    #@entity = Entity.find_by(key: params[:entity_key])
+    #raise ActiveRecord::RecordNotFound if @entity.blank?
     params[:action] = 'guardian'
     if request.get?
       #TODO
     elsif request.patch?
+      @entity.type_           = MemberType.getGuardianshipId
       @entity.basic_info_only = false
-      @entity.update(entity_params)
+      @entity.assign_attributes(entity_guardianship_params)
+      if @entity.save
+       #return redirect_to edit_entity_path(@entity.key)
+      end
+      #@entity.basic_info_only = false
+      #@entity.update(entity_params)
       return render layout: false, template: "entities/guardianship/guardian"
     else
       raise UnknownRequestFormat
@@ -77,17 +87,24 @@ class Entities::GuardianshipController < ApplicationController
   def entity_guardianship_params
     params.require(:entity_guardianship).permit(:name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
                                                 :first_name, :last_name, :phone1, :phone2, :fax, :email,
-                                                :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
-                                                :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
-                                                :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :county, :judge_first_name, :judge_last_name, :guardian_first_name, :guardian_last_name)
+                                                :postal_address, :postal_address2, :city, :city2, :state, :state2, 
+                                                :zip, :zip2, :date_of_formation, :m_date_of_formation,
+                                                :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, 
+                                                :honorific, :is_honorific, :date_of_appointment, :m_date_of_appointment, 
+                                                :country, :date_of_commission, :m_date_of_commission, :index, 
+                                                :county, :judge_first_name, :judge_last_name, :guardian_first_name, 
+                                                :guardian_last_name)
   end
   
   def entity_params
     params.require(:entity).permit(:name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
                                    :first_name, :last_name, :phone1, :phone2, :fax, :email,
-                                   :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
-                                   :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
-                                   :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :country2, :part, :county)
+                                   :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, 
+                                   :date_of_formation, :m_date_of_formation, :ein_or_ssn, :s_corp_status, 
+                                   :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
+                                   :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, 
+                                   :m_date_of_commission, :index, :country2, :part, :county, :judge_first_name, 
+                                   :judge_last_name, :guardian_first_name, :guardian_last_name)
   end
   
   def current_page
