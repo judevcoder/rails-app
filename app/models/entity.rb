@@ -28,9 +28,12 @@ class Entity < ApplicationRecord
 
   belongs_to :entity_type, class_name: "EntityType", foreign_key: "type_"
   belongs_to :property
-  has_many :members, class_name: "Member", foreign_key: "super_entity_id"
+  has_many :members, ->{where(class_name: "Member")}, class_name: "Member", foreign_key: "super_entity_id"
   has_many :officers
   has_many :stockholders, ->{where(class_name: "StockHolder")}, class_name: "StockHolder", foreign_key: "super_entity_id"
+  has_one :judge, ->{where(class_name: "Judge")}, class_name: "Judge", foreign_key: "super_entity_id"
+  has_one :guardian, ->{where(class_name: "Guardian")}, class_name: "Guardian", foreign_key: "super_entity_id"
+  has_one :ward, ->{where(class_name: "Ward")}, class_name: "Ward", foreign_key: "super_entity_id"
   has_many :directors, ->{where(class_name: "Director")}, class_name: "Director", foreign_key: "super_entity_id"
   has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"
   has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"
@@ -199,5 +202,5 @@ class Entity < ApplicationRecord
   def name
     "#{super}"
   end
-  
+
 end

@@ -62,6 +62,7 @@ class Entities::TrustController < ApplicationController
     end
     if request.post?
       @settlor                 = Settlor.new(settlor_params)
+      @settlor.use_temp_id
       @settlor.super_entity_id = @entity.id
       @settlor.class_name      = "Settlor"
       if @settlor.save
@@ -72,6 +73,7 @@ class Entities::TrustController < ApplicationController
       end
     elsif request.patch?
       if @settlor.update(settlor_params)
+        @settlor.use_temp_id
         @settlors = @settlor.super_entity.settlors
         return render layout: false, template: "entities/trust/settlors"
       else
@@ -84,6 +86,7 @@ class Entities::TrustController < ApplicationController
       @settlors = settlor.super_entity.settlors
       return render layout: false, template: "entities/trust/settlors"
     end
+    @settlor.gen_temp_id
     render layout: false if request.xhr?
   end
 
@@ -196,9 +199,9 @@ class Entities::TrustController < ApplicationController
   end
 
   def settlor_params
-    params.require(:settlor).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
+    params.require(:settlor).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                     :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
-                                    :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member)
+                                    :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member, :contact_id)
   end
 
   def beneficiary_params

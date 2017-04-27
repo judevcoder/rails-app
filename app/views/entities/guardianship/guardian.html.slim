@@ -1,18 +1,45 @@
-= form_for @entity, url: entities_guardianship_guardian_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
+= form_for @guardian, url: entities_guardianship_guardian_path( @entity.key, @guardian.id ), remote: true, html: { class: "entity-page-xhr" } do |f|
   = hidden_field_tag :int_action, 'Guardian Details'
-  - if @entity.errors.any?
+  - if @guardian.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Judge from being saved:"
+      h2 = "#{pluralize(@guardian.errors.count, "error")} prohibited this Guardian from being saved:"
       ul
-        - override_active_record_errors(@entity.errors.messages, {}).each do |message|
-          li = message  
+        - override_active_record_errors(@guardian.errors.messages, {}).each do |message|
+          li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
     .form-group
-      label Guardian First Name
-      = f.text_field :guardian_first_name, class: "form-control"
+      .option-1
+        = f.label "Individual"
+        = f.radio_button :is_person, true, checked: @guardian.is_person
+      .option-2
+        = f.label "Entity"
+        = f.radio_button :is_person, false, checked: !@guardian.is_person
+
+    .form-group#guardian_entity
+      label.is-person-hide style=("#{('display: none;' if @guardian.is_person)}") Owning Entity
+
+      - if @guardian.is_person
+        = f.select :temp_id, options_html('guardian', "true", @guardian.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @guardian.super_entity.id, clienttype: 'guardian'}
+      - else
+        = f.select :temp_id, options_html('guardian', "false", @guardian.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @guardian.super_entity.id, clienttype: 'guardian'}
+      = hidden_field_tag "guardian[member_type_id]", MemberType.getGuardianshipId
+      = hidden_field_tag :cid, @guardian.temp_id
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group
-      label Guardian Last Name
-      = f.text_field :guardian_last_name, class: "form-control"
-    .clearfix
-      .form-group
-        = f.submit 'Save', class: 'btn btn-sm btn-primary'
+      = f.submit 'Save', class: "btn btn-primary"
+
+
+/! Modal
+#ResourceFormNewEntity.modal.fade aria-hidden="true" aria-labelledby="ResourceFormNewEntity" role="dialog" tabindex="-5"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4.modal-title New Entity for Guardian
+      .model-body
+        | &nbsp;
+      .modal-footer
+        button type="button" class="btn btn-primary btn-xs" data-dismiss="modal"
+          | close

@@ -1,21 +1,22 @@
-= form_for @settlor, url: entities_trust_settlor_path(@entity.key, @settlor.id), remote: true, html: {class: "entity-page-xhr"} do |f|
-  = hidden_field_tag :int_action, 'Add Settlor'
-  - if @settlor.errors.any?
+= form_for @ward, url: entities_guardianship_ward_path( @entity.key, @ward.id ), remote: true, html: { class: "entity-page-xhr" } do |f|
+  = hidden_field_tag :int_action, 'Ward Details'
+  - if @ward.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@settlor.errors.count, "error")} prohibited this Settlor from being saved:"
+      h2 = "#{pluralize(@ward.errors.count, "error")} prohibited this Ward from being saved:"
       ul
-        - @settlor.errors.full_messages.each do |message|
+        - override_active_record_errors(@ward.errors.messages, {}).each do |message|
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
-    .form-group#settlor_entity
+    .form-group#ward_entity
+      = f.select :temp_id, options_html('ward', "true", @ward.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @ward.super_entity.id, clienttype: 'ward'}
+      = hidden_field_tag "ward[member_type_id]", MemberType.getGuardianshipId
+      = hidden_field_tag :cid, @ward.temp_id
       = hidden_field_tag :is_person, true
-      = f.select :temp_id, options_html('settlor', "true", @settlor.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @settlor.super_entity.id, clienttype: 'settlor'}
-      = hidden_field_tag "settlor[member_type_id]", MemberType.getTrustId
-      = hidden_field_tag :cid, @settlor.temp_id
       .clearfix.add-list-entity-links
         = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group
       = f.submit 'Save', class: "btn btn-primary"
+
 
 /! Modal
 #ResourceFormNewEntity.modal.fade aria-hidden="true" aria-labelledby="ResourceFormNewEntity" role="dialog" tabindex="-5"
@@ -24,7 +25,7 @@
       .modal-header
         button type="button" class="close" data-dismiss="modal" aria-label="Close"
           span aria-hidden="true" &times;
-        h4.modal-title New Entity for Settlor
+        h4.modal-title New Entity for Ward
       .model-body
         | &nbsp;
       .modal-footer

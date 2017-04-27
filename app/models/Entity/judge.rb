@@ -1,16 +1,17 @@
-class Manager < PeopleAndFirm
+class Judge < PeopleAndFirm
 
   include MyFunction
 
-  default_scope{ where(class_name: "Manager")}
-  # validates_presence_of :first_name, :last_name
+  default_scope{ where(class_name: "Judge")}
   validate :entity_presence
+  # validate :phone_validation
+  # validates_presence_of :first_name, :last_name
   validates :email, email: true, if: "self.email.present?"
   validates_length_of :first_name, :last_name, :email, :postal_address, :fax, :phone1, :phone2, :city, :state, :zip, maximum: 250
   after_save :add_key
+  belongs_to :super_entity, class_name: "SuperEntity"
 
   belongs_to :entity
-  belongs_to :super_entity, class_name: "SuperEntity"
   belongs_to :contact
 
   def entity_presence
@@ -18,6 +19,10 @@ class Manager < PeopleAndFirm
       errors.add(:entity, "is invalid, Please add it before saving")
       return
     end
+  end
+
+  def type_
+    MemberType.find(Entity.find(self.entity_id).type_).name rescue ""
   end
 
   def name

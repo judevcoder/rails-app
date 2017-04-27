@@ -194,7 +194,7 @@ module ApplicationHelper
           [[o.name, edit_entity_path(o.key)]]
         elsif !o.nil? and o.is_a?(Contact)
           [[o.name, edit_contact_path(o)]]
-        end 
+        end
       when "Limited Partnership"
         entity.general_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.limited_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Tenancy in Common"
@@ -203,7 +203,7 @@ module ApplicationHelper
           [[o.name, edit_entity_path(o.key)]]
         elsif !o.nil? and o.is_a?(Contact)
           [[o.name, edit_contact_path(o)]]
-        end 
+        end
       when "Corporation"
         entity.stockholders.map { |m| ["#{m.name} - #{m.percentage_of_ownership}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Partnership"
@@ -214,7 +214,7 @@ module ApplicationHelper
           [[o.name, edit_entity_path(o.key)]]
         elsif !o.nil? and o.is_a?(Contact)
           [[o.name, edit_contact_path(o)]]
-        end        
+        end
       else
         [["", "#"]]
     end
@@ -386,92 +386,234 @@ module ApplicationHelper
     "beneficiary" => {}
   }
 
+  # Just a reference and ignore this - [1: "Individual", 2: "Sole Proprietorship", 3: "Power of Attorney", 4: "Guardianship", 5: "Estate", 6: "Trust", 7: "Tenancy in Common", 8: "Joint Tenancy with Rights of Survivorship (JTWROS)", 9: "Tenancy by the Entirety", 10: "Partnership", 11: "LLC", 12: "LLP", 13: "Limited Partnership", 14: "Corporation"]
+
   def options_html(type, is_person, super_entity, cid="00")
     sel_flag = true
     sel_str = ""
-    if type == "stockholder" || type == "principal" || type == "agent" || type == "trustee" || type == "beneficiary"
-      if is_person == "true"
-        result = "<option>Select One...</option>"
 
-        groups = {}
-        current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc).each do |entity|
-          key = "#{MemberType.member_types[entity.type_]}"
-          if groups[key].nil?
-            groups[key] = [entity]
-          else
-            groups[key] << entity
-          end
-        end
-        groups.each do |k,v|
-          result += "<optgroup label='#{k}'>"
-          v.each do |entity|
-            if sel_flag && "e#{entity.id}" == cid
-              sel_flag = false
-              sel_str = " selected='selected' "
-            else
-              sel_str = ""
-            end
-            result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} </option>"
-          end
-          result += "</optgroup>"
-        end
+    if is_person == "true"
+      result = "<option>Select One...</option>"
 
-        result += "<optgroup label='Contacts'>"
+      groups = {}
 
-        Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
-          if sel_flag && "c#{contact.id}" == cid
-            sel_flag = false
-            sel_str = " selected='selected' "
-          else
-            sel_str = ""
-          end
-          result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name}</option>"
-        end
-
-        result += "</optgroup>"
-        return result.html_safe
+      case type
+      when "stockholder"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
+      when "principal"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 4]).order(type_: :asc)
+      when "agent"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2]).order(type_: :asc)
+      when "settlor"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
+      when "trustee"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 3, 4]).order(type_: :asc)
+      when "beneficiary"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
+      when "member"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
+      when "manager"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
+      when "general-partner"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
+      when "limited-partner"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
+      when "partner"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 3, 4]).order(type_: :asc)
+      when "limited-liability-partner"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 3, 4]).order(type_: :asc)
+      when "director"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 3]).order(type_: :asc)
+      when "officer"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 3]).order(type_: :asc)
+      when "tenant-in-common"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
+      when "spouse"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 3, 4]).order(type_: :asc)
+      when "joint-tenant"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
+      when "guardian"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1]).order(type_: :asc)
+      when "ward"
+        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1]).order(type_: :asc)
       else
-        result = "<option>Select One...</option>"
+        person_true_entities = []
+      end
 
-        groups = {}
-        #Should exclude Individual, Tenancy in Common, Tenancy by the Entirety & Joint Tenancy
-        current_user.entities_list(super_entity.id).where.not(type_: [1, 7, 8, 9]).order(type_: :asc).each do |entity|
-          key = "#{MemberType.member_types[entity.type_]}"
-          if groups[key].nil?
-            groups[key] = [entity]
-          else
-            groups[key] << entity
-          end
+      person_true_entities.each do |entity|
+        key = "#{MemberType.member_types[entity.type_]}"
+        if groups[key].nil?
+          groups[key] = [entity]
+        else
+          groups[key] << entity
         end
-        groups.each do |k,v|
-          result += "<optgroup label='#{k}'>"
-          v.each do |entity|
-            if sel_flag && "e#{entity.id}" == cid
-              sel_flag = false
-              sel_str = " selected='selected' "
-            else
-              sel_str = ""
-            end
-            result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} </option>"
-          end
-          result += "</optgroup>"
-        end
-
-        result += "</optgroup><optgroup label='Contacts '>"
-
-        Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Corporate Stockholder').each do |contact|
-          if sel_flag && "c#{contact.id}" == cid
+      end
+      groups.each do |k,v|
+        result += "<optgroup label='#{k}'>"
+        v.each do |entity|
+          if sel_flag && "e#{entity.id}" == cid
             sel_flag = false
             sel_str = " selected='selected' "
           else
             sel_str = ""
           end
-          result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name}</option>"
+          result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} </option>"
         end
-
         result += "</optgroup>"
-        return result.html_safe
       end
+
+      result += "<optgroup label='Contacts'>"
+
+      case type
+      when "stockholder"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Corporate Stockholder')
+      when "principal"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Principal')
+      when "agent"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Agent')
+      when "settlor"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Settlor')
+      when "trustee"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Trustee')
+      when "beneficiary"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Beneficiary')
+      when "member"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'LLC Member')
+      when "manager"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'LLC Outside Manager')
+      when "general-partner"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'LP General Partner')
+      when "limited-partner"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'LP Limited Partner')
+      when "partner"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Partner')
+      when "limited-liability-partner"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Limited Liability Partner')
+      when "director"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Corporate Director')
+      when "officer"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Corporate Officer')
+      when "tenant-in-common"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Tenant in Common')
+      when "spouse"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Tenant by Entirety')
+      when "joint-tenant"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Joint Tenant')
+      when "judge"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Judge')
+      when "guardian"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Guardian')
+      when "ward"
+        person_true_contacts = Contact.all.where(is_company: false, contact_type: 'Client Participant', role: 'Ward')
+      else
+        person_true_contacts = []
+      end
+
+      person_true_contacts.each do |contact|
+        if sel_flag && "c#{contact.id}" == cid
+          sel_flag = false
+          sel_str = " selected='selected' "
+        else
+          sel_str = ""
+        end
+        result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name}</option>"
+      end
+
+      result += "</optgroup>"
+      return result.html_safe
+    else
+      result = "<option>Select One...</option>"
+
+      groups = {}
+
+      case type
+      when "stockholder"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [6, 10, 11, 12, 13, 14]).order(type_: :asc)
+      when "principal"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [6, 10, 11, 12, 13, 14]).order(type_: :asc)
+      when "agent"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [10, 11, 12, 13, 14]).order(type_: :asc)
+      when "trustee"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [10, 11, 12, 13, 14]).order(type_: :asc)
+      when "beneficiary"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [6]).order(type_: :asc)
+      when "member"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [6, 10, 11, 12, 13, 14]).order(type_: :asc)
+      when "manager"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [10, 11, 12, 13, 14]).order(type_: :asc)
+      when "general-partner"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [10, 11, 12, 13, 14]).order(type_: :asc)
+      when "limited-partner"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [10, 11, 12, 13, 14]).order(type_: :asc)
+      when "tenant-in-common"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [6, 10, 11, 12, 13, 14]).order(type_: :asc)
+      when "guardian"
+        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [14]).order(type_: :asc)
+      else
+        person_false_entities = []
+      end
+
+      person_false_entities.each do |entity|
+        key = "#{MemberType.member_types[entity.type_]}"
+        if groups[key].nil?
+          groups[key] = [entity]
+        else
+          groups[key] << entity
+        end
+      end
+      groups.each do |k,v|
+        result += "<optgroup label='#{k}'>"
+        v.each do |entity|
+          if sel_flag && "e#{entity.id}" == cid
+            sel_flag = false
+            sel_str = " selected='selected' "
+          else
+            sel_str = ""
+          end
+          result += "<option value='e#{entity.id}' data-type='entity' #{sel_str}>#{entity.name} </option>"
+        end
+        result += "</optgroup>"
+      end
+
+      result += "</optgroup><optgroup label='Contacts '>"
+
+      case type
+      when "stockholder"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Corporate Stockholder')
+      when "principal"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Principal')
+      when "agent"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Agent')
+      when "trustee"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Trustee')
+      when "member"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'LLC Member')
+      when "manager"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'LLC Outside Manager')
+      when "general-partner"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'LP General Partner')
+      when "limited-partner"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'LP Limited Partner')
+      when "tenant-in-common"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Tenant in Common')
+      when "judge"
+        person_false_contacts = Contact.all.where(is_company: true, contact_type: 'Client Participant', role: 'Judge')
+      else
+        person_false_contacts = []
+      end
+
+      person_false_contacts.each do |contact|
+        if sel_flag && "c#{contact.id}" == cid
+          sel_flag = false
+          sel_str = " selected='selected' "
+        else
+          sel_str = ""
+        end
+        result += "<option value='c#{contact.id}' data-type='contact' #{sel_str}>#{contact.name}</option>"
+      end
+
+      result += "</optgroup>"
+      return result.html_safe
     end
   end
 

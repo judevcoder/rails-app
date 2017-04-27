@@ -64,6 +64,7 @@ class Entities::LlcController < ApplicationController
       @manager                 = Manager.new(manager_params)
       @manager.super_entity_id = @entity.id
       @manager.class_name      = "Manager"
+      @manager.use_temp_id
       if @manager.save
         @managers = @manager.super_entity.managers
         return render layout: false, template: "entities/llc/managers"
@@ -72,6 +73,7 @@ class Entities::LlcController < ApplicationController
       end
     elsif request.patch?
       if @manager.update(manager_params)
+        @manager.use_temp_id
         @managers = @manager.super_entity.managers
         return render layout: false, template: "entities/llc/managers"
       else
@@ -84,6 +86,7 @@ class Entities::LlcController < ApplicationController
       @managers = manager.super_entity.managers
       return render layout: false, template: "entities/llc/managers"
     end
+    @manager.gen_temp_id
     render layout: false if request.xhr?
   end
 
@@ -108,6 +111,7 @@ class Entities::LlcController < ApplicationController
       @member                 = Member.new(member_params)
       @member.super_entity_id = @entity.id
       @member.class_name      = "Member"
+      @member.use_temp_id
       if @member.save
         @members = @entity.members
         return render layout: false, template: "entities/llc/members"
@@ -116,6 +120,7 @@ class Entities::LlcController < ApplicationController
       end
     elsif request.patch?
       if @member.update(member_params)
+        @member.use_temp_id
         @members = @entity.members
         return render layout: false, template: "entities/llc/members"
       else
@@ -129,6 +134,7 @@ class Entities::LlcController < ApplicationController
       @members = @entity.members
       return render layout: false, template: "entities/llc/members"
     end
+    @member.gen_temp_id
     render layout: false if request.xhr?
   end
 
@@ -144,24 +150,24 @@ class Entities::LlcController < ApplicationController
   def entity_params
     params.require(:entity).permit(:name, :address, :type_, :jurisdiction, :number_of_assets,
                                    :first_name, :last_name, :phone1, :phone2, :fax, :email,
-                                   :postal_address, :city, :state, :zip, :date_of_formation, 
-                                   :m_date_of_formation, :ein_or_ssn, :s_corp_status, 
-                                   :not_for_profit_status, :legal_ending, :honorific, 
+                                   :postal_address, :city, :state, :zip, :date_of_formation,
+                                   :m_date_of_formation, :ein_or_ssn, :s_corp_status,
+                                   :not_for_profit_status, :legal_ending, :honorific,
                                    :is_honorific, :has_comma, :legal_ending)
   end
 
   def member_params
-    params.require(:member).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
+    params.require(:member).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                    :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
                                    :my_percentage, :notes, :honorific, :is_honorific, :tax_member,
-                                   :legal_ending, :has_comma)
+                                   :legal_ending, :has_comma, :contact_id)
   end
 
   def manager_params
-    params.require(:manager).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
+    params.require(:manager).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                     :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
                                     :my_percentage, :notes, :honorific, :is_honorific, :legal_ending,
-                                    :has_comma)
+                                    :has_comma, :contact_id)
   end
 
   def current_page
@@ -180,15 +186,15 @@ class Entities::LlcController < ApplicationController
     key = params[:entity_key]
     @entity = Entity.find_by(key: key)
   end
-  
+
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
       add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit LLC: <span id='edit-title-llc'>#{@entity.display_name}</span></a><span id='int-action-llc'></span></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } LLC </a></h4></div>".html_safe
-    end    
-    
+    end
+
     if params[:action] != "basic_info"
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
     end
