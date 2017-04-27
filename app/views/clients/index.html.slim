@@ -35,17 +35,21 @@ table#data_table
         td
           = entity.entity_type.try(:name)
         td
-          - owns(entity).each do |name|
-            - if (name.try(:length) || 0) > 1
-              a href = name[1] style="display: block"
-                span.badge
-                  = name[0]
+          - arr = owns(entity)
+          - if arr
+            - arr.each do |name|
+              - if (name.try(:length) || 0) > 1
+                a href = name[1] style="display: block"
+                  span.badge
+                    = name[0]
         td
-          - owned_by(entity).each do |name|
-            - if (name.try(:length) || 0) > 1
-              a href = name[1] style="display: block"
-                span.badge
-                  = name[0]
+          - arr = owned_by(entity)
+          - if arr
+            - arr.each do |name|
+              - if (name.try(:length) || 0) > 1
+                a href = name[1] style="display: block"
+                  span.badge
+                    = name[0]
         td
           = entity.jurisdiction
         td
