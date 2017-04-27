@@ -1,4 +1,5 @@
 = form_for @partner, url: entities_partnership_partner_path(@entity.key, @partner.id), remote: true, html: {class: "entity-page-xhr"} do |f|
+  = hidden_field_tag :int_action, 'Add Partner'
   - if @partner.errors.any?
     #error_explanation
       h2 = "#{pluralize(@partner.errors.count, "error")} prohibited this Partner from being saved:"

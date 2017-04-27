@@ -6,6 +6,7 @@
         - override_active_record_errors(@partner.errors.messages, {share_error: 'All Interest are assigned!'}).each do |message|
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12           
+    = hidden_field_tag :int_action, 'Add Limited Partner'
     .form-group
       .option-1
         = f.label "Individual"

@@ -1,4 +1,5 @@
 = form_for @entity, url: entities_guardianship_judge_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
+  = hidden_field_tag :int_action, 'Judge Details'
   - if @entity.errors.any?
     #error_explanation
       h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Judge from being saved:"

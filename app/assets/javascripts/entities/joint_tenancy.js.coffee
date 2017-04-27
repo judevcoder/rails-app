@@ -32,6 +32,10 @@ $ ->
     if (typeof xhr) == "object" && xhr.redirect != undefined
       window.location.href = xhr.redirect+"?just_created="+xhr.just_created      
     else
+      tab_ = $("#int_action").val()
+      if tab_
+        str_ = " / "        
+        $("#int-action-jt").html(str_ + '<a href="#">'+tab_+'</a>')
       $.scrollTo(0)
       $.unblockUI()
 

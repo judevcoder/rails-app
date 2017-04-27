@@ -1,4 +1,5 @@
 = form_for @entity, url: entities_llc_contact_info_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
+  = hidden_field_tag :int_action, 'Contact Info'
   - if @entity.errors.any?
     #error_explanation
       h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Contact Info from being saved:"

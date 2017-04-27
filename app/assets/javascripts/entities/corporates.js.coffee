@@ -203,7 +203,7 @@ $ ->
       tab_ = $("#int_action").val()
       if tab_
         str = " / "        
-        $("#int-action-corp").html(str+tab_)
+        $("#int-action-corp").html(str + '<a href="#">'+tab_+'</a>')
       $.scrollTo(0)
       $.unblockUI()
 

@@ -1,4 +1,5 @@
 = form_for @trustee, url: entities_trust_trustee_path(@entity.key, @trustee.id), remote: true, html: {class: "entity-page-xhr"} do |f|
+  = hidden_field_tag :int_action, 'Add Trustee'
   - if @trustee.errors.any?
     #error_explanation
       h2 = "#{pluralize(@trustee.errors.count, "error")} prohibited this Trustee from being saved:"
