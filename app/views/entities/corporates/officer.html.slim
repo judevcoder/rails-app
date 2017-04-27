@@ -1,5 +1,5 @@
 = form_for @officer, url: entities_corporates_officer_path(@entity.key, @officer.id), remote: true, html: {class: "entity-page-xhr"} do |f|
-  
+  = hidden_field_tag :int_action, 'Add Officer'
   - if @officer.errors.any?
     #error_explanation
       h2 = "#{pluralize(@officer.errors.count, "error")} prohibited this Officer from being saved:"

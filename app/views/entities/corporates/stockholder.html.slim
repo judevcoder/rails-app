@@ -1,4 +1,5 @@
 = form_for @stockholder, url: entities_corporates_stockholder_path(@entity.key, @stockholder.id), remote: true, html: {class: "entity-page-xhr"} do |f|
+  = hidden_field_tag :int_action, 'Add Stockholder'
   - if @stockholder.errors.any?
     #error_explanation
       h2 = "#{pluralize(@stockholder.errors.count, "error")} prohibited this Stockholder from being saved:"

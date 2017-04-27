@@ -200,6 +200,10 @@ $ ->
       $(document).find("div.corporate-contact-form").html(xhr)
       manage_jsGrid_UI()
       enable_datetimepicker_corporation()
+      tab_ = $("#int_action").val()
+      if tab_
+        str = " / "        
+        $("#int-action-corp").html(str+tab_)
       $.scrollTo(0)
       $.unblockUI()
 
