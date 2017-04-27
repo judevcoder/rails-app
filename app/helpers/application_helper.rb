@@ -190,9 +190,9 @@ module ApplicationHelper
         entity.beneficiaries.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.trustees.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
         o = entity.property.owner
-        if o.is_a?(Entity)
+        if !o.nil? and o.is_a?(Entity)
           [[o.name, edit_entity_path(o.key)]]
-        else
+        elsif !o.nil? and o.is_a?(Contact)
           [[o.name, edit_contact_path(o)]]
         end 
       when "Limited Partnership"
