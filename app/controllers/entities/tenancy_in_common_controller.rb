@@ -1,10 +1,10 @@
 class Entities::TenancyInCommonController < ApplicationController
-  
+
   before_action :current_page
   before_action :check_xhr_page
   before_action :set_entity, only: [:basic_info]
   before_action :add_breadcrum
-  
+
   def basic_info
     #key = params[:entity_key]
     if request.get?
@@ -20,7 +20,7 @@ class Entities::TenancyInCommonController < ApplicationController
       @entity.type_           = MemberType.getTenancyinCommonId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
-      
+
       if @entity.save
         AccessResource.add_access({ user: current_user, resource: Entity.find(@entity.id) })
         return render json: { redirect: view_context.entities_tenancy_in_common_basic_info_path(@entity.key), just_created: true }
@@ -37,7 +37,7 @@ class Entities::TenancyInCommonController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   # tenants_in_common
   def tenant_in_common
     unless request.delete?
@@ -52,6 +52,7 @@ class Entities::TenancyInCommonController < ApplicationController
       @tenant_in_common                 = TenantInCommon.new(tenant_in_common_params)
       @tenant_in_common.super_entity_id = @entity.id
       @tenant_in_common.class_name      = "TenantInCommon"
+      @tenant_in_common.use_temp_id
       if @tenant_in_common.save
         @tenants_in_common = @tenant_in_common.super_entity.tenants_in_common
         return render layout: false, template: "entities/tenancy_in_common/tenants_in_common"
@@ -60,6 +61,7 @@ class Entities::TenancyInCommonController < ApplicationController
       end
     elsif request.patch?
       if @tenant_in_common.update(tenant_in_common_params)
+        @tenant_in_common.use_temp_id
         @tenants_in_common = @tenant_in_common.super_entity.tenants_in_common
         return render layout: false, template: "entities/tenancy_in_common/tenants_in_common"
       else
@@ -72,17 +74,18 @@ class Entities::TenancyInCommonController < ApplicationController
       @tenants_in_common = @entity.tenants_in_common
       return render layout: false, template: "entities/tenancy_in_common/tenants_in_common"
     end
+    @tenant_in_common.gen_temp_id
     render layout: false if request.xhr?
   end
-  
+
   def tenants_in_common
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
     @tenants_in_common = @entity.tenants_in_common
     render layout: false if request.xhr?
   end
-  
-  
+
+
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def entity_tenancy_in_common_params
@@ -92,19 +95,19 @@ class Entities::TenancyInCommonController < ApplicationController
                                                      :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
                                                      :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index)
   end
-  
+
   def tenant_in_common_params
-    params.require(:tenant_in_common).permit(:name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
+    params.require(:tenant_in_common).permit(:temp_id, :member_type_id, :name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
                                              :first_name, :last_name, :phone1, :phone2, :fax, :email, :property_id,
                                              :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
                                              :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
-                                             :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :country2, :part, :my_percentage)
+                                             :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :country2, :part, :my_percentage, :contact_id)
   end
-  
+
   def current_page
     @current_page = "entity"
   end
-  
+
   def check_xhr_page
     unless request.xhr?
       if params[:action] != "basic_info"
@@ -112,7 +115,7 @@ class Entities::TenancyInCommonController < ApplicationController
       end
     end
   end
-  
+
   def set_entity
     key = params[:entity_key]
     @entity = Entity.find_by(key: key)
@@ -121,15 +124,15 @@ class Entities::TenancyInCommonController < ApplicationController
       @entity = EntityTenancyInCommon.find_by(key: key)
     end
   end
-  
+
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
       add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Tenancy In Common: <span id='edit-title-tic'>#{@entity.name}</span></a><span id='int-action-tic'></span></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Tenancy In Common </a></h4></div>".html_safe
-    end    
-    
+    end
+
     if params[:action] != "basic_info"
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
     end

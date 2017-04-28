@@ -1,25 +1,19 @@
 = form_for @partner, url: entities_llp_partner_path(@entity.key, @partner.id), remote: true, html: {class: "entity-page-xhr"} do |f|
-  = hidden_field_tag :int_action, 'Add Partner'
+  = hidden_field_tag :int_action, 'Add LLP Partner'
   - if @partner.errors.any?
     #error_explanation
       h2 = "#{pluralize(@partner.errors.count, "error")} prohibited this Partner from being saved:"
       ul
         - override_active_record_errors(@partner.errors.messages, {share_error: 'All Interest are assigned!'}).each do |message|
           li = message
-  .col-lg-4.close-md-4.col-sm-12.col-xs-12          
-    .form-group
-      .option-1
-        = f.label "Individual"
-        = f.radio_button :is_person, true, checked: @partner.is_person
-      .option-2
-        label Entity
-        = f.radio_button :is_person, false, checked: !@partner.is_person
-    .form-group#partner_entity style=("#{('display: none;' if @partner.is_person)}")
-      label Owner Entity
-      = f.select :entity_id, options_for_select(current_user.EntitesForClient(@partner.super_entity_id), f.object.id), {}, class: "selectize-single"
-      = hidden_field_tag "partner[entity_type_id]", MemberType.getLLPId
-    .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"    
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
+    .form-group#limited_liability_partner_entity
+      = hidden_field_tag "partner[is_person]", true
+      = f.select :temp_id, options_html('limited-liability-partner', "true", @partner.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @partner.super_entity.id, clienttype: 'limited-liability-partner'}
+      = hidden_field_tag "partner[member_type_id]", MemberType.getLLPId
+      = hidden_field_tag :cid, @partner.temp_id
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group
       label Partnership Interest of this Member
       = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"
@@ -43,7 +37,7 @@
       .modal-header
         button type="button" class="close" data-dismiss="modal" aria-label="Close"
           span aria-hidden="true" &times;
-        h4.modal-title New Entity for Partner
+        h4.modal-title New Entity for LLP Partner
       .model-body
         | &nbsp;
       .modal-footer

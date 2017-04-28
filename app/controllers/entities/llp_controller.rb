@@ -1,10 +1,10 @@
 class Entities::LlpController < ApplicationController
-  
+
   before_action :current_page
   before_action :check_xhr_page
   before_action :set_entity, only: [:basic_info]
   before_action :add_breadcrum
-  
+
   def basic_info
     #key = params[:entity_key]
     if request.get?
@@ -17,7 +17,7 @@ class Entities::LlpController < ApplicationController
       @entity.type_           = MemberType.getLLPId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
-      
+
       if @entity.save
         AccessResource.add_access({ user: current_user, resource: @entity })
         return render json: {redirect: view_context.entities_llp_basic_info_path( @entity.key ), just_created: true}
@@ -35,7 +35,7 @@ class Entities::LlpController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def contact_info
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
@@ -50,7 +50,7 @@ class Entities::LlpController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def partner
     unless request.delete?
       @entity = Entity.find_by(key: params[:entity_key])
@@ -64,6 +64,7 @@ class Entities::LlpController < ApplicationController
       @partner                 = Partner.new(partner_params)
       @partner.super_entity_id = @entity.id
       @partner.class_name      = "Partner"
+      @partner.use_temp_id
       if @partner.save
         @partners = @partner.super_entity.partners
         return render layout: false, template: "entities/llp/partners"
@@ -72,6 +73,7 @@ class Entities::LlpController < ApplicationController
       end
     elsif request.patch?
       if @partner.update(partner_params)
+        @partner.use_temp_id
         @partners = @partner.super_entity.partners
         return render layout: false, template: "entities/llp/partners"
       else
@@ -84,37 +86,38 @@ class Entities::LlpController < ApplicationController
       @partners = partner.super_entity.partners
       return render layout: false, template: "entities/llp/partners"
     end
+    @partner.gen_temp_id
     render layout: false if request.xhr?
   end
-  
+
   def partners
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
     @partners = @entity.partners
     render layout: false if request.xhr?
   end
-  
+
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def entity_params
     params.require(:entity).permit(:name, :address, :type_, :jurisdiction, :number_of_assets,
                                    :first_name, :last_name, :phone1, :phone2, :fax, :email,
-                                   :postal_address, :city, :state, :zip, :date_of_formation, 
-                                   :ein_or_ssn, :s_corp_status, :not_for_profit_status, 
+                                   :postal_address, :city, :state, :zip, :date_of_formation,
+                                   :ein_or_ssn, :s_corp_status, :not_for_profit_status,
                                    :legal_ending, :honorific, :is_honorific, :has_comma)
   end
-  
+
   def partner_params
-    params.require(:partner).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
+    params.require(:partner).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                     :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
                                     :my_percentage, :notes, :honorific, :is_honorific, :tax_member,
-                                    :legal_ending, :has_comma)
+                                    :legal_ending, :has_comma, :contact_id)
   end
-  
+
   def current_page
     @current_page = "entity"
   end
-  
+
   def check_xhr_page
     unless request.xhr?
       if params[:action] != "basic_info"
@@ -122,20 +125,20 @@ class Entities::LlpController < ApplicationController
       end
     end
   end
-  
+
   def set_entity
     key = params[:entity_key]
     @entity = Entity.find_by(key: key)
   end
-  
+
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
       add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit LLP: <span id='edit-title-llp'>#{@entity.display_name}</span></a><span id='int-action-llp'></span></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } LLP </a></h4></div>".html_safe
-    end    
-    
+    end
+
     if params[:action] != "basic_info"
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
     end

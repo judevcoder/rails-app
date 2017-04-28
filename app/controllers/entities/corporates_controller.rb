@@ -55,31 +55,37 @@ class Entities::CorporatesController < ApplicationController
       raise ActiveRecord::RecordNotFound if @entity.blank?
       @director = Director.find(id) if id.present?
       @director ||= Director.new
-    end
-    if request.post?
-      @director                 = Director.new(director_params)
       @director.super_entity_id = @entity.id
       @director.class_name      = "Director"
+    end
+    if request.post?
+      @director           = Director.new(director_params)
+      @director.super_entity_id = @entity.id
+      @director.class_name      = "Director"
+      @director.use_temp_id
       if @director.save
-        @directors = @director.super_entity.directors
+        @directors = @entity.directors
         return render layout: false, template: "entities/corporates/directors"
       else
         return render layout: false, template: "entities/corporates/director"
       end
     elsif request.patch?
       if @director.update(director_params)
-        @directors = @director.super_entity.directors
+        @director.use_temp_id
+        @directors = @director.entity.directors
         return render layout: false, template: "entities/corporates/directors"
       else
         return render layout: false, template: "entities/corporates/director"
       end
     elsif request.delete?
-      director = Director.find(params[:id])
-      @entity  = director.super_entity
+      director = Officer.find(params[:id])
       director.delete
-      @directors = director.super_entity.directors
+      @entity = Entity.find_by(key: director.super_entity.key)
+      raise ActiveRecord::RecordNotFound if @entity.blank?
+      @directors = @entity.directors
       return render layout: false, template: "entities/corporates/directors"
     end
+    @director.gen_temp_id
     render layout: false if request.xhr?
   end
 
@@ -99,18 +105,23 @@ class Entities::CorporatesController < ApplicationController
       raise ActiveRecord::RecordNotFound if @entity.blank?
       @officer = Officer.find(id) if id.present?
       @officer ||= Officer.new
+      @officer.super_entity_id = @entity.id
+      @officer.class_name      = "Officer"
     end
     if request.post?
       @officer           = Officer.new(officer_params)
-      @officer.entity_id = @entity.id
+      @officer.super_entity_id = @entity.id
+      @officer.class_name      = "Officer"
+      @officer.use_temp_id
       if @officer.save
-        @officers = @officer.entity.officers
+        @officers = @entity.officers
         return render layout: false, template: "entities/corporates/officers"
       else
         return render layout: false, template: "entities/corporates/officer"
       end
     elsif request.patch?
       if @officer.update(officer_params)
+        @officer.use_temp_id
         @officers = @officer.entity.officers
         return render layout: false, template: "entities/corporates/officers"
       else
@@ -118,11 +129,13 @@ class Entities::CorporatesController < ApplicationController
       end
     elsif request.delete?
       officer = Officer.find(params[:id])
-      @entity = officer.entity
       officer.delete
-      @officers = officer.entity.officers
+      @entity = Entity.find_by(key: officer.super_entity.key)
+      raise ActiveRecord::RecordNotFound if @entity.blank?
+      @officers = @entity.officers
       return render layout: false, template: "entities/corporates/officers"
     end
+    @officer.gen_temp_id
     render layout: false if request.xhr?
   end
 
@@ -190,9 +203,9 @@ class Entities::CorporatesController < ApplicationController
   def entity_params
     params.require(:entity).permit(:name, :address, :type_, :jurisdiction, :number_of_assets,
                                    :first_name, :last_name, :phone1, :phone2, :fax, :email,
-                                   :postal_address, :city, :state, :zip, :date_of_formation, 
-                                   :m_date_of_formation, :ein_or_ssn, :s_corp_status, 
-                                   :not_for_profit_status, :legal_ending, :honorific, 
+                                   :postal_address, :city, :state, :zip, :date_of_formation,
+                                   :m_date_of_formation, :ein_or_ssn, :s_corp_status,
+                                   :not_for_profit_status, :legal_ending, :honorific,
                                    :is_honorific, :has_comma)
   end
 
@@ -206,13 +219,13 @@ class Entities::CorporatesController < ApplicationController
   end
 
   def officer_params
-    params.require(:officer).permit(:office, :first_name, :last_name, :phone1, :phone2, :fax, :email,
-                                    :postal_address, :city, :state, :zip, :notes, :honorific, :is_honorific, :person_type)
+    params.require(:officer).permit(:temp_id, :member_type_id, :first_name, :last_name, :phone1, :phone2, :fax, :email,
+                                    :postal_address, :city, :state, :zip, :notes, :honorific, :is_honorific, :contact_id)
   end
 
   def director_params
-    params.require(:director).permit(:first_name, :last_name, :phone1, :phone2,
-                                     :fax, :email, :postal_address, :city, :state, :zip, :honorific, :is_honorific)
+    params.require(:director).permit(:temp_id, :member_type_id, :first_name, :last_name, :phone1, :phone2,
+                                     :fax, :email, :postal_address, :city, :state, :zip, :honorific, :is_honorific, :contact_id)
   end
 
   def current_page

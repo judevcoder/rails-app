@@ -1,5 +1,6 @@
 class Partner < PeopleAndFirm
 
+  include MyFunction
   include ModelMethods
 
   default_scope{ where(class_name: "Partner")}
@@ -10,15 +11,15 @@ class Partner < PeopleAndFirm
   belongs_to :super_entity, class_name: "SuperEntity"
   belongs_to :entity
   validate :validate_my_percentage
+  belongs_to :contact
+  after_save :add_key
 
   attr_accessor :share_error
 
   def entity_presence
-    unless self.is_person?
-      if self.entity.blank?
-        errors.add(:entity, "is invalid, Please add it before saving")
-        return
-      end
+    if self.entity.blank? && self.contact.blank? && self.first_name.blank? && self.last_name.blank? && self.temp_id.blank?
+      errors.add(:entity, "is invalid, Please add it before saving")
+      return
     end
   end
 
@@ -56,6 +57,8 @@ class Partner < PeopleAndFirm
   def name
     if self.entity.present?
       self.entity.name
+    elsif self.contact.present?
+      self.contact.name
     else
       "#{self.first_name} #{self.last_name}"
     end

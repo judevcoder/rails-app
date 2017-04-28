@@ -79,7 +79,6 @@ class StockHolder < PeopleAndFirm
 
   end
 
-    # Views
   def name
     if self.entity.present?
       self.entity.name
