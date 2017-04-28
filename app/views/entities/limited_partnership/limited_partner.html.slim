@@ -5,21 +5,27 @@
       ul
         - override_active_record_errors(@partner.errors.messages, {share_error: 'All Interest are assigned!'}).each do |message|
           li = message
-  .col-lg-4.close-md-4.col-sm-12.col-xs-12           
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
     = hidden_field_tag :int_action, 'Add Limited Partner'
     .form-group
       .option-1
         = f.label "Individual"
         = f.radio_button :is_person, true, checked: @partner.is_person
       .option-2
-        label Entity
+        = f.label "Entity"
         = f.radio_button :is_person, false, checked: !@partner.is_person
-    .form-group#partner_entity style=("#{('display: none;' if @partner.is_person)}")
-      label Owner Entity
-      = f.select :entity_id, options_for_select(current_user.EntitesForClient(@partner.super_entity_id), f.object.id), {}, class: "selectize-single"
-      = hidden_field_tag "partner[entity_type_id]", MemberType.getLLPId
-    .clearfix.add-list-entity-links
-      = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"    
+
+    .form-group#limited_partner_entity
+      label.is-person-hide style=("#{('display: none;' if @partner.is_person)}") Owning Entity
+
+      - if @partner.is_person
+        = f.select :temp_id, options_html('limited-partner', "true", @partner.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @partner.super_entity.id, clienttype: 'limited-partner'}
+      - else
+        = f.select :temp_id, options_html('limited-partner', "false", @partner.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @partner.super_entity.id, clienttype: 'limited-partner'}
+      = hidden_field_tag "partner[member_type_id]", MemberType.getLimitedPartnershipId
+      = hidden_field_tag :cid, @partner.temp_id
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
     .form-group
       label Partnership Interest of this Member
       = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"

@@ -62,6 +62,7 @@ class Entities::LimitedPartnershipController < ApplicationController
     end
     if request.post?
       @partner                 = LimitedPartner.new(limited_partner_params)
+      @partner.use_temp_id
       @partner.super_entity_id = @entity.id
       @partner.class_name      = "LimitedPartner"
       if @partner.save
@@ -72,6 +73,7 @@ class Entities::LimitedPartnershipController < ApplicationController
       end
     elsif request.patch?
       if @partner.update(limited_partner_params)
+        @partner.use_temp_id
         @partners = @partner.super_entity.limited_partners
         return render layout: false, template: "entities/limited_partnership/limited_partners"
       else
@@ -83,6 +85,7 @@ class Entities::LimitedPartnershipController < ApplicationController
       @partners = partner.super_entity.limited_partners
       return render layout: false, template: "entities/limited_partnership/limited_partners"
     end
+    @partner.gen_temp_id
     render layout: false if request.xhr?
   end
 
@@ -106,6 +109,7 @@ class Entities::LimitedPartnershipController < ApplicationController
     if request.post?
       @partner                 = GeneralPartner.new(general_partner_params)
       @partner.super_entity_id = @entity.id
+      @partner.use_temp_id
       if @partner.save
         @partners = @partner.super_entity.general_partners
         return render layout: false, template: "entities/limited_partnership/general_partners"
@@ -114,6 +118,7 @@ class Entities::LimitedPartnershipController < ApplicationController
       end
     elsif request.patch?
       if @partner.update(general_partner_params)
+        @partner.use_temp_id
         @partners = @partner.super_entity.general_partners
         return render layout: false, template: "entities/limited_partnership/general_partners"
       else
@@ -125,6 +130,7 @@ class Entities::LimitedPartnershipController < ApplicationController
       @partners = partner.super_entity.general_partners
       return render layout: false, template: "entities/limited_partnership/general_partners"
     end
+    @partner.gen_temp_id
     render layout: false if request.xhr?
   end
 
@@ -146,17 +152,17 @@ class Entities::LimitedPartnershipController < ApplicationController
   end
 
   def general_partner_params
-    params.require(:general_partner).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
+    params.require(:general_partner).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                             :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
                                             :stock_share, :notes, :honorific, :is_honorific, :my_percentage,
-                                            :tax_member, :has_comma, :legal_ending)
+                                            :tax_member, :has_comma, :legal_ending, :contact_id)
   end
 
   def limited_partner_params
-    params.require(:limited_partner).permit(:is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
+    params.require(:limited_partner).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                             :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
                                             :stock_share, :notes, :honorific, :is_honorific, :my_percentage,
-                                            :tax_member, :has_comma, :legal_ending)
+                                            :tax_member, :has_comma, :legal_ending, :contact_id)
   end
 
   def current_page
