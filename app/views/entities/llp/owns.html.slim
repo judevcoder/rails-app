@@ -1,0 +1,18 @@
+= hidden_field_tag :int_action, 'Ownerships'
+.heading
+  = "List of #{@entity.name}'s Ownerships"
+.clearfix
+table#data_table
+  thead
+    tr
+      th
+        | Name
+      th
+        | Type      
+  tbody
+    - owns(@entity).each do |item|
+      tr
+        td
+          = link_to item[0], item[1]
+        td
+          = item[2]

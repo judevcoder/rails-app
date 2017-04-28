@@ -83,6 +83,11 @@ class Entities::TenancyByEntiretyController < ApplicationController
     render layout: false if request.xhr?
   end
 
+  def owns
+    @entity = Entity.find_by(key: params[:entity_key])
+    raise ActiveRecord::RecordNotFound if @entity.blank?
+    render layout: false if request.xhr?
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   private

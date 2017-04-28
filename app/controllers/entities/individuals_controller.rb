@@ -35,6 +35,12 @@ class Entities::IndividualsController < ApplicationController
     end
     render layout: false if request.xhr?
   end
+
+  def owns
+    @entity = Entity.find_by(key: params[:entity_key])
+    raise ActiveRecord::RecordNotFound if @entity.blank?
+    render layout: false if request.xhr?
+  end
   
   private
   

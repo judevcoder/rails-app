@@ -4,4 +4,4 @@
   = link_to "+", entities_power_of_attorney_principal_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'principal' ? 'active' : ''}"
   = link_to "Agents", entities_power_of_attorney_agents_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'agent' ? 'active' : ''}"
   = link_to "+", entities_power_of_attorney_agent_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'agent' ? 'active' : ''}"
-  = link_to "Owns", entities_power_of_attorney_owns_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr", "data-toggle" => "tooltip", "title" => "Please create the Power Of Attorney by filling out required fields in Basic Info and saving"
+  = link_to "Owns", entities_power_of_attorney_owns_path(@entity.key), remote: true, class: "btn btn-sm btn-default margin-sm-left pull-left entity-page-xhr #{params[:action] == 'agent' ? 'active' : ''}"

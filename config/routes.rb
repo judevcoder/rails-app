@@ -7,11 +7,12 @@ Rails.application.routes.draw do
   resources :entities
 
   namespace :entities do
-    # Corporation
+    # Individuals
     get "individuals/basic_info/(:entity_key)" => "individuals#basic_info", as: :individuals_basic_info
     post "individuals/basic_info/(:entity_key)" => "individuals#basic_info"
     patch "individuals/basic_info/:entity_key" => "individuals#basic_info"
-
+    get "individuals/owns/(:entity_key)" => "individual#owns", as: :individuals_owns
+    # Corporation
     get "corporates/basic_info/(:entity_key)" => "corporates#basic_info", as: :corporates_basic_info
     post "corporates/basic_info/(:entity_key)" => "corporates#basic_info"
     patch "corporates/basic_info/:entity_key" => "corporates#basic_info"
@@ -33,6 +34,7 @@ Rails.application.routes.draw do
     post "corporates/stockholder/:entity_key/(:id)" => "corporates#stockholder"
     patch "corporates/stockholder/:entity_key/(:id)" => "corporates#stockholder"
     delete "corporates/stockholder/:id" => "corporates#stockholder"
+    get "corporates/owns/(:entity_key)" => "corporates#owns", as: :corporates_owns
     # LLC
     get "llc/basic_info/(:entity_key)" => "llc#basic_info", as: :llc_basic_info
     post "llc/basic_info/(:entity_key)" => "llc#basic_info"
@@ -50,6 +52,7 @@ Rails.application.routes.draw do
     post "llc/member/:entity_key/(:id)" => "llc#member"
     patch "llc/member/:entity_key/(:id)" => "llc#member"
     delete "llc/member/:id" => "llc#member"
+    get "llc/owns/(:entity_key)" => "llc#owns", as: :llc_owns
     # LLP
     get "llp/basic_info/(:entity_key)" => "llp#basic_info", as: :llp_basic_info
     post "llp/basic_info/(:entity_key)" => "llp#basic_info"
@@ -62,6 +65,7 @@ Rails.application.routes.draw do
     post "llp/partner/:entity_key/(:id)" => "llp#partner"
     patch "llp/partner/:entity_key/(:id)" => "llp#partner"
     delete "llp/partner/:id" => "llp#partner"
+    get "llp/owns/(:entity_key)" => "llp#owns", as: :llp_owns
     # PartnerShip
     get "partnership/basic_info/(:entity_key)" => "partnership#basic_info", as: :partnership_basic_info
     post "partnership/basic_info/(:entity_key)" => "partnership#basic_info"
@@ -74,6 +78,7 @@ Rails.application.routes.draw do
     post "partnership/partner/:entity_key/(:id)" => "partnership#partner"
     patch "partnership/partner/:entity_key/(:id)" => "partnership#partner"
     delete "partnership/partner/:id" => "partnership#partner"
+    get "partnership/owns/(:entity_key)" => "partnership#owns", as: :partnership_owns
     # LimitedPartnerShip
     get "limited_partnership/basic_info/(:entity_key)" => "limited_partnership#basic_info", as: :limited_partnership_basic_info
     post "limited_partnership/basic_info/(:entity_key)" => "limited_partnership#basic_info"
@@ -91,6 +96,7 @@ Rails.application.routes.draw do
     post "limited_partnership/general_partner/:entity_key/(:id)" => "limited_partnership#general_partner"
     patch "limited_partnership/general_partner/:entity_key/(:id)" => "limited_partnership#general_partner"
     delete "limited_partnership/general_partner/:id" => "limited_partnership#general_partner"
+    get "limited_partnership/owns/(:entity_key)" => "limited_partnership#owns", as: :limited_partnership_owns
     # Sole Proprietorship
     get "sole_proprietorship/basic_info/(:entity_key)" => "sole_proprietorship#basic_info", as: :sole_proprietorship_basic_info
     post "sole_proprietorship/basic_info/(:entity_key)" => "sole_proprietorship#basic_info"
@@ -115,6 +121,7 @@ Rails.application.routes.draw do
     post "guardianship/ward/:entity_key/(:id)" => "guardianship#ward"
     patch "guardianship/ward/:entity_key/(:id)" => "guardianship#ward"
     delete "guardianship/ward/:id" => "guardianship#ward"
+    get "guardianship/owns/(:entity_key)" => "guardianship#owns", as: :guardianship_owns
     # Tenancy in common
     get "tenancy_in_common/basic_info/(:entity_key)" => "tenancy_in_common#basic_info", as: :tenancy_in_common_basic_info
     post "tenancy_in_common/basic_info/(:entity_key)" => "tenancy_in_common#basic_info"
@@ -124,6 +131,7 @@ Rails.application.routes.draw do
     patch "tenancy_in_common/tenant_in_common/:entity_key/(:id)" => "tenancy_in_common#tenant_in_common"
     delete "tenancy_in_common/tenant_in_common/:id" => "tenancy_in_common#tenant_in_common"
     get "tenancy_in_common/tenants_in_common/:entity_key" => "tenancy_in_common#tenants_in_common", as: :tenancy_in_common_tenants_in_common
+    get "tenancy_in_common/owns/(:entity_key)" => "tenancy_in_common#owns", as: :tenancy_in_common_owns
     # Tenancy By Entirety
     get "tenancy_by_entirety/basic_info/(:entity_key)" => "tenancy_by_entirety#basic_info", as: :tenancy_by_entirety_basic_info
     post "tenancy_by_entirety/basic_info/(:entity_key)" => "tenancy_by_entirety#basic_info"
@@ -133,6 +141,7 @@ Rails.application.routes.draw do
     patch "tenancy_by_entirety/spouse/:entity_key/(:id)" => "tenancy_by_entirety#spouse"
     delete "tenancy_by_entirety/spouse/:id" => "tenancy_by_entirety#spouse"
     get "tenancy_by_entirety/spouses/:entity_key" => "tenancy_by_entirety#spouses", as: :tenancy_by_entirety_spouses
+    get "tenancy_by_entirety/owns/(:entity_key)" => "tenancy_by_entirety#owns", as: :tenancy_by_entirety_owns
     # Joint Tenancy
     get "joint_tenancy/basic_info/(:entity_key)" => "joint_tenancy#basic_info", as: :joint_tenancy_basic_info
     post "joint_tenancy/basic_info/(:entity_key)" => "joint_tenancy#basic_info"
@@ -142,6 +151,7 @@ Rails.application.routes.draw do
     patch "joint_tenancy/joint_tenant/:entity_key/(:id)" => "joint_tenancy#joint_tenant"
     delete "joint_tenancy/joint_tenant/:id" => "joint_tenancy#joint_tenant"
     get "joint_tenancy/joint_tenants/:entity_key" => "joint_tenancy#joint_tenants", as: :joint_tenancy_joint_tenants
+    get "joint_tenancy/owns/(:entity_key)" => "joint_tenancy#owns", as: :joint_tenancy_owns
     # Trust
     get "trust/basic_info/(:entity_key)" => "trust#basic_info", as: :trust_basic_info
     post "trust/basic_info/(:entity_key)" => "trust#basic_info"
@@ -164,23 +174,22 @@ Rails.application.routes.draw do
     post "trust/beneficiary/:entity_key/(:id)" => "trust#beneficiary"
     patch "trust/beneficiary/:entity_key/(:id)" => "trust#beneficiary"
     delete "trust/beneficiary/:id" => "trust#beneficiary"
+    get "trust/owns/(:entity_key)" => "trust#owns", as: :trust_owns    
     #Power of Attorney
     get "power_of_attorney/basic_info/(:entity_key)" => "power_of_attorney#basic_info", as: :power_of_attorney_basic_info
     post "power_of_attorney/basic_info/(:entity_key)" => "power_of_attorney#basic_info"
     patch "power_of_attorney/basic_info/:entity_key" => "power_of_attorney#basic_info"
-    #get "power_of_attorney/limited_partners/:entity_key/(:id)" => "power_of_attorney#limited_partners", as: :limited_partnership_limited_partners
     get "power_of_attorney/principals/:entity_key/(:id)" => "power_of_attorney#principals", as: :power_of_attorney_principals
     get "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal", as: :power_of_attorney_principal
     post "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
     patch "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
-    delete "power_of_attorney/principal/:id" => "power_of_attorney#principal"
-    get "power_of_attorney/owns/(:entity_key)" => "power_of_attorney#owns", as: :power_of_attorney_owns
-
+    delete "power_of_attorney/principal/:id" => "power_of_attorney#principal"    
     get "power_of_attorney/agents/:entity_key/(:id)" => "power_of_attorney#agents", as: :power_of_attorney_agents
     get "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent", as: :power_of_attorney_agent
     post "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent"
     patch "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent"
     delete "power_of_attorney/agent/:id" => "power_of_attorney#agent"
+    get "power_of_attorney/owns/(:entity_key)" => "power_of_attorney#owns", as: :power_of_attorney_owns
 
   end
 

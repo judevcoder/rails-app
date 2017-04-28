@@ -139,7 +139,6 @@ class Entities::PowerOfAttorneyController < ApplicationController
   def owns
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
-    @agents = @entity.agents
     render layout: false if request.xhr?
   end
 
