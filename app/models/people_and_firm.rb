@@ -30,6 +30,8 @@ class PeopleAndFirm < ApplicationRecord
                 self.contact_id = nil
                 obj = Entity.where(id: tid_).first
                 self.member_type_id = obj.type_
+            else 
+                return nil
             end
             self.first_name = obj.try(:name) || obj.first_name
             self.last_name = obj.last_name
