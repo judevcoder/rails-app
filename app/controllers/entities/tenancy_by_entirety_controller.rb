@@ -3,7 +3,7 @@ class Entities::TenancyByEntiretyController < ApplicationController
   before_action :check_xhr_page
   before_action :set_entity, only: [:basic_info]
   before_action :add_breadcrum
-  
+
   def basic_info
     #key = params[:entity_key]
     if request.get?
@@ -19,7 +19,7 @@ class Entities::TenancyByEntiretyController < ApplicationController
       @entity.type_           = MemberType.getTenancyByTheEntiretyId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
-      
+
       if @entity.save
         AccessResource.add_access({ user: current_user, resource: Entity.find(@entity.id) })
         return render json: { redirect: view_context.entities_tenancy_by_entirety_basic_info_path(@entity.key), just_created: true }
@@ -36,7 +36,7 @@ class Entities::TenancyByEntiretyController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def spouse
     unless request.delete?
       @entity = Entity.find_by(key: params[:entity_key])
@@ -50,6 +50,7 @@ class Entities::TenancyByEntiretyController < ApplicationController
       @spouse                 = Spouse.new(spouse_params)
       @spouse.super_entity_id = @entity.id
       @spouse.class_name      = "Spouse"
+      @spouse.use_temp_id
       if @spouse.save
         @spouses = @spouse.super_entity.spouses
         return render layout: false, template: "entities/tenancy_by_entirety/spouses"
@@ -58,6 +59,7 @@ class Entities::TenancyByEntiretyController < ApplicationController
       end
     elsif request.patch?
       if @spouse.update(spouse_params)
+        @spouse.use_temp_id
         @spouses = @spouse.super_entity.spouses
         return render layout: false, template: "entities/tenancy_by_entirety/spouses"
       else
@@ -70,17 +72,18 @@ class Entities::TenancyByEntiretyController < ApplicationController
       @spouses = @entity.spouses
       return render layout: false, template: "entities/tenancy_by_entirety/spouses"
     end
+    @spouse.gen_temp_id
     render layout: false if request.xhr?
   end
-  
+
   def spouses
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
     @spouses = @entity.spouses
     render layout: false if request.xhr?
   end
-  
-  
+
+
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def entity_tenancy_by_entirety_params
@@ -90,19 +93,19 @@ class Entities::TenancyByEntiretyController < ApplicationController
                                                        :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
                                                        :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :property_id)
   end
-  
+
   def spouse_params
-    params.require(:spouse).permit(:name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
+    params.require(:spouse).permit(:temp_id, :member_type_id, :name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
                                    :first_name, :last_name, :phone1, :phone2, :fax, :email,
                                    :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
                                    :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
-                                   :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :country2, :part, :my_percentage)
+                                   :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :country2, :part, :my_percentage, :contact_id)
   end
-  
+
   def current_page
     @current_page = "entity"
   end
-  
+
   def check_xhr_page
     unless request.xhr?
       if params[:action] != "basic_info"
@@ -110,7 +113,7 @@ class Entities::TenancyByEntiretyController < ApplicationController
       end
     end
   end
-  
+
   def set_entity
     key = params[:entity_key]
     @entity = Entity.find_by(key: key)
@@ -119,15 +122,15 @@ class Entities::TenancyByEntiretyController < ApplicationController
       @entity = EntityTenancyByEntirety.find_by(key: key)
     end
   end
-  
+
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
       add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Tenancy By Entirety: <span id='edit-title-tbe'>#{@entity.name}</span></a><span id='int-action-tbe'></span></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Tenancy By Entirety </a></h4></div>".html_safe
-    end    
-    
+    end
+
     if params[:action] != "basic_info"
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
     end

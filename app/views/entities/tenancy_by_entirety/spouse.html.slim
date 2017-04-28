@@ -6,8 +6,28 @@
       ul
         - override_active_record_errors(@spouse.errors.messages, {share_error: 'All Interest are assigned!'}).each do |message|
           li = message
-  .col-lg-4.close-md-4.col-sm-12.col-xs-12          
-    .form-group
-      label Placeholder : DropDown For Entities
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12
+    .form-group#spouse_entity
+      = hidden_field_tag "spouse[is_person]", true
+      = f.select :temp_id, options_html('spouse', "true", @spouse.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @spouse.super_entity.id, clienttype: 'spouse'}
+      = hidden_field_tag "spouse[member_type_id]", MemberType.getTenancyByTheEntiretyId
+      = hidden_field_tag :cid, @spouse.temp_id
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+
     .form-group
       = f.submit "Save", class: "btn btn-primary"
+
+/! Modal
+#ResourceFormNewEntity.modal.fade aria-hidden="true" aria-labelledby="ResourceFormNewEntity" role="dialog" tabindex="-5"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4.modal-title New Entity for Spouse
+      .model-body
+        | &nbsp;
+      .modal-footer
+        button type="button" class="btn btn-primary btn-xs" data-dismiss="modal"
+          | close
