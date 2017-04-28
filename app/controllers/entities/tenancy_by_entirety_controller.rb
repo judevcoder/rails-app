@@ -47,6 +47,11 @@ class Entities::TenancyByEntiretyController < ApplicationController
       @spouse.super_entity_id = @entity.id
     end
     if request.post?
+      if @entity.spouses.count >= 2
+        @spouses = @entity.spouses
+        @entity.errors.add(:base, 'Cannot have more than two spouses!')
+        return render layout: false, template: "entities/tenancy_by_entirety/spouses"
+      end
       @spouse                 = Spouse.new(spouse_params)
       @spouse.super_entity_id = @entity.id
       @spouse.class_name      = "Spouse"

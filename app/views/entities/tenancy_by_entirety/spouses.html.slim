@@ -1,4 +1,10 @@
 = hidden_field_tag :int_action, 'Spouses List'
+- if @entity.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@entity.errors.count, "error")} prohibited this Partnership from being saved:"
+      ul
+        - override_active_record_errors(@entity.errors.messages, {base: ''}).each do |message|
+          li = message
 .heading
   = "List of #{@entity.name} 's Spouses"
 .clearfix
