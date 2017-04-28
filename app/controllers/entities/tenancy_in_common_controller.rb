@@ -86,13 +86,7 @@ class Entities::TenancyInCommonController < ApplicationController
     @tenants_in_common = @entity.tenants_in_common
     render layout: false if request.xhr?
   end
-
-  def owns
-    @entity = Entity.find_by(key: params[:entity_key])
-    raise ActiveRecord::RecordNotFound if @entity.blank?
-    render layout: false if request.xhr?
-  end
-
+  
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def entity_tenancy_in_common_params

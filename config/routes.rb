@@ -131,7 +131,6 @@ Rails.application.routes.draw do
     patch "tenancy_in_common/tenant_in_common/:entity_key/(:id)" => "tenancy_in_common#tenant_in_common"
     delete "tenancy_in_common/tenant_in_common/:id" => "tenancy_in_common#tenant_in_common"
     get "tenancy_in_common/tenants_in_common/:entity_key" => "tenancy_in_common#tenants_in_common", as: :tenancy_in_common_tenants_in_common
-    get "tenancy_in_common/owns/(:entity_key)" => "tenancy_in_common#owns", as: :tenancy_in_common_owns
     # Tenancy By Entirety
     get "tenancy_by_entirety/basic_info/(:entity_key)" => "tenancy_by_entirety#basic_info", as: :tenancy_by_entirety_basic_info
     post "tenancy_by_entirety/basic_info/(:entity_key)" => "tenancy_by_entirety#basic_info"
@@ -141,7 +140,6 @@ Rails.application.routes.draw do
     patch "tenancy_by_entirety/spouse/:entity_key/(:id)" => "tenancy_by_entirety#spouse"
     delete "tenancy_by_entirety/spouse/:id" => "tenancy_by_entirety#spouse"
     get "tenancy_by_entirety/spouses/:entity_key" => "tenancy_by_entirety#spouses", as: :tenancy_by_entirety_spouses
-    get "tenancy_by_entirety/owns/(:entity_key)" => "tenancy_by_entirety#owns", as: :tenancy_by_entirety_owns
     # Joint Tenancy
     get "joint_tenancy/basic_info/(:entity_key)" => "joint_tenancy#basic_info", as: :joint_tenancy_basic_info
     post "joint_tenancy/basic_info/(:entity_key)" => "joint_tenancy#basic_info"
@@ -151,7 +149,6 @@ Rails.application.routes.draw do
     patch "joint_tenancy/joint_tenant/:entity_key/(:id)" => "joint_tenancy#joint_tenant"
     delete "joint_tenancy/joint_tenant/:id" => "joint_tenancy#joint_tenant"
     get "joint_tenancy/joint_tenants/:entity_key" => "joint_tenancy#joint_tenants", as: :joint_tenancy_joint_tenants
-    get "joint_tenancy/owns/(:entity_key)" => "joint_tenancy#owns", as: :joint_tenancy_owns
     # Trust
     get "trust/basic_info/(:entity_key)" => "trust#basic_info", as: :trust_basic_info
     post "trust/basic_info/(:entity_key)" => "trust#basic_info"
