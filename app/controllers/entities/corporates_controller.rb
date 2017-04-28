@@ -225,8 +225,9 @@ class Entities::CorporatesController < ApplicationController
   end
 
   def officer_params
-    params.require(:officer).permit(:temp_id, :member_type_id, :first_name, :last_name, :phone1, :phone2, :fax, :email,
-                                    :postal_address, :city, :state, :zip, :notes, :honorific, :is_honorific, :contact_id)
+    params.require(:officer).permit(:temp_id, :member_type_id, :first_name, :last_name, :phone1, :phone2, :fax, 
+                                    :email, :postal_address, :city, :state, :zip, :notes, :honorific, :is_honorific, 
+                                    :contact_id, :office)
   end
 
   def director_params

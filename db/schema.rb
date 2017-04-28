@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170424112530) do
+ActiveRecord::Schema.define(version: 20170428134503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 20170424112530) do
     t.boolean  "m_date_of_appointment",                 default: false
     t.boolean  "m_date_of_commission",                  default: false
     t.integer  "user_id"
-    t.boolean  "has_comma",                             default: false
+    t.boolean  "has_comma"
     t.index ["deleted_at"], name: "index_entities_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_entities_on_user_id", using: :btree
   end
@@ -268,6 +268,7 @@ ActiveRecord::Schema.define(version: 20170424112530) do
     t.integer  "contact_id"
     t.string   "legal_ending"
     t.boolean  "has_comma",                                                 default: false
+    t.string   "office"
   end
 
   create_table "procedure_action_checklists", force: :cascade do |t|

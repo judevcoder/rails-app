@@ -14,6 +14,8 @@
       = hidden_field_tag :cid, @officer.temp_id
       .clearfix.add-list-entity-links
         = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+      = f.label "office", class: "control-label"
+      = f.text_field :office, class: "form-control"
     .form-group
       = f.submit 'Save', class: "btn btn-primary"
 
