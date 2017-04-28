@@ -25,7 +25,8 @@
       = f.hidden_field :has_comma, class: "has_comma_val"
       = image_tag('Comma.png', :id=> 'comma', :width => '30px', :height=> '30px')
       = image_tag('Comma-grey.png', :id=> 'comma-grey', :width => '30px', :height=> '30px')
-      = f.text_field :legal_ending, :value => "LLP", :readonly => true, :disabled => true
+      label LLP
+      = f.hidden_field :legal_ending, :value => "LLP"
     .form-group
       = f.label "Ein"
       = f.text_field :ein_or_ssn, class: "form-control"
