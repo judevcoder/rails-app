@@ -37,7 +37,7 @@ class Entity < ApplicationRecord
   has_many :officers, ->{where(class_name: "Officer")}, class_name: "Officer", foreign_key: "super_entity_id"
   has_many :managers, ->{where(class_name: "Manager")}, class_name: "Manager", foreign_key: "super_entity_id"
   has_many :partners, ->{where(class_name: "Partner")}, class_name: "Partner", foreign_key: "super_entity_id"
-  has_many :principales, ->{where(class_name: "Principal")}, class_name: "Principal", foreign_key: "super_entity_id"
+  has_one :principal, ->{where(class_name: "Principal")}, class_name: "Principal", foreign_key: "super_entity_id"
   has_many :agents, ->{where(class_name: "Agent")}, class_name: "Agent", foreign_key: "super_entity_id"
   has_many :limited_partners, ->{where(class_name: "LimitedPartner")}, class_name: "LimitedPartner", foreign_key: "super_entity_id"
   has_many :general_partners, ->{where(class_name: "GeneralPartner")}, class_name: "GeneralPartner", foreign_key: "super_entity_id"
@@ -190,7 +190,7 @@ class Entity < ApplicationRecord
   end
 
   def validation_for_names
-    self.LLC? || self.LLP? || self.LimitedPartnership? || self.Corporation? || self.Partnership? || self.Trust?
+    self.LLC? || self.LLP? || self.LimitedPartnership? || self.Corporation? || self.Partnership? || self.Trust? || self.power_of_attorney?
   end
 
   public

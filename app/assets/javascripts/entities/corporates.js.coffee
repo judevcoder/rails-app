@@ -1,5 +1,5 @@
 $ ->
-  $(document).on 'click', "input[id$=_is_person_false]", ->
+  $(document).on 'click', "input[id$=is_person_false]", ->
     if this.checked
       $(document).find(".contact").html('Contact');
       $(document).find("input[id$=_entity]").parent().show();
@@ -8,16 +8,16 @@ $ ->
       $.ajax
         type: "POST"
         url: "/xhr/clients_options_html"
-        data: {is_person: "false", id: $("select[id$=_temp_id]").attr("data-id"), cid: $("#cid").val(), client_type: $("select[id$=_temp_id]").attr("data-clienttype")}
+        data: {is_person: "false", id: $("select[id$=temp_id]").attr("data-id"), cid: $("#cid").val(), client_type: $("select[id$=temp_id]").attr("data-clienttype")}
         dataType: "html"
         success: (val) ->
-          $(document).find("select[id$=_temp_id]").html(val);
+          $(document).find("select[id$=temp_id]").html(val);
         error: (e) ->
           console.log e
 
       sort_select_options($(document).find("select[id$=_state]")[0], false)
 
-  $(document).on 'click', "input[id$=_is_person_true]", ->
+  $(document).on 'click', "input[id$=is_person_true]", ->
     if this.checked
       $(document).find(".contact").html('&nbsp;');
       $(document).find("input[id$=_entity]").parent().hide();
@@ -26,16 +26,16 @@ $ ->
       $.ajax
         type: "POST"
         url: "/xhr/clients_options_html"
-        data: {is_person: "true", id: $("select[id$=_temp_id]").attr("data-id"), cid: $("#cid").val(), client_type: $("select[id$=_temp_id]").attr("data-clienttype")}
+        data: {is_person: "true", id: $("select[id$=temp_id]").attr("data-id"), cid: $("#cid").val(), client_type: $("select[id$=temp_id]").attr("data-clienttype")}
         dataType: "html"
         success: (val) ->
-          $(document).find("select[id$=_temp_id]").html(val);
+          $(document).find("select[id$=temp_id]").html(val);
         error: (e) ->
           console.log e
 
       sort_select_options($(document).find("select[id$=_state]")[0], true)
 
-  $(document).on 'click', "select[id$=_temp_id]", ->
+  $(document).on 'click', "select[id$=temp_id]", ->
     currentType = $(this).find("option:selected").attr('data-type');
 
     if currentType == "contact"
@@ -202,7 +202,7 @@ $ ->
       enable_datetimepicker_corporation()
       tab_ = $("#int_action").val()
       if tab_
-        str = " / "        
+        str = " / "
         $("#int-action-corp").html(str + '<a href="#">'+tab_+'</a>')
       $.scrollTo(0)
       $.unblockUI()

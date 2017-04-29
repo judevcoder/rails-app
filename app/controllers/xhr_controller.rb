@@ -5,7 +5,7 @@ class XhrController < ApplicationController
   layout false
 
   def clients_options_html
-    obj = SuperEntity.find(params[:id])
+    obj = (params[:id].present?) ? SuperEntity.find(params[:id]) : nil
     @html = options_html(params[:client_type], params[:is_person], obj, params[:cid])
   end
 

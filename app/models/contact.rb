@@ -8,7 +8,7 @@ class Contact < ApplicationRecord
 
   attr_accessor :name, :per_role, :cp_role, :cprefix
 
-  has_one :stockholder
+  # has_one :people_and_firm
 
   PERSONNEL_ROLE = ["Counter-Party Broker or Agent",
           "Counter-Party Legal",

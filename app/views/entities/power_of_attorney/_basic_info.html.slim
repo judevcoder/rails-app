@@ -18,19 +18,27 @@
       ul
         - override_active_record_errors(@entity.errors.messages, {base: ''}).each do |message|
           li = message
+
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
-    .form-group.required
-      = f.label "Principal First Name" , class: "control-label"
-      = f.text_field :first_name, class: "form-control"
-    .form-group.required
-      = f.label "Principal Last Name" , class: "control-label"
-      = f.text_field :last_name, class: "form-control"
-    .form-group.required
-      = f.label "Agent First Name" , class: "control-label"
-      = f.text_field :first_name2, class: "form-control"
-    .form-group.required
-      = f.label "Agent Last Name" , class: "control-label"
-      = f.text_field :last_name2, class: "form-control"
+    .form-group
+      .option-1
+        = f.label "Individual"
+        = radio_button_tag "is_person", true, @principal.is_person
+      .option-2
+        = f.label "Entity"
+        = radio_button_tag "is_person", false, !@principal.is_person
+
+    .form-group#principal_entity
+      label Principal
+
+      - if @principal.is_person
+        = select_tag "temp_id", options_html('principal', "true", (@principal.new_record?) ? @principal.super_entity : @principal.super_entity.id, @principal.temp_id), class: "form-control", data: {id: (@principal.new_record?) ? @principal.super_entity : @principal.super_entity.id, clienttype: 'principal'}
+      - else
+        = select_tag "temp_id", options_html('principal', "false", (@principal.new_record?) ? @principal.super_entity : @principal.super_entity.id, @principal.temp_id), class: "form-control", data: {id: (@principal.new_record?) ? @principal.super_entity : @principal.super_entity.id, clienttype: 'principal'}
+      = hidden_field_tag :cid, @principal.temp_id
+      .clearfix.add-list-entity-links
+        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+
     .clearfix
     .form-group.required
       label.control-label Date of Formation
@@ -51,7 +59,7 @@
     .clearfix
       .form-group
         - if @entity.persisted?
-          - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? " 
+          - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? "
           = f.submit 'Save', class: 'btn btn-sm btn-primary', data: { confirm: c_str }
         - else
           = f.submit 'Save', class: 'btn btn-sm btn-primary'
