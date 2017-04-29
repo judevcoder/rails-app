@@ -171,16 +171,16 @@ Rails.application.routes.draw do
     post "trust/beneficiary/:entity_key/(:id)" => "trust#beneficiary"
     patch "trust/beneficiary/:entity_key/(:id)" => "trust#beneficiary"
     delete "trust/beneficiary/:id" => "trust#beneficiary"
-    get "trust/owns/(:entity_key)" => "trust#owns", as: :trust_owns    
+    get "trust/owns/(:entity_key)" => "trust#owns", as: :trust_owns
     #Power of Attorney
     get "power_of_attorney/basic_info/(:entity_key)" => "power_of_attorney#basic_info", as: :power_of_attorney_basic_info
     post "power_of_attorney/basic_info/(:entity_key)" => "power_of_attorney#basic_info"
     patch "power_of_attorney/basic_info/:entity_key" => "power_of_attorney#basic_info"
-    get "power_of_attorney/principals/:entity_key/(:id)" => "power_of_attorney#principals", as: :power_of_attorney_principals
-    get "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal", as: :power_of_attorney_principal
-    post "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
-    patch "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
-    delete "power_of_attorney/principal/:id" => "power_of_attorney#principal"    
+    # get "power_of_attorney/principals/:entity_key/(:id)" => "power_of_attorney#principals", as: :power_of_attorney_principals
+    # get "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal", as: :power_of_attorney_principal
+    # post "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
+    # patch "power_of_attorney/principal/:entity_key/(:id)" => "power_of_attorney#principal"
+    # delete "power_of_attorney/principal/:id" => "power_of_attorney#principal"
     get "power_of_attorney/agents/:entity_key/(:id)" => "power_of_attorney#agents", as: :power_of_attorney_agents
     get "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent", as: :power_of_attorney_agent
     post "power_of_attorney/agent/:entity_key/(:id)" => "power_of_attorney#agent"

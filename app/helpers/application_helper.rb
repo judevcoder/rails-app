@@ -183,7 +183,7 @@ module ApplicationHelper
       when "Sole Proprietorship"
         [[entity.full_name, '#']]
       when "Power of Attorney"
-        entity.principales.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.agents.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.agents.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
       when "Guardianship"
         [[entity.full_name, '#']]
       when "Trust"
@@ -351,7 +351,7 @@ module ApplicationHelper
       when "Sole Proprietorship"
         entity.name2
       when "Power of Attorney"
-        "#{entity.first_name2} #{entity.last_name2} POA for #{entity.first_name} #{entity.last_name}"
+        entity.display_name
       when "Guardianship"
         "In re #{entity.full_name}, AIP"
       when "Trust"
@@ -404,7 +404,7 @@ module ApplicationHelper
       when "stockholder"
         person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 3, 4]).order(type_: :asc)
       when "principal"
-        person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2, 4]).order(type_: :asc)
+        person_true_entities = current_user.entities_list(super_entity).where(type_: [1, 2, 4]).order(type_: :asc)
       when "agent"
         person_true_entities = current_user.entities_list(super_entity.id).where(type_: [1, 2]).order(type_: :asc)
       when "settlor"
@@ -533,7 +533,7 @@ module ApplicationHelper
       when "stockholder"
         person_false_entities = current_user.entities_list(super_entity.id).where(type_: [6, 10, 11, 12, 13, 14]).order(type_: :asc)
       when "principal"
-        person_false_entities = current_user.entities_list(super_entity.id).where(type_: [6, 10, 11, 12, 13, 14]).order(type_: :asc)
+        person_false_entities = current_user.entities_list(super_entity).where(type_: [6, 10, 11, 12, 13, 14]).order(type_: :asc)
       when "agent"
         person_false_entities = current_user.entities_list(super_entity.id).where(type_: [10, 11, 12, 13, 14]).order(type_: :asc)
       when "trustee"

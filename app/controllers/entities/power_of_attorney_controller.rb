@@ -10,29 +10,63 @@ class Entities::PowerOfAttorneyController < ApplicationController
     if request.get?
       @entity = Entity.find_by(key: key)
       entity_check() if @entity.present?
-      @entity       ||= PowerOfAttorney.new(type_: params[:type])
+      @entity       ||= Entity.new(type_: params[:type])
       @just_created = params[:just_created].to_b
+
+      if key.present?
+        @principal = @entity.principal
+        @principal.gen_temp_id
+      else
+        @principal = Principal.new
+      end
     elsif request.post?
-      @entity                 = PowerOfAttorney.new(power_of_attorney_params)
+      @entity                 = Entity.new(entity_params)
       @entity.type_           = MemberType.getPowerOfAttorneyId
       @entity.basic_info_only = true
       @entity.user_id         = current_user.id
-      @entity.name = @entity.first_name2 + ' ' + @entity.last_name2 + ' POA for ' +
-        @entity.first_name + ' ' + @entity.last_name
+      @entity.name = 'POA for '
       if @entity.save
-        AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})
-        return render json: {redirect: view_context.entities_power_of_attorney_basic_info_path( @entity.key ), just_created: true}
-        #return redirect_to clients_path
+        @principal = Principal.new
+        @principal.is_person = params[:is_person]
+        @principal.temp_id = params[:temp_id]
+        @principal.member_type_id = MemberType.getPowerOfAttorneyId
+        @principal.use_temp_id
+        @principal.super_entity_id = @entity.id
+        @principal.class_name      = "Principal"
+
+        if @principal.save
+          @entity.name = "POA for #{@principal.entity.name}"
+          @entity.save
+          @principal.gen_temp_id
+          AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})
+          return render json: {redirect: view_context.entities_power_of_attorney_basic_info_path( @entity.key ), just_created: true}
+          #return redirect_to clients_path
+        end
+      else
+        @principal = Principal.new
       end
     elsif request.patch?
-      @entity                 = PowerOfAttorney.find_by(key: key)
+      @entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.getPowerOfAttorneyId
       @entity.basic_info_only = true
       @entity.assign_attributes(entity_params)
-      @entity.name = @entity.first_name2 + ' ' + @entity.last_name2 + ' POA for ' +
-        @entity.first_name + ' ' + @entity.last_name
+      @entity.name = 'POA for '
       if @entity.save
+        @principal = @entity.principal
+        @principal.is_person = params[:is_person]
+        @principal.temp_id = params[:temp_id]
+        @principal.member_type_id = MemberType.getPowerOfAttorneyId
+        @principal.use_temp_id
+        @principal.super_entity_id = @entity.id
+        @principal.class_name      = "Principal"
+        if @principal.save
+          @principal.gen_temp_id
+          @entity.name = "POA for #{@principal.entity.name}"
+          @entity.save
+        end
         #redirect_to edit_entity_path(@entity.key)
+      else
+        @principal = Principal.new
       end
     else
       raise UnknownRequestFormat
@@ -40,52 +74,52 @@ class Entities::PowerOfAttorneyController < ApplicationController
     render layout: false if request.xhr?
   end
 
-  def principal
-    unless request.delete?
-      @entity = Entity.find_by(key: params[:entity_key] || params[:key])
-      id      = params[:id]
-      raise ActiveRecord::RecordNotFound if @entity.blank?
+  # def principal
+  #   unless request.delete?
+  #     @entity = Entity.find_by(key: params[:entity_key] || params[:key])
+  #     id      = params[:id]
+  #     raise ActiveRecord::RecordNotFound if @entity.blank?
 
-      @principal                 = @entity.principales.first if @entity.principales.present?
-      @principal                 ||= Principal.new
-      @principal.super_entity_id = @entity.id
-    end
-    if request.post?
-      @principal                 = Principal.new(principal_params)
-      @principal.use_temp_id
-      @principal.super_entity_id = @entity.id
-      @principal.class_name      = "Principal"
-      if @principal.save
-        @principales = @principal.super_entity.principales
-        return render layout: false, template: "entities/power_of_attorney/principals"
-      else
-        return render layout: false, template: "entities/power_of_attorney/principal"
-      end
-    elsif request.patch?
-      if @principal.update(principal_params)
-        @principal.use_temp_id
-        @principales = @principal.super_entity.principales
-        return render layout: false, template: "entities/power_of_attorney/principals"
-      else
-        return render layout: false, template: "entities/power_of_attorney/principal"
-      end
-    elsif request.delete?
-      principal = Principal.find(params[:id])
-      principal.delete
-      @principales = principal.super_entity.principales
-      return render layout: false, template: "entities/limited_partnership/principals"
-    end
-    @principal.gen_temp_id
-    render layout: false if request.xhr?
-  end
+  #     @principal                 = @entity.principales.first if @entity.principales.present?
+  #     @principal                 ||= Principal.new
+  #     @principal.super_entity_id = @entity.id
+  #   end
+  #   if request.post?
+  #     @principal                 = Principal.new(principal_params)
+  #     @principal.use_temp_id
+  #     @principal.super_entity_id = @entity.id
+  #     @principal.class_name      = "Principal"
+  #     if @principal.save
+  #       @principales = @principal.super_entity.principales
+  #       return render layout: false, template: "entities/power_of_attorney/principals"
+  #     else
+  #       return render layout: false, template: "entities/power_of_attorney/principal"
+  #     end
+  #   elsif request.patch?
+  #     if @principal.update(principal_params)
+  #       @principal.use_temp_id
+  #       @principales = @principal.super_entity.principales
+  #       return render layout: false, template: "entities/power_of_attorney/principals"
+  #     else
+  #       return render layout: false, template: "entities/power_of_attorney/principal"
+  #     end
+  #   elsif request.delete?
+  #     principal = Principal.find(params[:id])
+  #     principal.delete
+  #     @principales = principal.super_entity.principales
+  #     return render layout: false, template: "entities/limited_partnership/principals"
+  #   end
+  #   @principal.gen_temp_id
+  #   render layout: false if request.xhr?
+  # end
 
-  def principals
-    add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Principals </a></h4></div>".html_safe
-    @entity = Entity.find_by(key: params[:entity_key])
-    raise ActiveRecord::RecordNotFound if @entity.blank?
-    @principales = @entity.principales
-    render layout: false if request.xhr?
-  end
+  # def principals
+  #   add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Principals </a></h4></div>".html_safe
+  #   @entity = Entity.find_by(key: params[:entity_key])
+  #   raise ActiveRecord::RecordNotFound if @entity.blank?
+  #   @principales = @entity.principales
+  #   render layout: false if request.xhr?
+  # end
 
   def agent
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\">Agent </a></h4></div>".html_safe
@@ -161,11 +195,11 @@ class Entities::PowerOfAttorneyController < ApplicationController
                                    :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :county)
   end
 
-  def principal_params
-    params.require(:principal).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
-                                      :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
-                                      :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member, :contact_id)
-  end
+  # def principal_params
+  #   params.require(:principal).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
+  #                                     :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
+  #                                     :stock_share, :notes, :honorific, :is_honorific, :my_percentage, :tax_member, :contact_id)
+  # end
 
 
   def agent_params

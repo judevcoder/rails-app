@@ -1,6 +1,7 @@
 class Principal < PeopleAndFirm
 
   include MyFunction
+  include ModelMethods
 
   default_scope{ where(class_name: "Principal")}
   validate :entity_presence
