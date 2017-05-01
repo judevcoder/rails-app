@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428134503) do
+ActiveRecord::Schema.define(version: 20170501132112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -269,6 +269,7 @@ ActiveRecord::Schema.define(version: 20170428134503) do
     t.string   "legal_ending"
     t.boolean  "has_comma",                                                 default: false
     t.string   "office"
+    t.boolean  "is_manager",                                                default: false
   end
 
   create_table "procedure_action_checklists", force: :cascade do |t|

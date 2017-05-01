@@ -9,7 +9,7 @@
           .corporation-creation-message
             = "You have now created a record for #{@entity.first_name} #{@entity.last_name}, your new client."
         .modal-footer
-          button.btn.btn-primary.should-not-change-date-of-formation-cancel datadismiss="modal" type="button"  Close
+          button.btn.btn-primary.should-not-change-date-of-formation-cancel data-dismiss="modal" type="button"  Close
 
 = form_for @entity, url: entities_individuals_basic_info_path( @entity.key ), html: { class: "entity-page-xhr" } do |f|
   - if @entity.errors.any?

@@ -66,7 +66,7 @@ class Entities::LlcController < ApplicationController
       @manager.class_name      = "Manager"
       @manager.use_temp_id
       if @manager.save
-        @managers = @manager.super_entity.managers
+        @managers = @manager.super_entity.managers + @manager.super_entity.members.where(is_manager: true)
         return render layout: false, template: "entities/llc/managers"
       else
         return render layout: false, template: "entities/llc/manager"
@@ -74,7 +74,7 @@ class Entities::LlcController < ApplicationController
     elsif request.patch?
       if @manager.update(manager_params)
         @manager.use_temp_id
-        @managers = @manager.super_entity.managers
+        @managers = @manager.super_entity.managers + @manager.super_entity.members.where(is_manager: true)
         return render layout: false, template: "entities/llc/managers"
       else
         return render layout: false, template: "entities/llc/manager"
@@ -83,7 +83,7 @@ class Entities::LlcController < ApplicationController
       manager = Manager.find(params[:id])
       manager.delete
       @entity   = manager.super_entity
-      @managers = manager.super_entity.managers
+      @managers = manager.super_entity.managers + @manager.super_entity.members.where(is_manager: true)
       return render layout: false, template: "entities/llc/managers"
     end
     @manager.gen_temp_id
@@ -93,7 +93,7 @@ class Entities::LlcController < ApplicationController
   def managers
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
-    @managers = @entity.managers
+    @managers = @entity.managers + @entity.members.where(is_manager: true)
     render layout: false if request.xhr?
   end
 
@@ -113,7 +113,7 @@ class Entities::LlcController < ApplicationController
       @member.class_name      = "Member"
       @member.use_temp_id
       if @member.save
-        @members = @entity.members
+        @members = @entity.members.where(is_manager: false)
         return render layout: false, template: "entities/llc/members"
       else
         return render layout: false, template: "entities/llc/member"
@@ -121,7 +121,7 @@ class Entities::LlcController < ApplicationController
     elsif request.patch?
       if @member.update(member_params)
         @member.use_temp_id
-        @members = @entity.members
+        @members = @entity.members.where(is_manager: false)
         return render layout: false, template: "entities/llc/members"
       else
         return render layout: false, template: "entities/llc/member"
@@ -131,7 +131,7 @@ class Entities::LlcController < ApplicationController
       member.delete
       @entity = Entity.find_by(key: member.super_entity.key)
       raise ActiveRecord::RecordNotFound if @entity.blank?
-      @members = @entity.members
+      @members = @entity.members.where(is_manager: false)
       return render layout: false, template: "entities/llc/members"
     end
     @member.gen_temp_id
@@ -141,7 +141,7 @@ class Entities::LlcController < ApplicationController
   def members(entity_key = params[:entity_key])
     @entity = Entity.find_by(key: entity_key)
     raise ActiveRecord::RecordNotFound if @entity.blank?
-    @members = @entity.members
+    @members = @entity.members.where(is_manager: false)
     render layout: false if request.xhr?
   end
 
@@ -166,7 +166,7 @@ class Entities::LlcController < ApplicationController
     params.require(:member).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2,
                                    :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn,
                                    :my_percentage, :notes, :honorific, :is_honorific, :tax_member,
-                                   :legal_ending, :has_comma, :contact_id)
+                                   :legal_ending, :has_comma, :contact_id, :is_manager)
   end
 
   def manager_params
