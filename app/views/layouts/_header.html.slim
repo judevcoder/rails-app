@@ -55,4 +55,6 @@
   .user-info-logout.pull-right
     = current_user.email
     .clearfix
+    = link_to "Change Password", edit_user_registration_path 
+    .clearfix
     = link_to 'Logout', destroy_user_session_path, method: :delete

@@ -12,10 +12,9 @@ class Entities::PowerOfAttorneyController < ApplicationController
       entity_check() if @entity.present?
       @entity       ||= Entity.new(type_: params[:type])
       @just_created = params[:just_created].to_b
-
       if key.present?
         @principal = @entity.principal
-        @principal.gen_temp_id
+        @principal.try(:gen_temp_id)
       else
         @principal = Principal.new
       end

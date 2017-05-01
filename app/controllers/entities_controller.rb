@@ -127,6 +127,7 @@ class EntitiesController < ApplicationController
   def set_entity
     @entity    = Entity.find_by(key: params[:id])
     @entity  ||= Entity.find_by(id: params[:id])
+    @entity  ||= Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
     entity_check()
   end
