@@ -9,7 +9,7 @@
           .corporation-creation-message
             = "Congratulations you have just created In Re #{@entity.first_name} #{@entity.last_name}, AIP."
         .modal-footer
-          button.btn.btn-primary datadismiss="modal" type="button"  Close
+          button.btn.btn-primary data-dismiss="modal" type="button"  Close
 
 = form_for @entity, url: entities_guardianship_basic_info_path( @entity.key ), remote: true, html: { class: "entity-page-xhr" } do |f|
   - if @entity.errors.any?
