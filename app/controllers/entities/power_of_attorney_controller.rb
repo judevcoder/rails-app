@@ -32,9 +32,10 @@ class Entities::PowerOfAttorneyController < ApplicationController
         @principal.use_temp_id
         @principal.super_entity_id = @entity.id
         @principal.class_name      = "Principal"
-
         if @principal.save
-          @entity.name = "POA for #{@principal.entity.name}"
+          @entity.first_name = @principal.entity.first_name || @principal.entity.name
+          @entity.name = "POA for #{@principal.entity.name}"             
+          @entity.last_name = @principal.entity.last_name          
           @entity.save
           @principal.gen_temp_id
           AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})

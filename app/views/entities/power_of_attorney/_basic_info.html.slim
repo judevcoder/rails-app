@@ -7,7 +7,7 @@
             span aria-hidden="true"  &times;
         .modal-body
           .corporation-creation-message
-            = "You have now successfully created a #{@entity.display_name.strip}."
+            = "You are in the process of creating a Power of Attorney for #{@entity.first_name.strip}#{@entity.last_name ?  ' ' + @entity.last_name : ''}."
         .modal-footer
           button.btn.btn-primary.should-not-change-date-of-formation-cancel data-dismiss="modal" type="button"  Close
 
