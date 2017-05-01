@@ -104,7 +104,8 @@
 
 .margin-lg-top
   = render template: 'shared/trashed_un', locals: { local_path: multi_delete_transactions_path, klazz: [TransactionSale, TransactionPurchase], index_path: transactions_path(trashed: !params[:trashed].to_b, mode: params[:mode]) }
+  .clearfix
+  = render template: 'shared/per_page_set'
   .pull-right
     = will_paginate @transactions
-    .clearfix
-    = render template: 'shared/per_page_set'
+    
