@@ -113,7 +113,7 @@ class Entities::LlcController < ApplicationController
       @member.class_name      = "Member"
       @member.use_temp_id
       if @member.save
-        @members = @entity.members.where(is_manager: false)
+        @members = @entity.members #.where(is_manager: false)
         return render layout: false, template: "entities/llc/members"
       else
         return render layout: false, template: "entities/llc/member"
@@ -121,7 +121,7 @@ class Entities::LlcController < ApplicationController
     elsif request.patch?
       if @member.update(member_params)
         @member.use_temp_id
-        @members = @entity.members.where(is_manager: false)
+        @members = @entity.members #.where(is_manager: false)
         return render layout: false, template: "entities/llc/members"
       else
         return render layout: false, template: "entities/llc/member"
@@ -131,7 +131,7 @@ class Entities::LlcController < ApplicationController
       member.delete
       @entity = Entity.find_by(key: member.super_entity.key)
       raise ActiveRecord::RecordNotFound if @entity.blank?
-      @members = @entity.members.where(is_manager: false)
+      @members = @entity.members #.where(is_manager: false)
       return render layout: false, template: "entities/llc/members"
     end
     @member.gen_temp_id
@@ -141,7 +141,7 @@ class Entities::LlcController < ApplicationController
   def members(entity_key = params[:entity_key])
     @entity = Entity.find_by(key: entity_key)
     raise ActiveRecord::RecordNotFound if @entity.blank?
-    @members = @entity.members.where(is_manager: false)
+    @members = @entity.members #.where(is_manager: false)
     render layout: false if request.xhr?
   end
 

@@ -1,5 +1,5 @@
 = form_for @manager, url: entities_llc_manager_path(@entity.key, @manager.id), remote: true, html: {class: "entity-page-xhr"} do |f|
-  = hidden_field_tag :int_action, 'Add Manager'
+  = hidden_field_tag :int_action, 'Add Outside Manager'
   - if @manager.errors.any?
     #error_explanation
       h2 = "#{pluralize(@manager.errors.count, "error")} prohibited this Manager from being saved:"

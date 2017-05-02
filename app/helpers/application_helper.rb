@@ -225,51 +225,51 @@ module ApplicationHelper
 
     if m = Member.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_]] unless e.nil?
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if m = LimitedPartner.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_]] unless e.nil?
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if m = Beneficiary.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_]] unless e.nil?
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if m = Trustee.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name}", edit_entity_path(e.key), MemberType.member_types[e.type_]] unless e.nil?
+      result.push ["#{e.name}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if m = GeneralPartner.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_]] unless e.nil?
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if m = StockHolder.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name} - #{m.percentage_of_ownership}", edit_entity_path(e.key), MemberType.member_types[e.type_]] unless e.nil?
+      result.push ["#{e.name} - #{m.percentage_of_ownership}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if m = Partner.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_]] unless e.nil?
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if m = Principal.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name}", edit_entity_path(e.key), MemberType.member_types[e.type_]] unless e.nil?
+      result.push ["#{e.name}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if m = Agent.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name}", edit_entity_path(e.key), MemberType.member_types[e.type_]] unless e.nil?
+      result.push ["#{e.name}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if !entity.property.nil?
-      result.push [ entity.property.location_street_address || "", edit_property_path(entity.property.key), "Property"]
+      result.push [ entity.property.location_street_address || "", edit_property_path(entity.property.key), "Property", 0]
     end
     return result
   end

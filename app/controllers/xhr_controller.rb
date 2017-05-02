@@ -16,9 +16,22 @@ class XhrController < ApplicationController
   end
 
   def entity_type_list
+    #@types = MemberType.objects
+    #MemberType.InitMemberTypes if @types.nil?
     @types = MemberType.objects
-    MemberType.InitMemberTypes if @types.nil?
-    @types = MemberType.objects
+  end
+
+  def owns_list
+    if request.xhr?
+      @entity = Entity.where(id: params[:id]).first
+      if !@entity.nil?
+        result = owns(@entity)
+        retArr = []
+        result.each do |record|
+          obj = {id: record[3]}
+        end
+      end 
+    end
   end
 
 end

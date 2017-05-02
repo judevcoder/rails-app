@@ -97,4 +97,27 @@ $ ->
     selectize_single()
     selectize_single_contact()
 
+
+  $('div.owns_tree').jstree
+  'plugins': [
+    'themes'
+    'json_data'
+    'ui'
+  ]
+  'json_data': 'ajax':
+    'type': 'GET'
+    'url': (node) ->
+      nodeId = ''
+      url = ''
+      entityID = ''
+      if node == -1
+        entityID = $('#owner_entity').val()
+        url = '/xhr/owns_list/' + entityID
+      else
+        nodeId = node.attr('id')
+        url = '/xhr/owns_list/' + nodeId
+      url
+    'success': (new_data) ->
+      new_data
+
   

@@ -33,7 +33,7 @@ class PeopleAndFirm < ApplicationRecord
             else 
                 return nil
             end
-            self.first_name = obj.try(:name) || obj.first_name
+            self.first_name = obj.try(:first_name) || obj.try(:name) 
             self.last_name = obj.last_name
             self.email = obj.email
             self.phone1 = obj.phone1
