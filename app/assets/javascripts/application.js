@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require jstree
 //= notify
 //= require_tree .
 //= require moment

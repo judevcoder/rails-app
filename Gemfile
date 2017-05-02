@@ -64,6 +64,7 @@ gem 'activerecord-session_store'
 gem 'jquery-ui-rails'
 
 gem 'jquery-datatables-rails'
+gem 'jstree-rails-4'
 
 gem 'email_validator'
 gem 'wannabe_bool'
