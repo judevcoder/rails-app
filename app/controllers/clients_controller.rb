@@ -5,11 +5,39 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @entities   = Entity.with_deleted.where(id: AccessResource.get_ids({user: current_user, resource_klass: 'Entity'}))
-    @entities   = @entities.where(deleted_at: nil) unless params[:trashed].to_b
-    @entities   = @entities.where.not(deleted_at: nil) if params[:trashed].to_b
-    @entities   = @entities.order(created_at: :desc).paginate(page: params[:page], per_page: sessioned_per_page)
+    grp_ = nil
+    @entities = nil
+    @current_grp = params[:grp] || '0'
+    @entities_present = []
+    @entities_absent = []
+    if request.post?
+      grp_ = Group.where(id: params[:group_id]).first
+      entity_ = Entity.where(id: params[:entity_id]).first
+      if grp_ && entity_
+        if params[:what_entity] == 'add'             
+          grp_.group_members.create(gmember: entity_)
+        elsif params[:what_entity] == 'remove'  
+          GroupMember.where(group_id: grp_.id, gmember_id: entity_.id, gmember_type: 'Entity').delete_all
+        end
+        @current_grp = grp_.id.to_s      
+        params[:grp] = @current_grp
+      end
+    end
+    if @current_grp != '0'
+      grp_ = Group.where(id: @current_grp).first
+      if grp_
+        @entities = grp_.entities
+        @entities_present = Entity.where(id: @entities).pluck('name, id')
+        @entities_absent = Entity.where.not(id: @entities).pluck('name, id')
+      end
+    else
+      @entities   = Entity.with_deleted.where(id: AccessResource.get_ids({user: current_user, resource_klass: 'Entity'}))
+      @entities   = @entities.where(deleted_at: nil) unless params[:trashed].to_b
+      @entities   = @entities.where.not(deleted_at: nil) if params[:trashed].to_b
+    end
+    @entities   = @entities.order(created_at: :desc).paginate(page: params[:page], per_page: sessioned_per_page)    
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">List </a></h4></div>".html_safe
+    render layout: false if request.xhr?
   end
   
   # GET /clients/1

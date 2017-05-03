@@ -21,6 +21,26 @@ class XhrController < ApplicationController
     @types = MemberType.objects
   end
 
+  def entity_groups
+    @groups = [{id: '0', parent: '#', text: 'All'}]
+    groups = Group.where(gtype: 'Entity')
+    groups.each do |grp|
+      obj = {id: grp.id.to_s, parent: grp.parent_id.to_s, text: grp.name}
+      @groups << obj
+    end
+    render :json => @groups.to_json 
+  end
+
+  def entity_child_groups
+    @groups = []
+    groups = Group.where(gtype: 'Entity', parent_id: params[:id])
+    groups.each do |grp|
+      obj = {id: grp.id.to_s, parent: '0', text: grp.name}
+      @groups << obj
+    end
+    render :json => @groups.to_json  
+  end
+
   def owns_list
     if request.xhr?
       @entity = Entity.where(id: params[:id]).first

@@ -48,6 +48,9 @@ class Entity < ApplicationRecord
   has_many :joint_tenants, ->{where(class_name: "JointTenant")}, class_name: "JointTenant", foreign_key: "super_entity_id"
   has_many :spouses, ->{where(class_name: "Spouse")}, class_name: "Spouse", foreign_key: "super_entity_id"
 
+  has_many :groups, :through => :group_members, :as => :gmember
+  has_many :group_members, :as => :gmember
+
   after_save :add_key
   before_save :set_default_val, :trim_name
 

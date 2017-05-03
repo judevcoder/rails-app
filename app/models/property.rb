@@ -12,6 +12,9 @@ class Property < ApplicationRecord
   has_many :parcels
   accepts_nested_attributes_for :parcels, :reject_if => :all_blank
 
+  has_many :groups, :through => :group_members, :as => :gmember
+  has_many :group_members, :as => :gmember
+
   alias_attribute :name, :title
 
   validates_presence_of :title

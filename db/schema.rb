@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501132112) do
+ActiveRecord::Schema.define(version: 20170503091038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,9 +169,25 @@ ActiveRecord::Schema.define(version: 20170501132112) do
     t.boolean  "m_date_of_appointment",                 default: false
     t.boolean  "m_date_of_commission",                  default: false
     t.integer  "user_id"
-    t.boolean  "has_comma",                             default: false
+    t.boolean  "has_comma"
     t.index ["deleted_at"], name: "index_entities_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_entities_on_user_id", using: :btree
+  end
+
+  create_table "group_members", force: :cascade do |t|
+    t.integer  "group_id"
+    t.string   "gmember_type"
+    t.integer  "gmember_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "parent_id",  default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "gtype",                  null: false
   end
 
   create_table "keys", force: :cascade do |t|

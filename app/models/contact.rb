@@ -2,6 +2,9 @@ class Contact < ApplicationRecord
 
   acts_as_paranoid
 
+  has_many :groups, :through => :group_members, :as => :gmember
+  has_many :group_members, :as => :gmember
+
   #validates_presence_of :first_name, :last_name #, :email
   validate :email_check
   validate :company_name_check

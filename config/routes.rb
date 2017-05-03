@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :groups
   resources :common_static_fields
 
   post "/entities/share_or_interest" => "entities#share_or_interest"
@@ -194,6 +195,8 @@ Rails.application.routes.draw do
 
   get '/clients/address' => 'clients#address'
   post '/clients/address' => 'clients#address'
+  get '/clients/index' => 'clients#index'
+  post '/clients/index' => 'clients#index'
 
   resources :clients do
     collection do

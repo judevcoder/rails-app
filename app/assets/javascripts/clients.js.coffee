@@ -81,3 +81,112 @@ $ ->
   $(document).on 'ajax:error', 'form#new_entity', (data, xhr, status)->
     $("div#ClientFormNewEntity").find('.model-body').html(xhr.responseText)
     $.unblockUI()
+
+  $("#entity-groups-tree").jstree  
+    'core':
+      'animation': 0
+      'check_callback': true
+      'themes': 'stripes': true
+      'data':
+        'url': (node) ->
+          '/xhr/entity_groups.json'
+        'data': (node) ->
+          { 'id': node.id }
+    'types':
+      '#':
+        'max_children': 1
+        'max_depth': 4
+        'valid_children': [ 'root' ]
+      'root':
+        'icon': '/static/3.3.4/assets/images/tree_icon.png'
+        'valid_children': [ 'default' ]
+      'default': 'valid_children': [
+        'default'
+        'file'
+      ]
+      'file':
+        'icon': 'glyphicon glyphicon-file'
+        'valid_children': []
+    'plugins': [
+      'contextmenu'
+      'dnd'
+      'search'
+      'state'
+      'types'
+      'wholerow'
+    ]
+
+  $('#entity-groups-tree').on('select_node.jstree', (e, data) ->
+    r = []
+    p = []
+    i = 0
+    j = data.selected.length
+    while i < j
+      r.push data.instance.get_node(data.selected[i]).text
+      p.push data.instance.get_node(data.selected[i]).id
+      i++
+    #$('#event_result').html 'Selected: ' + r.join(', ')
+    #alert(r.join(', '))
+    #alert(p)
+    #alert($('#current_group_id').val())
+    if p[0] == ($('#current_group_id').val())
+      #alert('yay')
+    else
+      url = "/clients/index?grp=" + p[0]
+      $.ajax
+        type: "get"
+        url: url
+        dataType: "html"
+        success: (val) ->
+          $("div#entities-list").html(val)
+          $('#current_group_id').val(p[0])
+          manage_jsGrid_UI()
+        error: (e) ->
+          console.log e
+    return
+  )
+
+  tree_nodes = []
+
+  $('#entity-groups-tree').on('model.jstree', (e, data) ->
+    #alert('tree changes')
+    #alert(data.parent)
+    #alert(data.nodes)
+    if tree_nodes.length == 0
+      tree_nodes = data.nodes
+    else
+      if tree_nodes.indexOf(data.nodes[0]) == -1
+        #alert('node created')
+      else
+        #alert('node renamed')
+    return
+  )
+
+  $(document).on 'click', "#add_button" , (e) ->
+    #prevent Default functionality
+    #alert 'add ...'
+    e.preventDefault()
+    actionurl = '/clients/index'
+    $.ajax
+      url: actionurl
+      type: 'post'
+      dataType: 'html'
+      data: $('#addform').serialize()
+      success: (data) ->
+        $("div#entities-list").html(data)
+        manage_jsGrid_UI()  
+
+  $(document).on 'click', "#remove_button" , (e) ->
+    #prevent Default functionality
+    e.preventDefault()
+    actionurl = '/clients/index'
+    $.ajax
+      url: actionurl
+      type: 'post'
+      dataType: 'html'
+      data: $('#removeform').serialize()
+      success: (data) ->
+        $("div#entities-list").html(data)
+        manage_jsGrid_UI()        
+
+  
