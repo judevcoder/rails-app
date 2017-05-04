@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503091038) do
+ActiveRecord::Schema.define(version: 20170504095756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 20170503091038) do
     t.integer  "gmember_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["group_id", "gmember_id", "gmember_type"], name: "index_group_members_on_group_id_and_gmember_id_and_gmember_type", unique: true, using: :btree
   end
 
   create_table "groups", force: :cascade do |t|

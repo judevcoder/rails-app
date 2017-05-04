@@ -1,23 +1,22 @@
-- style_str = params[:grp] ? "" : "width: 85%;pull-right;margin-left: 15%;"
-- if !params[:grp]
+- style_str = (params[:grp] && !params[:page]) ? "" : "width: 85%;pull-right;margin-left: 15%;"
+- if !params[:grp] || params[:page]
   div style="width: 15%;pull-left;"
     label Left Sidebar  
     div#entity-groups-tree
 div#entities-list style=style_str
-  = hidden_field_tag :current_group_id, @current_grp
-  - if params[:grp]
-    - if @entities_present.length > 0
-      = form_tag(clients_index_path, method: :post, remote: true, id: 'removeform') do
-        = select_tag 'entity_id', options_for_select(@entities_present)
-        = hidden_field_tag :group_id, @current_grp
-        = hidden_field_tag :what_entity, 'remove'
-        = button_tag 'Remove', id: 'remove_button'
-    - if @entities_absent.length > 0
-      = form_tag(clients_index_path, method: :post, remote: true, id: 'addform') do
-        = select_tag 'entity_id', options_for_select(@entities_absent)
-        = hidden_field_tag :group_id, @current_grp
-        = hidden_field_tag :what_entity, 'add'
-        = button_tag 'Add', id: 'add_button'
+  = hidden_field_tag :current_group_id, @current_grp  
+  - if @current_grp == '0'
+    = form_tag(clients_index_path, method: :post, remote: true, id: 'addmultiform') do
+      = select_tag 'group_id', options_for_select(@groups)
+      = hidden_field_tag :form_type, 'addmultitogroup'
+      = hidden_field_tag :multi_add_entities, ''
+      = link_to 'Add Selected To Group', 'javascript:void(0);', class: 'btn btn-sm btn-primary', id: 'multi_add_entities', 'data-confirm' => 'false'
+  - else
+    = form_tag(clients_index_path, method: :post, remote: true, id: 'removemultiform') do
+      = hidden_field_tag :form_type, 'removemultifromgroup'
+      = hidden_field_tag :multi_remove_entities, ''
+      = hidden_field_tag :group_id, @current_grp
+      = link_to 'Remove Selected From Group', 'javascript:void(0);', class: 'btn btn-sm btn-danger', id: 'multi_remove_entities', 'data-confirm' => 'false'
   table#data_table
     thead
       tr

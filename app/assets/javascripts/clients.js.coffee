@@ -133,6 +133,8 @@ $ ->
       #alert('yay')
     else
       url = "/clients/index?grp=" + p[0]
+      #if p[0] == '0'
+        #url = "/clients/index"      
       $.ajax
         type: "get"
         url: url
@@ -187,6 +189,49 @@ $ ->
       data: $('#removeform').serialize()
       success: (data) ->
         $("div#entities-list").html(data)
-        manage_jsGrid_UI()        
+        manage_jsGrid_UI()  
+
+ 
+  $(document).on 'click', "#multi_add_entities" , (e) ->
+    #prevent Default functionality
+    #alert 'add multi...'
+    e.preventDefault()
+    ents = $(document).find('input#multi_delete_objects').val()
+    #alert ents
+    actionurl = '/clients/index'
+    if ents.length > 0
+      $(document).find('input#multi_add_entities').val(ents)
+      selgrp = $(document).find('select#group_id').val()
+      #alert selgrp
+      $.ajax
+        url: actionurl
+        type: 'post'
+        dataType: 'html'
+        data: $('#addmultiform').serialize()
+        success: (data) ->
+          $('#entity-groups-tree').jstree('deselect_all')
+          $('#entity-groups-tree').jstree('select_node', selgrp)
+          $("div#entities-list").html(data)
+          manage_jsGrid_UI()  
+
+  $(document).on 'click', "#multi_remove_entities" , (e) ->
+    #prevent Default functionality
+    #alert 'remove multi...'
+    e.preventDefault()
+    ents = $(document).find('input#multi_delete_objects').val()
+    #alert ents
+    actionurl = '/clients/index'
+    if ents.length > 0
+      $(document).find('input#multi_remove_entities').val(ents)
+      $.ajax
+        url: actionurl
+        type: 'post'
+        dataType: 'html'
+        data: $('#removemultiform').serialize()
+        success: (data) ->
+          $("div#entities-list").html(data)
+          manage_jsGrid_UI()  
+
+             
 
   

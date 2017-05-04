@@ -7,30 +7,42 @@ class ClientsController < ApplicationController
   def index
     grp_ = nil
     @entities = nil
+    @groups = []
     @current_grp = params[:grp] || '0'
-    @entities_present = []
-    @entities_absent = []
+    #params[:grp] = @current_grp
+    #@entities_present = []
+    #@entities_absent = []
     if request.post?
-      grp_ = Group.where(id: params[:group_id]).first
-      entity_ = Entity.where(id: params[:entity_id]).first
-      if grp_ && entity_
-        if params[:what_entity] == 'add'             
-          grp_.group_members.create(gmember: entity_)
-        elsif params[:what_entity] == 'remove'  
-          GroupMember.where(group_id: grp_.id, gmember_id: entity_.id, gmember_type: 'Entity').delete_all
+      if params[:form_type] == 'addmultitogroup'
+        grp_ = Group.where(id: params[:group_id]).first
+        entities_ = []
+        ids    = params[:multi_add_entities].split(',').map(&:to_i).compact
+        entities_ = Entity.where(id: ids) if !grp_.nil?
+        entities_.each do |e|
+          begin
+            grp_.group_members.create!(gmember: e)
+          rescue => exception
+            # add exception handling code
+          end          
         end
-        @current_grp = grp_.id.to_s      
-        params[:grp] = @current_grp
+      elsif params[:form_type] == 'removemultifromgroup' && params[:group_id] && params[:group_id] != '0'
+        grp_ = Group.where(id: params[:group_id]).first
+        ids    = params[:multi_remove_entities].split(',').map(&:to_i).compact
+        GroupMember.where(group_id: grp_.id, gmember_id: ids, 
+          gmember_type: 'Entity').delete_all if !grp_.nil?
       end
+        @current_grp = grp_.id.to_s      
+        params[:grp] = @current_grp      
     end
     if @current_grp != '0'
       grp_ = Group.where(id: @current_grp).first
       if grp_
         @entities = grp_.entities
-        @entities_present = Entity.where(id: @entities).pluck('name, id')
-        @entities_absent = Entity.where.not(id: @entities).pluck('name, id')
+        #@entities_present = Entity.where(id: @entities).pluck('name, id')
+        #@entities_absent = Entity.where.not(id: @entities).pluck('name, id')
       end
     else
+      @groups = Group.where(gtype: 'Entity').pluck('name, id')
       @entities   = Entity.with_deleted.where(id: AccessResource.get_ids({user: current_user, resource_klass: 'Entity'}))
       @entities   = @entities.where(deleted_at: nil) unless params[:trashed].to_b
       @entities   = @entities.where.not(deleted_at: nil) if params[:trashed].to_b
