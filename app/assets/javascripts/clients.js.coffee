@@ -113,7 +113,6 @@ $ ->
       'search'
       'state'
       'types'
-      'wholerow'
     ]
 
   $('#entity-groups-tree').on('select_node.jstree', (e, data) ->
@@ -233,5 +232,26 @@ $ ->
           manage_jsGrid_UI()  
 
              
-
+  $(document).on 'click', "a.addtogroup" , (e) ->
+    e.preventDefault()
+    ents = $(document).find('input#multi_delete_objects').val()
+    #prevent Default functionality      
+    ids = e.target.id.split('_')
+    #ents = $(document).find('input#multi_delete_objects').val()
+    #alert ents
+    actionurl = '/clients/index'
+    if ents.length > 0
+      $(document).find('input#multi_add_entities').val(ents)
+      selgrp = ids[1]
+      #alert selgrp
+      $.ajax
+        url: actionurl
+        type: 'post'
+        dataType: 'html'
+        data: {'group_id': selgrp, 'form_type': 'addmultitogroup', 'multi_add_entities': ents}
+        success: (data) ->
+          $('#entity-groups-tree').jstree('deselect_all')
+          $('#entity-groups-tree').jstree('select_node', selgrp)
+          $("div#entities-list").html(data)
+          manage_jsGrid_UI()  
   

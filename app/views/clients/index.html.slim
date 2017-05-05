@@ -1,12 +1,12 @@
-- style_str = (params[:grp] && !params[:page]) ? "" : "width: 85%;pull-right;margin-left: 15%;"
+- style_str = (params[:grp] && !params[:page]) ? "" : "width: 80%;pull-right;margin-left: 20%;"
 - if !params[:grp] || params[:page]
   div style="width: 15%;pull-left;"
-    label Left Sidebar  
+    /label Left Sidebar  
     div#entity-groups-tree
 div#entities-list style=style_str
   = hidden_field_tag :current_group_id, @current_grp  
   - if @current_grp == '0'
-    = form_tag(clients_index_path, method: :post, remote: true, id: 'addmultiform') do
+    = form_tag(clients_index_path, method: :post, remote: true, id: 'addmultiform', style: "display: none;") do
       = select_tag 'group_id', options_for_select(@groups)
       = hidden_field_tag :form_type, 'addmultitogroup'
       = hidden_field_tag :multi_add_entities, ''

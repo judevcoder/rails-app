@@ -25,7 +25,9 @@ class XhrController < ApplicationController
     @groups = [{id: '0', parent: '#', text: 'All'}]
     groups = Group.where(gtype: 'Entity')
     groups.each do |grp|
-      obj = {id: grp.id.to_s, parent: grp.parent_id.to_s, text: grp.name}
+      obj = {id: grp.id.to_s, parent: grp.parent_id.to_s, 
+        text: (grp.name + ' <a href="#" class="addtogroup" id="grp_' + grp.id.to_s + '"><img ' + 
+        ' src="/assets/plusCyan.png" id="igrp_' + grp.id.to_s + '"></img></a>').html_safe }
       @groups << obj
     end
     render :json => @groups.to_json 
