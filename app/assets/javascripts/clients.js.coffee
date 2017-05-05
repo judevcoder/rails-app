@@ -114,6 +114,11 @@ $ ->
       'state'
       'types'
     ]
+    'contextmenu' :
+      'items': (node) ->
+        tmp = $.jstree.defaults.contextmenu.items()
+        delete tmp.ccp
+        tmp
 
   $('#entity-groups-tree').on('select_node.jstree', (e, data) ->
     r = []
@@ -154,12 +159,48 @@ $ ->
     #alert(data.parent)
     #alert(data.nodes)
     if tree_nodes.length == 0
-      tree_nodes = data.nodes
+      tree_nodes = data.nodes    
+    return
+  )
+
+  $('#entity-groups-tree').on('rename_node.jstree', (e, data) ->
+    #alert('node renamed')
+    #alert(data.old)
+    #alert(data.text)
+    #alert(data.node.id)
+    #alert('parent ' + data.node.parent)
+    #alert(tree_nodes)
+    if tree_nodes.indexOf(data.node.id) == -1
+      #alert('new node')
+      #inst = $.jstree.reference(data.reference)
+      #parent = inst.get_parent(data.node)
+      #parent1 = $.jstree.reference('#entity-groups-tree').get_parent(data.node)
+      #alert('parent id is : ' + parent1)
+      $.ajax
+        url: '/groups'
+        type: 'post'
+        dataType: 'json'
+        data: {"group": {"name": data.text, "gtype": "Entity", "parent_id": data.node.parent}}
+        success: (sdata) ->
+          #alert(sdata.id)
+          #alert(sdata.name)
+          $.jstree.reference('#entity-groups-tree').set_id(data.node, sdata.id)
+          $.jstree.reference('#entity-groups-tree').set_text(data.node, sdata.name + 
+            '<a href="#" class="addtogroup" id="grp_' + sdata.id + '"><img  src="/assets/plusCyan.png" id="igrp_' +
+            sdata.id + '"></img></a>')
     else
-      if tree_nodes.indexOf(data.nodes[0]) == -1
-        #alert('node created')
-      else
-        #alert('node renamed')
+      #alert('edit node')
+    return
+  )
+
+  $('#entity-groups-tree').on('delete_node.jstree', (e, data) ->
+    #alert(data.node.id)
+    $.ajax
+      url: '/groups/' + data.node.id
+      type: 'delete'
+      dataType: 'json'
+      success: (sdata) ->
+        #
     return
   )
 

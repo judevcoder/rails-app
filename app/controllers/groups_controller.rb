@@ -25,7 +25,11 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
 
     if @group.save
-      redirect_to @group, notice: 'Group was successfully created.'
+      #redirect_to @group, notice: 'Group was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.json { render :json => @group.to_json  }
+      end
     else
       render :new
     end
@@ -43,7 +47,11 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   def destroy
     @group.destroy
-    redirect_to groups_url, notice: 'Group was successfully destroyed.'
+    respond_to do |format|
+        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.json { render :json => {ok: "ok".to_json}  }
+      end
+    #redirect_to groups_url, notice: 'Group was successfully destroyed.'
   end
 
   private
