@@ -1,0 +1,80 @@
+- if @transaction.persisted?
+  - options = %w(Active Completed InActive)
+- else
+  - options = [ 'Active']
+
+= form_for(@transaction, as: :transaction) do |f|
+  = hidden_field_tag :sub, params[:sub]
+  = hidden_field_tag :type, params[:type]
+  = hidden_field_tag :main_id, params[:main_id]
+  = hidden_field_tag :is_purchase, false
+
+  - if @transaction.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@transaction.errors.count, 'error')} prohibited this transaction from being saved:"
+      ul
+        - @transaction.errors.full_messages.each do |message|
+          li = transaction_message_filter(message)
+
+  .col-lg-4.col-md-4.col-sm-12.col-xs-12
+    .clearfix.margin-sm-top
+      h2.heading_without_padding_large
+        = "Relinquishing Seller #{require_field}".html_safe
+    .form-group
+      .col-md-6.margin-sm-top
+        .heading_blue
+          span.margin-md-right = f.radio_button :seller_person_is, true, checked: f.object.seller_person_is?, class: 'form-control flat radiobuttons'
+          span Individual
+      .col-md-6.margin-sm-top
+        .heading_blue
+          span.margin-md-right = f.radio_button :seller_person_is, false, checked: !f.object.seller_person_is?, class: 'form-control flat radiobuttons'
+          span Entity
+    .clearfix
+    .form-group
+      = hidden_field_tag :seller_info, @transaction.try(:seller_info)
+      = hidden_field_tag :status_alert, "#{ params[:status_alert] || (f.object.status.present? ? nil : 'Sale Pre LOI')}"
+      = hidden_field_tag :transaction_klazz, @transaction.class.to_s
+      = f.hidden_field :transaction_main_id
+
+    .form-group.sale-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.seller_person_is?)}")
+      = f.select :relqn_seller_entity_id, options_html_entities(f.object.relinquishing_seller_entity_id, "transactions"), {}, class: 'selectize-single'
+      - if f.object.persisted? && f.object.relinquishing_seller_entity.present?
+        .clearfix.margin-sm-top
+        = link_to f.object.relinquishing_seller_entity.name, entity_path(f.object.relinquishing_seller_entity.key), target: '_blank'
+
+    .form-group.sale-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.seller_person_is?)}")
+      = f.select :relinquishing_seller_entity_id, options_html_entities(f.object.relinquishing_seller_entity_id, "transactions", "individual"), {}, class: 'selectize-single'
+      - if f.object.persisted? && f.object.relinquishing_seller_entity.present?
+        .clearfix.margin-sm-top
+        = link_to f.object.relinquishing_seller_entity.name, entity_path(f.object.relinquishing_seller_entity.key), target: '_blank'
+
+    / .clearfix.margin-sm-top
+    /   h2.heading_without_padding_large
+    /     = "Relinquishing Purchaser".html_safe
+    / .form-group
+    /   .pull-left.margin-sm-top
+    /     .heading_blue
+    /       span Individual
+    /       span.margin-md-left = f.radio_button :purchaser_person_is, true, checked: f.object.purchaser_person_is?, class: 'form-control radiobuttons'
+
+    /   .pull-left.margin-sm-top
+    /     .heading_blue
+    /       span Entity
+    /       span = f.radio_button :purchaser_person_is, false, checked: !f.object.purchaser_person_is?, class: 'form-control radiobuttons'
+
+    / .clearfix
+    / .form-group.purchase-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.purchaser_person_is?)}")
+    /   = f.select :relqn_purchaser_contact_id, options_for_select(Contact.TransactionContacts("company"), f.object.relinquishing_purchaser_contact_id), {include_blank: true}, class: 'selectize-single'
+    /   - if f.object.persisted? && f.object.relinquishing_purchaser_contact.present?
+    /     .clearfix.margin-sm-top
+    /     = link_to f.object.relinquishing_purchaser_contact.name, contact_path(f.object.relinquishing_purchaser_contact.id), target: '_blank'
+
+    / .form-group.purchase-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.purchaser_person_is?)}")
+    /   = f.select :relinquishing_purchaser_contact_id, options_for_select(Contact.TransactionContacts, f.object.relinquishing_purchaser_contact_id), {include_blank: true}, class: 'selectize-single'
+    /   - if f.object.persisted? && f.object.relinquishing_purchaser_contact.present?
+    /     .clearfix.margin-sm-top
+    /     = link_to f.object.relinquishing_purchaser_contact.name, contact_path(f.object.relinquishing_purchaser_contact.id), target: '_blank'
+
+    .clearfix.margin-lg-top
+    .form-group
+      = f.submit 'Save & Next', class: 'btn btn-primary next-prev'

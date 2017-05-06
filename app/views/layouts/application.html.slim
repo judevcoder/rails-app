@@ -4,22 +4,18 @@ html
     title
       = (content_for?(:title) ? content_for(:title) : '1031 Exchange')
     = stylesheet_link_tag 'application', media: 'all'
-    = javascript_include_tag 'application'
+    
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     = csrf_meta_tags
-  body
-    .container-fluid
-      .row.header
-        .pull-left
-          = link_to image_tag('logo.png', :width => '212px', :height=> '73px'), '/'
-        .pull-left.header-links-container
+  body.nav-md
+    .container.body
+      .main_container
+        .col-md-3.left_col
+          = render partial: 'layouts/left_sidebar'
+        .top_nav
           = render partial: 'layouts/header'
-    .row.middle
-      div.clearfix
-      /= "#{notice}" if notice
-      /= "#{alert}" if alert      
-    .clearfix.margin-lg-left
-      .margin-md-left
-          = render_breadcrumbs :separator => "<div class=\"pull-left\"><h4>&nbsp;&nbsp;/&nbsp;&nbsp;</h4></div>".html_safe
-      div.clearfix
-      = yield
+        .right_col[role="main"]
+          = yield
+    
+    = javascript_include_tag 'application'
+          

@@ -108,4 +108,25 @@
   = render template: 'shared/per_page_set'
   .pull-right
     = will_paginate @transactions
+
+/! Modal
+#md-add-transaction.modal.fade[tabindex="-1" role="dialog"]
+  .modal-dialog[role="document"]
+    .modal-content
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-label="Close"]
+          span.lnr.lnr-cross
+        h4.modal-title
+          | Add Transaction
+      .modal-body
+        ul.nav.navbar-nav
+          li
+            = link_to '<i class="lnr lnr-store"></i>'.html_safe, new_transaction_path(transaction_type: '1031 Still Selling'), class: 'transaction-type-list'
+            span
+              |  Still Selling
+          li
+            = link_to '<i class="lnr lnr-cart"></i>'.html_safe, new_transaction_path(transaction_type: '1031 Already Sold'), class: 'transaction-type-list'
+            span
+              |  Already Sold
+        
     
