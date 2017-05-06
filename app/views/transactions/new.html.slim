@@ -8,7 +8,7 @@
   .clearfix
   
   - if params[:sub].blank? || params[:sub] == 'parties'
-    = render partial: 'transactions/purchase'
+    = render partial: 'transactions/sale'
   - elsif params[:sub] == 'terms'
     = render partial: 'transactions/terms'
   - elsif params[:sub] == 'qi'
