@@ -136,3 +136,18 @@ $ ->
     container = $("div#TransactionTypeList")
     if (!container.is(e.target) && (container.has(e.target).length == 0))
       container.hide();
+
+  # Show modal for adding transaction
+  $(document).on 'click', '#add-transaction', (e)->
+    e.preventDefault()
+    $('#md-add-transaction').modal()
+
+  # Sale FormWizard
+  $('#sale_wizard').smartWizard()
+
+  # Purchase FormWizard
+  $('#purchase_wizard').smartWizard()
+
+  $('.buttonNext').addClass('btn btn-success')
+  $('.buttonPrevious').addClass('btn btn-primary')
+  $('.buttonFinish').addClass('btn btn-default')  

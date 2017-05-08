@@ -22,5 +22,6 @@ module Exchange1031
     # config.encoding = "UTF-8"
     config.middleware.use Rack::Deflater
     config.autoload_paths += %W(#{Rails.root}/app/models/Entity)
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
   end
 end

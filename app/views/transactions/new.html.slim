@@ -3,19 +3,19 @@
 - if params[:main_id]
   label hello
   .clearfix.margin-lg-left
-  = render 'transactions/header_link'
+    = render 'transactions/header_link'
 .col-lg-12.col-md-12.col-sm-12.col-xs-12.margin-lg-top
   .clearfix
-  .form
-    - if params[:sub].blank? || params[:sub] == 'parties'
-      = render partial: 'transactions/parties'
-    - elsif params[:sub] == 'terms'
-      = render partial: 'transactions/terms'
-    - elsif params[:sub] == 'qi'
-      = render partial: 'transactions/qi'
-    - elsif params[:sub] == 'property'
-      = render partial: 'transactions/property'
-    - elsif params[:sub] == 'personnel'
-      = render partial: 'transactions/personnel'
-    - elsif params[:sub] == 'documents'
-      = render partial: 'transactions/documents'
+  
+  - if params[:sub].blank? || params[:sub] == 'parties'
+    = render partial: 'transactions/sale'
+  - elsif params[:sub] == 'terms'
+    = render partial: 'transactions/terms'
+  - elsif params[:sub] == 'qi'
+    = render partial: 'transactions/qi'
+  - elsif params[:sub] == 'property'
+    = render partial: 'transactions/property'
+  - elsif params[:sub] == 'personnel'
+    = render partial: 'transactions/personnel'
+  - elsif params[:sub] == 'documents'
+    = render partial: 'transactions/documents'

@@ -1,0 +1,50 @@
+.left_col.scroll-view
+  .navbar.nav_title[style="border: 0;"]
+    = link_to image_tag('logo.png', :width => '100%', :height=> '57px'), '/'
+  .clearfix
+  #sidebar-menu.main_menu_side.hidden-print.main_menu
+    .menu_section
+      ul.nav.side-menu
+        li
+          a
+            i.lnr.lnr-briefcase
+            |  Sale 
+            span.lnr.lnr-chevron-down
+          ul.nav.child_menu
+            li
+              a[href="#"]
+                | Sale Property 1
+            li
+              a[href="#"]
+                | Sale Property 2
+            li
+              a[href="#"]
+                | Sale Property 3
+        li
+          a
+            i.lnr.lnr-user
+            |  QI
+        li
+          a
+            i.lnr.lnr-inbox
+            |  Purchase 
+            span.lnr.lnr-chevron-down
+          ul.nav.child_menu
+            li
+              a[href="#"]
+                | Purchase Property 1
+            li
+              a[href="#"]
+                | Purchase Property 2
+            li
+              a[href="#"]
+                | Purcahse Property 3
+        li
+          a[href="#"]
+            i.lnr.lnr-smile
+            |  Personnel
+        li
+          a[href="#"]
+            i.lnr.lnr-file-empty
+            |  Documents 
+            
