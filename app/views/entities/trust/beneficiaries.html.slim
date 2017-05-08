@@ -6,26 +6,58 @@ table#data_table
   thead
     tr
       th
-        | First Name
+        | Entity Name
       th
-        | Last Name
+        | Type
+      th
+        | Contact First Name
+      th
+        | Contact Last Name
+      th
+        | EIN / Social
+      th
+        | Client?
+      th
+        | Phone
       th
         | Email
       th
-        | phone1
+        | Beneficial Interest
       th
         | Actions
   tbody
     - @beneficiaries.each do |beneficiary|
+      - entity_flag = beneficiary.entity.present?
       tr
+        td
+          - if !beneficiary.is_person?            
+            - if entity_flag
+              = beneficiary.entity.try(:name)
+            - else 
+              = beneficiary.contact.try(:name)
+        td
+          - if entity_flag
+            = beneficiary.member_type.try(:name)
+          - else 
+            = beneficiary.contact.role          
         td
           = beneficiary.first_name
         td
           = beneficiary.last_name
         td
-          = beneficiary.email
+          = beneficiary.ein_or_ssn
+        td
+          - if beneficiary.contact_id.nil?
+              = 'Yes'
+          - else
+              = 'No'
         td
           = beneficiary.phone1
         td
+          = beneficiary.email
+        td
+          = beneficiary.my_percentage
+        td.actions
           = link_to "Edit", entities_trust_beneficiary_path( @entity.key, beneficiary.id ), remote: true, class: "#{edit_xs} entity-page-xhr"
           = link_to "Delete", entities_trust_beneficiary_path( beneficiary.id ), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"
+
