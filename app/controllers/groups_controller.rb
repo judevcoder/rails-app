@@ -38,7 +38,11 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1
   def update
     if @group.update(group_params)
-      redirect_to @group, notice: 'Group was successfully updated.'
+      #redirect_to @group, notice: 'Group was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.json { render :json => @group.to_json  }
+      end    
     else
       render :edit
     end
@@ -46,7 +50,17 @@ class GroupsController < ApplicationController
 
   # DELETE /groups/1
   def destroy
-    @group.destroy
+    grps = [@group]
+    if @group.children.count == 1
+      child = @group.children.first
+      child.parent_id = @group.parent_id
+      child.save
+    else
+      grps = grps + @group.children
+    end
+    grps.each do |grp|
+      grp.destroy
+    end
     respond_to do |format|
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render :json => {ok: "ok".to_json}  }

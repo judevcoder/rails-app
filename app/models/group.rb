@@ -9,5 +9,6 @@ class Group < ApplicationRecord
     has_many :contacts, :through => :group_members, :source => :gmember, :source_type => 'Contact'
     has_many :properties, :through => :group_members, :source => :gmember, :source_type => 'Property'
     belongs_to :parent, :class_name => "Group"
+    has_many :children, :class_name => "Group", :foreign_key => "parent_id"
 
 end

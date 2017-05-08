@@ -118,6 +118,13 @@ $ ->
       'items': (node) ->
         tmp = $.jstree.defaults.contextmenu.items()
         delete tmp.ccp
+        tmp.rename.action = (data) ->
+          inst = $.jstree.reference(data.reference)
+          obj = inst.get_node(data.reference)          
+          text_ = obj.text
+          text_ = text_.substr(0, text_.indexOf('<')-1)
+          inst.set_text(obj, text_)          
+          inst.edit obj
         tmp
 
   $('#entity-groups-tree').on('select_node.jstree', (e, data) ->
@@ -190,6 +197,18 @@ $ ->
             sdata.id + '"></img></a>')
     else
       #alert('edit node')
+      $.ajax
+        url: '/groups/' + data.node.id
+        type: 'patch'
+        dataType: 'json'
+        data: {"group": {"name": data.text, "gtype": "Entity", "parent_id": data.node.parent}}
+        success: (sdata) ->
+          #alert(sdata.id)
+          #alert(sdata.name)
+          $.jstree.reference('#entity-groups-tree').set_id(data.node, sdata.id)
+          $.jstree.reference('#entity-groups-tree').set_text(data.node, sdata.name + 
+            '<a href="#" class="addtogroup" id="grp_' + sdata.id + '"><img  src="/assets/plusCyan.png" id="igrp_' +
+            sdata.id + '"></img></a>')
     return
   )
 
