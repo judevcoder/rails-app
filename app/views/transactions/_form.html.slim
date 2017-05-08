@@ -1,4 +1,4 @@
 - if @transaction.is_a?(TransactionPurchase)
-  = render partial: 'transactions/purchase_sellers'
+  = render partial: 'transactions/purchase_form'
 - elsif @transaction.is_a?(TransactionSale)
-  = render partial: 'transactions/sale_wizard/sellers'
+  = render partial: 'transactions/sale_form'

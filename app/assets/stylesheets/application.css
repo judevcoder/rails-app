@@ -12,7 +12,6 @@
  *
 
  *= require_self
- *= require font-awesome
  *= require jstree-default
  *= require_tree .
  *= require bootstrap-datetimepicker
@@ -22,7 +21,7 @@
 
 
  table#data_table tbody tr td {
-    font-size: 14px !important;
+ 	    font-size: 14px !important;
  }
 
 

@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20170504095756) do
     t.string   "jurisdiction"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.bigint   "number_of_assets"
+    t.integer  "number_of_assets"
     t.integer  "total_membership_interest",             default: 100
     t.integer  "total_undivided_interest",              default: 100
     t.integer  "total_partnership_interest",            default: 100
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 20170504095756) do
     t.boolean  "m_date_of_appointment",                 default: false
     t.boolean  "m_date_of_commission",                  default: false
     t.integer  "user_id"
-    t.boolean  "has_comma",                             default: false
+    t.boolean  "has_comma"
     t.index ["deleted_at"], name: "index_entities_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_entities_on_user_id", using: :btree
   end
