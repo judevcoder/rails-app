@@ -1,0 +1,62 @@
+/! Transaction Modal For Adding Entities
+#md-add-transaction.header-submenu-modal.modal.fade[tabindex="-1" role="dialog"]
+  .modal-dialog[role="document"]
+    .modal-content
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-label="Close"]
+          span.lnr.lnr-cross
+        h4.modal-title Add Transaction
+      .modal-body
+        ul.nav.navbar-nav
+          li
+            = link_to image_tag('icons/icon-selling.svg', class: 'icon'), new_transaction_path(transaction_type: '1031 Still Selling'), class: "padding-lg"
+            span Still Selling
+          li
+            = link_to image_tag('icons/icon-sold.svg', class: 'icon'), new_transaction_path(transaction_type: '1031 Already Sold'), class: "padding-lg"
+            span Already Sold
+
+
+/! Properties Modal For Adding Entities
+#md-add-property.header-submenu-modal.modal.fade[tabindex="-1" role="dialog"]
+  .modal-dialog[role="document"]
+    .modal-content
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-label="Close"]
+          span.lnr.lnr-cross
+        h4.modal-title Add Property
+      .modal-body
+        ul.nav.navbar-nav
+          li
+            = link_to '<i class="lnr lnr-store"></i>'.html_safe, new_property_path(ostatus: 'Purchased'), class: "padding-lg"
+            span Purchased
+          li
+            = link_to '<i class="lnr lnr-cart"></i>'.html_safe, new_property_path(ostatus: 'Prospective Purchase'), class: "padding-lg"
+            span Prospective Purchase
+
+/! Clients Modal For Adding Entities
+#md-add-client.header-submenu-modal.modal.fade[tabindex="-1" role="dialog"]
+  .modal-dialog.modal-lg[role="document"]
+    .modal-content
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-label="Close"]
+          span.lnr.lnr-cross
+        h4.modal-title Add Client
+      .modal-body
+        
+        
+/! Contact Modal For Adding Entities
+#md-add-contact.header-submenu-modal.modal.fade[tabindex="-1" role="dialog"]
+  .modal-dialog[role="document"]
+    .modal-content
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-label="Close"]
+          span.lnr.lnr-cross
+        h4.modal-title Add Contact
+      .modal-body
+        ul.nav.navbar-nav
+          li
+            = link_to '<i class="lnr lnr-store"></i>'.html_safe, new_contact_path(contact_type: 'individual'), class: "padding-lg"
+            span Individual
+          li
+            = link_to '<i class="lnr lnr-cart"></i>'.html_safe, new_contact_path(contact_type: 'company'), class: "padding-lg"
+            span Company

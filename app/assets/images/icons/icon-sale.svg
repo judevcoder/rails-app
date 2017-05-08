@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="22px" height="19px" viewBox="0 0 22 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>briefcase</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Add-Transaction---Purchase---Parties@2x" transform="translate(-36.000000, -137.000000)" fill="#777777">
+            <g id="Nav-Expanded" transform="translate(0.000000, 137.000000)">
+                <path d="M51.875,4.875 L57.125,4.875 L57.125,18.75 L36.875,18.75 L36.875,4.875 L42.125,4.875 L42.125,2.4375 C42.125,1.9765602 42.291014,1.58007979 42.6230469,1.24804688 C42.9550798,0.916013965 43.3515602,0.75 43.8125,0.75 L50.1875,0.75 C50.6484398,0.75 51.0449202,0.916013965 51.3769531,1.24804688 C51.708986,1.58007979 51.875,1.9765602 51.875,2.4375 L51.875,4.875 Z M55.25,16.875 L55.25,6.75 L45.5,6.75 L45.5,4.875 L50,4.875 L50,2.625 L44,2.625 L44,6.75 L38.75,6.75 L38.75,16.875 L55.25,16.875 Z" id="briefcase"></path>
+            </g>
+        </g>
+    </g>
+</svg>
