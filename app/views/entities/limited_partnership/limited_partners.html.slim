@@ -6,30 +6,57 @@ table#data_table
   thead
     tr
       th
-        | First Name
+        | Entity Name
       th
-        | Last Name
+        | Type
       th
-        | Entity  
+        | Contact First Name
+      th
+        | Contact Last Name
+      th
+        | EIN / Social
+      th
+        | Client?
+      th
+        | Phone
       th
         | Email
       th
-        | phone1
+        | Partnership Interest
       th
         | Actions
   tbody
     - @partners.each do |partner|
+      - entity_flag = partner.entity.present?
       tr
+        td
+          - if !partner.is_person?            
+            - if entity_flag
+              = partner.entity.try(:name)
+            - else 
+              = partner.contact.try(:name)
+        td
+          - if entity_flag
+            = MemberType.member_types[partner.member_type_id]
+          - else 
+            = partner.contact.role          
         td
           = partner.first_name
         td
           = partner.last_name
         td
-          = partner.entity.try(:name)
+          = partner.ein_or_ssn
         td
-          = partner.email
+          - if partner.contact_id.nil?
+              = 'Yes'
+          - else
+              = 'No'
         td
           = partner.phone1
         td
+          = partner.email
+        td
+          = partner.my_percentage
+        td.actions
           = link_to 'Edit', entities_limited_partnership_limited_partner_path(@entity.key, partner.id), remote: true, class: "#{edit_xs} entity-page-xhr"
           = link_to 'Delete', entities_limited_partnership_limited_partner_path(partner.id, key: @entity.key), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

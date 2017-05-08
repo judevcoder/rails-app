@@ -6,11 +6,19 @@ table#data_table
   thead
     tr
       th
-        | Name
+        | Entity Name
       th
         | Type
       th
+        | Contact First Name
+      th
+        | Contact Last Name
+      th
         | EIN / Social
+      th
+        | Client?
+      th
+        | Phone
       th
         | Email
       th
@@ -19,16 +27,32 @@ table#data_table
         | Actions
   tbody
     - @members.each do |member|
+      - entity_flag = member.entity.present?
       tr
         td
-          - if member.is_person?
-            = "#{member.first_name} #{member.last_name}"
-          - else
-            = member.entity.try(:name)
+          - if !member.is_person?            
+            - if entity_flag
+              = member.entity.try(:name)
+            - else 
+              = member.contact.try(:name)
         td
-          = member.member_type.try(:name)
+          - if entity_flag
+            = member.member_type.try(:name)
+          - else 
+            = member.contact.role          
+        td
+          = member.first_name
+        td
+          = member.last_name
         td
           = member.ein_or_ssn
+        td
+          - if member.contact_id.nil?
+              = 'Yes'
+          - else
+              = 'No'
+        td
+          = member.phone1
         td
           = member.email
         td
