@@ -37,7 +37,7 @@ table#data_table
               = beneficiary.contact.try(:name)
         td
           - if entity_flag
-            = beneficiary.member_type.try(:name)
+            = MemberType.member_types[beneficiary.member_type_id]
           - else 
             = beneficiary.contact.role          
         td
