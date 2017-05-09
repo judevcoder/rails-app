@@ -1,27 +1,29 @@
 $ ->
 
-  # Purchase
-  $(document).on 'click', '#transaction_seller_person_is_true', ->
-    if this.checked
-      $(document).find('div.sale-tr-pr-detail').show();
-      $(document).find('div.sale-tr-et-detail').hide();
+  # Sale
+  $(document).on 'ifChecked', '#transaction_seller_person_is_true', ->
+    $(document).find('div.sale-tr-pr-detail').show()
+    $(document).find('div.sale-tr-et-detail').hide()
 
-  $(document).on 'click', '#transaction_seller_person_is_false', ->
+  $(document).on 'ifChecked', '#transaction_seller_person_is_false', ->
     if this.checked
       $(document).find('div.sale-tr-pr-detail').hide();
       $(document).find('div.sale-tr-et-detail').show();  
+  
+  $(document).on 'click', '#save-and-next', ->
+    
 
   # Purchase
-  $(document).on 'click', '#transaction_purchaser_person_is_true', ->
+  $(document).on 'ifChecked', '#transaction_purchaser_person_is_true', ->
     if this.checked
       $(document).find('div.purchase-tr-pr-detail').show();
       $(document).find('div.purchase-tr-et-detail').hide();
 
-  $(document).on 'click', '#transaction_purchaser_person_is_false', ->
+  $(document).on 'ifChecked', '#transaction_purchaser_person_is_false', ->
     if this.checked
       $(document).find('div.purchase-tr-pr-detail').hide();
       $(document).find('div.purchase-tr-et-detail').show(); 
-
+  
 
   sale_pre_loi_text = (seller)-> '<strong>Congratulations!</strong> You have just initiated a 1031 Exchange on behalf of <strong>'+seller+'</strong>. You can now identify the ' +
     ' property that you wish to relinquish, hire a Qualified Intermediary, set a sales price and input a broker. Please ' +

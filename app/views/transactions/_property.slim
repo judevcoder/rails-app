@@ -10,7 +10,6 @@
       ul
         - @transaction.errors.full_messages.each do |message|
           li = message
-
   .col-lg-4.col-md-4.col-sm-12.col-xs-12
     = f.fields_for :transaction_properties do |transaction_property_form|
       .form-group
