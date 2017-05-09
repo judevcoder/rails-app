@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get "individuals/basic_info/(:entity_key)" => "individuals#basic_info", as: :individuals_basic_info
     post "individuals/basic_info/(:entity_key)" => "individuals#basic_info"
     patch "individuals/basic_info/:entity_key" => "individuals#basic_info"
-    get "individuals/owns/(:entity_key)" => "individual#owns", as: :individuals_owns
+    get "individuals/owns/(:entity_key)" => "individuals#owns", as: :individuals_owns
     # Corporation
     get "corporates/basic_info/(:entity_key)" => "corporates#basic_info", as: :corporates_basic_info
     post "corporates/basic_info/(:entity_key)" => "corporates#basic_info"

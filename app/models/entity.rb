@@ -113,6 +113,23 @@ class Entity < ApplicationRecord
     }
   end
 
+  def build_ownership_tree_json
+    result = [{text: self.display_name, nodes:[]}]
+
+    PeopleAndFirm.where(entity_id: self.id).each do |paf|
+      unless paf.super_entity_id.nil?
+        super_entity = Entity.find(paf.super_entity_id)
+        result[0][:nodes].push({text: "#{super_entity.display_name} (#{paf.class_name})"})
+      end
+    end
+
+    Property.where(owner_entity_id: self.id).each do |p|
+      result[0][:nodes].push({text: "#{p.name} (Property)"})
+    end
+
+    result.to_json
+  end
+
   def self.PurchasedPropertyEntity
     MemberType.InitMemberTypes if MemberType.member_types.nil?
     Entity.where.not(name: [nil, ''], type_: [7,8,9]).pluck(:name, :id, :type_).map! {
