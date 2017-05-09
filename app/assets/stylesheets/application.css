@@ -12,6 +12,7 @@
  *
 
  *= require_self
+ *= require font-awesome
  *= require jstree-default
  *= require_tree .
  *= require bootstrap-datetimepicker
