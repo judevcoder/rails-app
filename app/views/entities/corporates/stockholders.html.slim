@@ -28,20 +28,28 @@ table#data_table
   tbody
     - @stockholders.each do |stockholder|
       - entity_flag = stockholder.entity.present?
+      - person_flag = true
       tr
         td
           - if !stockholder.is_person?            
+            - person_flag = false
             - if entity_flag
-              = stockholder.entity.try(:name)
+              = link_to stockholder.entity.try(:name), edit_entity_path(stockholder.entity.key)
             - else 
-              = stockholder.contact.try(:name)
+              = link_to stockholder.contact.try(:name), edit_contact_path(stockholder.contact)
         td
           - if entity_flag
             = MemberType.member_types[stockholder.member_type_id]
           - else 
             = stockholder.contact.role          
         td
-          = stockholder.first_name
+          - if person_flag
+            - if stockholder.entity.present?
+              = link_to stockholder.first_name, edit_entity_path(stockholder.entity.key)
+            - elsif stockholder.contact.present?
+              = link_to stockholder.first_name, edit_contact_path(stockholder.contact)
+          - else  
+            = stockholder.first_name
         td
           = stockholder.last_name
         td
