@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="21px" viewBox="0 0 24 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>google-drive</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Add-Transaction-Pre-Inspection---LOI@2x" transform="translate(-724.000000, -465.000000)" fill-rule="nonzero">
+            <g id="Correspondence" transform="translate(390.000000, 420.000000)">
+                <g id="Google-Drive-Select" transform="translate(0.000000, 30.000000)">
+                    <g id="Button" transform="translate(320.000000, 0.000000)">
+                        <g id="google-drive" transform="translate(14.000000, 15.000000)">
+                            <g id="Group">
+                                <polygon id="Shape" fill="#3777E3" points="3.99764543 20.9998824 7.99474238 13.9999272 23.9843934 13.9999272 19.9869307 20.9998824"></polygon>
+                                <polygon id="Shape" fill="#FFCF63" points="15.9898338 13.9999272 23.9843934 13.9999272 15.9898338 0 7.99474238 0"></polygon>
+                                <polygon id="Shape" fill="#11A861" points="0 13.9999272 3.99764543 20.9998824 11.992205 6.999972 7.99474238 0"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="10px" height="8px" viewBox="0 0 10 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>check</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Add-Transaction-Pre-Inspection---LOI@2x" transform="translate(-1054.000000, -480.000000)" fill="#FFFFFF">
+            <g id="Tasks" transform="translate(1010.000000, 400.000000)">
+                <g id="Group-2" transform="translate(40.000000, 75.000000)">
+                    <g id="Checked">
+                        <path d="M13.6390477,6.76402706 C13.7175736,6.68550122 13.7175736,6.55088548 13.6390477,6.47235963 L12.2255825,5.05889439 C12.1470566,4.98036854 12.0124409,4.98036854 11.933915,5.05889439 L7.63742941,9.36659799 L5.76402706,7.48197766 C5.68550122,7.40345182 5.55088548,7.40345182 5.47235963,7.48197766 L4.05889439,8.89544291 C3.98036854,8.97396876 3.98036854,9.10858449 4.05889439,9.18711034 L7.4915957,12.6198117 C7.53646761,12.6534656 7.58133952,12.6759015 7.63742941,12.6759015 C7.6935193,12.6759015 7.73839121,12.6534656 7.78326313,12.6198117 L13.6390477,6.76402706 Z" id="check"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

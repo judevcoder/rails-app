@@ -136,3 +136,19 @@ $ ->
     container = $("div#TransactionTypeList")
     if (!container.is(e.target) && (container.has(e.target).length == 0))
       container.hide();
+
+  # Show modal for submenu of top menu
+  $(document).on 'click', '.top-header ul li a > span', (e)->
+    e.preventDefault()
+    if($(this).attr('id') == 'add-client')
+      $.ajax
+        type: "POST"
+        url: "/xhr/entity_type_list"
+        dataType: "html"
+        success: (val) ->
+          $(document).find("#md-add-client .modal-body").html(val);
+        error: (e) ->
+          console.log e
+    
+    modal_id = '#md-' + $(this).attr('id')
+    $(modal_id).modal()

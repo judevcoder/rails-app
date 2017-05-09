@@ -1,4 +1,7 @@
-.entity-type-list
-  - @types.each do |type|
-    .type data-id="#{type.id}"
-      = type.name
+- (0..@types.count - 1).step(5).each do |index|
+  ul.nav.navbar-nav
+    - (0..4).each do |sub_index|
+      li
+        - if (index+sub_index) < @types.length
+          = link_to image_tag('icons/' + @types[sub_index+index]['name'].downcase.gsub(/\s+/, '-') + '.svg', class: 'icon'), "/entities/new?type=" + @types[index+sub_index]["name"], class: 'padding-md'
+          span = @types[index+sub_index]["name"]

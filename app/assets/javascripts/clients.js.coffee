@@ -220,6 +220,7 @@ $ ->
       dataType: 'json'
       success: (sdata) ->
         #
+        $('#entity-groups-tree').jstree(true).refresh();
     return
   )
 

@@ -6,6 +6,9 @@ class TransactionsController < ApplicationController
   before_action :add_breadcrum, only: [:index]
   # GET /project
   # GET /project.json
+
+  layout 'transaction'
+
   def index
     klazz         = (params[:mode] == 'buy') ? 'TransactionPurchase' : 'TransactionSale'
     @transactions = klazz.constantize.with_deleted.joins(:transaction_main)

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Add-Transaction-Modal@2x" transform="translate(-585.000000, -571.000000)" fill-rule="nonzero" fill="#777777">
+            <g id="Modal">
+                <g id="Still-Selling" transform="translate(510.000000, 496.000000)">
+                    <path d="M124,89 L121,89 L121,83 L124,83 C124.553,83 125,82.552 125,82 C125,81.448 124.553,81 124,81 L85,81 L85,76 C85,75.448 84.552,75 84,75 L76,75 C75.448,75 75,75.448 75,76 L75,124 C75,124.553 75.448,125 76,125 L84,125 C84.552,125 85,124.553 85,124 L85,83 L95,83 L95,89 L92,89 C91.448,89 91,89.448 91,90 L91,110 C91,110.553 91.448,111 92,111 L124,111 C124.553,111 125,110.553 125,110 L125,90 C125,89.448 124.553,89 124,89 Z M83,123 L77,123 L77,77 L83,77 L83,123 Z M97,83 L119,83 L119,89 L97,89 L97,83 Z M123,109 L93,109 L93,91 L123,91 L123,109 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

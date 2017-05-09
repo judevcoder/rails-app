@@ -91,19 +91,35 @@ class Entities::TenancyByEntiretyController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def entity_tenancy_by_entirety_params
-    params.require(:entity_tenancy_by_entirety).permit(:name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
-                                                       :first_name, :last_name, :phone1, :phone2, :fax, :email,
-                                                       :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
-                                                       :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
-                                                       :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :property_id)
+    params.require(:entity_tenancy_by_entirety).permit(:name, :name2, :address, 
+                                                       :type_, :jurisdiction, 
+                                                       :number_of_assets, :first_name, 
+                                                       :last_name, :phone1, :phone2, 
+                                                       :fax, :email, :postal_address, 
+                                                       :postal_address2, :city, :city2, 
+                                                       :state, :state2, :zip, :zip2, 
+                                                       :date_of_formation, :m_date_of_formation,
+                                                       :ein_or_ssn, :s_corp_status, 
+                                                       :not_for_profit_status, :legal_ending, 
+                                                       :honorific, :is_honorific,
+                                                       :date_of_appointment, :m_date_of_appointment, 
+                                                       :country, :date_of_commission, 
+                                                       :m_date_of_commission, :index, :property_id)
   end
 
   def spouse_params
-    params.require(:spouse).permit(:temp_id, :member_type_id, :name, :name2, :address, :type_, :jurisdiction, :number_of_assets,
-                                   :first_name, :last_name, :phone1, :phone2, :fax, :email,
-                                   :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
-                                   :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific,
-                                   :date_of_appointment, :m_date_of_appointment, :country, :date_of_commission, :m_date_of_commission, :index, :country2, :part, :my_percentage, :contact_id)
+    params.require(:spouse).permit(:temp_id, :member_type_id, :name, :name2, 
+                                   :address, :type_, :jurisdiction, :number_of_assets,
+                                   :first_name, :last_name, :phone1, :phone2, :fax, 
+                                   :email, :postal_address, :postal_address2, :city, 
+                                   :city2, :state, :state2, :zip, :zip2, 
+                                   :date_of_formation, :m_date_of_formation,
+                                   :ein_or_ssn, :s_corp_status, :not_for_profit_status, 
+                                   :legal_ending, :honorific, :is_honorific,
+                                   :date_of_appointment, :m_date_of_appointment, 
+                                   :country, :date_of_commission, :m_date_of_commission, 
+                                   :index, :country2, :part, :my_percentage, :contact_id,
+                                   :gender)
   end
 
   def current_page
