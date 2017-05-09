@@ -356,6 +356,10 @@ span.fa, span.lnr, i.fa, i.lnr {
     display: flex;
     z-index: 1
 }
+.nav-md.transaction .container.body .col-md-3.left_col{
+    min-height: 100%;
+}
+
 .nav-md .container.body .col-md-3.left_col.menu_fixed {
     height: 100%;
     position: fixed
@@ -372,7 +376,7 @@ body .container.body .right_col {
     float: left;
     background: #2A3F54;
     border-radius: 0;
-    height: 57px
+    height: 75px
 }
 @media (max-width: 991px) {
     .nav-md .container.body .right_col,
@@ -756,24 +760,12 @@ a:focus {
 .nav.child_menu li {
     padding-left: 36px
 }
-.nav-md ul.nav.child_menu li:before {
-    background: #3082EE;
-    bottom: auto;
-    content: "";
-    height: 8px;
-    left: 23px;
-    margin-top: 15px;
-    position: absolute;
-    right: auto;
-    width: 8px;
-    z-index: 1;
-    border-radius: 50%
-}
+
 .nav-md ul.nav.child_menu li:after {
-    border-left: 1px solid #3082EE;
+    border-left: 2px solid #3082EE;
     bottom: 0;
     content: "";
-    left: 27px;
+    left: 32px;
     position: absolute;
     top: 0
 }
@@ -1884,6 +1876,15 @@ h4.graph_title {
     vertical-align: top;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale
+}
+
+.main_menu img.icon {
+    width: 26px;
+    height: 26px;
+    opacity: .99;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 15px;
 }
 
 .tile-stats {

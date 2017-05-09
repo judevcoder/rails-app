@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title
+      = (content_for?(:title) ? content_for(:title) : '1031 Exchange')
+    = stylesheet_link_tag 'application', media: 'all'
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    = csrf_meta_tags
+  body.nav-md.transaction
+    = render partial: 'shared/modals'
+    .container.body
+      .main_container
+        .col-md-3.left_col
+          = render partial: 'layouts/left_sidebar'
+        .top_nav
+          = render partial: 'layouts/header'
+        .right_col[role="main"]
+          .clearfix.margin-lg-left
+          .margin-md-left
+              = render_breadcrumbs :separator => "<div class=\"pull-left\"><h4>&nbsp;&nbsp;/&nbsp;&nbsp;</h4></div>".html_safe
+          div.clearfix
+          = yield
+
+    = javascript_include_tag 'application'
