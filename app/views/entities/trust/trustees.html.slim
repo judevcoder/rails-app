@@ -6,26 +6,61 @@ table#data_table
   thead
     tr
       th
-        | First Name
+        | Entity Name
       th
-        | Last Name
+        | Type
+      th
+        | Contact First Name
+      th
+        | Contact Last Name
+      th
+        | EIN / Social
+      th
+        | Client?
+      th
+        | Phone
       th
         | Email
-      th
-        | phone1
       th
         | Actions
   tbody
     - @trustees.each do |trustee|
+      - entity_flag = trustee.entity.present?
+      - person_flag = true
       tr
         td
-          = trustee.first_name
+          - if !trustee.is_person?            
+            - person_flag = false
+            - if entity_flag
+              = link_to trustee.entity.try(:name), edit_entity_path(trustee.entity.key)
+            - else 
+              = link_to trustee.contact.try(:name), edit_contact_path(trustee.contact)
+        td
+          - if entity_flag
+            = MemberType.member_types[trustee.member_type_id]
+          - else 
+            = trustee.contact.role          
+        td
+          - if person_flag
+            - if trustee.entity.present?
+              = link_to trustee.first_name, edit_entity_path(trustee.entity.key)
+            - elsif trustee.contact.present?
+              = link_to trustee.first_name, edit_contact_path(trustee.contact)
+          - else  
+            = trustee.first_name
         td
           = trustee.last_name
         td
-          = trustee.email
+          = trustee.ein_or_ssn
+        td
+          - if trustee.contact_id.nil?
+              = 'Yes'
+          - else
+              = 'No'
         td
           = trustee.phone1
         td
+          = trustee.email
+        td.actions
           = link_to 'Edit', entities_trust_trustee_path(@entity.key, trustee.id), remote: true, class: "#{edit_xs} entity-page-xhr"
           = link_to 'Delete', entities_trust_trustee_path(trustee.id), method: :delete, remote: true, class: "#{delete_xs} entity-page-xhr"
