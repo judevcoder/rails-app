@@ -11,10 +11,17 @@
       = hidden_field_tag "spouse[is_person]", true
       = f.select :temp_id, options_html('spouse', "true", @spouse.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @spouse.super_entity.id, clienttype: 'spouse'}
       = hidden_field_tag "spouse[member_type_id]", MemberType.getTenancyByTheEntiretyId
-      = hidden_field_tag :cid, @spouse.temp_id
+      = hidden_field_tag :cid, @spouse.temp_id      
       .clearfix.add-list-entity-links
         = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
-
+    .form-group
+      = f.label "Gender"
+      .option-1
+        = f.label "Male"
+        = f.radio_button :gender, 'Male', checked: @spouse.gender == 'Male'
+      .option-2
+        = f.label "Female"
+        = f.radio_button :gender, 'Female', checked: @spouse.gender == 'Female'
     .form-group
       = f.submit "Save", class: "btn btn-primary"
 
