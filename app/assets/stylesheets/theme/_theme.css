@@ -2206,6 +2206,12 @@ span.section {
     border-radius: 0;
     width: 100%
 }
+
+.form-control.select_auto {
+    display: inline-block;
+    width: auto
+}
+
 .form-horizontal .control-label {
     padding-top: 8px
 }
@@ -3895,6 +3901,12 @@ fieldset {
     opacity: 1;
     color: #666
 }
+
+.wizard_horizontal ul.wizard_steps li .btn{
+    margin: 5px 5px;
+    padding: 15px 20px;
+}
+
 .wizard_horizontal ul.wizard_steps li a:after {
     content: " ";
     height: 0;
@@ -3904,9 +3916,9 @@ fieldset {
     top: 0;
     margin: 0;
     pointer-events: none;
-    border-top: 35px solid transparent;
-    border-bottom: 35px solid transparent;
-    border-left: 20px solid #eeeeee;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-left: 20px solid #3082EE;
     z-index: 3;
 }
 .wizard_horizontal ul.wizard_steps li a:before {
@@ -3918,8 +3930,8 @@ fieldset {
     top: 0;
     margin: 0;
     pointer-events: none;
-    border-top: 35px solid transparent;
-    border-bottom: 35px solid transparent;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
     border-left: 20px solid white;
     z-index: 2;
 }
@@ -3931,27 +3943,33 @@ fieldset {
     line-height: 40px;
     display: block;
     margin: 0 auto 5px;
-    padding: 15px 10px 15px 35px; 
-    font-size: 16px;
+    padding: 10px 10px 10px 35px; 
+    font-size: 15px;
+    color: white;
+    background: #3082EE;
     text-align: center;
     position: relative;
     z-index: 1
 }
-.wizard_horizontal ul.wizard_steps li a.selected:after,
-.step_no {
+.wizard_horizontal ul.wizard_steps li.selected a:after {
     border-left-color: #3082EE;
     color: #fff;
     z-index: 4;
 }
 
-.wizard_horizontal ul.wizard_steps li a.done:before,
-.wizard_horizontal ul.wizard_steps li a.done .step_no {
-    background: #1ABB9C;
-    color: #fff
+.wizard_horizontal ul.wizard_steps li.selected a .step_no {
+    background: #3082EE;
+    color: white;
 }
-.wizard_horizontal ul.wizard_steps li a.done:after,
-.wizard_horizontal ul.wizard_steps li a.done .step_no {
-    border-left-color: #1ABB9C;
+
+.wizard_horizontal ul.wizard_steps li.selected ~ li a:before,
+.wizard_horizontal ul.wizard_steps li.selected ~ li a .step_no {
+    background: #eee;
+    color: #777
+}
+.wizard_horizontal ul.wizard_steps li.selected ~ li a:after,
+.wizard_horizontal ul.wizard_steps li.selected ~ li a .step_no {
+    border-left-color: #eee;
 }
 
 .wizard_verticle .stepContainer {

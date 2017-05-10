@@ -21,15 +21,12 @@
       h2.heading_without_padding_large
         = "Relinquishing Seller #{require_field}".html_safe
     .form-group
-      .pull-left.margin-sm-top
-        .heading_blue
-          span Individual
-          span.margin-md-left = f.radio_button :seller_person_is, true, checked: f.object.seller_person_is?, class: 'form-control radiobuttons'
-      .pull-left.margin-sm-top
-        .heading_blue
-          span Entity
-          span.margin-md-left = f.radio_button :seller_person_is, false, checked: !f.object.seller_person_is?, class: 'form-control radiobuttons'
-
+      .heading_blue.radio-inline
+        span = f.radio_button :seller_person_is, true, checked: f.object.seller_person_is?, class: 'form-control flat-icheck radiobuttons'
+        span.margin-md-left Individual
+      .heading_blue.radio-inline
+        span.margin-md-left = f.radio_button :seller_person_is, false, checked: !f.object.seller_person_is?, class: 'form-control flat-icheck radiobuttons'
+        span.margin-md-left Entity
     .clearfix
     .form-group
       = hidden_field_tag :seller_info, @transaction.try(:seller_info)
@@ -49,32 +46,29 @@
         .clearfix.margin-sm-top
         = link_to f.object.relinquishing_seller_entity.name, entity_path(f.object.relinquishing_seller_entity.key), target: '_blank'
 
-    .clearfix.margin-sm-top
-      h2.heading_without_padding_large
-        = "Relinquishing Purchaser".html_safe
-    .form-group
-      .pull-left.margin-sm-top
-        .heading_blue
-          span Individual
-          span.margin-md-left = f.radio_button :purchaser_person_is, true, checked: f.object.purchaser_person_is?, class: 'form-control radiobuttons'
+    / .clearfix.margin-sm-top
+    /   h2.heading_without_padding_large
+    /     = "Relinquishing Purchaser".html_safe
+    / .form-group
+    /   .heading_blue.radio-inline
+    /     span = f.radio_button :purchaser_person_is, true, checked: f.object.purchaser_person_is?, class: 'form-control flat-icheck radiobuttons'
+    /     span.margin-md-left Individual
+    /   .heading_blue.radio-inline
+    /     span = f.radio_button :purchaser_person_is, false, checked: !f.object.purchaser_person_is?, class: 'form-control flat-icheck radiobuttons'
+    /     span.margin-md-left Entity
+    
+    / .clearfix
+    / .form-group.purchase-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.purchaser_person_is?)}")
+    /   = f.select :relqn_purchaser_contact_id, options_for_select(Contact.TransactionContacts("company"), f.object.relinquishing_purchaser_contact_id), {include_blank: true}, class: 'selectize-single'
+    /   - if f.object.persisted? && f.object.relinquishing_purchaser_contact.present?
+    /     .clearfix.margin-sm-top
+    /     = link_to f.object.relinquishing_purchaser_contact.name, contact_path(f.object.relinquishing_purchaser_contact.id), target: '_blank'
 
-      .pull-left.margin-sm-top
-        .heading_blue
-          span Entity
-          span = f.radio_button :purchaser_person_is, false, checked: !f.object.purchaser_person_is?, class: 'form-control radiobuttons'
-
-    .clearfix
-    .form-group.purchase-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.purchaser_person_is?)}")
-      = f.select :relqn_purchaser_contact_id, options_for_select(Contact.TransactionContacts("company"), f.object.relinquishing_purchaser_contact_id), {include_blank: true}, class: 'selectize-single'
-      - if f.object.persisted? && f.object.relinquishing_purchaser_contact.present?
-        .clearfix.margin-sm-top
-        = link_to f.object.relinquishing_purchaser_contact.name, contact_path(f.object.relinquishing_purchaser_contact.id), target: '_blank'
-
-    .form-group.purchase-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.purchaser_person_is?)}")
-      = f.select :relinquishing_purchaser_contact_id, options_for_select(Contact.TransactionContacts, f.object.relinquishing_purchaser_contact_id), {include_blank: true}, class: 'selectize-single'
-      - if f.object.persisted? && f.object.relinquishing_purchaser_contact.present?
-        .clearfix.margin-sm-top
-        = link_to f.object.relinquishing_purchaser_contact.name, contact_path(f.object.relinquishing_purchaser_contact.id), target: '_blank'
+    / .form-group.purchase-tr-pr-detail.margin-lg-top style=("#{('display: none;' unless f.object.purchaser_person_is?)}")
+    /   = f.select :relinquishing_purchaser_contact_id, options_for_select(Contact.TransactionContacts, f.object.relinquishing_purchaser_contact_id), {include_blank: true}, class: 'selectize-single'
+    /   - if f.object.persisted? && f.object.relinquishing_purchaser_contact.present?
+    /     .clearfix.margin-sm-top
+    /     = link_to f.object.relinquishing_purchaser_contact.name, contact_path(f.object.relinquishing_purchaser_contact.id), target: '_blank'
 
     .clearfix.margin-lg-top
     .form-group

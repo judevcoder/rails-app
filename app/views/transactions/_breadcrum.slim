@@ -1,34 +1,44 @@
-.margin-md-left
-  .pull-left
-    h4
-      = link_to 'Transactions ', transactions_path
+.row
+  .page-title
+    .title_left
+      .pull-left
+        h4
+          = link_to 'Transactions ', transactions_path
 
-  - if defined?(@transaction) && @transaction.present? && @transaction.Sale? && params[:type] != 'status'
-    .pull-left
-      h4
-        | &nbsp;&nbsp;/&nbsp;&nbsp;
+      - if defined?(@transaction) && @transaction.present? && @transaction.Sale? && params[:type] != 'status'
+        .pull-left
+          h4
+            | &nbsp;&nbsp;/&nbsp;&nbsp;
 
-    .pull-left
-      h4 = link_to ' Sale', (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#')
+        .pull-left
+          h4 = link_to ' Sale', (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#')
 
-  - if defined?(@transaction) && @transaction.present? && @transaction.Purchase? && params[:type] != 'status'
-    .pull-left
-      h4
-        | &nbsp;&nbsp;/&nbsp;&nbsp;
-    .pull-left
-      h4 = link_to ' Purchase', (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#')
+      - if defined?(@transaction) && @transaction.present? && @transaction.Purchase? && params[:type] != 'status'
+        .pull-left
+          h4
+            | &nbsp;&nbsp;/&nbsp;&nbsp;
+        .pull-left
+          h4 = link_to ' Purchase', (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#')
 
-  - if defined?(@transaction) && @transaction.present? && params[:type] != 'status'
-    .pull-left
-      h4
-        | &nbsp;&nbsp;/&nbsp;&nbsp;
-    .pull-left
-      h4 = link_to " #{(params[:sub].present? ? params[:sub] : 'Parties').capitalize}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
+      - if defined?(@transaction) && @transaction.present? && params[:type] != 'status'
+        .pull-left
+          h4
+            | &nbsp;&nbsp;/&nbsp;&nbsp;
+        .pull-left
+          h4 = link_to " #{(params[:sub].present? ? params[:sub] : params[:type] == 'sale' ? 'Parties' : 'Properties' ).capitalize}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
 
-  - if params[:type] == 'status'
-    .pull-left
-      h4
-        | &nbsp;&nbsp;/&nbsp;&nbsp;
-    .pull-left
-      h4
-        = link_to 'Status', defined?(@transaction_main) && @transaction_main.persisted? ? get_status_transaction_path(@transaction_main, type: 'status', main_id: @transaction_main) : '#', class: ""
+      - if params[:type] == 'status'
+        .pull-left
+          h4
+            | &nbsp;&nbsp;/&nbsp;&nbsp;
+        .pull-left
+          h4
+            = link_to 'Status', defined?(@transaction_main) && @transaction_main.persisted? ? get_status_transaction_path(@transaction_main, type: 'status', main_id: @transaction_main) : '#', class: ""
+            
+    .title_right.note-list
+      .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
+        a[href="javascript:;"]
+          i.fa.fa-circle.text-danger
+          span
+            | &nbsp;&nbsp;&nbsp;Notes&nbsp;&nbsp;&nbsp;
+          span.fa.fa-pencil-square-o.fa-2x
