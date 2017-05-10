@@ -127,7 +127,8 @@ class TransactionsController < ApplicationController
         @transaction.save! if flag
         @transaction.update!(transaction_property_params)
       end
-      return redirect_to personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id])
+      #return redirect_to personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id])
+      return redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id) 
     rescue Exception => e  
      render action: :properties_edit
     end
@@ -167,8 +168,15 @@ class TransactionsController < ApplicationController
     @transaction.assign_attributes(transaction_params)
     @ct = nil
     @ct = fix_transaction
-    if @transaction.save && (@ct.save if !@ct.nil?) #update(transaction_params)
-      redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id) 
+    cflag = true
+    p "wwwwwwwwwwwww"
+    p @ct
+    if !@ct.nil?
+      cflag = @ct.save
+    end  
+    if @transaction.save && cflag #update(transaction_params)
+      #redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id) 
+      redirect_to properties_edit_transaction_path(@transaction, sub: 'property', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id, status_alert: (CGI.escape(params[:status_alert]) rescue nil))
     else
       render action: :edit
     end
