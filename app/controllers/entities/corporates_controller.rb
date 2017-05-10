@@ -163,19 +163,21 @@ class Entities::CorporatesController < ApplicationController
       @stockholder.use_temp_id
       @stockholder.super_entity_id = @entity.id
       @stockholder.class_name      = "StockHolder"
-      if @stockholder.save
+      if (@stockholder.entity.present? || @stockholder.contact.present?) && @stockholder.save
         @stockholders = @entity.stockholders
         return render layout: false, template: "entities/corporates/stockholders"
       else
+        @stockholder.errors.add(:stockholder, "problem creating. Check data and try again.")
         return render layout: false, template: "entities/corporates/stockholder"
       end
     elsif request.patch?
       @stockholder.assign_attributes(stockholder_params)
       @stockholder.use_temp_id
-      if @stockholder.save
+      if (@stockholder.entity.present? || @stockholder.contact.present?) && @stockholder.save
         @stockholders = @entity.stockholders
         return render layout: false, template: "entities/corporates/stockholders"
       else
+        @stockholder.errors.add(:stockholder, "problem updating. Check data and try again.")
         return render layout: false, template: "entities/corporates/stockholder"
       end
     elsif request.delete?
