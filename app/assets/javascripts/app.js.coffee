@@ -1,6 +1,21 @@
+lastChecked = null
+
 $ ->
-  $(document).on 'click', 'input#object_select', ->
+  $(document).on 'click', 'input#object_select', (e)->
+    object_select_checkboxes = $('input#object_select')
+    if !lastChecked
+      lastChecked = this
+      
+    if e.shiftKey
+      start = object_select_checkboxes.index(this)
+      end = object_select_checkboxes.index(lastChecked)
+      if start >= end
+        object_select_checkboxes.slice(end, start + 1).prop 'checked', true
+      else
+        object_select_checkboxes.slice(start, end + 1).prop 'checked', false
+    lastChecked = this
     checkbox_recheck()
+    
 
   checkbox_recheck = ->
     data = ''
