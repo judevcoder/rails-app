@@ -21,7 +21,10 @@ table#data_table
     - @tenants_in_common.each do |object|
       tr
         td
-          = object.try(:name)
+          - if object.entity.present?
+            = link_to object.try(:name), edit_entity_path(object.entity.key)
+          - elsif object.contact.present?
+            = link_to object.try(:name), edit_contact_path(object.contact)          
         td
           = MemberType.member_types[object.member_type_id]
         td
