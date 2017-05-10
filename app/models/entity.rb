@@ -119,7 +119,31 @@ class Entity < ApplicationRecord
     PeopleAndFirm.where(entity_id: self.id).each do |paf|
       unless paf.super_entity_id.nil?
         super_entity = Entity.find(paf.super_entity_id)
-        result[0][:nodes].push({text: "#{super_entity.display_name} (#{paf.class_name})"})
+        result2 = {text: "#{super_entity.display_name} (#{paf.class_name})", nodes:[]}
+        unless ([7, 8, 9].include? super_entity.type_)
+          PeopleAndFirm.where(entity_id: super_entity.id).each do |paf2|
+            unless paf2.super_entity_id.nil?
+              super_entity2 = Entity.find(paf2.super_entity_id)
+              result3 = {text: "#{super_entity2.display_name} (#{paf2.class_name})", nodes: []}
+
+              unless ([7, 8, 9].include? super_entity2.type_)
+                PeopleAndFirm.where(entity_id: super_entity.id).each do |paf3|
+                  unless paf3.super_entity_id.nil?
+                    super_entity3 = Entity.find(paf3.super_entity_id)
+                    result3[:nodes].push(result3)
+                  end
+                end
+              else
+                result3[:nodes].push({text: "#{super_entity2.property.name} (Property)"}) unless super_entity2.property.nil?
+              end
+
+              result2[:nodes].push(result3)
+            end
+          end
+        else
+          result2[:nodes].push({text: "#{super_entity.property.name} (Property)"}) unless super_entity.property.nil?
+        end
+        result[0][:nodes].push(result2)
       end
     end
 
