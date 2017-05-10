@@ -14,16 +14,19 @@ table#data_table
       th
         | Email
       th
-        | Undividend Interest
+        | Undivided Interest
       th
         | Actions
   tbody
     - @joint_tenants.each do |object|
       tr
         td
-          = object.try(:name)
+          - if object.entity.present?
+            = link_to object.try(:name), edit_entity_path(object.entity.key)
+          - elsif object.contact.present?
+            = link_to object.try(:name), edit_contact_path(object.contact)     
         td
-          = object.member_type.try(:name)
+          = MemberType.member_types[object.member_type_id]
         td
           = object.ein_or_ssn
         td
@@ -31,5 +34,5 @@ table#data_table
         td
           = object.my_percentage
         td.actions
-          = link_to 'E', entities_joint_tenancy_joint_tenant_path( @entity.key, object.id ), remote: true, class: "#{edit_xs} entity-page-xhr"
-          = link_to 'D', entities_joint_tenancy_joint_tenant_path( object.id ), data: {:confirm => 'Are you sure?'}, :method => :delete, remote: true, class: "#{delete_xs} entity-page-xhr"
+          = link_to 'Edit', entities_joint_tenancy_joint_tenant_path( @entity.key, object.id ), remote: true, class: "#{edit_xs} entity-page-xhr"
+          = link_to 'Delete', entities_joint_tenancy_joint_tenant_path( object.id ), data: {:confirm => 'Are you sure?'}, :method => :delete, remote: true, class: "#{delete_xs} entity-page-xhr"

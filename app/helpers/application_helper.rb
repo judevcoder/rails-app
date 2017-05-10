@@ -177,44 +177,31 @@ module ApplicationHelper
   def owned_by(entity)
     case entity.entity_type.try(:name)
       when "LLC"
-        entity.members.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.members.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "LLP"
-        entity.limited_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.limited_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "Sole Proprietorship"
         [[entity.full_name, '#']]
       when "Power of Attorney"
-        entity.agents.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.agents.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "Guardianship"
         [[entity.full_name, '#']]
       when "Trust"
-        entity.beneficiaries.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.trustees.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.beneficiaries.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] } + 
+          entity.trustees.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "Joint Tenancy with Rights of Survivorship (JTWROS)"
-        o = entity.property.owner
-        if !o.nil? and o.is_a?(Entity)
-          [[o.name, edit_entity_path(o.key)]]
-        elsif !o.nil? and o.is_a?(Contact)
-          [[o.name, edit_contact_path(o)]]
-        end
+        entity.joint_tenants.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }        
       when "Limited Partnership"
-        entity.general_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] } + entity.limited_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.general_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] } + 
+          entity.limited_partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "Tenancy in Common"
-        o = entity.property.owner
-        if !o.nil? and o.is_a?(Entity)
-          [[o.name, edit_entity_path(o.key)]]
-        elsif !o.nil? and o.is_a?(Contact)
-          [[o.name, edit_contact_path(o)]]
-        end
+        entity.tenants_in_common.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }        
       when "Corporation"
-        entity.stockholders.map { |m| ["#{m.name} - #{m.percentage_of_ownership}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.stockholders.map { |m| ["#{m.name} - #{m.percentage_of_ownership}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "Partnership"
-        entity.partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : "#"] }
+        entity.partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "Tenancy by the Entirety"
-        o = entity.property.owner
-        if !o.nil? and o.is_a?(Entity)
-          [[o.name, edit_entity_path(o.key)]]
-        elsif !o.nil? and o.is_a?(Contact)
-          [[o.name, edit_contact_path(o)]]
-        end
+        entity.spouses.map { |m| ["#{m.name}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }        
       else
         [["", "#"]]
     end
@@ -264,6 +251,21 @@ module ApplicationHelper
     end
 
     if m = Agent.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
+    end
+
+    if m = TenantInCommon.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
+    end
+
+    if m = JointTenant.find_by_entity_id(entity.id)
+      e = m.super_entity
+      result.push ["#{e.name} - #{m.my_percentage}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
+    end
+
+    if m = Spouse.find_by_entity_id(entity.id)
       e = m.super_entity
       result.push ["#{e.name}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
