@@ -130,7 +130,7 @@ class Entity < ApplicationRecord
                 PeopleAndFirm.where(entity_id: super_entity.id).each do |paf3|
                   unless paf3.super_entity_id.nil?
                     super_entity3 = Entity.find(paf3.super_entity_id)
-                    result3[:nodes].push(result3)
+                    result3[:nodes].push({text: "#{super_entity3.display_name} (#{paf3.class_name})"})
                   end
                 end
               else
