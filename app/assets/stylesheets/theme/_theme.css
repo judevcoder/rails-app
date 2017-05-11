@@ -254,7 +254,7 @@ span.fa, span.lnr, i.fa, i.lnr {
     text-shadow: 1px 1px #000
 }
 .menu_section>ul {
-    margin-top: 10px
+    margin: 10px 0 10px 0;
 }
 .profile_pic {
     width: 35%;
@@ -751,7 +751,8 @@ a:focus {
     background: transparent
 }
 .nav.child_menu {
-    display: none
+    display: none;
+    margin: 0;
 }
 .nav.child_menu li:hover,
 .nav.child_menu li.active {
