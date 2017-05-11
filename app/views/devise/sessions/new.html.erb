@@ -1,29 +1,39 @@
+<div class="login-form-one">
+  <h1 class="form-title">Sign in</h2>
+  <h4 class="form-desc">You need to sign in or sign up before coninuing</h4>  
+  <div class="x_panel">
+    <div class="x_content">
+      <% if flash[:alert] %>
+          <div class='text-info'><%= flash[:alert] %></div>
+      <% end %>
+      <% if flash[:notice] %>
+          <div class='text-warning'><%= flash[:notice] %></div>
+      <% end %>
 
-<h1 class="form-title">Sign in</h2>
-<h4 class="form-desc">You need to sign in or sign up before coninuing</h4>
-<div class="x_panel">
-  <div class="x_content">
-    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-      
-      <div class="form-group margin-lg-top">
-        <%= f.label :email, class: "control-lablel" %>
-        <%= f.email_field :email, :autofocus => true, placeholder: "hello@1031fun.com", class: "form-control input-lg login-email" %>
-      </div>
-      <div class="form-group margin-lg-top">
-        <%= f.label :password, class: "control-label pull-left" %>
-        <%= link_to "<span class='blue'>Forgot your password</span>".html_safe, new_password_path(resource_name), class: "pull-right" %>
-        <%= f.password_field :password, placeholder: "", class: "form-control input-lg login-pass" %>
-      </div>
-  
-      <% if devise_mapping.rememberable? -%>
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+        
         <div class="form-group margin-lg-top">
-          <%= f.check_box :remember_me, class: "flat-icheck" %>
-          <%= f.label :remember_me %>
+          <%= f.label :email, class: "control-lablel" %>
+          <%= f.email_field :email, :autofocus => true, placeholder: "hello@1031fun.com", class: "form-control input-lg login-email" %>
         </div>
-      <% end -%>
-      <div class="form-group text-center">
-        <%= f.submit "Sign in", class: "btn btn-default btn-lg blue border-blue signin_btn" %>
-      </div>
-    <% end %>
+        <div class="form-group margin-lg-top">
+          <%= f.label :password, class: "control-label pull-left" %>
+          <%= link_to "<span class='blue'>Forgot your password</span>".html_safe, new_password_path(resource_name), class: "pull-right" %>
+          <%= f.password_field :password, placeholder: "", class: "form-control input-lg login-pass" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class="form-group margin-lg-top">
+            <%= f.check_box :remember_me, class: "flat-icheck" %>
+            <%= f.label :remember_me, style: "display: inline" %>
+          </div>
+        <% end -%>
+        <div class="form-group text-center">
+          <%= f.submit "Sign in", class: "btn btn-default btn-lg blue border-blue signin_btn" %>
+        </div>
+      <% end %>
+    
+    </div>
   </div>
 </div>
+  

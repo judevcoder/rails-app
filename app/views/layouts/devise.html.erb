@@ -18,29 +18,21 @@
           </div>
           <div class="cont_bar"></div>
         </div>
-        <% if flash[:alert] %>
-            <div class='alert-signin'><%= flash[:alert] %></div>
-        <% end %>
-        <% if flash[:notice] %>
-            <div class='alert-signin'><%= flash[:notice] %></div>
-        <% end %>
       </div>
     </div>
-
 
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
 
         <div class='login-main-form'>
-          <div class="login-form-one">
-            <%= yield %>
-            <div class="clearfix margin-lg-top">
-              <div class="pull-right company_name">
-                &copy; 2017 Halper Firm. All Right Reserved.
-              </div>
-              <div class="pull-left">
-                <%= link_to "New?<span>Sign up</span>".html_safe, new_registration_path(resource_name) %>
-              </div>
+          <%= yield %>
+            
+          <div class="clearfix margin-lg-top">
+            <div class="pull-right company_name">
+              &copy; 2017 Halper Firm. All Right Reserved.
+            </div>
+            <div class="pull-left">
+              <%= link_to "New?<span>Sign up</span>".html_safe, new_registration_path(resource_name) %>
             </div>
           </div>
         </div>
