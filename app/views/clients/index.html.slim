@@ -1,9 +1,9 @@
-- style_str = (params[:grp] && !params[:page]) ? "" : "width: 80%;margin-left: 20%;"
+- style_str = (params[:grp] && !params[:page]) ? "" : "width: 80%;"
 - if !params[:grp] || params[:page]
-  div style="width: 15%;pull-left;"
+  div.pull-left style="width: 15%"
     /label Left Sidebar  
     div#entity-groups-tree
-div#entities-list style=style_str
+div#entities-list.pull-right style=style_str
   = hidden_field_tag :current_group_id, @current_grp  
   - if @current_grp == '0'
     = form_tag(clients_index_path, method: :post, remote: true, id: 'addmultiform', style: "display: none;") do
