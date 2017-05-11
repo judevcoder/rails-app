@@ -147,6 +147,13 @@ span.fa, span.lnr, i.fa, i.lnr {
 .calendar-exibit .calendar-table {
     padding: 0 0 4px 0
 }
+
+.background-page{
+    background: url('/assets/bg-login.jpg') no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
 .left_col {
     background: #F7F7F7;
 }
@@ -3488,6 +3495,38 @@ a.hiddenanchor {
     max-width: 350px;
     position: relative
 }
+.auth-wrapper a, .auth-wrapper .company_name{
+    color: white;
+    font-size: 15px;
+}
+
+.login-form-header{
+    text-align: center;
+    margin-top: 50px;
+}
+.login-main-form{
+    max-width: 100%;
+    width: 550px;
+    margin: 50px auto 0px;   
+}
+
+.login-main-form .form-title{
+    color: white;
+    font-size: 35px;
+}
+
+.login-main-form .form-desc{
+    font-size: 18px;
+    color: white;
+}
+.login-main-form .x_panel{
+    padding: 40px 40px;
+}
+
+.login-main-form form{
+    font-size: 16px;
+}
+
 .registration_form,
 .login_form {
     position: absolute;
@@ -3556,9 +3595,8 @@ form:after {
     margin: 0 auto;
     padding: 25px 0 0;
     position: relative;
-    text-align: center;
-    text-shadow: 0 1px 0 #fff;
-    min-width: 280px
+    min-width: 280px;
+    color: white;
 }
 .login_content a,
 .login_content .btn-default:hover {
