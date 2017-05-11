@@ -10,8 +10,9 @@ html
     = render partial: 'shared/modals'
     .container.body
       .main_container
-        .col-md-3.left_col
-          = render partial: 'layouts/left_sidebar'
+        - if @transaction
+          .col-md-3.left_col
+            = render partial: 'layouts/left_sidebar'
         .top_nav
           = render partial: 'layouts/header'
         .right_col[role="main"]
