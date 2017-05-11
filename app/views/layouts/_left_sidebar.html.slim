@@ -4,7 +4,7 @@
       - sale_properties = get_sale_transaction_properties(params[:main_id])
       - if sale_properties.present?
         li
-          a
+          a[href="#" ]
             = image_tag('icons/icon-sale.svg', class: 'icon')
             |  Sale
             span.lnr.lnr-chevron-down
@@ -20,7 +20,7 @@
       - buy_properties = get_buy_transaction_properties(params[:main_id])
       - if buy_properties.present?
         li
-          a
+          a[href="#"]
             = image_tag('icons/icon-purchase.svg', class: 'icon')
             |  Purchase 
             span.lnr.lnr-chevron-down
