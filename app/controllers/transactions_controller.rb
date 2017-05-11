@@ -48,6 +48,7 @@ class TransactionsController < ApplicationController
                        t1.save
                        t1                  
                      else
+                       params[:type] = 'sale'
                        TransactionSale.new(transaction_main_id: @transaction_main.id)
                      end
       
@@ -77,6 +78,7 @@ class TransactionsController < ApplicationController
       @transaction.save
       @transaction.is_purchase = 0
     end
+    params[:main_id] = @transaction_main.id
   end
   
   # GET /project/1/edit
