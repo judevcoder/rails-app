@@ -63,7 +63,8 @@ class TransactionsController < ApplicationController
       @transaction.is_purchase = 1
     elsif params[:type] == 'sale' && params[:main_id].present?
       @transaction_main        = TransactionMain.find_by(id: params[:main_id])
-      t = TransactionPurchase.where(transaction_main_id: @transaction_main.id).first
+      t = TransactionPurchase.where(transaction_main_id: @transaction_main.id).first ||
+        TransactionPurchase.new(transaction_main_id: @transaction_main.id)
       @transaction = TransactionSale.new({
         transaction_main_id: @transaction_main.id,
         relinquishing_seller_entity_id: t.relinquishing_seller_entity_id,

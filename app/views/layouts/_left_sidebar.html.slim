@@ -9,7 +9,7 @@
           a[href="#{ @transaction_main.sale.present? ? edit_transaction_path(@transaction_main.sale, type: 'sale', main_id: @transaction_main) : new_transaction_path(type: 'sale', main_id: @transaction_main) }" ]
             = image_tag('icons/icon-sale.svg', class: 'icon')
             |  Sale
-            span.lnr.lnr-chevron-down
+            /span.lnr.lnr-chevron-down
           
           ul.nav.child_menu
             /li
@@ -25,12 +25,13 @@
           a
             = image_tag('icons/icon-qi.svg', class: 'icon')
             |  QI
+        /- if !@transaction_main.purchase.try(:replacement_purchaser_id).nil? || !@transaction_main.sale.try(:relinquishing_seller_id).nil?
         li
           a[href="#{@transaction_main.purchase.present? ? edit_transaction_path(@transaction_main.purchase, type: 'purchase', main_id: @transaction_main) : new_transaction_path(type: 'purchase', main_id: @transaction_main)}"]
             = image_tag('icons/icon-purchase.svg', class: 'icon')
             |  Purchase 
-            span.lnr.lnr-chevron-down
-          ul.nav.child_menu
+            /span.lnr.lnr-chevron-down
+          /ul.nav.child_menu
             /li
               a[href="#"]
                 | Purchase Property 1
