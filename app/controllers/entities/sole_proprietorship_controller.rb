@@ -1,10 +1,10 @@
 class Entities::SoleProprietorshipController < ApplicationController
-  
+
   before_action :current_page
   before_action :check_xhr_page
   before_action :set_entity, only: [:basic_info]
   before_action :add_breadcrum
-  
+
   def basic_info
     #key = params[:entity_key]
     if request.get?
@@ -29,12 +29,12 @@ class Entities::SoleProprietorshipController < ApplicationController
     elsif request.patch?
       #@entity                 = Entity.find_by(key: key)
       @entity.type_           = MemberType.getSoleProprietorshipId
-      @entity.basic_info_only = true   
+      @entity.basic_info_only = true
       @entity.assign_attributes(entity_params)
       @entity.name = @entity.name2
       if !@entity.name || @entity.name.blank?
         @entity.name = @entity.first_name + ' ' + @entity.last_name
-      end   
+      end
       if @entity.save(entity_params)
         return redirect_to clients_path
       end
@@ -43,7 +43,7 @@ class Entities::SoleProprietorshipController < ApplicationController
     end
     render layout: false if request.xhr?
   end
-  
+
   def contact_info
     @entity = Entity.find_by(key: params[:entity_key])
     raise ActiveRecord::RecordNotFound if @entity.blank?
@@ -61,10 +61,11 @@ class Entities::SoleProprietorshipController < ApplicationController
 
   def owns
     @entity = Entity.find_by(key: params[:entity_key])
+    @ownership = @entity.build_ownership_tree_json
     raise ActiveRecord::RecordNotFound if @entity.blank?
     render layout: false if request.xhr?
   end
-  
+
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def entity_params
@@ -73,11 +74,11 @@ class Entities::SoleProprietorshipController < ApplicationController
                                    :postal_address, :postal_address2, :city, :city2, :state, :state2, :zip, :zip2, :date_of_formation, :m_date_of_formation,
                                    :ein_or_ssn, :s_corp_status, :not_for_profit_status, :legal_ending, :honorific, :is_honorific)
   end
-  
+
   def current_page
     @current_page = "entity"
   end
-  
+
   def check_xhr_page
     unless request.xhr?
       if params[:action] != "basic_info"
@@ -85,20 +86,20 @@ class Entities::SoleProprietorshipController < ApplicationController
       end
     end
   end
-  
+
   def set_entity
     key = params[:entity_key]
     @entity = Entity.find_by(key: key)
   end
-  
+
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">Clients </a></h4></div>".html_safe
     if params[:entity_key] and @entity.present? and !@entity.new_record?
       add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\"#{edit_entity_path(@entity.key)}\">Edit Sole Proprietorship: #{@entity.name}</a><span id='int-action-soleprop'></span></h4></div>").html_safe
     else
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action] == "basic_info" ? "Add" : "" } Sole Proprietorship </a></h4></div>".html_safe
-    end    
-    
+    end
+
     if params[:action] != "basic_info"
       add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/clients\">#{params[:action].titleize}</a></h4></div>".html_safe
     end
