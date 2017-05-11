@@ -1,10 +1,8 @@
-.left_col.scroll-view
-  .navbar.nav_title[style="border: 0;"]
-    = link_to image_tag('logo.png', :width => '100%', :height=> '75px'), '/'
-  .clearfix
-  #sidebar-menu.main_menu_side.hidden-print.main_menu
-    .menu_section
-      ul.nav.side-menu
+#sidebar-menu.main_menu_side.hidden-print.main_menu
+  .menu_section
+    ul.nav.side-menu
+      - sale_properties = get_sale_transaction_properties(params[:main_id])
+      - if sale_properties.present?
         li
           a
             = image_tag('icons/icon-sale.svg', class: 'icon')
@@ -12,40 +10,30 @@
             span.lnr.lnr-chevron-down
           
           ul.nav.child_menu
-            li
-              a[href="#"]
-                | Sale Property 1
-            li
-              a[href="#"]
-                | Sale Property 2
-            li
-              a[href="#"]
-                | Sale Property 3
-        li
-          a
-            = image_tag('icons/icon-qi.svg', class: 'icon')
-            |  QI
+            - sale_properties.each do |property|  
+              li
+                a[href="#"] = property.title
+      li
+        a
+          = image_tag('icons/icon-qi.svg', class: 'icon')
+          |  QI
+      - buy_properties = get_buy_transaction_properties(params[:main_id])
+      - if buy_properties.present?
         li
           a
             = image_tag('icons/icon-purchase.svg', class: 'icon')
             |  Purchase 
             span.lnr.lnr-chevron-down
           ul.nav.child_menu
-            li
-              a[href="#"]
-                | Purchase Property 1
-            li
-              a[href="#"]
-                | Purchase Property 2
-            li
-              a[href="#"]
-                | Purcahse Property 3
-        li
-          a[href="#"]
-            = image_tag('icons/icon-personnel.svg', class: 'icon')
-            |  Personnel
-        li
-          a[href="#"]
-            = image_tag('icons/icon-documents.svg', class: 'icon')
-            |  Documents
+            - buy_properties.each do |property|
+              li
+                a[href="#"] = property.title
+      li
+        a[href="#"]
+          = image_tag('icons/icon-personnel.svg', class: 'icon')
+          |  Personnel
+      li
+        a[href="#"]
+          = image_tag('icons/icon-documents.svg', class: 'icon')
+          |  Documents
             

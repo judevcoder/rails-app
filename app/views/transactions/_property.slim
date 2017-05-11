@@ -13,7 +13,7 @@
   .col-lg-4.col-md-4.col-sm-12.col-xs-12
     = f.fields_for :transaction_properties do |transaction_property_form|
       .form-group
-        label Property
+        label Property 
         - if @transaction.prop_owner == 0
           = transaction_property_form.select :property_id, options_for_select(Property.where('ownership_status = ? and title is not null', @transaction.prop_status).pluck(:title, :id), transaction_property_form.object.property_id), {}, class: 'form-control selectize-single'
         - else 
