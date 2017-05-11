@@ -32,7 +32,8 @@ class TransactionsController < ApplicationController
       @transaction_main = TransactionMain.find_by(id: params[:main_id]) || TransactionMain.create(user_id: current_user.id, init: true)
       
       @transaction = if params[:type] == 'purchase'
-                       t = TransactionSale.where(transaction_main_id: @transaction_main.id).first
+                       t = TransactionSale.where(transaction_main_id: @transaction_main.id).first ||
+                        TransactionSale.new(transaction_main_id: @transaction_main.id)
                        t1 = TransactionPurchase.new({
                          transaction_main_id: @transaction_main.id,
                          relinquishing_seller_entity_id: t.relinquishing_seller_entity_id,
