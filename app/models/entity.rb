@@ -116,19 +116,19 @@ class Entity < ApplicationRecord
   def build_ownership_tree_json
     result = [{text: self.display_name, nodes:[]}]
 
-    PeopleAndFirm.where(entity_id: self.id).each do |paf|
-      unless paf.super_entity_id.nil?
+    PeopleAndFirm.where.not(class_name: ["Settlor"]).where(entity_id: self.id).each do |paf|
+      unless paf.super_entity_id.nil? || !Entity.exists?(id: paf.super_entity_id)
         super_entity = Entity.find(paf.super_entity_id)
         result2 = {text: "#{super_entity.display_name} (#{paf.class_name})", nodes:[]}
         unless ([7, 8, 9].include? super_entity.type_)
-          PeopleAndFirm.where(entity_id: super_entity.id).each do |paf2|
-            unless paf2.super_entity_id.nil?
+          PeopleAndFirm.where.not(class_name: ["Settlor"]).where(entity_id: super_entity.id).each do |paf2|
+            unless paf2.super_entity_id.nil? || !Entity.exists?(id: paf2.super_entity_id)
               super_entity2 = Entity.find(paf2.super_entity_id)
               result3 = {text: "#{super_entity2.display_name} (#{paf2.class_name})", nodes: []}
 
               unless ([7, 8, 9].include? super_entity2.type_)
-                PeopleAndFirm.where(entity_id: super_entity.id).each do |paf3|
-                  unless paf3.super_entity_id.nil?
+                PeopleAndFirm.where.not(class_name: ["Settlor"]).where(entity_id: super_entity.id).each do |paf3|
+                  unless paf3.super_entity_id.nil? || !Entity.exists?(id: paf3.super_entity_id)
                     super_entity3 = Entity.find(paf3.super_entity_id)
                     result3[:nodes].push({text: "#{super_entity3.display_name} (#{paf3.class_name})"})
                   end
@@ -137,11 +137,18 @@ class Entity < ApplicationRecord
                 result3[:nodes].push({text: "#{super_entity2.property.name} (Property)"}) unless super_entity2.property.nil?
               end
 
-              result2[:nodes].push(result3)
+              if result3[:nodes] == []
+                result3.reject! {|key| key == :nodes}
+              end
+              result3[:nodes].push(result3)
             end
           end
         else
           result2[:nodes].push({text: "#{super_entity.property.name} (Property)"}) unless super_entity.property.nil?
+        end
+
+        if result2[:nodes] == []
+          result2.reject! {|key| key == :nodes}
         end
         result[0][:nodes].push(result2)
       end
@@ -151,6 +158,9 @@ class Entity < ApplicationRecord
       result[0][:nodes].push({text: "#{p.name} (Property)"})
     end
 
+    if result[0][:nodes] == []
+      result[0].reject! {|key| key == :nodes}
+    end
     result.to_json
   end
 
@@ -163,7 +173,7 @@ class Entity < ApplicationRecord
 
   def self.TransactionEntityWithType(etype="entity")
     if etype == "individual"
-      # exclude all non individual member types 
+      # exclude all non individual member types
       a = Entity.where.not(name: [nil, ''], type_: ([3] + (5..100).to_a)).pluck(:name, :id, :type_)
       # include sole props which have no business name
       b = Entity.where("(name2 is null or name2 = '') and type_ = ?", 2).pluck(:name, :id, :type_)

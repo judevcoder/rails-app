@@ -178,6 +178,7 @@ class Entities::GuardianshipController < ApplicationController
 
   def owns
     @entity = Entity.find_by(key: params[:entity_key])
+    @ownership = @entity.build_ownership_tree_json
     raise ActiveRecord::RecordNotFound if @entity.blank?
     render layout: false if request.xhr?
   end

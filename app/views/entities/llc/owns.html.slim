@@ -3,13 +3,15 @@
 .heading
   = "List of #{@entity.name}'s Ownerships"
 .clearfix
+div#owner-treeview data-key=@entity.key
+.clearfix
 table#data_table
   thead
     tr
       th
         | Name
       th
-        | Type      
+        | Type
   tbody
     - owns(@entity).each do |item|
       tr
@@ -20,3 +22,12 @@ table#data_table
 
 .clearfix
 div.owns_tree
+
+javascript:
+  var options = {
+    bootstrap2: false,
+    showTags: true,
+    data: #{@ownership.html_safe}
+  };
+
+  $('#owner-treeview').treeview(options);

@@ -34,8 +34,8 @@ class Entities::PowerOfAttorneyController < ApplicationController
         @principal.class_name      = "Principal"
         if @principal.save
           @entity.first_name = @principal.entity.first_name || @principal.entity.name
-          @entity.name = "POA for #{@principal.entity.name}"             
-          @entity.last_name = @principal.entity.last_name          
+          @entity.name = "POA for #{@principal.entity.name}"
+          @entity.last_name = @principal.entity.last_name
           @entity.save
           @principal.gen_temp_id
           AccessResource.add_access({user: current_user, resource: Entity.find(@entity.id)})
@@ -172,6 +172,7 @@ class Entities::PowerOfAttorneyController < ApplicationController
 
   def owns
     @entity = Entity.find_by(key: params[:entity_key])
+    @ownership = @entity.build_ownership_tree_json
     raise ActiveRecord::RecordNotFound if @entity.blank?
     render layout: false if request.xhr?
   end
