@@ -70,6 +70,16 @@ $ ->
       input_object.attr('name', null)
 
   
+  flat_icheckbox = ->
+    $(document).find('input.flat-icheck').iCheck
+      checkboxClass: 'icheckbox_flat-blue'
+      radioClass: 'iradio_flat-blue'
+
+  input_mask_currency = ->
+    $(document).find('input.input-mask-currency').inputmask
+      alias: 'currency',
+      rightAlign: false,
+      prefix: ''
   
   selectize_single = ->
     $(document).find('select.selectize-single').selectize
@@ -108,10 +118,33 @@ $ ->
   selectize_single()
   selectize_single_contact()
 
+  # iCheck checkbox
+  flat_icheckbox()
+  #Mask currency for input
+  input_mask_currency()
+
   $(document).ajaxComplete ->
     selectize_single()
     selectize_single_contact()
+  
+  #Select file in Google Drive
+  $().gdrive 'init',
+    'devkey': $('#google_api_dev_key').val()
+    'appid': $('#google_api_app_id').val()
+  ### 
+   Difinition: 
+    Select in Google Drive Class name: select_in_gdrive
+  ###
+  init_select_in_google_drive = ->
+    $(document).find('.select_in_gdrive').each (index) ->
+      gdrive_file_id = '#' + $(this).find('input.form-control').attr("id")
+      trigger_id = $(this).find('button.btn-gdrive').attr("id")
+      $(gdrive_file_id).gdrive 'set',
+        'trigger': trigger_id,
+        'header': 'Select a file'
+        'filter': ''
 
+  init_select_in_google_drive()
 
   $('div.owns_tree').jstree
   'plugins': [

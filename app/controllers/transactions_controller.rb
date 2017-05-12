@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy, :edit_qualified_intermediary,
                                          :qualified_intermediary, :properties_edit, :properties_update,
-                                         :terms, :terms_update, :personnel, :personnel_update, :get_status, :set_status]
+                                         :terms, :terms_update, :inspection, :closing, :personnel, :personnel_update, :get_status, :set_status]
   before_action :current_page
   before_action :add_breadcrum, only: [:index]
   # GET /project
@@ -300,6 +300,14 @@ class TransactionsController < ApplicationController
     if @transaction.transaction_term.blank?
       @transaction.build_transaction_term
     end
+  end
+
+  def inspection
+    
+  end
+
+  def closing
+    
   end
   
   def terms_update
