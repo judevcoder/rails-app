@@ -15,6 +15,8 @@
 //= require jquery_ujs
 //= require jstree
 //= notify
+//= require jquery-gdrive/gdrive-client
+//= require jquery-gdrive/jquery-gdrive
 //= require_tree .
 //= require moment
 //= require bootstrap-datetimepicker
