@@ -173,8 +173,6 @@ class TransactionsController < ApplicationController
     @ct = nil
     @ct = fix_transaction
     cflag = true
-    p "wwwwwwwwwwwww"
-    p @ct
     if !@ct.nil?
       cflag = @ct.save
     end  

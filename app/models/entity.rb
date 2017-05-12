@@ -195,9 +195,30 @@ class Entity < ApplicationRecord
     }
   end
 
-  def self.PurchasedPropertyEntityWithType
+  def self.PurchasedPropertyEntityWithType(etype="entity")
+    # MemberType.InitMemberTypes if MemberType.member_types.nil?
+    # Entity.where.not(name: [nil, ''], type_: [7,8,9]).pluck(:name, :id, :type_).map! {
+    #     |item| [item[0], item[1], item[2], "#{MemberType.member_types[item[2]]}"]
+    # }
+    if etype == "individual"
+      # exclude all non individual member types
+      a = Entity.where.not(name: [nil, ''], type_: ([3] + (5..100).to_a)).pluck(:name, :id, :type_)
+      # include sole props which have no business name
+      b = Entity.where("(name2 is null or name2 = '') and type_ = ?", 2).pluck(:name, :id, :type_)
+      # include poa for individuals
+      poa = Principal.where("entity_id is not null and is_person = ?", true).pluck(:super_entity_id)
+      c = Entity.where(id: poa).pluck(:name, :id, :type_)
+    else
+      # exclude all individual member types and concurrent estates
+      a = Entity.where.not(name: [nil, ''], type_: [1,2,3,4,7,8,9]).pluck(:name, :id, :type_)
+      # include sole props with business names
+      b = Entity.where("name2 is not null and name2 <> '' and type_ = ?", 2).pluck(:name, :id, :type_)
+      # include poa for entities
+      poa = Principal.where("entity_id is not null and is_person = ?", false).pluck(:super_entity_id)
+      c = Entity.where(id: poa).pluck(:name, :id, :type_)
+    end
     MemberType.InitMemberTypes if MemberType.member_types.nil?
-    Entity.where.not(name: [nil, ''], type_: [7,8,9]).pluck(:name, :id, :type_).map! {
+    return (a+b+c).uniq.map! {
         |item| [item[0], item[1], item[2], "#{MemberType.member_types[item[2]]}"]
     }
   end
