@@ -2,6 +2,8 @@ class TransactionMain < ApplicationRecord
   
   has_one :sale, class_name: 'TransactionSale', dependent: :destroy
   has_one :purchase, class_name: 'TransactionPurchase', dependent: :destroy
+
+  has_many :transaction_properties, dependent: :destroy
   
   attr_accessor :sale_status, :purchase_status
   
