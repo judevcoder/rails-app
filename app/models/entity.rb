@@ -116,25 +116,25 @@ class Entity < ApplicationRecord
   def build_ownership_tree_json
     result = [{text: self.display_name, nodes:[]}]
 
-    PeopleAndFirm.where.not(class_name: ["Settlor"]).where(entity_id: self.id).each do |paf|
+    PeopleAndFirm.where.not(class_name: ["Settlor", "Director", "Officer", "Agent", "Judge", "Guardian", "Manager", "Spouse"]).where(entity_id: self.id).each do |paf|
       unless paf.super_entity_id.nil? || !Entity.exists?(id: paf.super_entity_id)
         super_entity = Entity.find(paf.super_entity_id)
-        result2 = {text: "#{super_entity.display_name} (#{paf.class_name})", nodes:[]}
+        result2 = {text: "#{super_entity.display_name} - #{percentage(paf)} (#{paf_name(super_entity, paf)})", nodes:[]}
         unless ([7, 8, 9].include? super_entity.type_)
-          PeopleAndFirm.where.not(class_name: ["Settlor"]).where(entity_id: super_entity.id).each do |paf2|
+          PeopleAndFirm.where.not(class_name: ["Settlor", "Director", "Officer", "Agent", "Judge", "Guardian", "Manager", "Spouse"]).where(entity_id: super_entity.id).each do |paf2|
             unless paf2.super_entity_id.nil? || !Entity.exists?(id: paf2.super_entity_id)
               super_entity2 = Entity.find(paf2.super_entity_id)
-              result3 = {text: "#{super_entity2.display_name} (#{paf2.class_name})", nodes: []}
+              result3 = {text: "#{super_entity2.display_name} - #{percentage(paf2)} (#{paf_name(super_entity2, paf2)})", nodes: []}
 
               unless ([7, 8, 9].include? super_entity2.type_)
-                PeopleAndFirm.where.not(class_name: ["Settlor"]).where(entity_id: super_entity.id).each do |paf3|
+                PeopleAndFirm.where.not(class_name: ["Settlor", "Director", "Officer", "Agent", "Judge", "Guardian", "Manager", "Spouse"]).where(entity_id: super_entity.id).each do |paf3|
                   unless paf3.super_entity_id.nil? || !Entity.exists?(id: paf3.super_entity_id)
                     super_entity3 = Entity.find(paf3.super_entity_id)
-                    result3[:nodes].push({text: "#{super_entity3.display_name} (#{paf3.class_name})"})
+                    result3[:nodes].push({text: "#{super_entity3.display_name} - #{percentage(paf3)} (#{paf_name(super_entity3, paf3)})"})
                   end
                 end
               else
-                result3[:nodes].push({text: "#{super_entity2.property.name} (Property)"}) unless super_entity2.property.nil?
+                result3[:nodes].push({text: "#{super_entity2.property.name} (#{super_entity2.property.ownership_status} Property)"}) unless super_entity2.property.nil?
               end
 
               if result3[:nodes] == []
@@ -144,7 +144,7 @@ class Entity < ApplicationRecord
             end
           end
         else
-          result2[:nodes].push({text: "#{super_entity.property.name} (Property)"}) unless super_entity.property.nil?
+          result2[:nodes].push({text: "#{super_entity.property.name} (#{super_entity.property.ownership_status} Property)"}) unless super_entity.property.nil?
         end
 
         if result2[:nodes] == []
@@ -155,7 +155,7 @@ class Entity < ApplicationRecord
     end
 
     Property.where(owner_entity_id: self.id).each do |p|
-      result[0][:nodes].push({text: "#{p.name} (Property)"})
+      result[0][:nodes].push({text: "#{p.name} (#{p.ownership_status} Property)"})
     end
 
     if result[0][:nodes] == []
@@ -213,6 +213,41 @@ class Entity < ApplicationRecord
    end
 
   private
+
+  def percentage paf
+    if paf.class_name == "StockHolder"
+      StockHolder.find(paf.id).percentage_of_ownership
+    else
+      paf.my_percentage
+    end
+  end
+
+  def paf_name entity, paf
+    if paf.class_name == "StockHolder"
+      "Corporate Stockholder"
+    elsif paf.class_name == "Member"
+      "LLC Member"
+    elsif paf.class_name == "GeneralPartner"
+      "LP General Partner"
+    elsif paf.class_name == "LimitedPartner"
+      "LP Limited Partner"
+    elsif paf.class_name == "Partner"
+      if entity.type_ == 12
+        "Limited Liability Partner"
+      else
+        "Partner"
+      end
+    elsif paf.class_name == "Beneficiary"
+      "Trust Beneficiary"
+    elsif paf.class_name == "Ward"
+      "Ward of Guardianship"
+    # elsif paf.class_name == "TenantInCommon"
+    #   "Tenant In Common"
+    else
+      MemberType.member_types[entity.type_]
+    end
+  end
+
   def ein_or_ssn_length_Corporation
     if self.Corporation?
       if self.ein_or_ssn.present?
