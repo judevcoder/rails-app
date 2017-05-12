@@ -397,6 +397,9 @@ module ApplicationHelper
     sel_flag = true
     sel_str = ""
 
+    poa_str = " (Principal Entity) "
+    poa_str = " (Principal Individual) " if is_person == "true"
+
     if is_person == "true"
       result = "<option>Select One...</option>"
 
@@ -447,6 +450,7 @@ module ApplicationHelper
 
       person_true_entities.each do |entity|
         key = "#{MemberType.member_types[entity.type_]}"
+        key = key + poa_str if !key.match("ttorney").nil?
         if groups[key].nil?
           groups[key] = [entity]
         else
@@ -560,6 +564,7 @@ module ApplicationHelper
 
       person_false_entities.each do |entity|
         key = "#{MemberType.member_types[entity.type_]}"
+        key = key + poa_str if !key.match("ttorney").nil?
         if groups[key].nil?
           groups[key] = [entity]
         else
@@ -624,6 +629,8 @@ module ApplicationHelper
 
   def options_html_entities(sel_id, type_, sub_type_="entity")
     object_array = []
+    poa_str = " (Principal Individual) "
+    poa_str = " (Principal Entity) " if sub_type_ == "entity"
     if type_ == "transactions"
       object_array = Entity.TransactionEntityWithType(sub_type_)
     elsif type_ == "properties"
@@ -634,6 +641,7 @@ module ApplicationHelper
     # item is an 4 tuple - <name>, <id>, <type_>, <type_name>
     object_array.each do |item|
       key = item[3]
+      key = key + poa_str if !key.match("ttorney").nil?
       groups[key] = [] if groups[key].nil?
       groups[key] << item
     end
