@@ -88,6 +88,16 @@ $ ->
     else
       $('#person_owner').hide()
       $('#entity_owner').show()
+
+  $(document).on 'ifChecked', '#property_owner_person_is_true', ->
+    #alert "is person"
+    $(document).find('div.sale-tr-pr-detail').show()
+    $(document).find('div.sale-tr-et-detail').hide()
+
+  $(document).on 'ifChecked', '#property_owner_person_is_false', ->    
+    #alert "is not a person"
+    $(document).find('div.sale-tr-pr-detail').hide()
+    $(document).find('div.sale-tr-et-detail').show() 
       
   $(document).on "click", "a.ownership-form-new-entity", ->
     if $('#status_poperty')[0].value == "Purchased"

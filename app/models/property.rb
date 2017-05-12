@@ -4,7 +4,7 @@ class Property < ApplicationRecord
 
   serialize :net_nature_of_lease, Array
 
-  attr_accessor :ostatus
+  attr_accessor :ostatus, :owner_entity_id_indv
 
   include MyFunction
   has_many :comments, as: :commentable
@@ -126,18 +126,23 @@ class Property < ApplicationRecord
   end
 
   def owner
-    if owner_person_is
-      if ownership_status == "Purchased"
-        Client.find_by_id(owner_person_id)
-      else
-        Contact.find_by_id(owner_person_id)
-      end
-    else
-      if ownership_status == "Purchased"
-        Entity.find_by_id(owner_entity_id)
-      else
-        Contact.find_by_id(owner_entity_id)
-      end
+    # if owner_person_is
+    #   if ownership_status == "Purchased"
+    #     Client.find_by_id(owner_person_id)
+    #   else
+    #     Contact.find_by_id(owner_person_id)
+    #   end
+    # else
+    #   if ownership_status == "Purchased"
+    #     Entity.find_by_id(owner_entity_id)
+    #   else
+    #     Contact.find_by_id(owner_entity_id)
+    #   end
+    # end
+    if ownership_status == "Purchased"
+      Entity.find_by_id(owner_entity_id)
+    elsif ownership_status == "Prospective Purchase"
+      Contact.find_by_id(owner_entity_id)
     end
   end
 

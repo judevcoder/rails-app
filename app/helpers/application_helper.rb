@@ -634,7 +634,7 @@ module ApplicationHelper
     if type_ == "transactions"
       object_array = Entity.TransactionEntityWithType(sub_type_)
     elsif type_ == "properties"
-      object_array = Entity.PurchasedPropertyEntityWithType
+      object_array = Entity.PurchasedPropertyEntityWithType(sub_type_)
     end
     groups = {}
     object_array.sort_by! {|e| e[2]}

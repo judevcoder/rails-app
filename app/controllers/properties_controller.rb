@@ -42,6 +42,9 @@ class PropertiesController < ApplicationController
   # GET /properties/1/edit
   def edit    
     @property.ostatus = @property.ownership_status
+    if !@property.owner_person_is.nil?
+      @property.owner_entity_id_indv = @property.owner_entity_id if @property.owner_person_is
+    end
     add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + edit_property_path(@property.key) + 
       "\'> Edit " + @property.ownership_status + " Property - " + @property.title + " </a></h4></div>").html_safe
   end
@@ -51,6 +54,9 @@ class PropertiesController < ApplicationController
   def create
     @property         = Property.new(property_params)
     @property.user_id = current_user.id
+    if !@property.owner_person_is.nil?
+      @property.owner_entity_id = @property.owner_entity_id_indv if @property.owner_person_is
+    end
     respond_to do |format|
       if @property.save
         AccessResource.add_access({ user: current_user, resource: @property })
@@ -69,8 +75,12 @@ class PropertiesController < ApplicationController
   # PATCH/PUT /properties/1.json
   def update
     @property = Property.find(params[:id])
+    @property.assign_attributes(property_params)
+    if !@property.owner_person_is.nil?
+      @property.owner_entity_id = @property.owner_entity_id_indv if @property.owner_person_is
+    end
     respond_to do |format|
-      if @property.update(property_params)
+      if @property.save
         format.html { redirect_to edit_property_path(@property.key, type_is: params[:type_is]) }
         format.json { render action: 'show', status: :created, location: @property }
       else
