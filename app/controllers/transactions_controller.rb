@@ -56,6 +56,10 @@ class TransactionsController < ApplicationController
       @transaction.is_purchase = (params[:type] == 'sale' || params[:type].blank?) ? 0 : 1
       @transaction.prop_owner = @transaction.replacement_seller_contact_id || 0
       @transaction.prop_status = "Prospective Purchase"
+      
+      if @transaction.transaction_properties.blank?
+        @transaction.transaction_properties.build
+      end
 
     elsif params[:transaction_type] == '1031 Already Sold'
       @transaction_main        = TransactionMain.create(user_id: current_user.id, init: true, purchase_only: true)
@@ -131,8 +135,14 @@ class TransactionsController < ApplicationController
         @transaction.save! if flag
         @transaction.update!(transaction_property_params)
       end
+      
       #return redirect_to personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id])
-      return redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id) 
+      if @transaction.get_sale_purchase_text == 'sale'
+        return redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id)
+      else
+        return redirect_to terms_transaction_path(@transaction, sub: 'parties', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id)
+      end
+
     rescue Exception => e  
      render action: :properties_edit
     end

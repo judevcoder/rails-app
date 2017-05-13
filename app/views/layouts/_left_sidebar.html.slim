@@ -2,31 +2,44 @@
   .menu_section
     - sale_properties = get_transaction_properties(params[:main_id], 'sale')
     - buy_properties = get_transaction_properties(params[:main_id], 'buy')
+    
     ul.nav.side-menu
       li class=("#{params[:type] == 'sale' ? 'active' : ''}")
-        = link_to params[:type] == 'sale' ? '#' : @transaction_main.sale.present? ? user_session[:sale_back_url] : new_transaction_path(type: 'sale', main_id: @transaction_main), class: "#{'active' if params[:type] == 'sale' || params[:type].blank?}" do
-          = image_tag('icons/icon-sale.svg', class:'icon')
-          | Sale
-          - if sale_properties.present?
-            span.sub-menu-expander.lnr.lnr-chevron-down
+        - if sale_properties.count > 1
+          = link_to '#', class: "#{'active' if params[:type] == 'sale' || params[:type].blank?}" do
+            = image_tag('icons/icon-sale.svg', class:'icon')
+            | Sale
+            - if sale_properties.count > 1
+              span.sub-menu-expander.lnr.lnr-chevron-down
+        - else   
+          = link_to params[:type] == 'sale' ? '#' : @transaction_main.sale.present? ? user_session[:sale_back_url] : new_transaction_path(type: 'sale', main_id: @transaction_main), class: "#{'active' if params[:type] == 'sale' || params[:type].blank?}" do
+            = image_tag('icons/icon-sale.svg', class:'icon')
+            | Sale
+            
         - if sale_properties.present?
-          ul.nav.child_menu[style="display: block"]
+          ul.nav.child_menu[style= "#{params[:type] == 'sale' ? 'display:block' : ''}"]
             - sale_properties.each do |property|  
               li
-                a[href="#"] = property.title
-      
+                = link_to property.title, @transaction_main.sale.present? ? user_session[:sale_back_url] : new_transaction_path(type: 'sale', main_id: @transaction_main)
+                
       li class=("#{params[:type] == 'purchase' ? 'active' : ''}")
-        = link_to params[:type] == 'purchase' ? '#' : @transaction_main.purchase.present? ? user_session[:purchase_back_url] : new_transaction_path(type: 'purchase', main_id: @transaction_main), class: "#{'active' if params[:type] == 'purchase' || (@transaction.try(:purchase_only?) && params[:type] != 'status')}" do
-          = image_tag('icons/icon-purchase.svg', class: 'icon')
-          |  Purchase
-          - if buy_properties.present? 
-            span.sub-menu-expander.lnr.lnr-chevron-down
+        - if buy_properties.count > 1
+          = link_to '#', class: "#{'active' if params[:type] == 'purchase' || (@transaction.try(:purchase_only?) && params[:type] != 'status')}"
+            = image_tag('icons/icon-purchase.svg', class: 'icon')
+            |  Purchase
+            - if buy_properties.count > 1 
+              span.sub-menu-expander.lnr.lnr-chevron-down
+        - else
+          = link_to params[:type] == 'purchase' ? '#' : @transaction_main.purchase.present? ? user_session[:purchase_back_url] : new_transaction_path(type: 'purchase', main_id: @transaction_main), class: "#{'active' if params[:type] == 'purchase' || (@transaction.try(:purchase_only?) && params[:type] != 'status')}" do
+            = image_tag('icons/icon-purchase.svg', class: 'icon')
+            |  Purchase
+        
         - if buy_properties.present?   
-          ul.nav.child_menu
+          ul.nav.child_menu[style= "#{params[:type] == 'purchase' ? 'display:block' : ''}"]
             - buy_properties.each do |property|
               li
-                a[href="#"] = property.title
-
+                = link_to property.title, @transaction_main.purchase.present? ? user_session[:purchase_back_url] : new_transaction_path(type: 'purchase', main_id: @transaction_main), class: "#{'active' if params[:type] == 'purchase' || (@transaction.try(:purchase_only?) && params[:type] != 'status')}"
+      
       li
         a
           = image_tag('icons/icon-qi.svg', class: 'icon')

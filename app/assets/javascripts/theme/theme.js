@@ -61,9 +61,9 @@ function init_sidebar() {
 		$RIGHT_COL.css('min-height', contentHeight);
 	};
 
-  $SIDEBAR_MENU.find('.sub-menu-expander').on('click', function(ev) {
+  $SIDEBAR_MENU.find('a').on('click', function(ev) {
 	  console.log('clicked - sidebar_menu');
-		var $li = $(this).parent().parent();
+		var $li = $(this).parent();
 
 		if ($li.is('.active')) {
 			$li.removeClass('active active-sm');
