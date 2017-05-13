@@ -7,7 +7,7 @@ class TransactionsController < ApplicationController
   # GET /project
   # GET /project.json
 
-  layout 'transaction', only: [:edit, :properties_edit, :terms, :inspection, :closing]
+  layout 'transaction', except: [:index]
 
   def index
     klazz         = (params[:mode] == 'buy') ? 'TransactionPurchase' : 'TransactionSale'
@@ -56,7 +56,7 @@ class TransactionsController < ApplicationController
       @transaction.is_purchase = (params[:type] == 'sale' || params[:type].blank?) ? 0 : 1
       @transaction.prop_owner = @transaction.replacement_seller_contact_id || 0
       @transaction.prop_status = "Prospective Purchase"
-    
+
     elsif params[:transaction_type] == '1031 Already Sold'
       @transaction_main        = TransactionMain.create(user_id: current_user.id, init: true, purchase_only: true)
       @transaction             = TransactionPurchase.new(transaction_main_id: @transaction_main.id)

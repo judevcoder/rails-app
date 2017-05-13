@@ -57,19 +57,19 @@ $ ->
   sale_post_closing = -> 'App enters Purchase Mode'
 
   try
-    if getJsonFromUrl()['status_alert'] == 'Sale+Pre+LOI'
-      seller = $(document).find('input#entity_info').val()
-      sweet_alert_text_success(sale_pre_loi_text(seller))
-    else if getJsonFromUrl()['status_alert'] == 'Sale+LOI+to+PSA'
-      sweet_alert_text_success(sale_loi_to_psa())
-    else if getJsonFromUrl()['status_alert'] == 'Sale+Inspection+Period'
-      sweet_alert_text_success(sale_inspection_period())
-    else if getJsonFromUrl()['status_alert'] == 'Sale+Inspection+Period+to+Closing'
-      sweet_alert_text_success(sale_inspection_period_closing())
-    else if getJsonFromUrl()['status_alert'] == 'Sale+Closing+Date+Set'
-      sweet_alert_text_success(sale_closing_date_set())
-    else if getJsonFromUrl()['status_alert'] == 'Sale+Post+Closing'
-      sweet_alert_text_success(sale_post_closing())
+    # if getJsonFromUrl()['status_alert'] == 'Sale+Pre+LOI'
+    #   seller = $(document).find('input#entity_info').val()
+    #   sweet_alert_text_success(sale_pre_loi_text(seller))
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+LOI+to+PSA'
+    #   sweet_alert_text_success(sale_loi_to_psa())
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+Inspection+Period'
+    #   sweet_alert_text_success(sale_inspection_period())
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+Inspection+Period+to+Closing'
+    #   sweet_alert_text_success(sale_inspection_period_closing())
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+Closing+Date+Set'
+    #   sweet_alert_text_success(sale_closing_date_set())
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+Post+Closing'
+    #   sweet_alert_text_success(sale_post_closing())
 
   catch
 
@@ -114,17 +114,17 @@ $ ->
                                 Tab to Post Closing.'
 
   try
-    if getJsonFromUrl()['status_alert'] == 'Purchase+Pre+LOI'
-      purchaser = $(document).find('input#entity_info').val()
-      sweet_alert_text_success(purchase_pre_loi_text(purchaser))
-    else if getJsonFromUrl()['status_alert'] == 'Purchase+LOI+to+PSA'
-      sweet_alert_text_success(purchase_loi_to_psa())
-    else if getJsonFromUrl()['status_alert'] == 'Purchase+Inspection+Period'
-      sweet_alert_text_success(purchase_inspection_period())
-    else if getJsonFromUrl()['status_alert'] == 'Purchase+Inspection+Period+to+Closing'
-      sweet_alert_text_success(purchase_inspection_period_closing())
-    else if getJsonFromUrl()['status_alert'] == 'Purchase+Closing+Date+Set'
-      sweet_alert_text_success(purchase_closing_date_set())
+    # if getJsonFromUrl()['status_alert'] == 'Purchase+Pre+LOI'
+    #   purchaser = $(document).find('input#entity_info').val()
+    #   sweet_alert_text_success(purchase_pre_loi_text(purchaser))
+    # else if getJsonFromUrl()['status_alert'] == 'Purchase+LOI+to+PSA'
+    #   sweet_alert_text_success(purchase_loi_to_psa())
+    # else if getJsonFromUrl()['status_alert'] == 'Purchase+Inspection+Period'
+    #   sweet_alert_text_success(purchase_inspection_period())
+    # else if getJsonFromUrl()['status_alert'] == 'Purchase+Inspection+Period+to+Closing'
+    #   sweet_alert_text_success(purchase_inspection_period_closing())
+    # else if getJsonFromUrl()['status_alert'] == 'Purchase+Closing+Date+Set'
+    #   sweet_alert_text_success(purchase_closing_date_set())
 
   catch
 
