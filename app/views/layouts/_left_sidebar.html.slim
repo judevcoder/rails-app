@@ -1,39 +1,29 @@
 #sidebar-menu.main_menu_side.hidden-print.main_menu
   .menu_section
+    - sale_properties = get_transaction_properties(params[:main_id], 'sale')
+    - buy_properties = get_transaction_properties(params[:main_id], 'buy')
     ul.nav.side-menu
-      - sale_properties = get_sale_transaction_properties(params[:main_id])
-      - if sale_properties.present?
-        li
-          a[href="#" ]
-            = image_tag('icons/icon-sale.svg', class: 'icon')
-            |  Sale
-            span.lnr.lnr-chevron-down
-          
-          ul.nav.child_menu
+      li class=("#{params[:type] == 'sale' ? 'active' : ''}")
+        = link_to params[:type] == 'sale' ? '#' : @transaction_main.sale.present? ? user_session[:sale_back_url] : new_transaction_path(type: 'sale', main_id: @transaction_main), class: "#{'active' if params[:type] == 'sale' || params[:type].blank?}" do
+          = image_tag('icons/icon-sale.svg', class:'icon')
+          | Sale
+          - if sale_properties.present?
+            span.sub-menu-expander.lnr.lnr-chevron-down
+        - if sale_properties.present?
+          ul.nav.child_menu[style="display: block"]
             - sale_properties.each do |property|  
               li
                 a[href="#"] = property.title
-      li
-        a
-          = image_tag('icons/icon-qi.svg', class: 'icon')
-          |  QI
-      - buy_properties = get_buy_transaction_properties(params[:main_id])
-      - if buy_properties.present?
-        li
-          a[href="#"]
-            = image_tag('icons/icon-purchase.svg', class: 'icon')
-            |  Purchase 
-            span.lnr.lnr-chevron-down
+      
+      li class=("#{params[:type] == 'purchase' ? 'active' : ''}")
+        = link_to params[:type] == 'purchase' ? '#' : @transaction_main.purchase.present? ? user_session[:purchase_back_url] : new_transaction_path(type: 'purchase', main_id: @transaction_main), class: "#{'active' if params[:type] == 'purchase' || (@transaction.try(:purchase_only?) && params[:type] != 'status')}" do
+          = image_tag('icons/icon-purchase.svg', class: 'icon')
+          |  Purchase
+          - if buy_properties.present? 
+            span.sub-menu-expander.lnr.lnr-chevron-down
+        - if buy_properties.present?   
           ul.nav.child_menu
             - buy_properties.each do |property|
               li
                 a[href="#"] = property.title
-      li
-        a[href="#"]
-          = image_tag('icons/icon-personnel.svg', class: 'icon')
-          |  Personnel
-      li
-        a[href="#"]
-          = image_tag('icons/icon-documents.svg', class: 'icon')
-          |  Documents
             

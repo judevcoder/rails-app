@@ -7,7 +7,7 @@ class TransactionsController < ApplicationController
   # GET /project
   # GET /project.json
 
-  layout 'transaction'
+  layout 'transaction', only: [:edit, :properties_edit, :terms, :inspection, :closing]
 
   def index
     klazz         = (params[:mode] == 'buy') ? 'TransactionPurchase' : 'TransactionSale'
@@ -358,6 +358,11 @@ class TransactionsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_transaction
     @transaction_main = TransactionMain.find(params[:main_id])
+    if params[:type] == 'sale'
+      user_session[:sale_back_url] = request.original_url
+    else
+      user_session[:purchase_back_url] = request.original_url
+    end
     for_sale_or_purchase_tab
   end
   
@@ -382,7 +387,7 @@ class TransactionsController < ApplicationController
   end
   
   def transaction_property_params
-    params.require(:transaction).permit(transaction_properties_attributes: [:property_id, :sale_price, :id, :_destroy])
+    params.require(:transaction).permit(transaction_properties_attributes: [:property_id, :sale_price, :id, :is_sale, :transaction_main_id, :_destroy])
   end
   
   def transaction_terms_params
