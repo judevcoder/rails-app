@@ -12,9 +12,8 @@
           li = message
   .col-lg-4.col-md-4.col-sm-12.col-xs-12
     = f.fields_for :transaction_properties do |transaction_property_form|
-    
       = transaction_property_form.hidden_field :transaction_main_id, :value => params[:main_id]
-      = transaction_property_form.hidden_field :is_sale, :value => true
+      = transaction_property_form.hidden_field(:is_sale, :value => params[:type] == 'sale' ? 'true' : 'false')
       .form-group
         label Property 
         - if @transaction.prop_owner == 0
