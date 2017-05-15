@@ -2649,9 +2649,27 @@ ul.bar_tabs>li a {
     margin: 0;
     border-top-right-radius: 0
 }
+ul.bar_tabs>li a span {
+    display: none;
+    vertical-align: baseline;
+    cursor: pointer;
+}
+ul.bar_tabs>li a span {
+    display: none;
+    vertical-align: baseline;
+    cursor: pointer;
+}
+ul.bar_tabs>li a:hover span{
+    display: inline;
+}
 ul.bar_tabs>li a:hover {
     border: 1px solid transparent
 }
+
+ul.bar_tabs>li a:hover span{
+    display: inline;
+}
+
 ul.bar_tabs>li.active a {
     border-bottom: none
 }
@@ -3495,6 +3513,7 @@ a.hiddenanchor {
     max-width: 350px;
     position: relative
 }
+
 .auth-wrapper a, .auth-wrapper .company_name{
     color: white;
     font-size: 15px;
@@ -3595,8 +3614,8 @@ form:after {
     margin: 0 auto;
     padding: 25px 0 0;
     position: relative;
-    min-width: 280px;
     color: white;
+    min-width: 280px
 }
 .login_content a,
 .login_content .btn-default:hover {
@@ -4016,7 +4035,7 @@ fieldset {
     line-height: 40px;
     display: block;
     margin: 0 auto 5px;
-    padding: 10px 10px 10px 35px; 
+    padding: 10px 10px 10px 25px; 
     font-size: 15px;
     color: white;
     background: #1ABB9C;

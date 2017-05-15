@@ -77,6 +77,8 @@ gem 'nested_form'
 gem "paranoia", "~> 2.2"
 gem "selectize-rails"
 
+gem 'figaro'
+
 group :development, :test do
   gem 'rspec-rails'  
 end

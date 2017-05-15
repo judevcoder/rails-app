@@ -25,7 +25,7 @@
           h4
             | &nbsp;&nbsp;/&nbsp;&nbsp;
         .pull-left
-          h4 = link_to " #{(params[:sub].present? ? params[:sub] : params[:type] == 'sale' ? 'Parties' : 'Properties' ).capitalize}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
+          h4 = link_to " #{(params[:sub].present? ? params[:sub] : params[:type] == 'sale' ? 'Please select a Seller' : 'Properties' ).capitalize}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
 
       - if params[:type] == 'status'
         .pull-left

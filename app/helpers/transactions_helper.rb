@@ -1,26 +1,19 @@
 module TransactionsHelper
-    def get_sale_transaction_properties(trans_main_id)
-        @transaction_main = TransactionMain.find(trans_main_id) 
-        @transaction = @transaction_main.sale
-        if @transaction.present? 
-            transaction_property_ids = TransactionProperty.where(transaction_id: @transaction.id).pluck(:property_id) 
-            properties = Property.where(id: transaction_property_ids) 
-        else
-            properties = nil
+    def get_transaction_properties(trans_main_id, property_type = 'sale')
+        if property_type == 'sale'
+            is_sale = true
+        elsif property_type == 'buy'
+            is_sale = false
+            else
+                is_sale = 'undefined'
         end
-
-        return properties
-    end
-
-    def get_buy_transaction_properties(trans_main_id)
-        @transaction_main = TransactionMain.find(trans_main_id) 
-        @transaction = @transaction_main.purchase
-        if @transaction.present?
-            transaction_property_ids = TransactionProperty.where(transaction_id: @transaction.id).pluck(:property_id) 
+        
+        if is_sale != 'undefined'
+            transaction_property_ids = TransactionProperty.where(transaction_main_id: trans_main_id, is_sale: is_sale).pluck(:property_id) 
             properties = Property.where(id: transaction_property_ids)
         else
-            properties = nil
-        end 
+            properties = nil 
+        end
         
         return properties
     end

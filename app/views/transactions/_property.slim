@@ -12,6 +12,8 @@
           li = message
   .col-lg-4.col-md-4.col-sm-12.col-xs-12
     = f.fields_for :transaction_properties do |transaction_property_form|
+      = transaction_property_form.hidden_field :transaction_main_id, :value => params[:main_id]
+      = transaction_property_form.hidden_field(:is_sale, :value => params[:type] == 'sale' ? 'true' : 'false')
       .form-group
         label Property 
         - if @transaction.prop_owner == 0
@@ -22,13 +24,13 @@
         label Sale Price
         .input-group
           .input-group-addon $
-          = transaction_property_form.text_field :sale_price, class: 'form-control'
+          = transaction_property_form.text_field :sale_price, class: 'form-control input-mask-currency'
       .form-group
         = transaction_property_form.link_to_remove 'Delete', class: 'btn btn-sm btn-danger pull-right margin-xs-top'
       .clearfix
-    = f.link_to_add "Add Property", :transaction_properties, class: 'btn btn-sm btn-default margin-lg-top margin-sm-bottom'
-
-  .clearfix.margin-lg-top
-  .form-group
-    = link_to 'Back', '#', class: 'btn btn-primary next-prev margin-sm-right'
-    = f.submit 'Save & Next', class: 'btn btn-sm btn-primary next-prev'
+      
+    .clearfix.margin-lg-top
+    = f.link_to_add "Add Property", :transaction_properties, class: 'btn btn-primary next-prev margin-sm-right'
+    = f.submit 'Save & Next', class: 'btn btn-primary next-prev margin-sm-right'
+    = link_to 'Back', '#', class: 'btn btn-primary next-prev'
+    

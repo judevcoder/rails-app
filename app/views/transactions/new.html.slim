@@ -6,15 +6,25 @@
 .col-lg-12.col-md-12.col-sm-12.col-xs-12.margin-lg-top
   .clearfix
   .form
-    - if params[:sub].blank? || params[:sub] == 'parties'
-      = render partial: 'transactions/parties'
-    - elsif params[:sub] == 'terms'
-      = render partial: 'transactions/terms'
-    - elsif params[:sub] == 'qi'
-      = render partial: 'transactions/qi'
-    - elsif params[:sub] == 'property'
-      = render partial: 'transactions/property'
-    - elsif params[:sub] == 'personnel'
-      = render partial: 'transactions/personnel'
-    - elsif params[:sub] == 'documents'
-      = render partial: 'transactions/documents'
+    - if params[:sub].blank?
+      - if params[:type] == 'sale'
+        = render partial: 'transactions/parties'
+      - else
+        = render partial: 'transactions/property'
+    - else
+      - if params[:sub] == 'parties'
+        = render partial: 'transactions/parties'
+      - elsif params[:sub] == 'terms'
+        = render partial: 'transactions/terms'
+      - elsif params[:sub] == 'inspection'
+        = render partial: 'transactions/inspection'
+      - elsif params[:sub] == 'closing'
+        = render partial: 'transactions/closing'
+      - elsif params[:sub] == 'qi'
+        = render partial: 'transactions/qi'
+      - elsif params[:sub] == 'property'
+        = render partial: 'transactions/property'
+      - elsif params[:sub] == 'personnel'
+        = render partial: 'transactions/personnel'
+      - elsif params[:sub] == 'documents'
+        = render partial: 'transactions/documents'

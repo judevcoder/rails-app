@@ -57,19 +57,19 @@ $ ->
   sale_post_closing = -> 'App enters Purchase Mode'
 
   try
-    if getJsonFromUrl()['status_alert'] == 'Sale+Pre+LOI'
-      seller = $(document).find('input#entity_info').val()
-      sweet_alert_text_success(sale_pre_loi_text(seller))
-    else if getJsonFromUrl()['status_alert'] == 'Sale+LOI+to+PSA'
-      sweet_alert_text_success(sale_loi_to_psa())
-    else if getJsonFromUrl()['status_alert'] == 'Sale+Inspection+Period'
-      sweet_alert_text_success(sale_inspection_period())
-    else if getJsonFromUrl()['status_alert'] == 'Sale+Inspection+Period+to+Closing'
-      sweet_alert_text_success(sale_inspection_period_closing())
-    else if getJsonFromUrl()['status_alert'] == 'Sale+Closing+Date+Set'
-      sweet_alert_text_success(sale_closing_date_set())
-    else if getJsonFromUrl()['status_alert'] == 'Sale+Post+Closing'
-      sweet_alert_text_success(sale_post_closing())
+    # if getJsonFromUrl()['status_alert'] == 'Sale+Pre+LOI'
+    #   seller = $(document).find('input#entity_info').val()
+    #   sweet_alert_text_success(sale_pre_loi_text(seller))
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+LOI+to+PSA'
+    #   sweet_alert_text_success(sale_loi_to_psa())
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+Inspection+Period'
+    #   sweet_alert_text_success(sale_inspection_period())
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+Inspection+Period+to+Closing'
+    #   sweet_alert_text_success(sale_inspection_period_closing())
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+Closing+Date+Set'
+    #   sweet_alert_text_success(sale_closing_date_set())
+    # else if getJsonFromUrl()['status_alert'] == 'Sale+Post+Closing'
+    #   sweet_alert_text_success(sale_post_closing())
 
   catch
 
@@ -114,17 +114,17 @@ $ ->
                                 Tab to Post Closing.'
 
   try
-    if getJsonFromUrl()['status_alert'] == 'Purchase+Pre+LOI'
-      purchaser = $(document).find('input#entity_info').val()
-      sweet_alert_text_success(purchase_pre_loi_text(purchaser))
-    else if getJsonFromUrl()['status_alert'] == 'Purchase+LOI+to+PSA'
-      sweet_alert_text_success(purchase_loi_to_psa())
-    else if getJsonFromUrl()['status_alert'] == 'Purchase+Inspection+Period'
-      sweet_alert_text_success(purchase_inspection_period())
-    else if getJsonFromUrl()['status_alert'] == 'Purchase+Inspection+Period+to+Closing'
-      sweet_alert_text_success(purchase_inspection_period_closing())
-    else if getJsonFromUrl()['status_alert'] == 'Purchase+Closing+Date+Set'
-      sweet_alert_text_success(purchase_closing_date_set())
+    # if getJsonFromUrl()['status_alert'] == 'Purchase+Pre+LOI'
+    #   purchaser = $(document).find('input#entity_info').val()
+    #   sweet_alert_text_success(purchase_pre_loi_text(purchaser))
+    # else if getJsonFromUrl()['status_alert'] == 'Purchase+LOI+to+PSA'
+    #   sweet_alert_text_success(purchase_loi_to_psa())
+    # else if getJsonFromUrl()['status_alert'] == 'Purchase+Inspection+Period'
+    #   sweet_alert_text_success(purchase_inspection_period())
+    # else if getJsonFromUrl()['status_alert'] == 'Purchase+Inspection+Period+to+Closing'
+    #   sweet_alert_text_success(purchase_inspection_period_closing())
+    # else if getJsonFromUrl()['status_alert'] == 'Purchase+Closing+Date+Set'
+    #   sweet_alert_text_success(purchase_closing_date_set())
 
   catch
 
@@ -133,11 +133,48 @@ $ ->
     typewatch ->
       $(document).find("div#TransactionTypeList").show()
     , 10
+  
+# Negotiations Step in Sale Wizard
+  # - Offer and Acceptance
+  $(document).on 'click', '.nav-tabs #new_offer', (e)->
+    e.preventDefault()
+    id = $('#offer_list').children().length
+    tabId = 'offer_' + id + '_content'
+    $(this).closest('li').before '<li><a data-toggle="tab" aria-expanded="true" href="#offer_' + id + '_content">Offer '+ id + ' <span class="fa fa-times"></span></a></li>'
+    $('#offer_and_acceptance_section .tab-content').append '<div class="tab-pane" id="' + tabId + '">' + $('#offer_and_acceptance_section .tab-content').children().first().html() + '</div>'
+    $('#offer_list li:nth-child(' + id + ') a').click()
+
+  $(document).on 'click', '#offer_list li span', (e)->
+    anchor = $(this).parent('a')
+    $(anchor.attr('href')).remove()
+    $(this).parent().parent().remove()
+    $("#offer_list li").children('a').first().click()
+  # - Taks list
+  $(document).on 'ifChanged', '.to_do .field_list .task_status', (e)->
+    if this.checked
+      $(this).parent().parent().parent().addClass('done')
+    else
+      $(this).parent().parent().parent().removeClass('done')
+  # Enable 2nd Deposit
+  $(document).on 'ifChanged', '#enable-2nd-deposit', ->
+    if this.checked
+      $(this).parents().parent().parent().find('.right .form-control').prop( "disabled", false )
+      $(this).parent().siblings('.vertical-line').css({"border-color": "#3082ee"})
+    else
+      $(this).parent().parent().parent().find('.right .form-control').prop( "disabled", "disabled" )
+      $(this).parent().siblings('.vertical-line').css({"border-color": '#777'})
 
   $(document).on 'click', (e) ->
     container = $("div#TransactionTypeList")
     if (!container.is(e.target) && (container.has(e.target).length == 0))
       container.hide();
+
+  $(document).on 'nested:fieldAdded', (event) ->
+    field = event.field
+    $(document).find(field.find('.input-mask-currency')).inputmask
+      alias: 'currency',
+      rightAlign: false,
+      prefix: ''
 
   # Show modal for submenu of top menu
   $(document).on 'click', '.top-header ul li a > span', (e)->

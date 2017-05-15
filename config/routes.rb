@@ -262,7 +262,7 @@ Rails.application.routes.draw do
 
   resources :transactions do
     member do
-      get :edit_qualified_intermediary, :properties_edit, :qualified_intermediary, :terms, :personnel, :get_status
+      get :edit_qualified_intermediary, :properties_edit, :qualified_intermediary, :terms, :inspection, :closing, :personnel, :get_status
       patch :qualified_intermediary, :properties_update, :terms_update, :personnel_update, :set_status
     end
     collection do

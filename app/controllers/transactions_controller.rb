@@ -1,13 +1,13 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy, :edit_qualified_intermediary,
                                          :qualified_intermediary, :properties_edit, :properties_update,
-                                         :terms, :terms_update, :personnel, :personnel_update, :get_status, :set_status]
+                                         :terms, :terms_update, :inspection, :closing, :personnel, :personnel_update, :get_status, :set_status]
   before_action :current_page
   before_action :add_breadcrum, only: [:index]
   # GET /project
   # GET /project.json
 
-  layout 'transaction'
+  layout 'transaction', except: [:index]
 
   def index
     klazz         = (params[:mode] == 'buy') ? 'TransactionPurchase' : 'TransactionSale'
@@ -56,7 +56,11 @@ class TransactionsController < ApplicationController
       @transaction.is_purchase = (params[:type] == 'sale' || params[:type].blank?) ? 0 : 1
       @transaction.prop_owner = @transaction.replacement_seller_contact_id || 0
       @transaction.prop_status = "Prospective Purchase"
-    
+      
+      if @transaction.transaction_properties.blank?
+        @transaction.transaction_properties.build
+      end
+
     elsif params[:transaction_type] == '1031 Already Sold'
       @transaction_main        = TransactionMain.create(user_id: current_user.id, init: true, purchase_only: true)
       @transaction             = TransactionPurchase.new(transaction_main_id: @transaction_main.id)
@@ -131,8 +135,14 @@ class TransactionsController < ApplicationController
         @transaction.save! if flag
         @transaction.update!(transaction_property_params)
       end
+      
       #return redirect_to personnel_transaction_path(@transaction, sub: 'personnel', type: params[:type], main_id: params[:main_id])
-      return redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id) 
+      if @transaction.get_sale_purchase_text == 'sale'
+        return redirect_to terms_transaction_path(@transaction, sub: 'terms', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id)
+      else
+        return redirect_to terms_transaction_path(@transaction, sub: 'parties', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id)
+      end
+
     rescue Exception => e  
      render action: :properties_edit
     end
@@ -299,6 +309,14 @@ class TransactionsController < ApplicationController
       @transaction.build_transaction_term
     end
   end
+
+  def inspection
+    
+  end
+
+  def closing
+    
+  end
   
   def terms_update
     if @transaction.update(transaction_terms_params)
@@ -350,6 +368,11 @@ class TransactionsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_transaction
     @transaction_main = TransactionMain.find(params[:main_id])
+    if params[:type] == 'sale'
+      user_session[:sale_back_url] = request.original_url
+    else
+      user_session[:purchase_back_url] = request.original_url
+    end
     for_sale_or_purchase_tab
   end
   
@@ -374,7 +397,7 @@ class TransactionsController < ApplicationController
   end
   
   def transaction_property_params
-    params.require(:transaction).permit(transaction_properties_attributes: [:property_id, :sale_price, :id, :_destroy])
+    params.require(:transaction).permit(transaction_properties_attributes: [:property_id, :sale_price, :id, :is_sale, :transaction_main_id, :_destroy])
   end
   
   def transaction_terms_params

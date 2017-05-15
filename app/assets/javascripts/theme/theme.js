@@ -31,15 +31,15 @@
  * and open the template in the editor.
  */
 
-var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
-    $BODY = $('body'),
-    $MENU_TOGGLE = $('#menu_toggle'),
-    $SIDEBAR_MENU = $('#sidebar-menu'),
-    $SIDEBAR_FOOTER = $('.sidebar-footer'),
-    $LEFT_COL = $('.left_col'),
-    $RIGHT_COL = $('.right_col'),
-    $NAV_MENU = $('.nav_menu'),
-    $FOOTER = $('footer');
+
+$BODY = $('body'),
+$MENU_TOGGLE = $('#menu_toggle'),
+$SIDEBAR_MENU = $('#sidebar-menu'),
+$SIDEBAR_FOOTER = $('.sidebar-footer'),
+$LEFT_COL = $('.left_col'),
+$RIGHT_COL = $('.right_col'),
+$NAV_MENU = $('.nav_menu'),
+$FOOTER = $('footer');
 
 	
 	
@@ -90,15 +90,6 @@ function init_sidebar() {
 		}
 	});
 
-	// check active menu
-	$SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
-
-	$SIDEBAR_MENU.find('a').filter(function () {
-		return this.href == CURRENT_URL;
-	}).parent('li').addClass('current-page').parents('ul').slideDown(function() {
-		setContentHeight();
-	}).parent().addClass('active');
-
 	// recompute content when resizing
 	$(window).smartresize(function(){  
 		setContentHeight();
@@ -119,19 +110,4 @@ function init_sidebar() {
 
 $(document).ready(function() {
 	init_sidebar();
-});	
-
-
-// iCheck
-$(document).ready(function() {
-    if ($("input.flat-icheck")[0]) {
-        $(document).ready(function () {
-            $('input.flat-icheck').iCheck({
-                checkboxClass: 'icheckbox_flat-blue',
-                radioClass: 'iradio_flat-blue'
-            });
-        });
-    }
 });
-// /iCheck
-
