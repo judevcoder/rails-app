@@ -73,8 +73,8 @@ function init_sidebar() {
 		} else {
 			// prevent closing menu if we are on child menu
 			if (!$li.parent().is('.child_menu')) {
-				$SIDEBAR_MENU.find('li').removeClass('active active-sm');
-				$SIDEBAR_MENU.find('li ul').slideUp();
+				// $SIDEBAR_MENU.find('li').removeClass('active active-sm');
+				// $SIDEBAR_MENU.find('li ul').slideUp();
 			}else{
 				if ( $BODY.is( ".nav-sm" ) )
 				{
