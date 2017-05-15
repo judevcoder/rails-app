@@ -641,6 +641,7 @@ module ApplicationHelper
     # item is an 4 tuple - <name>, <id>, <type_>, <type_name>
     object_array.each do |item|
       key = item[3]
+      item[0] = item[0] + " ( " + item[3] + " )" unless item[2] == 1
       key = key + poa_str if !key.match("ttorney").nil?
       groups[key] = [] if groups[key].nil?
       groups[key] << item

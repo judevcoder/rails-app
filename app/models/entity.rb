@@ -174,7 +174,7 @@ class Entity < ApplicationRecord
   def self.TransactionEntityWithType(etype="entity")
     if etype == "individual"
       # exclude all non individual member types
-      a = Entity.where.not(name: [nil, ''], type_: ([3] + (5..100).to_a)).pluck(:name, :id, :type_)
+      a = Entity.where.not(name: [nil, ''], type_: ([2,3] + (5..100).to_a)).pluck(:name, :id, :type_)
       # include sole props which have no business name
       b = Entity.where("(name2 is null or name2 = '') and type_ = ?", 2).pluck(:name, :id, :type_)
       # include poa for individuals

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170512070933) do
+ActiveRecord::Schema.define(version: 20170515071350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -374,6 +374,11 @@ ActiveRecord::Schema.define(version: 20170512070933) do
     t.boolean  "m_closing_date",                                                                             default: false
     t.boolean  "m_date_of_lease",                                                                            default: false
     t.boolean  "m_rent_commencement_date",                                                                   default: false
+    t.decimal  "lease_base_rent",                                                   precision: 15, scale: 2
+    t.integer  "lease_duration_in_years"
+    t.string   "lease_rent_increase_type"
+    t.decimal  "lease_rent_increase_percentage",                                    precision: 5,  scale: 2
+    t.integer  "lease_rent_slab_in_years"
     t.index ["deleted_at"], name: "index_properties_on_deleted_at", using: :btree
     t.index ["key"], name: "index_properties_on_key", using: :btree
   end
@@ -403,6 +408,16 @@ ActiveRecord::Schema.define(version: 20170512070933) do
     t.decimal  "amount",                    precision: 15, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "rent_tables", force: :cascade do |t|
+    t.decimal  "rent",        precision: 15, scale: 2
+    t.integer  "start_year"
+    t.integer  "end_year"
+    t.integer  "property_id"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.index ["property_id"], name: "index_rent_tables_on_property_id", using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -575,4 +590,5 @@ ActiveRecord::Schema.define(version: 20170512070933) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "rent_tables", "properties"
 end
