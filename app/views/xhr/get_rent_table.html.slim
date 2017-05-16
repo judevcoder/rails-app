@@ -1,0 +1,13 @@
+table.table.table-striped.table-bordered#rent-table
+  thead
+    tr
+      th Base Rent
+      th
+        = @rent_tables.first.format_rent
+  tbody
+    - @rent_tables.each do |rent_row|
+      tr
+        td
+          = rent_row.format_year
+        td
+          = rent_row.format_rent

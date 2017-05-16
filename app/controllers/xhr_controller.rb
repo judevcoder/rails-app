@@ -9,6 +9,11 @@ class XhrController < ApplicationController
   #   render :json => result
   # end
 
+  def get_rent_table
+    @property = Property.find(params[:id])
+    @rent_tables = @property.rent_tables.where(version: params[:version])
+  end
+
   def clients_options_html
     obj = (params[:id].present?) ? SuperEntity.find(params[:id]) : nil
     @html = options_html(params[:client_type], params[:is_person], obj, params[:cid])
@@ -57,7 +62,7 @@ class XhrController < ApplicationController
     else
       @transaction = @transaction_main.purchase
     end
-    
+
     @transaction.transaction_properties.where(property_id: tran_prop_id).destroy_all
   end
 
