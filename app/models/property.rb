@@ -14,6 +14,7 @@ class Property < ApplicationRecord
 
   has_many :groups, :through => :group_members, :as => :gmember
   has_many :group_members, :as => :gmember
+  has_many :rent_tables
 
   alias_attribute :name, :title
 
@@ -39,7 +40,7 @@ class Property < ApplicationRecord
     end
     build
   end
-  
+
   def check_price_current_rent_cap_rate
     if !self.cap_rate.present? && self.price.present? && self.current_rent.present?
       self.cap_rate = (self.current_rent * 100.0)/(self.price * 1.0)
@@ -78,28 +79,28 @@ class Property < ApplicationRecord
                                     'Date known by letter agreement',
                                     'Date not certain'
   ]
-  
+
   OWNERSHIP_STATUS = ['Purchased', 'Prospective Purchase']
-  
-  ABBREVIATIONS = {"Alaska"=>"AK", "Alabama"=>"AL", "Arkansas"=>"AR", 
-    "American Samoa"=>"AS", "Arizona"=>"AZ", 
+
+  ABBREVIATIONS = {"Alaska"=>"AK", "Alabama"=>"AL", "Arkansas"=>"AR",
+    "American Samoa"=>"AS", "Arizona"=>"AZ",
      "California"=>"CA", "Colorado"=>"CO",
-     "Connecticut"=>"CT", "District of Columbia"=>"DC", 
-     "Delaware"=>"DE", "Florida"=>"FL", "Georgia"=>"GA", 
-     "Guam"=>"GU", "Hawaii"=>"HI", "Iowa"=>"IA", "Idaho"=>"ID", 
-     "Illinois"=>"IL", "Indiana"=>"IN", "Kansas"=>"KS", 
-     "Kentucky"=>"KY", "Louisiana"=>"LA", "Massachusetts"=>"MA", 
-     "Maryland"=>"MD", "Maine"=>"ME", "Michigan"=>"MI", 
-     "Minnesota"=>"MN", "Missouri"=>"MO", "Mississippi"=>"MS", 
-     "Montana"=>"MT", "North Carolina"=>"NC", "North Dakota"=>"ND", 
-     "Nebraska"=>"NE", "New Hampshire"=>"NH", "New Jersey"=>"NJ", 
-     "New Mexico"=>"NM", "Nevada"=>"NV", "New York"=>"NY", "Ohio"=>"OH", 
-     "Oklahoma"=>"OK", "Oregon"=>"OR", "Pennsylvania"=>"PA", 
-     "Puerto Rico"=>"PR", "Rhode Island"=>"RI", "South Carolina"=>"SC", 
-     "South Dakota"=>"SD", "Tennessee"=>"TN", "Texas"=>"TX", 
-     "Utah"=>"UT", "Virginia"=>"VA", "Virgin Islands"=>"VI", 
-     "Vermont"=>"VT", "Washington"=>"WA", "Wisconsin"=>"WI", 
-     "West Virginia"=>"WV", "Wyoming"=>"WY"} 
+     "Connecticut"=>"CT", "District of Columbia"=>"DC",
+     "Delaware"=>"DE", "Florida"=>"FL", "Georgia"=>"GA",
+     "Guam"=>"GU", "Hawaii"=>"HI", "Iowa"=>"IA", "Idaho"=>"ID",
+     "Illinois"=>"IL", "Indiana"=>"IN", "Kansas"=>"KS",
+     "Kentucky"=>"KY", "Louisiana"=>"LA", "Massachusetts"=>"MA",
+     "Maryland"=>"MD", "Maine"=>"ME", "Michigan"=>"MI",
+     "Minnesota"=>"MN", "Missouri"=>"MO", "Mississippi"=>"MS",
+     "Montana"=>"MT", "North Carolina"=>"NC", "North Dakota"=>"ND",
+     "Nebraska"=>"NE", "New Hampshire"=>"NH", "New Jersey"=>"NJ",
+     "New Mexico"=>"NM", "Nevada"=>"NV", "New York"=>"NY", "Ohio"=>"OH",
+     "Oklahoma"=>"OK", "Oregon"=>"OR", "Pennsylvania"=>"PA",
+     "Puerto Rico"=>"PR", "Rhode Island"=>"RI", "South Carolina"=>"SC",
+     "South Dakota"=>"SD", "Tennessee"=>"TN", "Texas"=>"TX",
+     "Utah"=>"UT", "Virginia"=>"VA", "Virgin Islands"=>"VI",
+     "Vermont"=>"VT", "Washington"=>"WA", "Wisconsin"=>"WI",
+     "West Virginia"=>"WV", "Wyoming"=>"WY"}
 
   def abbreviations_state
     ABBREVIATIONS[location_state]
@@ -158,7 +159,7 @@ class Property < ApplicationRecord
   def delete_url
     Rails.application.routes.url_helpers.admin_property_path(self)
   end
-  
+
   def view_address
     "#{location_city}, #{location_state}, #{location_street_address}, #{location_county}"
   end
@@ -174,6 +175,10 @@ class Property < ApplicationRecord
       { show: 'Address', call: 'view_address' },
       { show: 'Created', call: 'created_at_to_string' },
     ]
+  end
+
+  def can_create_rent_table?
+    self.lease_base_rent.present? && self.lease_duration_in_years.present? && self.lease_rent_increase_percentage.present? && lease_rent_slab_in_years.present?
   end
 
 end
