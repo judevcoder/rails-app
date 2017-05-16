@@ -93,7 +93,7 @@ class PropertiesController < ApplicationController
     end
 
     if @property.rent_table_version.nil?
-      @property.rent_table_version = 0
+      @property.rent_table_version = 1
     else
       @property.rent_table_version = @property.rent_table_version + 1
     end
