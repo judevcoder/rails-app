@@ -808,8 +808,8 @@ a:focus {
 .nav.side-menu>li.active {
     border-right: 5px solid #1ABB9C
 }
-.nav li.current-page {
-    background: rgba(255, 255, 255, 0.05)
+.nav li.current-page>a {
+    background: rgba(48, 150, 238, 0.3)
 }
 .nav li li li.current-page {
     background: none
@@ -869,7 +869,7 @@ a:focus {
 }
 .nav>li>a:hover,
 .nav>li>a:focus {
-    background-color: transparent
+    background-color: rgba(40, 150, 238, 0.2);
 }
 .top_search {
     padding: 0

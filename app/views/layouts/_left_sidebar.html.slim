@@ -19,7 +19,7 @@
         - if sale_properties.present?
           ul.nav.child_menu[style= "display:block"]
             - sale_properties.each do |property|
-              li
+              li[class=("#{'current-page' if property.id.to_s == params[:cur_property]}")]
                 = link_to @transaction_main.sale.present? ? terms_transaction_path(@transaction, type: 'sale', sub: 'terms', cur_property: property.id, main_id: @transaction_main.id): new_transaction_path(type: 'sale', main_id: @transaction_main.id) do
                   = property.title
                   span.manual_delete_property.lnr.lnr-cross[data-tran-propid="#{property.id}" data-tran-mainid="#{params[:main_id]}" data-tran-type="sale"]
@@ -39,7 +39,7 @@
         - if buy_properties.present?
           ul.nav.child_menu[style= "display:block"]
             - buy_properties.each do |property|
-              li
+              li[class=("#{'current-page' if property.id.to_s == params[:cur_property]}")]
                 = link_to @transaction_main.purchase.present? ? terms_transaction_path(@transaction, type: 'purchase', sub: 'terms', main_id: @transaction_main, cur_property: property.id) : new_transaction_path(type: 'purchase', main_id: @transaction_main), class: "#{'active' if params[:type] == 'purchase' || (@transaction.try(:purchase_only?) && params[:type] != 'status')}" do
                   = property.title
                   span.manual_delete_property.lnr.lnr-cross[data-tran-propid="#{property.id}" data-tran-mainid="#{params[:main_id]}" data-tran-type="purchase"]
