@@ -1,6 +1,6 @@
 .menu_section
   - sale_properties = get_transaction_properties(params[:main_id], 'sale')
-  - buy_properties = get_transaction_properties(params[:main_id], 'buy')
+  - buy_properties = get_transaction_properties(params[:main_id], 'purchase')
   
   ul.nav.side-menu
     li class=("#{params[:type] == 'sale' ? 'active' : ''}")

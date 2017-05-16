@@ -9,6 +9,8 @@ class TransactionsController < ApplicationController
 
   layout 'transaction', except: [:index]
 
+  include TransactionsHelper
+
   def index
     klazz         = (params[:mode] == 'buy') ? 'TransactionPurchase' : 'TransactionSale'
     @transactions = klazz.constantize.with_deleted.joins(:transaction_main)
@@ -61,6 +63,10 @@ class TransactionsController < ApplicationController
         @transaction.transaction_properties.build
       end
 
+      # initialize session variables
+      user_session[:purchase_back_url] = ""
+      user_session[:cur_property] = nil
+
     elsif params[:transaction_type] == '1031 Already Sold'
       @transaction_main        = TransactionMain.create(user_id: current_user.id, init: true, purchase_only: true)
       @transaction             = TransactionPurchase.new(transaction_main_id: @transaction_main.id)
@@ -83,7 +89,12 @@ class TransactionsController < ApplicationController
       })   
       @transaction.save
       @transaction.is_purchase = 0
+
+      # initialize session variables
+      user_session[:sale_back_url] = ""
+      user_session[:cur_property] = nil
     end
+    
     params[:main_id] = @transaction_main.id
   end
   
@@ -307,6 +318,11 @@ class TransactionsController < ApplicationController
   def terms
     if @transaction.transaction_term.blank?
       @transaction.build_transaction_term
+    end
+    if params[:cur_property]
+      user_session[:cur_property] = Property.find(params[:cur_property])
+    else
+      user_session[:cur_property] = get_transaction_properties(params[:main_id], params[:type]).first
     end
   end
 
