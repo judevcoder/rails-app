@@ -12,51 +12,62 @@ class PropertiesController < ApplicationController
     if params["purchased"]
       if ((params["purchased"]["accepted"] == "1") && (params["prospective_purchase"]["accepted"] == "1"))
       elsif ((params["purchased"]["accepted"] == "0") && (params["prospective_purchase"]["accepted"] == "0"))
-        @properties = @properties.where.not(ownership_status: ['Prospective Purchase', 'Purchased'])     
+        @properties = @properties.where.not(ownership_status: ['Prospective Purchase', 'Purchased'])
       else
         @properties = @properties.where(ownership_status: 'Purchased') if params["purchased"]["accepted"] == "1"
         @properties = @properties.where(ownership_status: 'Prospective Purchase') if params["prospective_purchase"]["accepted"] == "1"
-      end  
+      end
     end
     @properties = @properties.order(created_at: :desc).paginate(page: params[:page], per_page: sessioned_per_page)
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\"> List </a></h4></div>".html_safe
-    
+
     render template: 'properties/xhr_list', layout: false if request.xhr?
   end
-  
+
   # GET /properties/1
   # GET /properties/1.json
   def show
     @procedures = @property.procedures
   end
-  
+
   # GET /properties/new
   def new
     @property = Property.new
     @property.ostatus = params["ostatus"]
-    add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + new_property_path(ostatus: params["ostatus"]) + 
+    add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + new_property_path(ostatus: params["ostatus"]) +
       "\'> Add Property - " + params["ostatus"] + " </a></h4></div>").html_safe
     render layout: false if request.xhr?
   end
-  
+
   # GET /properties/1/edit
-  def edit    
+  def edit
     @property.ostatus = @property.ownership_status
     if !@property.owner_person_is.nil?
       @property.owner_entity_id_indv = @property.owner_entity_id if @property.owner_person_is
     end
-    add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + edit_property_path(@property.key) + 
+    add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + edit_property_path(@property.key) +
       "\'> Edit " + @property.ownership_status + " Property - " + @property.title + " </a></h4></div>").html_safe
+    render layout: false if request.xhr?
   end
-  
+
   # POST /properties
   # POST /properties.json
   def create
     @property         = Property.new(property_params)
+    @property.rent_table_version = 0
     @property.user_id = current_user.id
     if !@property.owner_person_is.nil?
       @property.owner_entity_id = @property.owner_entity_id_indv if @property.owner_person_is
     end
+    cl_hash = {}
+    cl_hash = Cloudinary::Uploader.upload(params["property"]["prop_img"])
+    @property.cl_image_public_id = cl_hash["public_id"] if cl_hash.key?("public_id")
+    @property.cl_image_width = cl_hash["width"] if cl_hash.key?("width")
+    @property.cl_image_height = cl_hash["height"] if cl_hash.key?("height")
+    @property.cl_image_format = cl_hash["format"] if cl_hash.key?("format")
+    @property.cl_image_url = cl_hash["url"] if cl_hash.key?("url")
+    @property.cl_image_url_secure = cl_hash["secure_url"] if cl_hash.key?("secure_url")
+    @property.cl_image_original_filename = cl_hash["original_filename"] if cl_hash.key?("soriginal_filename")
     respond_to do |format|
       if @property.save
         AccessResource.add_access({ user: current_user, resource: @property })
@@ -70,17 +81,49 @@ class PropertiesController < ApplicationController
       end
     end
   end
-  
+
   # PATCH/PUT /properties/1
   # PATCH/PUT /properties/1.json
   def update
     @property = Property.find(params[:id])
     @property.assign_attributes(property_params)
+
     if !@property.owner_person_is.nil?
       @property.owner_entity_id = @property.owner_entity_id_indv if @property.owner_person_is
     end
+
+    if @property.rent_table_version.nil?
+      @property.rent_table_version = 0
+    else
+      @property.rent_table_version = @property.rent_table_version + 1
+    end
+
     respond_to do |format|
       if @property.save
+
+        if @property.can_create_rent_table?
+          rent_table_version = @property.rent_table_version
+          base_rent = @property.lease_base_rent
+          duration = @property.lease_duration_in_years
+          percentage = @property.lease_rent_increase_percentage
+          slab = @property.lease_rent_slab_in_years
+          start_year = Time.now.year
+          rent = base_rent
+
+          while start_year <= Time.now.year + duration - 1
+            end_year = start_year + slab - 1
+
+            if end_year >= Time.now.year + duration - 1
+              end_year = Time.now.year + duration - 1
+            end
+
+            @property.rent_tables.create(version: rent_table_version, start_year: start_year, end_year: end_year, rent: rent)
+
+            start_year = end_year + 1
+            rent = rent + rent * percentage / 100
+          end
+        end
+
         format.html { redirect_to edit_property_path(@property.key, type_is: params[:type_is]) }
         format.json { render action: 'show', status: :created, location: @property }
       else
@@ -89,7 +132,7 @@ class PropertiesController < ApplicationController
       end
     end
   end
-  
+
   # DELETE /properties/1
   # DELETE /properties/1.json
   def destroy
@@ -99,7 +142,7 @@ class PropertiesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def member
     @action = Procedure::Action.find_by(key: params[:id])
     if request.post?
@@ -130,11 +173,11 @@ class PropertiesController < ApplicationController
     end
     render layout: false
   end
-  
+
   def multi_delete
     common_multi_delete
   end
-  
+
   def xhr_list_dropdown
     @property = Property.find_by(id: params[:id])
     if params[:person] == "true"
@@ -153,16 +196,16 @@ class PropertiesController < ApplicationController
     @property = Property.find_by(key: params[:id])
     raise ActiveRecord::RecordNotFound if @property.blank?
   end
-  
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def property_params
     params.require(:property).permit!
   end
-  
+
   def current_page
     @current_page = 'property'
   end
-  
+
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/properties\">Properties </a></h4></div>".html_safe
     if params[:action] == "edit"
@@ -178,6 +221,6 @@ class PropertiesController < ApplicationController
         #add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/properties\"> Basic Info </a></h4></div>".html_safe
       end
     end
-  
+
   end
 end

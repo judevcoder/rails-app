@@ -23,6 +23,7 @@
 //= require jquery_nested_form
 //= require jquery.select2
 //= require selectize
+//= require cloudinary
 
 var image_via_mimetype = function(mimetype){
 
