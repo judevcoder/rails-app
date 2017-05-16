@@ -61,7 +61,7 @@ function init_sidebar() {
 		$RIGHT_COL.css('min-height', contentHeight);
 	};
 
-  $SIDEBAR_MENU.find('a').on('click', function(ev) {
+  	$(document).on('click', '#sidebar-menu a', function(ev) {
 	  console.log('clicked - sidebar_menu');
 		var $li = $(this).parent();
 
@@ -73,7 +73,7 @@ function init_sidebar() {
 		} else {
 			// prevent closing menu if we are on child menu
 			if (!$li.parent().is('.child_menu')) {
-				// $SIDEBAR_MENU.find('li').removeClass('active active-sm');
+				$SIDEBAR_MENU.find('li').removeClass('active active-sm');
 				// $SIDEBAR_MENU.find('li ul').slideUp();
 			}else{
 				if ( $BODY.is( ".nav-sm" ) )

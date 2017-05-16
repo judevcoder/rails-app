@@ -327,6 +327,11 @@ span.fa, span.lnr, i.fa, i.lnr {
     color: #777777
 }
 
+.main_menu span.lnr:hover, .main_menu span.fa:hover{
+    color: #3082EE;
+}
+
+
 .active a span.fa {
     text-align: right !important;
     margin-right: 4px
@@ -770,12 +775,15 @@ a:focus {
 }
 
 .nav-md ul.nav.child_menu li:after {
-    border-left: 2px solid #3082EE;
+    border-left: 2px solid #777;
     bottom: 0;
     content: "";
     left: 32px;
     position: absolute;
     top: 0
+}
+.nav.side-menu>li.active>ul.nav.child_menu li:after{
+    border-left-color: #3082EE
 }
 .nav.side-menu>li>a,
 .nav.child_menu>li>a {
@@ -900,9 +908,12 @@ a:focus {
     font-size: 26px
 }
 .nav.child_menu>li>a {
-    color: #3082EE;
+    color: #777;
     font-size: 13px;
     padding: 9px
+}
+.side-menu>li.active>.nav.child_menu>li>a {
+    color: #3082EE;
 }
 .panel_toolbox {
     float: right;
