@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20170516075819) do
     t.string   "jurisdiction"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "number_of_assets"
+    t.bigint   "number_of_assets"
     t.integer  "total_membership_interest",             default: 100
     t.integer  "total_undivided_interest",              default: 100
     t.integer  "total_partnership_interest",            default: 100
