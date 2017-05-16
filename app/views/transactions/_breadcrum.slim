@@ -5,9 +5,9 @@
         h4
           - if defined?(@transaction) && @transaction.present?
             - if @transaction.Sale? && @transaction.relinquishing_seller_entity
-              = link_to 'Transaction( ' + @transaction.seller_name + ' )', transactions_path
+              = link_to 'Transaction (' + @transaction.seller_name + ')', transactions_path
             - elsif @transaction.Purchase? && @transaction.replacement_purchaser_entity
-                = link_to 'Transaction(' + @transaction.purchaser_name + ')', transactions_path
+                = link_to 'Transaction (' + @transaction.purchaser_name + ')', transactions_path
             - else
               = link_to 'Transaction', transactions_path      
           - else
@@ -22,7 +22,7 @@
           h4 
             = link_to (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#') do
               - if user_session[:cur_property] 
-                = 'Sale( ' + user_session[:cur_property].title + ' )'
+                = 'Sale (' + user_session[:cur_property].title + ')'
               - else
                 | Sale
 
