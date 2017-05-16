@@ -12,43 +12,44 @@ class PropertiesController < ApplicationController
     if params["purchased"]
       if ((params["purchased"]["accepted"] == "1") && (params["prospective_purchase"]["accepted"] == "1"))
       elsif ((params["purchased"]["accepted"] == "0") && (params["prospective_purchase"]["accepted"] == "0"))
-        @properties = @properties.where.not(ownership_status: ['Prospective Purchase', 'Purchased'])     
+        @properties = @properties.where.not(ownership_status: ['Prospective Purchase', 'Purchased'])
       else
         @properties = @properties.where(ownership_status: 'Purchased') if params["purchased"]["accepted"] == "1"
         @properties = @properties.where(ownership_status: 'Prospective Purchase') if params["prospective_purchase"]["accepted"] == "1"
-      end  
+      end
     end
     @properties = @properties.order(created_at: :desc).paginate(page: params[:page], per_page: sessioned_per_page)
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"#\"> List </a></h4></div>".html_safe
-    
+
     render template: 'properties/xhr_list', layout: false if request.xhr?
   end
-  
+
   # GET /properties/1
   # GET /properties/1.json
   def show
     @procedures = @property.procedures
   end
-  
+
   # GET /properties/new
   def new
     @property = Property.new
     @property.ostatus = params["ostatus"]
-    add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + new_property_path(ostatus: params["ostatus"]) + 
+    add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + new_property_path(ostatus: params["ostatus"]) +
       "\'> Add Property - " + params["ostatus"] + " </a></h4></div>").html_safe
     render layout: false if request.xhr?
   end
-  
+
   # GET /properties/1/edit
-  def edit    
+  def edit
     @property.ostatus = @property.ownership_status
     if !@property.owner_person_is.nil?
       @property.owner_entity_id_indv = @property.owner_entity_id if @property.owner_person_is
     end
-    add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + edit_property_path(@property.key) + 
+    add_breadcrumb ("<div class=\"pull-left\"><h4><a href=\'" + edit_property_path(@property.key) +
       "\'> Edit " + @property.ownership_status + " Property - " + @property.title + " </a></h4></div>").html_safe
+    render layout: false if request.xhr?
   end
-  
+
   # POST /properties
   # POST /properties.json
   def create
@@ -70,7 +71,7 @@ class PropertiesController < ApplicationController
       end
     end
   end
-  
+
   # PATCH/PUT /properties/1
   # PATCH/PUT /properties/1.json
   def update
@@ -89,7 +90,7 @@ class PropertiesController < ApplicationController
       end
     end
   end
-  
+
   # DELETE /properties/1
   # DELETE /properties/1.json
   def destroy
@@ -99,7 +100,7 @@ class PropertiesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def member
     @action = Procedure::Action.find_by(key: params[:id])
     if request.post?
@@ -130,11 +131,11 @@ class PropertiesController < ApplicationController
     end
     render layout: false
   end
-  
+
   def multi_delete
     common_multi_delete
   end
-  
+
   def xhr_list_dropdown
     @property = Property.find_by(id: params[:id])
     if params[:person] == "true"
@@ -153,16 +154,16 @@ class PropertiesController < ApplicationController
     @property = Property.find_by(key: params[:id])
     raise ActiveRecord::RecordNotFound if @property.blank?
   end
-  
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def property_params
     params.require(:property).permit!
   end
-  
+
   def current_page
     @current_page = 'property'
   end
-  
+
   def add_breadcrum
     add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/properties\">Properties </a></h4></div>".html_safe
     if params[:action] == "edit"
@@ -178,6 +179,6 @@ class PropertiesController < ApplicationController
         #add_breadcrumb "<div class=\"pull-left\"><h4><a href=\"/properties\"> Basic Info </a></h4></div>".html_safe
       end
     end
-  
+
   end
 end
