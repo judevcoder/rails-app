@@ -153,25 +153,27 @@ div[role="tabpanel"]
             = f.submit 'Save', class: 'btn btn-sm btn-primary'
       #lease_rent_table_section.tab-pane.fade[role="tabpanel"]
         - if @property.rent_tables.present?
+          .clearfix
+          .col-sm-4
+            .form-group
+              = label_tag "Rent Table Version"
+              = select_tag "rent_table_version", options_for_select(@property.rent_tables.collect{|p| p.version}.uniq, @property.rent_table_version), class: 'form-control', data: {id: @property.id}, style: "width: 200px"
 
           .clearfix
-            h2.heading
-              = "Rent Table for #{@property.name}"
-          .clearfix
-
-          table.table.table-striped.table-bordered
-            thead
-              tr
-                th Base Rent
-                th
-                  = @property.rent_tables.where(version: @property.rent_table_version).first.format_rent
-            tbody
-              - @property.rent_tables.where(version: @property.rent_table_version).each do |rent_row|
+          div#rent-table-wrapper
+            table.table.table-striped.table-bordered#rent-table
+              thead
                 tr
-                  td
-                    = rent_row.format_year
-                  td
-                    = rent_row.format_rent
+                  th Base Rent
+                  th
+                    = @property.rent_tables.where(version: @property.rent_table_version).first.format_rent
+              tbody
+                - @property.rent_tables.where(version: @property.rent_table_version).each do |rent_row|
+                  tr
+                    td
+                      = rent_row.format_year
+                    td
+                      = rent_row.format_rent
         - else
           p Rent Table is not available right now.
       #lease_rent_details_section.tab-pane.fade[role="tabpanel"]

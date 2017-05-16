@@ -94,11 +94,11 @@ $ ->
     $(document).find('div.sale-tr-pr-detail').show()
     $(document).find('div.sale-tr-et-detail').hide()
 
-  $(document).on 'ifChecked', '#property_owner_person_is_false', ->    
+  $(document).on 'ifChecked', '#property_owner_person_is_false', ->
     #alert "is not a person"
     $(document).find('div.sale-tr-pr-detail').hide()
-    $(document).find('div.sale-tr-et-detail').show() 
-      
+    $(document).find('div.sale-tr-et-detail').show()
+
   $(document).on "click", "a.ownership-form-new-entity", ->
     if $('#status_poperty')[0].value == "Purchased"
       url = '/clients/new'
@@ -115,7 +115,7 @@ $ ->
         console.log e
     $("div#OwnershipFormNewEntity").modal()
 
-  
+
   $(document).on 'click', "a.resource-form-entity-pick-form-list", ->
     url = "/properties/xhr_list_dropdown"
     params = {person: $('.entity_owner')[0].checked, id: $('#property_id')[0].value }
@@ -129,7 +129,7 @@ $ ->
       error: (e) ->
         console.log e
     $("div#OwnershipFormNewEntity").modal()
- 
+
   $(document).on 'click', ".ind-entity-popup", ->
     $("div#OwnershipFormNewEntity").modal('hide');
     if $(this).data('klass') == "Person"
@@ -140,3 +140,17 @@ $ ->
       $('#owner_entity_dropown_selection').html('<input autocomplete="off" id="property_owner_entity_id" name="property[owner_entity_id]" type="hidden">')
       $('#property_owner_entity_id').val($(this).data('id'))
       $('#member_entity').val($(this).data('name'))
+
+  $(document).on 'click', "select#rent_table_version", ->
+    propertyId = $(this).data("id")
+    selectedVersion = $(this).val()
+
+    $.ajax
+      type: "POST"
+      url: "/xhr/get_rent_table"
+      data: {id: propertyId, version: selectedVersion}
+      dataType: "html"
+      success: (val) ->
+        $(document).find("#rent-table-wrapper").html(val);
+      error: (e) ->
+        console.log e
