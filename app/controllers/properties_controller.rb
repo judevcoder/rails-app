@@ -54,6 +54,7 @@ class PropertiesController < ApplicationController
   # POST /properties.json
   def create
     @property         = Property.new(property_params)
+    @property.rent_table_version = 0
     @property.user_id = current_user.id
     if !@property.owner_person_is.nil?
       @property.owner_entity_id = @property.owner_entity_id_indv if @property.owner_person_is
@@ -86,11 +87,43 @@ class PropertiesController < ApplicationController
   def update
     @property = Property.find(params[:id])
     @property.assign_attributes(property_params)
+
     if !@property.owner_person_is.nil?
       @property.owner_entity_id = @property.owner_entity_id_indv if @property.owner_person_is
     end
+
+    if @property.rent_table_version.nil?
+      @property.rent_table_version = 0
+    else
+      @property.rent_table_version = @property.rent_table_version + 1
+    end
+
     respond_to do |format|
       if @property.save
+
+        if @property.can_create_rent_table?
+          rent_table_version = @property.rent_table_version
+          base_rent = @property.lease_base_rent
+          duration = @property.lease_duration_in_years
+          percentage = @property.lease_rent_increase_percentage
+          slab = @property.lease_rent_slab_in_years
+          start_year = Time.now.year
+          rent = base_rent
+
+          while start_year <= Time.now.year + duration - 1
+            end_year = start_year + slab - 1
+
+            if end_year >= Time.now.year + duration - 1
+              end_year = Time.now.year + duration - 1
+            end
+
+            @property.rent_tables.create(version: rent_table_version, start_year: start_year, end_year: end_year, rent: rent)
+
+            start_year = end_year + 1
+            rent = rent + rent * percentage / 100
+          end
+        end
+
         format.html { redirect_to edit_property_path(@property.key, type_is: params[:type_is]) }
         format.json { render action: 'show', status: :created, location: @property }
       else

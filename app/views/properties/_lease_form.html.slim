@@ -90,7 +90,7 @@ div[role="tabpanel"]
               h2.heading
                 | Lease Rent Slab In Years
               .clearfix
-              =  f.text_field :lease_rent_increase_type, class: 'form-control'
+              =  f.text_field :lease_rent_slab_in_years, class: 'form-control'
 
             .clearfix
               h2.heading
@@ -152,7 +152,28 @@ div[role="tabpanel"]
           .form-group
             = f.submit 'Save', class: 'btn btn-sm btn-primary'
       #lease_rent_table_section.tab-pane.fade[role="tabpanel"]
-        p Under Contruction
+        - if @property.rent_tables.present?
+
+          .clearfix
+            h2.heading
+              = "Rent Table for #{@property.name}"
+          .clearfix
+
+          table.table.table-striped.table-bordered
+            thead
+              tr
+                th Base Rent
+                th
+                  = @property.rent_tables.where(version: @property.rent_table_version).first.format_rent
+            tbody
+              - @property.rent_tables.where(version: @property.rent_table_version).each do |rent_row|
+                tr
+                  td
+                    = rent_row.format_year
+                  td
+                    = rent_row.format_rent
+        - else
+          p Rent Table is not available right now.
       #lease_rent_details_section.tab-pane.fade[role="tabpanel"]
         p Under Contruction
       #lease_taxes_and_fees_section.tab-pane.fade[role="tabpanel"]

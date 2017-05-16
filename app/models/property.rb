@@ -178,7 +178,7 @@ class Property < ApplicationRecord
   end
 
   def can_create_rent_table?
-    self.lease_base_rent.present? && self.lease_duration_in_years.present? && self.lease_rent_increase_percentage.present? && lease_rent_slab_in_years.present?
+    self.lease_base_rent.present? && self.lease_duration_in_years.present? && self.lease_rent_increase_percentage.present? && self.lease_rent_slab_in_years.present?
   end
 
 end
