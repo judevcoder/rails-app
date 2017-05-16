@@ -4,7 +4,7 @@ class Property < ApplicationRecord
 
   serialize :net_nature_of_lease, Array
 
-  attr_accessor :ostatus, :owner_entity_id_indv
+  attr_accessor :ostatus, :owner_entity_id_indv, :prop_img
 
   include MyFunction
   has_many :comments, as: :commentable

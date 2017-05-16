@@ -79,6 +79,8 @@ gem "selectize-rails"
 
 gem 'figaro'
 
+gem 'cloudinary'
+
 group :development, :test do
   gem 'rspec-rails'  
 end
