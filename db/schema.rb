@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517075817) do
+ActiveRecord::Schema.define(version: 20170517152614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20170517075817) do
     t.string   "jurisdiction"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.bigint   "number_of_assets"
+    t.integer  "number_of_assets"
     t.integer  "total_membership_interest",             default: 100
     t.integer  "total_undivided_interest",              default: 100
     t.integer  "total_partnership_interest",            default: 100
@@ -387,6 +387,8 @@ ActiveRecord::Schema.define(version: 20170517075817) do
     t.string   "cl_image_url"
     t.string   "cl_image_url_secure"
     t.string   "cl_image_original_filename"
+    t.string   "zip"
+    t.string   "st_address_suffix"
     t.index ["deleted_at"], name: "index_properties_on_deleted_at", using: :btree
     t.index ["key"], name: "index_properties_on_key", using: :btree
   end
