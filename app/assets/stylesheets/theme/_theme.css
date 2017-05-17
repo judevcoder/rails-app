@@ -546,7 +546,7 @@ body {
     padding: 10px 0
 }
 .page-title .title_left {
-    width: 80%;
+    width: 85%;
     float: left;
     display: block
 }
@@ -554,12 +554,13 @@ body {
     margin: 9px 0
 }
 .page-title .title_right {
-    width: 20%;
+    width: 15%;
     float: left;
+    text-align: right;
     display: block
 }
 .page-title .title_right .pull-right {
-    margin: 10px 0
+    margin: 5px 15px
 }
 .fixed_height_320 {
     height: 320px

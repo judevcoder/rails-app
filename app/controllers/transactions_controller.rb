@@ -316,9 +316,15 @@ class TransactionsController < ApplicationController
     if params[:cur_property]
       user_session[:cur_property] = Property.find(params[:cur_property])
     else
-      user_session[:cur_property] = get_transaction_properties(params[:main_id], params[:type]).first
+      selected_property = get_transaction_properties(params[:main_id], params[:type]).first
+      if selected_property.present?
+        user_session[:cur_property] = selected_property
+        params[:cur_property] = user_session[:cur_property].id.to_s
+      else
+        user_session[:cur_property] = nil
+      end  
     end
-    params[:cur_property] = user_session[:cur_property].id.to_s
+    
   end
 
   def inspection
