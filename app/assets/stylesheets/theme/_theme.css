@@ -921,10 +921,10 @@ a:focus {
     padding: 9px
 }
 .side-menu>li.active>.nav.child_menu>li.current-page>a {
-    background-color: rgba(255, 118, 104, 0.5)
+    background-color: rgba(255, 118, 104, 0.95)
 }
 .side-menu>li.active>.nav.child_menu>li.current-page>a, .side-menu>li.active>.nav.child_menu>li.current-page>a span {
-    color: #ff7668;
+    color: #ffc4be;
 }
 .panel_toolbox {
     float: right;
