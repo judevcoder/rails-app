@@ -23,4 +23,8 @@ module TransactionsHelper
 
         return cur_step
     end
+
+    def get_property_name(property_id)
+        return Property.find(property_id).try(:title)
+    end
 end
