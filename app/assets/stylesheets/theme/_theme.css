@@ -368,19 +368,23 @@ span.fa, span.lnr, i.fa, i.lnr {
     display: flex;
     z-index: 1
 }
+
+.nav-md .container.body .view-content {
+    padding: 100px 20px;
+}
+
 .nav-md.transaction .container.body .col-md-3.left_col{
     min-height: 100%;
 }
 
 .nav-md .container.body .col-md-3.left_col.menu_fixed {
-    height: 100%;
     position: fixed
 }
 body .container.body .right_col {
     background: #FFFFFF;
 }
 .nav-md .container.body .right_col {
-    padding: 10px 20px 0;
+    padding: 100px 20px 0;
     margin-left: 230px
 }
 .nav_title {
@@ -528,7 +532,10 @@ body {
 }
 .main_container .top_nav {
     display: block;
-    margin-left: 230px
+    margin-left: 230px;
+    position: fixed;
+    width: calc(100% - 230px);
+    z-index: 300;
 }
 .no-padding {
     padding: 0 !important

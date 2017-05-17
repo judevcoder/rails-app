@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516075819) do
+ActiveRecord::Schema.define(version: 20170517012021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -461,6 +461,7 @@ ActiveRecord::Schema.define(version: 20170516075819) do
     t.datetime "updated_at"
     t.boolean  "is_sale"
     t.integer  "transaction_main_id"
+    t.string   "current_step"
     t.index ["property_id"], name: "index_transaction_properties_on_property_id", using: :btree
     t.index ["transaction_id"], name: "index_transaction_properties_on_transaction_id", using: :btree
   end

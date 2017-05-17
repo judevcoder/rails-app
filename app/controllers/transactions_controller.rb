@@ -62,11 +62,6 @@ class TransactionsController < ApplicationController
       if @transaction.transaction_properties.blank?
         @transaction.transaction_properties.build
       end
-
-      # initialize session variables
-      user_session[:purchase_back_url] = ""
-      user_session[:cur_property] = nil
-
     elsif params[:transaction_type] == '1031 Already Sold'
       @transaction_main        = TransactionMain.create(user_id: current_user.id, init: true, purchase_only: true)
       @transaction             = TransactionPurchase.new(transaction_main_id: @transaction_main.id)
@@ -89,13 +84,10 @@ class TransactionsController < ApplicationController
       })   
       @transaction.save
       @transaction.is_purchase = 0
-
-      # initialize session variables
-      user_session[:sale_back_url] = ""
-      user_session[:cur_property] = nil
     end
     
     params[:main_id] = @transaction_main.id
+    user_session[:cur_property] = nil
   end
   
   # GET /project/1/edit
@@ -154,7 +146,7 @@ class TransactionsController < ApplicationController
         return redirect_to terms_transaction_path(@transaction, sub: 'parties', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id)
       end
 
-    rescue Exception => e  
+    rescue Exception => e
      render action: :properties_edit
     end
     
@@ -323,7 +315,9 @@ class TransactionsController < ApplicationController
       user_session[:cur_property] = Property.find(params[:cur_property])
     else
       user_session[:cur_property] = get_transaction_properties(params[:main_id], params[:type]).first
+      params[:cur_property] = user_session[:cur_property].id.to_s
     end
+
   end
 
   def inspection
@@ -384,12 +378,9 @@ class TransactionsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_transaction
     @transaction_main = TransactionMain.find(params[:main_id])
-    if params[:type] == 'sale'
-      user_session[:sale_back_url] = request.original_url
-    else
-      user_session[:purchase_back_url] = request.original_url
-    end
     for_sale_or_purchase_tab
+    
+    save_current_step_state
   end
   
   def for_sale_or_purchase_tab
@@ -398,6 +389,16 @@ class TransactionsController < ApplicationController
     else
       @transaction = @transaction_main.purchase
     end
+  end
+
+  def save_current_step_state
+    if params[:cur_property]
+      if params[:type] == 'sale'
+        TransactionProperty.where(property_id: params[:cur_property]).where(transaction_main_id: params[:main_id]).where(is_sale: true).update(current_step: params[:sub])
+      else
+        TransactionProperty.where(property_id: params[:cur_property]).where(transaction_main_id: params[:main_id]).where(is_sale: false).update(current_step: params[:sub])
+      end
+    end  
   end
   
   # Never trust parameters from the scary internet, only allow the white list through.
