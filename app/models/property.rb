@@ -82,6 +82,8 @@ class Property < ApplicationRecord
 
   OWNERSHIP_STATUS = ['Purchased', 'Prospective Purchase']
 
+  STREET_SUFFIX = ['St.', 'Rd.', 'Blvd.', 'Ave.', 'Ln.', 'Dr.', 'Expy.', 'Hwy.', 'Jct.', 'Rte.', 'Trwy.', 'Tpke.', 'Via.']
+
   ABBREVIATIONS = {"Alaska"=>"AK", "Alabama"=>"AL", "Arkansas"=>"AR",
     "American Samoa"=>"AS", "Arizona"=>"AZ",
      "California"=>"CA", "Colorado"=>"CO",
