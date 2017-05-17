@@ -79,7 +79,8 @@ $ ->
     $(document).find('input.input-mask-currency').inputmask
       alias: 'currency',
       rightAlign: false,
-      prefix: ''
+      prefix: '',
+      removeMaskOnSubmit: true
   
   selectize_single = ->
     $(document).find('select.selectize-single').selectize
