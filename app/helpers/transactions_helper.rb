@@ -9,12 +9,18 @@ module TransactionsHelper
         end
         
         if is_sale != 'undefined'
-            transaction_property_ids = TransactionProperty.where(transaction_main_id: trans_main_id, is_sale: is_sale).pluck(:property_id) 
+            transaction_property_ids = TransactionProperty.where(transaction_main_id: trans_main_id, is_sale: is_sale).pluck(:property_id)
             properties = Property.where(id: transaction_property_ids).order(created_at: :desc)
         else
             properties = nil 
         end
         
         return properties
+    end
+
+    def get_property_step(property_id, trans_main_id, is_sale = true)
+        cur_step = TransactionProperty.where(property_id: property_id).where(transaction_main_id: trans_main_id).where(is_sale: is_sale).first
+
+        return cur_step
     end
 end
