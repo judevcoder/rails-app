@@ -21,8 +21,12 @@
         .pull-left
           h4 
             = link_to (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#') do
-              - if user_session[:cur_property] 
-                = 'Sale ( ' + user_session[:cur_property].title + ' )'
+              - if params[:cur_property]
+                - selected_property = get_property_name(params[:cur_property]) 
+                - if selected_property.present? 
+                  = 'Sale ( ' + selected_property + ' )'
+                - else
+                  | Sale
               - else
                 | Sale
 
