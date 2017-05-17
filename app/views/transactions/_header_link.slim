@@ -25,7 +25,7 @@ hr
           li class=("#{'selected' if params[:sub] == 'terms'}")
             - disabled = nil
             - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
-            - $header_links[:terms] = persisted ? terms_transaction_path(@transaction, sub: 'terms', type: params[:type], main_id: params[:main_id]) : '#'
+            - $header_links[:terms] = persisted ? terms_transaction_path(@transaction, sub: 'terms', type: params[:type], cur_property: params[:cur_property], main_id: params[:main_id]) : '#'
             = link_to "<span class='step_no'>Negotiations</span>".html_safe, $header_links[:terms]
 
           li class=("#{'selected' if params[:sub] == 'inspection'}")
@@ -61,7 +61,7 @@ hr
           li class=("#{'selected' if params[:sub] == 'terms'}")
             - disabled = nil
             - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
-            - $header_links[:terms] = persisted ? terms_transaction_path(@transaction, sub: 'terms', type: params[:type], main_id: params[:main_id]) : '#'
+            - $header_links[:terms] = persisted ? terms_transaction_path(@transaction, sub: 'terms', type: params[:type], cur_property: params[:cur_property], main_id: params[:main_id]) : '#'
             = link_to "<span class='step_no'>Negotiations</span>".html_safe, $header_links[:terms]
 
           li class=("#{'selected' if params[:sub] == 'inspection'}")
