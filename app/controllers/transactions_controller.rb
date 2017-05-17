@@ -147,7 +147,9 @@ class TransactionsController < ApplicationController
       end
 
     rescue Exception => e
-     render action: :properties_edit
+     #render action: :properties_edit
+     @transaction.errors.add(:base, "Could not complete the action. Verify the data and try again.")
+     redirect_to properties_edit_transaction_path(@transaction, sub: 'property', type: @transaction.get_sale_purchase_text, main_id: @transaction_main.id)
     end
     
   end
