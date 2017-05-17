@@ -112,12 +112,14 @@
       .clearfix
       div#location_street_address_from_county_tax_authorities style="#{ 'display: none;' unless f.object.location_street_address_from_county_tax_authorities_is?}"
         = f.text_area :location_street_address_from_county_tax_authorities, class: 'form-control'
+    - str = "Upload Picture/Image/Photo"
     - if @property.cl_image_url
-      img src="#{@property.cl_image_url}" / 
-    - else 
-      .form-group    
-        label Picture/Image/Photo
-        = f.file_field :prop_img, class: 'form-control'
+      /img src="#{@property.cl_image_url}" / 
+      = cl_image_tag(@property.cl_image_public_id, :height => 200, :crop => :scale)
+      - str = "Edit Picture/Image/Photo"
+    .form-group    
+      label = str
+      = f.file_field :prop_img, class: 'form-control'
   .clearfix
   .form-group
     = f.submit 'Save', class: 'btn btn-sm btn-primary'

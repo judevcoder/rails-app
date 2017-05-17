@@ -640,6 +640,7 @@ module ApplicationHelper
     object_array.sort_by! {|e| e[2]}
     # item is an 4 tuple - <name>, <id>, <type_>, <type_name>, <suffix_required>
     object_array.each do |item|
+      item[3] = 'Joint Tenancy' if item[2] == 8
       key = item[3]
       item[0] = item[0] + " ( " + item[3] + " )" unless item[2] == 1 || !item[4]
       key = key + poa_str if !key.match("ttorney").nil?
@@ -668,6 +669,7 @@ module ApplicationHelper
     groups = {}
     # item is an entity 4 tuple - <name>, <id>, <type_>, <type_name>
     entity_array.each do |item|
+      item[3] = 'Joint Tenancy' if item[2] == 8
       key = item[3]
       groups[key] = [] if groups[key].nil?
       groups[key] << item

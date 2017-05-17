@@ -63,7 +63,7 @@ class Property < ApplicationRecord
      'Oregon', 'Pennsylvania Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas',
      'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
 
-  TENANTS = ['7/11', 'Racetrac', 'CVS', 'Walgreens', 'Capital One', 'First Choice Emergency',
+  TENANTS = ['No Tenant', '7/11', 'Racetrac', 'CVS', 'Walgreens', 'Capital One', 'First Choice Emergency',
              'BBVA', 'PNC', 'Chase', 'Bank of America', 'Bright Horizons', 'MB', 'TD', 'WaWa']
 
   LEASE_TYPES = ['Ground Lease with Operating Tenant', 'Ground Lease Self Occupancy', 'Space Lease']

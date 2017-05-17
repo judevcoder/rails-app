@@ -59,15 +59,17 @@ class PropertiesController < ApplicationController
     if !@property.owner_person_is.nil?
       @property.owner_entity_id = @property.owner_entity_id_indv if @property.owner_person_is
     end
-    cl_hash = {}
-    cl_hash = Cloudinary::Uploader.upload(params["property"]["prop_img"])
-    @property.cl_image_public_id = cl_hash["public_id"] if cl_hash.key?("public_id")
-    @property.cl_image_width = cl_hash["width"] if cl_hash.key?("width")
-    @property.cl_image_height = cl_hash["height"] if cl_hash.key?("height")
-    @property.cl_image_format = cl_hash["format"] if cl_hash.key?("format")
-    @property.cl_image_url = cl_hash["url"] if cl_hash.key?("url")
-    @property.cl_image_url_secure = cl_hash["secure_url"] if cl_hash.key?("secure_url")
-    @property.cl_image_original_filename = cl_hash["original_filename"] if cl_hash.key?("soriginal_filename")
+    if params["property"]["prop_img"]
+      cl_hash = {}
+      cl_hash = Cloudinary::Uploader.upload(params["property"]["prop_img"])
+      @property.cl_image_public_id = cl_hash["public_id"] if cl_hash.key?("public_id")
+      @property.cl_image_width = cl_hash["width"] if cl_hash.key?("width")
+      @property.cl_image_height = cl_hash["height"] if cl_hash.key?("height")
+      @property.cl_image_format = cl_hash["format"] if cl_hash.key?("format")
+      @property.cl_image_url = cl_hash["url"] if cl_hash.key?("url")
+      @property.cl_image_url_secure = cl_hash["secure_url"] if cl_hash.key?("secure_url")
+      @property.cl_image_original_filename = cl_hash["original_filename"] if cl_hash.key?("original_filename")
+    end    
     respond_to do |format|
       if @property.save
         AccessResource.add_access({ user: current_user, resource: @property })
@@ -87,7 +89,31 @@ class PropertiesController < ApplicationController
   def update
     @property = Property.find(params[:id])
     @property.assign_attributes(property_params)
+    
+    # store previous image public id to remove
+    public_id = ""
+    if !@property.cl_image_public_id.blank?
+      public_id = @property.cl_image_public_id        
+    end
 
+    if params["property"]["prop_img"]
+      # return json from cloudinary
+      cl_hash = {}           
+
+      # upload to cloudinary
+      cl_hash = Cloudinary::Uploader.upload(params["property"]["prop_img"])
+
+      # process returned json result
+      @property.cl_image_public_id = cl_hash["public_id"] if cl_hash.key?("public_id")
+      @property.cl_image_width = cl_hash["width"] if cl_hash.key?("width")
+      @property.cl_image_height = cl_hash["height"] if cl_hash.key?("height")
+      @property.cl_image_format = cl_hash["format"] if cl_hash.key?("format")
+      @property.cl_image_url = cl_hash["url"] if cl_hash.key?("url")
+      @property.cl_image_url_secure = cl_hash["secure_url"] if cl_hash.key?("secure_url")
+      @property.cl_image_original_filename = cl_hash["original_filename"] if cl_hash.key?("original_filename")
+
+      
+    end    
     if !@property.owner_person_is.nil?
       @property.owner_entity_id = @property.owner_entity_id_indv if @property.owner_person_is
     end
@@ -100,6 +126,9 @@ class PropertiesController < ApplicationController
 
     respond_to do |format|
       if @property.save
+
+        # finally remove the old upload
+        Cloudinary::Uploader.destroy(public_id) unless public_id.blank?
 
         if @property.can_create_rent_table?
           rent_table_version = @property.rent_table_version
