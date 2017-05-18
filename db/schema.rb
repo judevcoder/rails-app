@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518070338) do
+ActiveRecord::Schema.define(version: 20170518081606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -444,9 +444,11 @@ ActiveRecord::Schema.define(version: 20170518070338) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.boolean  "init",                                   default: false
-    t.boolean  "purchase_only",                          default: false
-    t.decimal  "qi_funds",      precision: 15, scale: 2, default: "0.0"
+    t.boolean  "init",                                             default: false
+    t.boolean  "purchase_only",                                    default: false
+    t.decimal  "qi_funds",                precision: 15, scale: 2, default: "0.0"
+    t.datetime "identification_deadline"
+    t.datetime "transaction_deadline"
   end
 
   create_table "transaction_personnels", force: :cascade do |t|
