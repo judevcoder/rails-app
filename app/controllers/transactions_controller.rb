@@ -1,7 +1,8 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy, :edit_qualified_intermediary,
                                          :qualified_intermediary, :properties_edit, :properties_update,
-                                         :terms, :terms_update, :inspection, :closing, :personnel, :personnel_update, :get_status, :set_status]
+                                         :terms, :terms_update, :inspection, :closing, :personnel, 
+                                         :personnel_update, :get_status, :set_status]
   before_action :current_page
   before_action :add_breadcrum, only: [:index]
   # GET /project
@@ -332,6 +333,56 @@ class TransactionsController < ApplicationController
   end
 
   def closing
+    if request.post?
+      # Parameters: {"date"=>{"year"=>"2017", "month"=>"6", "day"=>"4"}, 
+      # "closing_proceeds"=>"12121212.00", "main_id"=>"83", "cur_property"=>"16", 
+      # "commit"=>"Proceed to Close", "id"=>"31"}
+      @transaction_property = TransactionProperty.where(property_id: params[:cur_property], transaction_id: params[:id]).first
+      if @transaction_property.nil?
+        # houston we have a problem
+        @transaction.errors.add(:base, "Cannot close unknown property.")
+      else
+        prev_val = @transaction_property.closing_proceeds || 0
+        d = params[:date]
+        @transaction_property.closing_date = Date.new(d["year"].to_i,d["month"].to_i,d["day"].to_i)
+        @transaction_property.closing_proceeds = params[:closing_proceeds]
+        @transaction_property.save
+        
+        val = @transaction.main.qi_funds
+        if @transaction.is_a?(TransactionSale)
+          val = val - prev_val + @transaction_property.closing_proceeds
+        else
+          val = val + prev_val - @transaction_property.closing_proceeds
+        end
+        @transaction.main.qi_funds = val
+        if @transaction.main.identification_deadline.nil? || 
+            ((@transaction.main.identification_deadline + 45.days) < (@transaction_property.closing_date + 45.days))
+            @transaction.main.identification_deadline = @transaction_property.closing_date + 45.days
+        end 
+        if @transaction.main.transaction_deadline.nil? || 
+            ((@transaction.main.transaction_deadline + 180.days) < (@transaction_property.closing_date + 180.days))
+            @transaction.main.transaction_deadline = @transaction_property.closing_date + 180.days
+        end 
+        @transaction.main.save
+        
+      end      
+      return redirect_to edit_transaction_path(@transaction, type: 'sale', main_id: @transaction.transaction_main_id)
+    elsif request.get?
+      # Parameters: {"cur_property"=>"16", "main_id"=>"83", "sub"=>"closing", "type"=>"sale", "id"=>"31"}
+      @property_id = params[:cur_property]
+      @transaction_id = params[:id]
+      @transaction_main_id = params[:main_id]
+      @transaction_property = TransactionProperty.where(property_id: @property_id, transaction_id: @transaction_id).first
+      if @transaction_property.nil?
+        # houston we have a problem
+        @transaction.errors.add(:base, "Cannot close unknown property.")
+        return redirect_to edit_transaction_path(@transaction, type: 'sale', main_id: @transaction.transaction_main_id)
+      end
+      @closing_date = @transaction_property.closing_date || Date.today
+      @closing_proceeds = @transaction_property.closing_proceeds || 0
+    end
+
+    
     
   end
   
