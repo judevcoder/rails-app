@@ -1,10 +1,10 @@
 - style_str = (params[:grp] && !params[:page]) ? "" : "width: 80%;"
 - if !params[:grp] || params[:page]
   div.pull-left style="width: 15%"
-    /label Left Sidebar  
+    /label Left Sidebar
     div#entity-groups-tree
 div#entities-list.pull-right style=style_str
-  = hidden_field_tag :current_group_id, @current_grp  
+  = hidden_field_tag :current_group_id, @current_grp
   - if @current_grp == '0'
     = form_tag(clients_index_path, method: :post, remote: true, id: 'addmultiform', style: "display: none;") do
       = select_tag 'group_id', options_for_select(@groups)
@@ -85,6 +85,7 @@ div#entities-list.pull-right style=style_str
             = entity.email
           td.action
             = link_to 'Edit', edit_entity_path(entity.key), class: "#{edit_xs}"
+            = link_to 'Show', entity_path(entity), class: "#{show_xs}"
             = link_to 'Delete', entity_path(entity), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "#{delete_xs}"
 
 
@@ -94,4 +95,3 @@ div#entities-list.pull-right style=style_str
   = render template: 'shared/per_page_set'
   .pull-right
     = will_paginate @entities
-  
