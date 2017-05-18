@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517152614) do
+ActiveRecord::Schema.define(version: 20170518070338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -444,8 +444,9 @@ ActiveRecord::Schema.define(version: 20170517152614) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.boolean  "init",          default: false
-    t.boolean  "purchase_only", default: false
+    t.boolean  "init",                                   default: false
+    t.boolean  "purchase_only",                          default: false
+    t.decimal  "qi_funds",      precision: 15, scale: 2, default: "0.0"
   end
 
   create_table "transaction_personnels", force: :cascade do |t|
@@ -464,6 +465,8 @@ ActiveRecord::Schema.define(version: 20170517152614) do
     t.boolean  "is_sale"
     t.integer  "transaction_main_id"
     t.string   "current_step"
+    t.datetime "closing_date"
+    t.decimal  "closing_proceeds",    precision: 15, scale: 2
     t.index ["property_id", "transaction_id"], name: "index_transaction_properties_on_property_id_and_transaction_id", unique: true, using: :btree
     t.index ["property_id"], name: "index_transaction_properties_on_property_id", using: :btree
     t.index ["transaction_id"], name: "index_transaction_properties_on_transaction_id", using: :btree

@@ -1,0 +1,12 @@
+= form_tag(({controller: 'transactions', action: 'closing'}), method: :post) do
+    .clearfix
+    label Closing Date
+    /= date_select :closing_date, { start_year: 50.years.ago.year, end_year: Time.zone.now.year}, class: "form-control select_auto property_closing_date"
+    = select_date @closing_date
+    .clearfix
+    label Closing Proceeds
+    = text_field_tag :closing_proceeds, @closing_proceeds, class: 'form-control input-mask-currency' 
+    .clearfix
+    = hidden_field_tag :main_id, @transaction_main_id
+    = hidden_field_tag :cur_property, @property_id 
+    = submit_tag 'Proceed to Close', class: 'btn btn-sm btn-default margin-sm-left'

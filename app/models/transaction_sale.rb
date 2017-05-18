@@ -10,7 +10,7 @@ class TransactionSale < ApplicationRecord
   default_scope -> { where(is_purchase: 0) }
 
   attr_accessor :relqn_seller_entity_id, :relqn_purchaser_contact_id, 
-    :prop_owner, :prop_status, :entity_info
+    :prop_owner, :prop_status, :entity_info, :closing_date, :closing_proceeds
   
   has_many :comments, as: :commentable
   belongs_to :property
