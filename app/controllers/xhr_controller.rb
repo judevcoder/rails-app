@@ -64,7 +64,7 @@ class XhrController < ApplicationController
     end
 
     @transaction.transaction_properties.where(property_id: tran_prop_id).destroy_all
-    render json: true
+    # render json: true
   end
 
   def owns_list

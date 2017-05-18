@@ -141,14 +141,15 @@ $ ->
     $.ajax
       url: actionurl
       type: 'post'
+      dataType: 'html'
       data: {main_id: $(this).data('tran-mainid'), property_id: $(this).data('tran-propid'), type: $(this).data('tran-type')}
       success: (data) ->
-        console.log data
-        if(data)
-          elem.parent().parent().remove()
-          $.notify "Success!", "success"
-        else
-          $.notify "Failed!", "error"
+        $('#sidebar-menu').html(data)
+        # if(data)
+        #   elem.parent().parent().remove()
+        # $.notify "Success!", "success"
+        # else
+        #   $.notify "Failed!", "error"
           
 # Negotiations Step in Sale Wizard
   # - Offer and Acceptance
