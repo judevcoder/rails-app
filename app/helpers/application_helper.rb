@@ -271,7 +271,7 @@ module ApplicationHelper
     end
 
     if !entity.property.nil?
-      result.push [ entity.property.location_street_address || "", edit_property_path(entity.property.key), "Property", 0]
+      result.push [ (entity.property.location_street_address.nil? || entity.property.location_street_address=="")? entity.property.title : entity.property.location_street_address, edit_property_path(entity.property.key), "Property", 0]
     end
     return result
   end
