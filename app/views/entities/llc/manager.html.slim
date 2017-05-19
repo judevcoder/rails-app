@@ -25,8 +25,11 @@
         = f.select :temp_id, options_html('manager', "false", @manager.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @manager.super_entity.id, clienttype: 'manager'}
       = hidden_field_tag "stock_holder[member_type_id]", MemberType.getLLCId
       = hidden_field_tag :cid, @manager.temp_id
-      .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+      .clearfix
+      div#linkbacks
+        = linkbacks f.object.temp_id
+        .add-list-entity-links.pull-right
+          = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-right"
     .form-group
       = f.submit 'Save', class: "btn btn-primary"
 

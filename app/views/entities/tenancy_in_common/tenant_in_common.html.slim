@@ -25,8 +25,11 @@
         = f.select :temp_id, options_html('tenant-in-common', "false", @tenant_in_common.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @tenant_in_common.super_entity.id, clienttype: 'tenant-in-common'}
       = hidden_field_tag "tenant_in_common[member_type_id]", MemberType.getTenancyinCommonId
       = hidden_field_tag :cid, @tenant_in_common.temp_id
-      .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+      .clearfix
+      div#linkbacks
+        = linkbacks f.object.temp_id
+        .add-list-entity-links.pull-right
+          = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-right"
 
     .form-group.required
       label.control-label Undivided Interest of this Member
