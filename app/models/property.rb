@@ -149,6 +149,14 @@ class Property < ApplicationRecord
     end
   end
 
+  def street_address_with_suffix
+    if self.location_street_address.nil? || self.location_street_address.empty?
+      ""
+    else
+      "#{self.location_street_address} #{self.st_address_suffix}"
+    end
+  end
+
   # Views
   def city_state
     "#{self.city} #{self.state}"

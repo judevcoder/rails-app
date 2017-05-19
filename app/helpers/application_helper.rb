@@ -270,9 +270,14 @@ module ApplicationHelper
       result.push ["#{e.name}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
-    if !entity.property.nil?
-      result.push [ (entity.property.location_street_address.nil? || entity.property.location_street_address=="")? entity.property.title : entity.property.location_street_address, edit_property_path(entity.property.key), "Property", 0]
+    if [7, 8, 9].include? entity.type_
+      result.push [ entity.property.street_address_with_suffix, edit_property_path(entity.property.key), "Property", 0] unless entity.property.nil?
+    else
+      Property.where(owner_entity_id: entity.id).each do |p|
+        result.push [ p.title, edit_property_path(p.key), "Property", 0]
+      end
     end
+
     return result
   end
 
