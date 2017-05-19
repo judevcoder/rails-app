@@ -36,7 +36,7 @@ hr
 
           - cls = ''
           - cls = 'selected' if params[:sub] == 'closing'
-          - cls = 'closed' if params[:sub] == 'closing' && @closed
+          /- cls = 'closed' if params[:sub] == 'closing' && @closed
           /li class=("#{'selected' if params[:sub] == 'closing'}")
           li class=cls
             - disabled = nil
