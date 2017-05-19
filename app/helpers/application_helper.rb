@@ -632,6 +632,31 @@ module ApplicationHelper
     end
   end
 
+  def linkbacks(temp_id)
+    if temp_id.present?
+      type_ = temp_id[0]
+      temp_id[0] = ''
+      id_ = temp_id.to_i
+
+      if type_ == 'c' #contact
+        contact_ = Contact.find(id_)
+        src_ = edit_contact_path(contact_)
+        "<a href='#{src_}' target='_blank' class='linkbacks'>#{contact_.name}</a>".html_safe
+      elsif type_ == 'e' #entity
+        entity_ = Entity.find(id_)
+        src_ = entity_path(entity_)
+        "<a href='#{src_}' target='_blank' class='linkbacks'>#{entity_.display_name}</a>".html_safe
+      end
+    end
+  end
+
+  def linkbacks_property(property)
+    if property.present?
+      src_ = property_path(property.key)
+      "<a href='#{src_}' target='_blank' class='linkbacks'>#{property.name}</a>".html_safe
+    end
+  end
+
   def options_html_entities(sel_id, type_, sub_type_="entity")
     object_array = []
     poa_str = " (Principal Individual) "

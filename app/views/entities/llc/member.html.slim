@@ -19,15 +19,18 @@
       label.is-person-hide style=("#{('display: none;' if @member.is_person)}") Owning Entity
 
       - if @member.is_person
-        = f.select :temp_id, options_html('member', "true", @member.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @member.super_entity.id, clienttype: 'member'}        
+        = f.select :temp_id, options_html('member', "true", @member.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @member.super_entity.id, clienttype: 'member'}
       - else
         = f.select :temp_id, options_html('member', "false", @member.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @member.super_entity.id, clienttype: 'member'}
       = hidden_field_tag "stock_holder[member_type_id]", MemberType.getLLCId
       = hidden_field_tag :cid, @member.temp_id
-      .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+      .clearfix
+      div#linkbacks
+        = linkbacks f.object.temp_id
+        .add-list-entity-links.pull-right
+          = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-right"
     .form-group
-        label Manager? 
+        label Manager?
         = f.check_box :is_manager
     .form-group
       label Member Interest for this Member
