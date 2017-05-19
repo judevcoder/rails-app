@@ -1,7 +1,8 @@
 
 $ ->
   # Global Variables
-  selected_offer_acceptance_tab = null
+  selected_offer_acceptance_tab = $(document).find($(document).find('#offer_list li.active a').attr('href'))
+  last_counteroffer = 0         # 0: client's' counteroffer, 1: counter party's counteroffer 
 
   # Sale
   $(document).on 'ifChecked', '#transaction_seller_person_is_true', ->
@@ -226,16 +227,26 @@ $ ->
   $(document).on "click", ".add_client_counteroffer", (e) -> 
     e.preventDefault()
     add_row_html = '<tr>
-                      <td width="100"> 
-                          <span class="editable-date" data-type="combodate" data-value="" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY"></span>
-                      </td>
                       <td width="200"> 
-                          <span>Client\'s Counter</span>
-                      </td>
-                      <td>  
+                          <span class="editable-date" data-type="combodate" data-value="" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY"></span>
+                      </td>'
+    if last_counteroffer                      
+      add_row_html += '<td width="400"> 
+                           <span>Counter Party\'s Counter</span>
+                       </td>'
+      $(this).text('Client Counter')
+      last_counteroffer = 0
+    else
+      add_row_html += '<td width="400"> 
+                           <span>Client\'s Counter</span>
+                       </td>'
+      $(this).text('Buyer Counter')
+      last_counteroffer = 1
+
+    add_row_html += '<td>  
                           <span class="green editable-currency" data-type="text" data-value=""></span>
                       </td>
-                    </tr>'
+                  </tr>'
     selected_offer_acceptance_tab.find('.counteroffer_history tr.last_row').before(add_row_html)
     initialize_editable_currency_field()
     initialize_editable_date_field()
@@ -262,9 +273,11 @@ $ ->
       selected_offer_acceptance_tab.find('.btn_accept_counteroffer').removeClass('btn-default green border-green')
                                                   .addClass('btn-success')
                                                   .attr('disabled', 'disabled')
-                                                  .text('Accepted Offer')
+                                                  .text('Counter Accepted')
       selected_offer_acceptance_tab.find('.add_client_counteroffer').removeClass('red border-red')
                                                   .attr('disabled', 'disabled')
+      
+      $('#negotions_tab a#relinquishing_purchaser').click()                                                 
     else
       $.notify "Failed!", "error"
 
