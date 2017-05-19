@@ -16,6 +16,7 @@
  *= require jstree-default
  *= require_tree .
  *= require bootstrap-datetimepicker
+ *= require bootstrap-editable
  *= require selectize
  *= require selectize.bootstrap3
  */

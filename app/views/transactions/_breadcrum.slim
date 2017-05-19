@@ -22,9 +22,9 @@
           h4 
             = link_to (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#') do
               - if params[:cur_property]
-                - selected_property = get_property_name(params[:cur_property]) 
+                - selected_property = get_property(params[:cur_property]) 
                 - if selected_property.present? 
-                  = 'Sale ( ' + selected_property + ' )'
+                  = 'Sale ( ' + selected_property.try(:title) + ' )'
                 - else
                   | Sale
               - else
@@ -38,9 +38,9 @@
           h4
             = link_to (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#') do
               - if params[:cur_property]
-                - selected_property = get_property_name(params[:cur_property]) 
+                - selected_property = get_property(params[:cur_property]) 
                 - if selected_property.present?
-                  = 'Purchase ( ' + selected_property + ' )'
+                  = 'Purchase ( ' + selected_property.try(:title) + ' )'
                 - else
                   | Purchase
               - else

@@ -20,6 +20,8 @@
 //= require_tree .
 //= require moment
 //= require bootstrap-datetimepicker
+//= require bootstrap-editable
+//= require bootstrap-editable-rails
 //= require jquery_nested_form
 //= require jquery.select2
 //= require selectize
