@@ -14,20 +14,30 @@
     = f.fields_for :transaction_properties do |transaction_property_form|
       = transaction_property_form.hidden_field :transaction_main_id, :value => params[:main_id]
       = transaction_property_form.hidden_field(:is_sale, :value => params[:type] == 'sale' ? 'true' : 'false')
-      .form-group
-        label Property 
-        - if @transaction.prop_owner == 0
-          = transaction_property_form.select :property_id, options_for_select(Property.where('ownership_status = ? and title is not null', @transaction.prop_status).pluck(:title, :id), transaction_property_form.object.property_id), {}, class: 'form-control selectize-single'
-        - else 
-          = transaction_property_form.select :property_id, options_for_select(Property.where('owner_entity_id = ? and ownership_status = ? and title is not null', @transaction.prop_owner, @transaction.prop_status).pluck(:title, :id), transaction_property_form.object.property_id), {}, class: 'form-control selectize-single'
-      .form-group
-        label Sale Price
-        .input-group
-          .input-group-addon $
-          = transaction_property_form.text_field :sale_price, class: 'form-control input-mask-currency'
-      .form-group
-        = transaction_property_form.link_to_remove 'Delete', class: 'btn btn-sm btn-danger pull-right margin-xs-top'
-      .clearfix
+      - if transaction_property_form.object.closed?
+        .form-group
+          label Closed Property            
+          = transaction_property_form.select :property_id, options_for_select(Property.where('owner_entity_id = ? and ownership_status = ? and title is not null', @transaction.prop_owner, @transaction.prop_status).pluck(:title, :id), transaction_property_form.object.property_id), {disabled: 'disabled'}, class: 'form-control selectize-single'
+        .form-group
+          label Sale Price
+          .input-group
+            .input-group-addon $
+            = transaction_property_form.text_field :sale_price, :readonly => true, class: 'form-control input-mask-currency'
+      -else        
+        .form-group
+          label Property 
+          - if @transaction.prop_owner == 0
+            = transaction_property_form.select :property_id, options_for_select(Property.where('ownership_status = ? and title is not null', @transaction.prop_status).pluck(:title, :id), transaction_property_form.object.property_id), {}, class: 'form-control selectize-single'
+          - else 
+            = transaction_property_form.select :property_id, options_for_select(Property.where('owner_entity_id = ? and ownership_status = ? and title is not null', @transaction.prop_owner, @transaction.prop_status).pluck(:title, :id), transaction_property_form.object.property_id), {}, class: 'form-control selectize-single'
+        .form-group
+          label Sale Price
+          .input-group
+            .input-group-addon $
+            = transaction_property_form.text_field :sale_price, class: 'form-control input-mask-currency'
+        .form-group
+          = transaction_property_form.link_to_remove 'Delete', class: 'btn btn-sm btn-danger pull-right margin-xs-top'
+        .clearfix
       
     .clearfix.margin-lg-top
     = f.link_to_add "Add Property", :transaction_properties, class: 'btn btn-primary next-prev margin-sm-right'

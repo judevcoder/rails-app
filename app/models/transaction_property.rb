@@ -6,4 +6,8 @@ class TransactionProperty < ApplicationRecord
 
   delegate :name, to: :property, allow_nil: true
 
+  def closed?
+    return !self.closing_date.nil?
+  end
+
 end

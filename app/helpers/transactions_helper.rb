@@ -27,4 +27,10 @@ module TransactionsHelper
     def get_property(property_id)
         return Property.find(property_id)
     end
+    
+    def is_property_closed?(transaction_id, property_id)
+      p = TransactionProperty.where(transaction_id: transaction_id, property_id: property_id).first
+      return p.closed?
+    end
+    
 end

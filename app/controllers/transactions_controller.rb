@@ -377,6 +377,7 @@ class TransactionsController < ApplicationController
       end
       @closing_date = @transaction_property.closing_date || Date.today
       @closing_proceeds = @transaction_property.closing_proceeds || 0
+      @closed = @transaction_property.closed?
     end
 
     
