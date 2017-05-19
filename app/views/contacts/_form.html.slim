@@ -8,7 +8,7 @@
         - @contact.errors.full_messages.each do |message|
           li = message
 
-  .col-lg-4.close-md-4.col-sm-12.col-xs-12
+  .col-lg-4.close-md-4.col-sm-12.col-xs-12[style="min-width: 450px"]
     .clearfix
       h4 = ""
     .clearfix
@@ -23,15 +23,20 @@
         = f.hidden_field :is_company, value: false
 
     .form-group
-      label Type
-      = f.select :contact_type, options_for_select(['Personnel', 'Client Participant', 'Counter-Party'], f.object.contact_type), {}, class: 'form-control selectize-single-contact'
+      -if params[:recommended_type]
+        label Type
+        = f.text_field :contact_type, value: params[:recommended_type], class: 'form-control', readonly: true
+      -else
+        label Type
+        = f.select :contact_type, options_for_select(['Personnel', 'Client Participant', 'Counter-Party'], f.object.contact_type), {}, class: 'form-control selectize-single-contact'
 
     .form-group#contact-role_wrapper
-      = f.label :role, "#{(params[:contact_type] == "company") ? 'Company Role' : 'Role'}"
-      div#per-role-wrapper
-        = f.select :per_role, Contact::PERSONNEL_ROLE, {}, class: 'form-control selectize-single'
-      div#cp-role-wrapper
-        = f.select :cp_role, Contact::CLIENT_PARTICIPANT_ROLE, {}, class: 'form-control selectize-single'      
+      - if params[:recommended_type] != "Counter-Party"
+        = f.label :role, "#{(params[:contact_type] == "company") ? 'Company Role' : 'Role'}"
+        div#per-role-wrapper
+          = f.select :per_role, Contact::PERSONNEL_ROLE, {}, class: 'form-control selectize-single'
+        div#cp-role-wrapper
+          = f.select :cp_role, Contact::CLIENT_PARTICIPANT_ROLE, {}, class: 'form-control selectize-single'      
 
     .form-group
       = f.label :first_name, "#{@contact.cprefix}First Name"

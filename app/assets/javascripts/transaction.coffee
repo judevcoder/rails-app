@@ -1,4 +1,7 @@
+
 $ ->
+  # Global Variables
+  selected_offer_acceptance_tab = null
 
   # Sale
   $(document).on 'ifChecked', '#transaction_seller_person_is_true', ->
@@ -158,8 +161,11 @@ $ ->
     id = $('#offer_list').children().length
     tabId = 'offer_' + id + '_content'
     $(this).closest('li').before '<li><a data-toggle="tab" aria-expanded="true" href="#offer_' + id + '_content">Offer '+ id + ' <span class="fa fa-times"></span></a></li>'
-    $('#offer_and_acceptance_section .tab-content').append '<div class="tab-pane" id="' + tabId + '">' + $('#offer_and_acceptance_section .tab-content').children().first().html() + '</div>'
+    $('#offer_and_acceptance_section .tab-content').append '<div class="tab-pane" id="' + tabId + '">' + $('#offer_and_acceptance_template').html() + '</div>'
     $('#offer_list li:nth-child(' + id + ') a').click()
+    
+    initialize_editable_currency_field()
+    initialize_editable_date_field()
 
   $(document).on 'click', '#offer_list li span', (e)->
     anchor = $(this).parent('a')
@@ -192,6 +198,76 @@ $ ->
       alias: 'currency',
       rightAlign: false,
       prefix: ''
+
+  # Offer and Acceptance Part
+  initialize_editable_date_field = ->
+    $(document).find('.editable-date').editable
+      combodate: { maxYear: 2100, minYear: 2000 } 
+  
+  initialize_editable_date_field()
+
+  initialize_editable_currency_field = ->
+    $(document).find('.editable-currency').editable
+      type: 'text',
+      tpl: '<input class="input-mask-currency" type="text">'
+  
+  initialize_editable_currency_field()
+
+  $(document).on "focus", "input.input-mask-currency", ->
+    $(this).inputmask
+      alias: 'currency',
+      rightAlign: false,
+      prefix: '$ ',
+      removeMaskOnSubmit: true
+  
+  $(document).on 'click', '#offer_list li a', (e)->
+    selected_offer_acceptance_tab = $(document).find($(this).attr('href'))
+
+  $(document).on "click", ".add_client_counteroffer", (e) -> 
+    e.preventDefault()
+    add_row_html = '<tr>
+                      <td width="100"> 
+                          <span class="editable-date" data-type="combodate" data-value="" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY"></span>
+                      </td>
+                      <td width="200"> 
+                          <span>Client\'s Counter</span>
+                      </td>
+                      <td>  
+                          <span class="green editable-currency" data-type="text" data-value=""></span>
+                      </td>
+                    </tr>'
+    selected_offer_acceptance_tab.find('.counteroffer_history tr.last_row').before(add_row_html)
+    initialize_editable_currency_field()
+    initialize_editable_date_field()
+  
+  # Click Accept offer 
+  $(document).on "click", ".btn_accept_counteroffer", (e) ->
+    e.preventDefault()
+    location = $(this).attr('href')
+    dialog = $(document).find('#accept_counteroffer')
+    $.ajax
+        type: "get"
+        url: location
+        dataType: "html"
+        success: (val) ->
+          dialog.find('.modal-body').html(val)
+          dialog.modal()
+        error: (e) ->
+          console.log e
+    
+  $(document).on 'ajax:complete', '#accept_counteroffer form', (event, data, status, xhr)->
+    console.log status, data, xhr
+    if status
+      $.notify "Success!", "success"
+      selected_offer_acceptance_tab.find('.btn_accept_counteroffer').removeClass('btn-default green border-green')
+                                                  .addClass('btn-success')
+                                                  .attr('disabled', 'disabled')
+                                                  .text('Accepted Offer')
+      selected_offer_acceptance_tab.find('.add_client_counteroffer').removeClass('red border-red')
+                                                  .attr('disabled', 'disabled')
+    else
+      $.notify "Failed!", "error"
+
 
   # Show modal for submenu of top menu
   $(document).on 'click', '.top-header ul li a > span', (e)->

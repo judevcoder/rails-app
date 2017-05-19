@@ -370,7 +370,8 @@ span.fa, span.lnr, i.fa, i.lnr {
 }
 
 .nav-md .container.body .col-md-3.left_col.menu_fixed {
-    position: fixed
+    position: fixed;
+    z-index: 300;
 }
 body .container.body .right_col {
     background: #FFFFFF;

@@ -86,9 +86,8 @@ class TransactionsController < ApplicationController
       @transaction.save
       @transaction.is_purchase = 0
     end
-    
     params[:main_id] = @transaction_main.id
-    user_session[:cur_property] = nil
+  
   end
   
   # GET /project/1/edit
@@ -314,15 +313,13 @@ class TransactionsController < ApplicationController
     if @transaction.transaction_term.blank?
       @transaction.build_transaction_term
     end
-    if params[:cur_property]
-      user_session[:cur_property] = Property.find(params[:cur_property])
-    else
+
+    if params[:cur_property].blank?
       selected_property = get_transaction_properties(params[:main_id], params[:type]).first
       if selected_property.present?
-        user_session[:cur_property] = selected_property
-        params[:cur_property] = user_session[:cur_property].id.to_s
+        params[:cur_property] = selected_property.id.to_s
       else
-        user_session[:cur_property] = nil
+        params[:cur_property] = ""
       end  
     end
     
