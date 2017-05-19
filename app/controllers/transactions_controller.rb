@@ -370,6 +370,7 @@ class TransactionsController < ApplicationController
       @transaction_id = params[:id]
       @transaction_main_id = params[:main_id]
       @transaction_property = TransactionProperty.where(property_id: @property_id, transaction_id: @transaction_id).first
+      @transaction_property = TransactionProperty.where(transaction_id: @transaction_id).first if @transaction_property.nil?
       if @transaction_property.nil?
         # houston we have a problem
         @transaction.errors.add(:base, "Cannot close unknown property.")
