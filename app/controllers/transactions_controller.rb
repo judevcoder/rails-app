@@ -2,7 +2,7 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy, :edit_qualified_intermediary,
                                          :qualified_intermediary, :properties_edit, :properties_update,
                                          :terms, :terms_update, :inspection, :closing, :personnel, 
-                                         :personnel_update, :get_status, :set_status]
+                                         :personnel_update, :get_status, :set_status, :qi_status]
   before_action :current_page
   before_action :add_breadcrum, only: [:index]
   # GET /project
@@ -363,7 +363,8 @@ class TransactionsController < ApplicationController
         @transaction.main.save
         
       end      
-      return redirect_to edit_transaction_path(@transaction, type: 'sale', main_id: @transaction.transaction_main_id)
+      #return redirect_to edit_transaction_path(@transaction, type: 'sale', main_id: @transaction.transaction_main_id)
+      return redirect_to qi_status_transaction_path(@transaction, main_id: @transaction.main.id)
     elsif request.get?
       # Parameters: {"cur_property"=>"16", "main_id"=>"83", "sub"=>"closing", "type"=>"sale", "id"=>"31"}
       @property_id = params[:cur_property]
@@ -379,10 +380,28 @@ class TransactionsController < ApplicationController
       @closing_date = @transaction_property.closing_date || Date.today
       @closing_proceeds = @transaction_property.closing_proceeds || 0
       @closed = @transaction_property.closed?
-    end
+    end   
+    
+  end
 
-    
-    
+  def qi_status
+    @transaction_main_id = params[:main_id]
+    @transaction_main = TransactionMain.find(@transaction_main_id)
+    if @transaction_main.nil?
+      # big problem
+    end 
+    params[:sub] = 'closing'
+    params[:type] = 'qi_status'
+    @tproperties = TransactionProperty.where(transaction_main_id: @transaction_main.id)
+    @sales = []
+    @purchases = []
+    @tproperties.each do |prop|
+      if prop.is_sale
+        @sales << prop
+      else
+        @purchases << prop
+      end
+    end  
   end
   
   def terms_update

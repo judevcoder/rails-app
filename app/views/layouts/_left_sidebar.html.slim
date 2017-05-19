@@ -133,7 +133,7 @@
                         span.manual_delete_property.lnr.lnr-cross[data-tran-propid="#{property.id}" data-tran-mainid="#{params[:main_id]}" data-tran-type="purchase"]
       
       li
-        a
+        a[href="#{qi_status_transaction_path(@transaction, main_id: @transaction_main.id)}"]
           = image_tag('icons/icon-qi.svg', class: 'icon')
           |  QI
       li

@@ -43,8 +43,9 @@ hr
             - disabled = 'disabled' if params[:type] == 'status' || @transaction.new_record?
             - $header_links[:closing] = persisted ? closing_transaction_path(@transaction, sub: 'closing', type: params[:type], cur_property: params[:cur_property], main_id: params[:main_id]) : '#'
             = link_to "<span class='step_no'>Closing</span>".html_safe, $header_links[:closing]
-          li
-            button#save-and-next.btn.btn-default.border-blue.blue[href=""] Save & Next
+          - if params[:type] != 'qi_status'
+            li
+              button#save-and-next.btn.btn-default.border-blue.blue[href=""] Save & Next
       
     - else @transaction.is_a?(TransactionPurchase)
     
@@ -80,6 +81,6 @@ hr
             - $header_links[:closing] = persisted ? closing_transaction_path(@transaction, sub: 'closing', type: params[:type], cur_property: params[:cur_property], main_id: params[:main_id]) : '#'
             = link_to "<span class='step_no'>Closing</span>".html_safe, $header_links[:closing]
             
-          li
-            button.btn.btn-default.border-blue.save-and-next[href=""] Save & Next
-
+          - if params[:type] != 'qi_status'
+            li
+              button#save-and-next.btn.btn-default.border-blue.blue[href=""] Save & Next

@@ -12,63 +12,72 @@
               = link_to 'Transaction', transactions_path      
           - else
             = link_to 'Transaction', transactions_path
-
-      - if defined?(@transaction) && @transaction.present? && @transaction.Sale? && params[:type] != 'status'
+      - if params[:type] == 'qi_status'
         .pull-left
           h4
             | &nbsp;&nbsp;/&nbsp;&nbsp;
-
         .pull-left
-          h4 
-            = link_to (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#') do
-              - if params[:cur_property]
-                - selected_property = get_property(params[:cur_property]) 
-                - if selected_property.present? 
-                  = 'Sale ( ' + selected_property.try(:title) + ' )'
+          h4
+            = link_to  'QI', qi_status_transaction_path(@transaction, main_id: @transaction_main.id)
+      - else
+        
+        - if defined?(@transaction) && @transaction.present? && @transaction.Sale? && params[:type] != 'status'
+          .pull-left
+            h4
+              | &nbsp;&nbsp;/&nbsp;&nbsp;
+
+          .pull-left
+            h4 
+              = link_to (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#') do
+                - if params[:cur_property]
+                  - selected_property = get_property(params[:cur_property]) 
+                  - if selected_property.present? 
+                    = 'Sale ( ' + selected_property.try(:title) + ' )'
+                  - else
+                    | Sale
                 - else
                   | Sale
-              - else
-                | Sale
 
-      - if defined?(@transaction) && @transaction.present? && @transaction.Purchase? && params[:type] != 'status'
-        .pull-left
-          h4
-            | &nbsp;&nbsp;/&nbsp;&nbsp;
-        .pull-left
-          h4
-            = link_to (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#') do
-              - if params[:cur_property]
-                - selected_property = get_property(params[:cur_property]) 
-                - if selected_property.present?
-                  = 'Purchase ( ' + selected_property.try(:title) + ' )'
+        - if defined?(@transaction) && @transaction.present? && @transaction.Purchase? && params[:type] != 'status'
+          .pull-left
+            h4
+              | &nbsp;&nbsp;/&nbsp;&nbsp;
+          .pull-left
+            h4
+              = link_to (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type]) : '#') do
+                - if params[:cur_property]
+                  - selected_property = get_property(params[:cur_property]) 
+                  - if selected_property.present?
+                    = 'Purchase ( ' + selected_property.try(:title) + ' )'
+                  - else
+                    | Purchase
                 - else
                   | Purchase
-              - else
-                | Purchase
 
-      - if defined?(@transaction) && @transaction.present? && params[:type] != 'status'
-        .pull-left
-          h4
-            | &nbsp;&nbsp;/&nbsp;&nbsp;
-        .pull-left
-          - case params[:sub]
-            - when 'parties'
-              h4 = link_to " #{ params[:sub].present? ? (@transaction.Sale? ? 'Please select a Seller' : 'Please select a Buyer') : '#'}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
-            - when 'property'
-              h4 = link_to " #{params[:sub].present? ? (@transaction.Sale? ? 'Select Property to Sell' : 'Select Property to Buy' ) : '#'}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
-            - when 'terms'
-              h4 = link_to " #{params[:sub].present? ? (@transaction.Sale? ? 'Negotiate the Sales Price with the Prospective Purchaser' : params[:sub]) : ''}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
-            - when 'inspection'
-              h4 = link_to " #{params[:sub].present? ? params[:sub] : ''}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
-            - when 'closing'
-              h4 = link_to " #{params[:sub].present? ? params[:sub] : ''}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
-      - if params[:type] == 'status'
+        - if defined?(@transaction) && @transaction.present? && params[:type] != 'status'
+          .pull-left
+            h4
+              | &nbsp;&nbsp;/&nbsp;&nbsp;
+          .pull-left
+            - case params[:sub]
+              - when 'parties'
+                h4 = link_to " #{ params[:sub].present? ? (@transaction.Sale? ? 'Please select a Seller' : 'Please select a Buyer') : '#'}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
+              - when 'property'
+                h4 = link_to " #{params[:sub].present? ? (@transaction.Sale? ? 'Select Property to Sell' : 'Select Property to Buy' ) : '#'}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
+              - when 'terms'
+                h4 = link_to " #{params[:sub].present? ? (@transaction.Sale? ? 'Negotiate the Sales Price with the Prospective Purchaser' : params[:sub]) : ''}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
+              - when 'inspection'
+                h4 = link_to " #{params[:sub].present? ? params[:sub] : ''}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
+              - when 'closing'
+                h4 = link_to " #{params[:sub].present? ? params[:sub] : ''}", (@transaction.id.present? ? edit_transaction_url(@transaction.id, main_id: params[:main_id], type: params[:type], sub: params[:sub]) : '#')
+        - if params[:type] == 'status'
         .pull-left
           h4
             | &nbsp;&nbsp;/&nbsp;&nbsp;
         .pull-left
           h4
             = link_to 'Status', defined?(@transaction_main) && @transaction_main.persisted? ? get_status_transaction_path(@transaction_main, type: 'status', main_id: @transaction_main) : '#', class: ""
+      
             
     .title_right.note-list
       .col-xs-12.form-group.pull-right.top_search

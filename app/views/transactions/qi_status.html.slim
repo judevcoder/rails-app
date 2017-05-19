@@ -1,0 +1,53 @@
+.clearfix.margin-lg-left
+  = render 'transactions/breadcrum'
+- if params[:main_id]
+  .clearfix.margin-lg-left
+  = render 'transactions/header_link'
+.col-lg-12.col-md-12.col-sm-12.col-xs-12.margin-lg-top
+  .clearfix
+  label Sales
+  table#data_table
+    thead
+      tr
+        th
+            | Name
+        th
+            | Closing Date
+        th
+            | Closing Proceeds      
+    tbody
+      - @sales.each do |sale|     
+        tr       
+          td
+            = sale.property.title
+          td
+            = sale.closing_date
+          td
+            = sale.closing_proceeds
+
+.col-lg-12.col-md-12.col-sm-12.col-xs-12.margin-lg-top
+  .clearfix
+  label Purchases
+  table#data_table
+    thead
+      tr
+        th
+            | Name
+        th
+            | Closing Date
+        th
+            | Closing Proceeds      
+    tbody
+      - @purchases.each do |purchase|     
+        tr       
+          td
+            = purchase.property.title
+          td
+            = purchase.closing_date
+          td
+            = purchase.closing_proceeds
+
+.clearfix
+label QI Funds Balance
+h4
+  = @transaction_main.qi_funds
