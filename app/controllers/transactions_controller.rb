@@ -352,6 +352,14 @@ class TransactionsController < ApplicationController
           val = val + prev_val - @transaction_property.closing_proceeds
         end
         @transaction.main.qi_funds = val
+        if @transaction.main.identification_deadline.nil? || 
+            ((@transaction.main.identification_deadline + 45.days) < (@transaction_property.closing_date + 45.days))
+            @transaction.main.identification_deadline = @transaction_property.closing_date + 45.days
+        end 
+        if @transaction.main.transaction_deadline.nil? || 
+            ((@transaction.main.transaction_deadline + 180.days) < (@transaction_property.closing_date + 180.days))
+            @transaction.main.transaction_deadline = @transaction_property.closing_date + 180.days
+        end 
         @transaction.main.save
         
       end      
