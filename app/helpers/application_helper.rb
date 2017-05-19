@@ -657,6 +657,13 @@ module ApplicationHelper
     end
   end
 
+  def linkbacks_entity(entity)
+    if !entity.new_record? && entity.present?
+      src_ = entity_path(entity)
+      "<a href='#{src_}' target='_blank' class='linkbacks'>#{entity.display_name}</a>".html_safe
+    end
+  end
+
   def options_html_entities(sel_id, type_, sub_type_="entity")
     object_array = []
     poa_str = " (Principal Individual) "

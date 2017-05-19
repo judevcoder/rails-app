@@ -29,6 +29,8 @@
         = image_tag('Comma-grey.png', :id=> 'comma-grey', :width => '30px', :height=> '30px')
         label LLP
         = f.hidden_field :legal_ending, :value => "LLP"
+      .clearfix
+      = linkbacks_entity(@entity)
     .form-group
       = f.label "Ein"
       = f.text_field :ein_or_ssn, class: "form-control"
