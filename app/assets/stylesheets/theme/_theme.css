@@ -4066,11 +4066,6 @@ fieldset {
     color: white;
 }
 
-.wizard_horizontal ul.wizard_steps li.closed a .step_no {
-    background: #FF0000;
-    color: white;
-}
-
 .wizard_horizontal ul.wizard_steps li.selected ~ li a:before,
 .wizard_horizontal ul.wizard_steps li.selected ~ li a .step_no {
     background: #eee;
