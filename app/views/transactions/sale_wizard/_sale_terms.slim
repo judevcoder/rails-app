@@ -77,10 +77,11 @@
                             td
                   .row.counteroffer_action_buttons_wrapper[style="#{'display: none' if property_offer.counteroffers.count == 0 }"]
                     .col-md-4.col-xs-12.form-group
-                        button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer" disabled="#{'disabled' if property_offer.is_accepted}"] Buyer Counter
                         - if !property_offer.is_accepted
+                          button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer"] Buyer Counter
                           = link_to 'Accept Counter', new_contact_path(contact_type: 'individual', recommended_type: 'Counter-Party'), class: 'btn_accept_counteroffer btn btn-default green border-green', remote: true
                         - else
+                          button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer" disabled] Buyer Counter
                           = link_to 'Counter Accepted', '#', class: 'btn btn-default green border-green', disabled: property_offer.is_accepted 
               / = nested_form_for(@transaction, as: :transaction, url: terms_update_transaction_path(@transaction, main_id: params[:main_id], sub: params[:sub], type: params[:type])) do |f|
               /   - if @transaction.errors.any?
@@ -538,7 +539,5 @@ button.btn.btn-default Back
       .row.counteroffer_action_buttons_wrapper[style="display: none"]
         .col-md-4.col-xs-12.form-group
             button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer"] Buyer Counter
-            - if true
-              = link_to 'Accept Counter', new_contact_path(contact_type: 'individual', recommended_type: 'Counter-Party'), class: 'btn_accept_counteroffer btn btn-default green border-green', remote: true
-            - else
-              = link_to 'Counter Accepted', '#', class: 'btn btn-default green border-green'
+            = link_to 'Accept Counter', new_contact_path(contact_type: 'individual', recommended_type: 'Counter-Party'), class: 'btn_accept_counteroffer btn btn-default green border-green', remote: true
+            
