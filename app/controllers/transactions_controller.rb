@@ -315,14 +315,20 @@ class TransactionsController < ApplicationController
     end
 
     if params[:cur_property].blank?
-      selected_property = get_transaction_properties(params[:main_id], params[:type]).first
-      if selected_property.present?
-        params[:cur_property] = selected_property.id.to_s
+      @property = get_transaction_properties(params[:main_id], params[:type]).first
+      if @property.present?
+        params[:cur_property] = @property.id.to_s
       else
         params[:cur_property] = ""
-      end  
+        redirect_to properties_edit_transaction_path(@transaction, sub: 'property', type: params[:type], main_id: params[:main_id])
+      end
     end
     
+    if ! @property.property_offers.present?
+      @property.property_offers.create([:offer_name => "Offer 1", :is_accepted => false, :property_id => @property.id])
+    end 
+
+
   end
 
   def inspection
