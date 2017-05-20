@@ -144,7 +144,7 @@ $ ->
     actionurl = '/xhr/manual_delete_transaction_property'
     $.ajax
       url: actionurl
-      type: 'post'
+      type: 'POST'
       dataType: 'html'
       data: {main_id: $(this).data('tran-mainid'), property_id: $(this).data('tran-propid'), type: $(this).data('tran-type')}
       success: (data) ->
@@ -159,20 +159,45 @@ $ ->
   # - Offer and Acceptance
   $(document).on 'click', '.nav-tabs #new_offer', (e)->
     e.preventDefault()
-    id = $('#offer_list').children().length
-    tabId = 'offer_' + id + '_content'
-    $(this).closest('li').before '<li><a data-toggle="tab" aria-expanded="true" href="#offer_' + id + '_content">Offer '+ id + ' <span class="fa fa-times"></span></a></li>'
-    $('#offer_and_acceptance_section .tab-content').append '<div class="tab-pane" id="' + tabId + '">' + $('#offer_and_acceptance_template').html() + '</div>'
-    $('#offer_list li:nth-child(' + id + ') a').click()
-    
-    initialize_editable_currency_field()
-    initialize_editable_date_field()
+    index = $('#offer_list').children().length
+    elem = $(this)
 
-  $(document).on 'click', '#offer_list li span', (e)->
+    $.ajax
+      url: '/property_offers/'
+      type: 'POST'
+      dataType: 'json'
+      data: {offer_name: 'Offer ' + index, property_id: $(this).data('prop-id'), is_accepted: false}
+      success: (data) ->
+        if data.status
+          elem.closest('li').before '<li><a data-toggle="tab" data-offer-id="' + data.offer_id + '" aria-expanded="true" href="#offer_' + data.offer_id + '_content">Offer '+ index + ' <span class="delete_offer fa fa-times"></span></a></li>'
+          tabId = 'offer_' + data.offer_id + '_content'
+          $('#offer_and_acceptance_section .tab-content').append '<div class="tab-pane" id="' + tabId + '">' + $('#offer_and_acceptance_template').html() + '</div>'
+          $('#offer_list li:nth-child(' + index + ') a').click()
+          
+          $.notify "Successfully added", "success"
+          initialize_editable_currency_field()
+          initialize_editable_date_field()
+        else
+          $.notify "Failed", "error"
+  
+  
+
+  $(document).on 'click', '#offer_list li span.delete_offer', (e)->
     anchor = $(this).parent('a')
-    $(anchor.attr('href')).remove()
-    $(this).parent().parent().remove()
-    $("#offer_list li").children('a').first().click()
+    $.ajax
+      url: '/property_offers/' + anchor.data('offer-id')
+      type: 'DELETE'
+      dataType: 'json'
+      success: (data) ->
+        if data
+          $(anchor.attr('href')).remove()
+          anchor.parent().remove()
+          $("#offer_list li").children('a').first().click()
+          
+          $.notify "Successfully deleted", "success"
+        else
+          $.notify "Failed", "error"
+
   # - Taks list
   $(document).on 'ifChanged', '.to_do .field_list .task_status', (e)->
     if this.checked
@@ -203,14 +228,16 @@ $ ->
   # Offer and Acceptance Part
   initialize_editable_date_field = ->
     $(document).find('.editable-date').editable
-      combodate: { maxYear: 2100, minYear: 2000 } 
+      combodate: { maxYear: 2100, minYear: 2000 },
+      emptytext: 'Enter Date' 
   
   initialize_editable_date_field()
 
   initialize_editable_currency_field = ->
     $(document).find('.editable-currency').editable
       type: 'text',
-      tpl: '<input class="input-mask-currency" type="text">'
+      tpl: '<input class="input-mask-currency" type="text">',
+      emptytext: 'Enter Amount of Offer'
   
   initialize_editable_currency_field()
 
@@ -221,36 +248,66 @@ $ ->
       prefix: '$ ',
       removeMaskOnSubmit: true
   
+  $("#offer_list li").children('a').first().click()
+  selected_offer_acceptance_tab = $(document).find($("#offer_list li").children('a').first().attr('href'))
+
   $(document).on 'click', '#offer_list li a', (e)->
     selected_offer_acceptance_tab = $(document).find($(this).attr('href'))
-
-  $(document).on "click", ".add_client_counteroffer", (e) -> 
-    e.preventDefault()
+  
+  $(document).on 'change', '.offeror_name', ->
+    tab_element = $(document).find('#offer_list li.active a')
+    offer_name = $(this).val()
+    $.ajax
+      url: '/property_offers/' + tab_element.data('offer-id')
+      type: 'PUT'
+      dataType: 'json'
+      data: { offer_name: offer_name }
+      success: (data) ->
+        if data
+          tab_element.text(offer_name)
+          $.notify "Successfully updated", "success"
+        else
+          $.notify "Failed", "error"
+    
+  
+  add_counteroffer_row = (date, offeror, price)->
     add_row_html = '<tr>
                       <td width="200"> 
-                          <span class="editable-date" data-type="combodate" data-value="" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY"></span>
-                      </td>'
-    if last_counteroffer                      
-      add_row_html += '<td width="400"> 
-                           <span>Counter Party\'s Counter</span>
-                       </td>'
-      $(this).text('Client Counter')
-      last_counteroffer = 0
-    else
-      add_row_html += '<td width="400"> 
-                           <span>Client\'s Counter</span>
-                       </td>'
-      $(this).text('Buyer Counter')
-      last_counteroffer = 1
-
-    add_row_html += '<td>  
-                          <span class="green editable-currency" data-type="text" data-value=""></span>
+                          <span class="editable-date" data-type="combodate" data-value="' + date + '" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY"></span>
+                      </td>
+                      <td width="400"> 
+                          <span>' + offeror + '</span>
+                      </td>
+                      <td>  
+                          <span class="green editable-currency" data-type="text" data-value="' + price + '"></span>
                       </td>
                   </tr>'
+    
     selected_offer_acceptance_tab.find('.counteroffer_history tr.last_row').before(add_row_html)
     initialize_editable_currency_field()
     initialize_editable_date_field()
-  
+    
+
+
+  $(document).on 'click', '.initial_log_counteroffer', (e) ->
+    e.preventDefault()
+    add_counteroffer_row("", "Client", "")
+    last_counteroffer = 1
+    $(this).hide()
+    selected_offer_acceptance_tab.find('.counteroffer_action_buttons_wrapper').show()
+
+  $(document).on "click", ".add_client_counteroffer", (e) ->
+    e.preventDefault()
+    if last_counteroffer
+      last_counteroffer = 0
+      add_counteroffer_row("", "Counter-Party", "")
+      $(this).text('Client Counter')
+    else  
+      last_counteroffer = 1
+      add_counteroffer_row("", "Client", "")
+      $(this).text('Buyer Counter')
+
+    
   # Click Accept offer 
   $(document).on "click", ".btn_accept_counteroffer", (e) ->
     e.preventDefault()

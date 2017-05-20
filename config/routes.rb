@@ -260,6 +260,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :property_offers
+
   resources :transactions do
     member do
       get :edit_qualified_intermediary, :properties_edit, :qualified_intermediary, 

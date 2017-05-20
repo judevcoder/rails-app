@@ -325,8 +325,9 @@ span.fa, span.lnr, i.fa, i.lnr {
 
 
 .active a span.fa {
-    text-align: right !important;
-    margin-right: 4px
+    position: absolute;
+    right: 4px;
+    top: 12px
 }
 .nav-sm .menu_section {
     margin: 0
@@ -2656,7 +2657,7 @@ ul.bar_tabs>li.active {
     margin-top: -15px
 }
 ul.bar_tabs>li a {
-    padding: 10px 17px;
+    padding: 10px 20px;
     background: #F5F7FA;
     margin: 0;
     border-top-right-radius: 0
