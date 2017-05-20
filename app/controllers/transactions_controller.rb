@@ -322,6 +322,8 @@ class TransactionsController < ApplicationController
         params[:cur_property] = ""
         redirect_to properties_edit_transaction_path(@transaction, sub: 'property', type: params[:type], main_id: params[:main_id])
       end
+    else
+      @property = Property.find(params[:cur_property])
     end
     
     if ! @property.property_offers.present?
