@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518081606) do
+ActiveRecord::Schema.define(version: 20170519183045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,15 @@ ActiveRecord::Schema.define(version: 20170518081606) do
     t.index ["contact_type", "type_id"], name: "index_contacts_on_contact_type_and_type_id", using: :btree
     t.index ["deleted_at"], name: "index_contacts_on_deleted_at", using: :btree
     t.index ["email"], name: "index_contacts_on_email", using: :btree
+  end
+
+  create_table "counteroffers", force: :cascade do |t|
+    t.integer  "property_offer_id"
+    t.date     "offered_date"
+    t.string   "offer_type"
+    t.decimal  "offered_price",     precision: 15, scale: 2
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   create_table "dynamic_fields", force: :cascade do |t|
@@ -391,6 +400,15 @@ ActiveRecord::Schema.define(version: 20170518081606) do
     t.string   "st_address_suffix"
     t.index ["deleted_at"], name: "index_properties_on_deleted_at", using: :btree
     t.index ["key"], name: "index_properties_on_key", using: :btree
+  end
+
+  create_table "property_offers", force: :cascade do |t|
+    t.string   "offer_name"
+    t.integer  "property_id"
+    t.boolean  "is_accepted"
+    t.integer  "accepted_counteroffer_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "qualified_intermediaries", force: :cascade do |t|
