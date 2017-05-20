@@ -1,7 +1,7 @@
 
 $ ->
   # Global Variables
-  selected_offer_acceptance_tab = $(document).find($(document).find('#offer_list li.active a').attr('href'))
+  selected_offer_tab = $(document).find($(document).find('#offer_list li.active a').attr('href'))
   last_counteroffer = 0         # 0: client's' counteroffer, 1: counter party's counteroffer 
 
   # Sale
@@ -225,34 +225,39 @@ $ ->
       rightAlign: false,
       prefix: ''
 
-  # Offer and Acceptance Part
+  # Offer and Acceptance 
+  
+  $("#offer_list li").children('a').first().click()
+  selected_offer_tab = $(document).find($("#offer_list li").children('a').first().attr('href'))
+
   initialize_editable_date_field = ->
     $(document).find('.editable-date').editable
-      combodate: { maxYear: 2100, minYear: 2000 },
-      emptytext: 'Enter Date' 
-  
+      combodate: { maxYear: 2030, minYear: 2000 },
+      emptytext: 'Enter Date'
+      template: 'MMM / D / YYYY'
+      
   initialize_editable_date_field()
 
   initialize_editable_currency_field = ->
     $(document).find('.editable-currency').editable
       type: 'text',
-      tpl: '<input class="input-mask-currency" type="text">',
-      emptytext: 'Enter Amount of Offer'
+      tpl: '<input class="offered-price" type="text">',
+      params: (params) -> 
+        params.value = $(document).find('input.offered-price').inputmask('unmaskedvalue');
+        return params
+      emptytext: 'Enter Amount of Offer'  
   
   initialize_editable_currency_field()
 
-  $(document).on "focus", "input.input-mask-currency", ->
+  $(document).on "focus", "input.offered-price", ->
     $(this).inputmask
-      alias: 'currency',
-      rightAlign: false,
-      prefix: '$ ',
+      alias: 'currency'
+      rightAlign: false
+      prefix: '$ '
       removeMaskOnSubmit: true
   
-  $("#offer_list li").children('a').first().click()
-  selected_offer_acceptance_tab = $(document).find($("#offer_list li").children('a').first().attr('href'))
-
   $(document).on 'click', '#offer_list li a', (e)->
-    selected_offer_acceptance_tab = $(document).find($(this).attr('href'))
+    selected_offer_tab = $(document).find($(this).attr('href'))
   
   $(document).on 'change', '.offeror_name', ->
     tab_element = $(document).find('#offer_list li.active a')
@@ -270,42 +275,68 @@ $ ->
           $.notify "Failed", "error"
     
   
-  add_counteroffer_row = (date, offeror, price)->
-    add_row_html = '<tr>
-                      <td width="200"> 
-                          <span class="editable-date" data-type="combodate" data-value="' + date + '" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY"></span>
-                      </td>
-                      <td width="400"> 
-                          <span>' + offeror + '</span>
-                      </td>
-                      <td>  
-                          <span class="green editable-currency" data-type="text" data-value="' + price + '"></span>
-                      </td>
-                  </tr>'
+  add_counteroffer_row = (offer_id, date, offeror, price) -> 
+    $.ajax
+      url: '/counteroffers/'
+      type: 'POST'
+      dataType: 'json'
+      data: { property_offer_id: offer_id, offer_type: offeror, offered_date: date, offered_price: price }
+      success: (data) ->
+        if data.status
+          add_row_html = '<tr data-counteroffer-id="' + data.counteroffer_id + '">
+                            <td width="150"> 
+                                <span class="editable-date" data-name="offered_date" data-url="/counteroffers/' + data.counteroffer_id + '" data-type="combodate" data-value="' + date + '" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY"></span>
+                            </td>
+                            <td width="300"> 
+                                <span>' + offeror + '</span>
+                            </td>
+                            <td>  
+                                <span class="green editable-currency" data-name="offered_price" data-type="text" data-url="/counteroffers/' + data.counteroffer_id + '" data-value="' + price + '"></span>
+                            </td>
+                            <td>
+                                <a href="#" class="delete_counteroffer btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>'
     
-    selected_offer_acceptance_tab.find('.counteroffer_history tr.last_row').before(add_row_html)
-    initialize_editable_currency_field()
-    initialize_editable_date_field()
+          selected_offer_tab.find('.counteroffer_history tr.last_row').before(add_row_html)
+          initialize_editable_currency_field()
+          initialize_editable_date_field()
+          $.notify "Successfully updated", "success"
+        else
+          $.notify "Failed", "error"
     
-
-
+    
   $(document).on 'click', '.initial_log_counteroffer', (e) ->
     e.preventDefault()
-    add_counteroffer_row("", "Client", "")
+    add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Client", "")
     last_counteroffer = 1
     $(this).hide()
-    selected_offer_acceptance_tab.find('.counteroffer_action_buttons_wrapper').show()
+    selected_offer_tab.find('.counteroffer_action_buttons_wrapper').show()
 
   $(document).on "click", ".add_client_counteroffer", (e) ->
     e.preventDefault()
     if last_counteroffer
       last_counteroffer = 0
-      add_counteroffer_row("", "Counter-Party", "")
+      add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Counter-Party", "")
       $(this).text('Client Counter')
     else  
       last_counteroffer = 1
-      add_counteroffer_row("", "Client", "")
+      add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Client", "")
       $(this).text('Buyer Counter')
+  
+  $(document).on 'click', '.delete_counteroffer', (e)->
+    table_tr = $(this).parent().parent('tr')
+    $.ajax
+      url: '/counteroffers/' + table_tr.data('counteroffer-id')
+      type: 'DELETE'
+      dataType: 'json'
+      success: (data) ->
+        if data
+          table_tr.remove()
+          $.notify "Successfully deleted", "success"
+        else
+          $.notify "Failed", "error"
+  
 
     
   # Click Accept offer 
@@ -318,7 +349,12 @@ $ ->
         url: location
         dataType: "html"
         success: (val) ->
-          dialog.find('.modal-body').html(val)
+          purchaser = selected_offer_tab.find('input.offeror_name').val()
+          purchasing_property = $(document).find('#negotiated_property').val()
+          accepted_price = if selected_offer_tab.find('table.counteroffer_history tr.last_row').prev().find('.editable-currency').text() == 'Enter Amount of Offer' then '$ 0' else selected_offer_tab.find('table.counteroffer_history tr.last_row').prev().find('.editable-currency').text() 
+          accept_offer_description = '<h2>' + purchaser + ' will be purchasing ' + purchasing_property + ' for ' + accepted_price + '</h2>'
+          
+          dialog.find('.modal-body').html(accept_offer_description + val)
           dialog.modal()
         error: (e) ->
           console.log e
@@ -326,13 +362,22 @@ $ ->
   $(document).on 'ajax:complete', '#accept_counteroffer form', (event, data, status, xhr)->
     console.log status, data, xhr
     if status
-      $.notify "Success!", "success"
-      selected_offer_acceptance_tab.find('.btn_accept_counteroffer').removeClass('btn-default green border-green')
-                                                  .addClass('btn-success')
-                                                  .attr('disabled', 'disabled')
+      tab_element = $(document).find('#offer_list li.active a')
+      accepted_counteroffer_id = selected_offer_tab.find('table.counteroffer_history tr.last_row').prev().data('counteroffer-id')
+      $.ajax
+        url: '/property_offers/' + tab_element.data('offer-id')
+        type: 'PUT'
+        dataType: 'json'
+        data: { is_accepted: true, accepted_counteroffer_id: accepted_counteroffer_id }
+        success: (data) ->
+          if data
+            
+            $.notify "Counter Accepted", "success"
+          else
+            $.notify "Failed", "error"
+      selected_offer_tab.find('.btn_accept_counteroffer').attr('disabled', 'disabled')
                                                   .text('Counter Accepted')
-      selected_offer_acceptance_tab.find('.add_client_counteroffer').removeClass('red border-red')
-                                                  .attr('disabled', 'disabled')
+      selected_offer_tab.find('.add_client_counteroffer').attr('disabled', 'disabled')
       
       $('#negotions_tab a#relinquishing_purchaser').click()                                                 
     else
