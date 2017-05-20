@@ -3,6 +3,7 @@
 - else
   - options = [ 'Active']
 #negotiations_wrapper
+  input#negotiated_property[type="hidden" value="#{@property.title}"]
   div[role="tabpanel"]
     ul#negotions_tab.nav.nav-tabs.bar_tabs[role="tablist"]
       li.active[role="presentation"]
@@ -37,6 +38,7 @@
             .tab-pane.fade.active.in[role="tabpanel" id="#{'offer_' + property_offer.id.to_s}"]
               .col-md-12.col-xs-12
                 form
+                  input.cur_offer_id[type="hidden" value="#{property_offer.id}"]
                   .row
                     .col-md-4.form-group
                         label.control-label Relinquishing Offeror
@@ -57,24 +59,29 @@
                       table.counteroffer_history.table.margin-lg-top
                         tbody
                           - property_offer.counteroffers.each do |counteroffer|
-                            tr
-                              td[width="200"] 
-                                span.editable-date[data-type="combodate" data-value="#{counteroffer.offered_date}" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY"]
-                              td[width="400"] 
+                            tr[data-counteroffer-id="#{counteroffer.id}"]
+                              td[width="150"]
+                                span.editable-date[data-name="offered_date" data-type="combodate" data-value="#{counteroffer.offered_date}" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY" data-url="#{counteroffer_path(counteroffer.id)}"]
+                              td[width="300"] 
                                 span = counteroffer.offer_type
-                              td  
-                                span.green.editable-currency[data-type="text" data-value="#{counteroffer.offered_price}"]
+                              td[width="300"]
+                                span.green.editable-currency[data-name="offered_price" data-type="text" data-value="#{number_to_currency(counteroffer.offered_price)}" data-url="#{counteroffer_path(counteroffer.id)}"]
+                              td
+                                - if !property_offer.is_accepted
+                                  a.delete_counteroffer.btn.btn-danger.btn-xs
+                                    i.fa.fa-trash
                           tr.last_row
                             td
                             td
                             td
-                  .row.counteroffer_action_buttons_wrapper[style="display: none"]
+                            td
+                  .row.counteroffer_action_buttons_wrapper[style="#{'display: none' if property_offer.counteroffers.count == 0 }"]
                     .col-md-4.col-xs-12.form-group
-                        button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer"] Buyer Counter
-                        - if true
+                        button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer" disabled="#{'disabled' if property_offer.is_accepted}"] Buyer Counter
+                        - if !property_offer.is_accepted
                           = link_to 'Accept Counter', new_contact_path(contact_type: 'individual', recommended_type: 'Counter-Party'), class: 'btn_accept_counteroffer btn btn-default green border-green', remote: true
                         - else
-                          = link_to 'Counter Accepted', '#', class: 'btn btn-default green border-green'
+                          = link_to 'Counter Accepted', '#', class: 'btn btn-default green border-green', disabled: property_offer.is_accepted 
               / = nested_form_for(@transaction, as: :transaction, url: terms_update_transaction_path(@transaction, main_id: params[:main_id], sub: params[:sub], type: params[:type])) do |f|
               /   - if @transaction.errors.any?
               /     #error_explanation

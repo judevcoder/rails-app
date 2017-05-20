@@ -31,6 +31,6 @@ class PropertyOffersController < ApplicationController
   end
 
   def property_offer_params
-    params.permit(:offer_name, :property_id)
+    params.permit(:offer_name, :property_id, :is_accepted, :accepted_counteroffer_id)
   end
 end
