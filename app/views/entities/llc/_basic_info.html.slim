@@ -25,9 +25,10 @@
       = f.text_field :name, class: "form-control width-field-md pull-left"
       div
         = f.hidden_field :has_comma, class: "has_comma_val"
-        = image_tag('Comma.png', :id=> 'comma', :width => '30px', :height=> '30px')
-        = image_tag('Comma-grey.png', :id=> 'comma-grey', :width => '30px', :height=> '30px')
-        label LLC
+        = image_tag('Comma.png', :id=> 'comma', :width => '30px', :height=> '30px', :class => 'pull-left')
+        = image_tag('Comma-grey.png', :id=> 'comma-grey', :width => '30px', :height=> '30px', :class => 'pull-left')
+        span.name-suffix-span.pull-left
+          | LLC
         = f.hidden_field :legal_ending, :value => "LLC"
       .clearfix
       = linkbacks_entity(@entity)
