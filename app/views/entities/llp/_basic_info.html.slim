@@ -27,7 +27,8 @@
         = f.hidden_field :has_comma, class: "has_comma_val"
         = image_tag('Comma.png', :id=> 'comma', :width => '30px', :height=> '30px')
         = image_tag('Comma-grey.png', :id=> 'comma-grey', :width => '30px', :height=> '30px')
-        label LLP
+        label style="display: inline-block"
+          | LLP
         = f.hidden_field :legal_ending, :value => "LLP"
       .clearfix
       = linkbacks_entity(@entity)
