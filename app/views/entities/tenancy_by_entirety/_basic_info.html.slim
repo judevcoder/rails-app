@@ -37,15 +37,17 @@
     .form-group.required.margin-sm-top
       label.control-label Property Title
       = f.select :property_id, options_for_select(Property.where(id: AccessResource.get_ids(resource_klass: 'Property', user: current_user), ownership_status: 'Purchased').pluck(:title, :id), f.object.property_id), {}, class: 'selectize-single'
-      .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-property pull-left"
-    
+      div#linkbacks
+        = linkbacks_property @entity.property
+        .add-list-entity-links.pull-right
+          = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-right"
+
     .form-group
       - if @entity.persisted?
-        - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? " 
+        - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? "
         = f.submit 'Save', class: 'btn btn-sm btn-primary', data: { confirm: c_str }
       - else
-        = f.submit 'Save', class: 'btn btn-sm btn-primary'        
+        = f.submit 'Save', class: 'btn btn-sm btn-primary'
 
 #popup-should-not-change.corporate
   = hidden_field_tag "should_not_change[name]", (@entity.persisted? ? @entity.reload["name"] : '')

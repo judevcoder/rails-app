@@ -24,8 +24,11 @@
         = f.select :temp_id, options_html('limited-partner', "false", @partner.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @partner.super_entity.id, clienttype: 'limited-partner'}
       = hidden_field_tag "partner[member_type_id]", MemberType.getLimitedPartnershipId
       = hidden_field_tag :cid, @partner.temp_id
-      .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+      .clearfix
+      div#linkbacks
+        = linkbacks f.object.temp_id
+        .add-list-entity-links.pull-right
+          = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-right"
     .form-group
       label Partnership Interest of this Member
       = f.text_field :my_percentage, "autocomplete" => "off", class: "assets-share form-control"

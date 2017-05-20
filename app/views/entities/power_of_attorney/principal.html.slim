@@ -25,8 +25,11 @@
         = f.select :temp_id, options_html('principal', "false", @principal.super_entity, f.object.temp_id), {}, class: "form-control", data: {id: @principal.super_entity.id, clienttype: 'principal'}
       = hidden_field_tag "principal[member_type_id]", MemberType.getPowerOfAttorneyId
       = hidden_field_tag :cid, @principal.temp_id
-      .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+      .clearfix
+      div#linkbacks
+        = linkbacks f.object.temp_id
+        .add-list-entity-links.pull-right
+          = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-right"
 
     .form-group
       = f.submit 'Save', class: 'btn btn-sm btn-primary'

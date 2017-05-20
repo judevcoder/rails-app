@@ -12,8 +12,11 @@
       = hidden_field_tag "ward[member_type_id]", MemberType.getGuardianshipId
       = hidden_field_tag :cid, @ward.temp_id
       = hidden_field_tag :is_person, true
-      .clearfix.add-list-entity-links
-        = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-left"
+      .clearfix
+      div#linkbacks
+        = linkbacks f.object.temp_id
+        .add-list-entity-links.pull-right
+          = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-right"
     .form-group
       = f.submit 'Save', class: "btn btn-primary"
 
