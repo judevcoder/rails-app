@@ -246,10 +246,16 @@ $( document ).ready(function() {
     }
   });
 
+  $("#menu-toggle").click(function(e) {
+    $("#wrapper").toggleClass("active");
+  });
+
   // $("#owns-link").click(function() {
   //   console.log($(this).attr("data-key"));
   // });
 });
+
+
 
 // Bootstrap tree view
 
