@@ -24,7 +24,7 @@
     .tab-content
       #offer_and_acceptance_section.tab-pane.fade.active.in[role="tabpanel"]
         ul#offer_list.nav.nav-tabs.bar_tabs[role="tablist"]
-          - @transaction_property.transaction_property_offers.each do |transaction_property_offer|
+          - @transaction_property.transaction_property_offers.order(updated_at: :asc).each do |transaction_property_offer|
             li[role="presentation"]
               a[href="#{ '#offer_' + transaction_property_offer.id.to_s }" role="tab" data-toggle="tab" aria-expanded="true" data-offer-id="#{transaction_property_offer.id}"] 
                 = transaction_property_offer.offer_name
@@ -55,10 +55,11 @@
                   .row
                     .col-md-12.margin-lg-top.form-group
                       button.initial_log_counteroffer.btn.btn-default[style="#{'display: none' if transaction_property_offer.counteroffers.count != 0}"] Log Initial Counter Offer
+                      input.last_counteroffer_price[type="hidden" value="#{get_recent_counteroffer_price(transaction_property_offer)}"]
                       
                       table.counteroffer_history.table.margin-lg-top
                         tbody
-                          - transaction_property_offer.counteroffers.each do |counteroffer|
+                          - transaction_property_offer.counteroffers.order(updated_at: :asc).each do |counteroffer|
                             tr[data-counteroffer-id="#{counteroffer.id}"]
                               td[width="150"]
                                 span.editable-date[data-name="offered_date" data-type="combodate" data-value="#{counteroffer.offered_date}" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY" data-url="#{counteroffer_path(counteroffer.id)}"]

@@ -166,14 +166,15 @@ $ ->
       url: '/transaction_property_offers/'
       type: 'POST'
       dataType: 'json'
-      data: { offer_name: 'Offer ' + index, transaction_property_id: $(this).data('tran-prop-id'), is_accepted: false }
+      data: { offer_name: 'Offeror ' + index, transaction_property_id: $(this).data('tran-prop-id'), is_accepted: false }
       success: (data) ->
         if data.status
           elem.closest('li').before '<li><a data-toggle="tab" data-offer-id="' + data.offer_id + '" aria-expanded="true" href="#offer_' + data.offer_id + '_content">Offer '+ index + ' <span class="delete_offer fa fa-times"></span></a></li>'
           tabId = 'offer_' + data.offer_id + '_content'
           $('#offer_and_acceptance_section .tab-content').append '<div class="tab-pane" id="' + tabId + '">' + $('#offer_and_acceptance_template').html() + '</div>'
           $('#offer_list li:nth-child(' + index + ') a').click()
-          
+
+          selected_offer_tab.find('input.offeror_name').val(data.offer_name)
           $.notify "Successfully added", "success"
           initialize_editable_currency_field()
           initialize_editable_date_field()
@@ -241,7 +242,8 @@ $ ->
           return 'Please select later date than previous counteroffer'
       success: (response) ->
         if response.counteroffer.offered_date && response.counteroffer.offered_price
-          selected_offer_tab.find('.add_counteroffer').prop("disabled", false) 
+          selected_offer_tab.find('.add_counteroffer').attr("disabled", false)
+          selected_offer_tab.find('.last_counteroffer_price').val('$' + response.counteroffer.offered_price.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
       
   initialize_editable_date_field()
 
@@ -255,7 +257,9 @@ $ ->
       emptytext: 'Enter Amount of Offer'  
       success: (response) ->
         if response.counteroffer.offered_date && response.counteroffer.offered_price
-          selected_offer_tab.find('.add_counteroffer').prop("disabled", false)
+          selected_offer_tab.find('.add_counteroffer').attr("disabled", false)
+          selected_offer_tab.find('.last_counteroffer_price').val('$' + response.counteroffer.offered_price.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+      
   
   initialize_editable_currency_field()
 
@@ -285,7 +289,8 @@ $ ->
           $.notify "Failed", "error"
     
   
-  add_counteroffer_row = (offer_id, date, offeror, price) -> 
+  add_counteroffer_row = (offer_id, date, offeror, price) ->
+    date = date || moment().format('YYYY-MM-DD')
     $.ajax
       url: '/counteroffers/'
       type: 'POST'
@@ -343,12 +348,13 @@ $ ->
       dataType: 'json'
       success: (data) ->
         if data
-          selected_offer_tab.find('.last_counteroffer_date').val(table_tr.prev().children().first().find('span.editable-date').data('value'))
+          selected_offer_tab.find('.last_counteroffer_price').val(table_tr.prev().children().find('span.editable-currency').text())
           table_tr.remove()
           if selected_offer_tab.find('.counteroffer_history tr').length == 1
             selected_offer_tab.find('.initial_log_counteroffer').show()
             selected_offer_tab.find('.counteroffer_action_buttons_wrapper').hide()
-
+          
+          selected_offer_tab.find('.add_counteroffer').attr('disabled', false)
           $.notify "Successfully deleted", "success"
         else
           $.notify "Failed", "error"
@@ -367,7 +373,7 @@ $ ->
         success: (val) ->
           purchaser = selected_offer_tab.find('input.offeror_name').val()
           purchasing_property = $(document).find('#negotiated_property').val()
-          accepted_price = if selected_offer_tab.find('table.counteroffer_history tr.last_row').prev().find('.editable-currency').text() == 'Enter Amount of Offer' then '$ 0' else selected_offer_tab.find('table.counteroffer_history tr.last_row').prev().find('.editable-currency').text() 
+          accepted_price = selected_offer_tab.find('.last_counteroffer_price').val()
           accept_offer_description = '<h2>' + purchaser + ' will be purchasing ' + purchasing_property + ' for ' + accepted_price + '</h2>'
           
           dialog.find('.modal-body').html(accept_offer_description + val)

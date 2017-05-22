@@ -369,7 +369,7 @@ class TransactionsController < ApplicationController
     
     @transaction_property = @transaction.transaction_properties.where(property_id: @property.id).first
     if ! @transaction_property.transaction_property_offers.present?
-      @transaction_property.transaction_property_offers.create([:offer_name => "Offer 1", :is_accepted => false, :transaction_property_id => @transaction_property.id])
+      @transaction_property.transaction_property_offers.create([:offer_name => "Offeror 1", :is_accepted => false, :transaction_property_id => @transaction_property.id])
     end 
 
 
