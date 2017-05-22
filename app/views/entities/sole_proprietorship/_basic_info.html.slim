@@ -25,7 +25,7 @@
       = f.text_field :first_name, class: "partnership form-control"
     .form-group.required
       label.control-label Owner Last Name
-      = f.text_field :last_name, class: "partnership form-control"    
+      = f.text_field :last_name, class: "partnership form-control"
     .form-group
       = f.label "Fictitious Business Name"
       = f.text_field :name2, class: "partnership form-control"
@@ -49,7 +49,7 @@
       label.control-label Date of Registration
       .clearfix
       .pull-left
-        = f.date_select :date_of_formation, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto entity_date_of_formation", style: "#{'display: none;' if f.object.m_date_of_formation?}"
+        = f.date_select :date_of_formation, { start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year] }, class: "form-control select_auto entity_date_of_formation", style: "#{'display: none;' if f.object.m_date_of_formation?}"
         = f.text_field :date_of_formation, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless f.object.m_date_of_formation?}"
       .pull-right
         .pull-left
@@ -62,10 +62,10 @@
     .clearfix
       .form-group
         - if @entity.persisted?
-          - c_str = "Warning, you just made changes to #{@entity.display_name} Are you sure you want to proceed to do this? " 
+          - c_str = "Warning, you just made changes to #{@entity.display_name} Are you sure you want to proceed to do this? "
           = f.submit 'Save', class: 'btn btn-sm btn-primary', data: { confirm: c_str }
         - else
-          = f.submit 'Save', class: 'btn btn-sm btn-primary'        
+          = f.submit 'Save', class: 'btn btn-sm btn-primary'
 
 #popup-should-not-change.corporate
   = hidden_field_tag "should_not_change[name]", (@entity.persisted? ? @entity.reload["name"] : '')

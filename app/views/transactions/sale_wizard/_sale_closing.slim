@@ -1,10 +1,15 @@
 - if @closed
     .clearfix
-    label Closing Date
-    = select_date @closing_date, {:disabled=>true}
+    .form-group
+        label Closing Date
+        .clearfix
+        = select_date(@closing_date, order: [:month, :day, :year], disabled: true)
     .clearfix
-    label Closing Proceeds
-    = text_field_tag :closing_proceeds, @closing_proceeds, :readonly => true, class: 'form-control input-mask-currency'
+    .form-group
+        label Closing Proceeds
+        .input-group
+            .input-group-addon $
+            = text_field_tag :closing_proceeds, @closing_proceeds, :readonly => true, class: 'form-control input-mask-currency width-field-sm'
 -else
     = form_tag(({controller: 'transactions', action: 'closing'}), method: :post) do
         .clearfix
@@ -12,7 +17,7 @@
             label Closing Date
             .clearfix
             /= date_select :closing_date, { start_year: 50.years.ago.year, end_year: Time.zone.now.year}, class: "form-control select_auto property_closing_date"
-            = select_date @closing_date
+            = select_date(@closing_date, order: [:month, :day, :year])
         .clearfix
         .form-group
             label Closing Proceeds

@@ -19,7 +19,7 @@
         - override_active_record_errors(@entity.errors.messages, {base: ''}).each do |message|
           li = message
 
-  
+
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
     .form-group.required
       = f.label "Name", class: "control-label"
@@ -33,7 +33,7 @@
       label.control-label Date of Formation
       .clearfix
       .pull-left
-        = f.date_select :date_of_formation, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto entity_date_of_formation", style: "#{'display: none;' if f.object.m_date_of_formation?}"
+        = f.date_select :date_of_formation, { start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year] }, class: "form-control select_auto entity_date_of_formation", style: "#{'display: none;' if f.object.m_date_of_formation?}"
         = f.text_field :date_of_formation, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless f.object.m_date_of_formation?}"
       .pull-right
         .pull-left
@@ -52,10 +52,10 @@
     .clearfix
       .form-group
         - if @entity.persisted?
-          - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? " 
+          - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? "
           = f.submit 'Save', class: 'btn btn-sm btn-primary', data: { confirm: c_str }
         - else
-          = f.submit 'Save', class: 'btn btn-sm btn-primary'        
+          = f.submit 'Save', class: 'btn btn-sm btn-primary'
 
 #popup-should-not-change.corporate
   = hidden_field_tag "should_not_change[name]", (@entity.persisted? ? @entity.reload["name"] : '')
