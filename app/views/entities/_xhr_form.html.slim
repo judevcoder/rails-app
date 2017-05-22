@@ -11,7 +11,7 @@
     .form-group
       = f.label :name
       = f.text_field :name, class: "form-control"
-        
+
     .form-group
       = f.label :address
       = f.text_area :address, class: "form-control"
@@ -24,7 +24,7 @@
     .form-group
       = f.label "date_of_formation *"
       .clearfix
-      = f.date_select :date_of_formation, {start_year: 50.years.ago.year, end_year: Time.zone.now.year}, class: "form-control select_auto"
+      = f.date_select :date_of_formation, {start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year]}, class: "form-control select_auto"
     .form-group
       .col-lg-4.close-md-4.col-sm-12.col-xs-12= f.label "State of Formation"
       = f.select :jurisdiction, options_for_select( Entity.USSTATES, @entity.jurisdiction ), {}, class: "form-control selectize-single"

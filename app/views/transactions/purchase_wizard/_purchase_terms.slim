@@ -28,7 +28,7 @@
         label Date of Purchase Sale Agreement
         .clearfix
         .pull-left
-          = transaction_term_form.date_select :psa_date, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto transaction_transaction_term_attributes_psa_date", style: "#{'display: none;' if transaction_term_form.object.m_psa_date?}"
+          = transaction_term_form.date_select :psa_date, { start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year] }, class: "form-control select_auto transaction_transaction_term_attributes_psa_date", style: "#{'display: none;' if transaction_term_form.object.m_psa_date?}"
           = transaction_term_form.text_field :psa_date, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless transaction_term_form.object.m_psa_date?}"
         .pull-right
           .pull-left
@@ -40,7 +40,7 @@
         label First Deposit Due Date
         .clearfix
         .pull-left
-          = transaction_term_form.date_select :first_deposit_date_due, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto transaction_transaction_term_attributes_first_deposit_date_due", style: "#{'display: none;' if transaction_term_form.object.m_first_deposit_date_due?}"
+          = transaction_term_form.date_select :first_deposit_date_due, { start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year] }, class: "form-control select_auto transaction_transaction_term_attributes_first_deposit_date_due", style: "#{'display: none;' if transaction_term_form.object.m_first_deposit_date_due?}"
           = transaction_term_form.text_field :first_deposit_date_due, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless transaction_term_form.object.m_first_deposit_date_due?}"
         .pull-right
           .pull-left
@@ -62,7 +62,7 @@
         label 2nd Deposit Due Date -- Number of Days After Inspection Period
         .clearfix
         .pull-left
-          = transaction_term_form.date_select :second_deposit_date_due, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto transaction_transaction_term_attributes_second_deposit_date_due", style: "#{'display: none;' if transaction_term_form.object.m_second_deposit_date_due?}"
+          = transaction_term_form.date_select :second_deposit_date_due, { start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year] }, class: "form-control select_auto transaction_transaction_term_attributes_second_deposit_date_due", style: "#{'display: none;' if transaction_term_form.object.m_second_deposit_date_due?}"
           = transaction_term_form.text_field :second_deposit_date_due, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless transaction_term_form.object.m_second_deposit_date_due?}"
         .pull-right
           .pull-left
@@ -75,7 +75,7 @@
         label Date of Closing
         .clearfix
         .pull-left
-          = transaction_term_form.date_select :closing_date, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto transaction_transaction_term_attributes_closing_date", style: "#{'display: none;' if transaction_term_form.object.m_closing_date?}"
+          = transaction_term_form.date_select :closing_date, { start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year] }, class: "form-control select_auto transaction_transaction_term_attributes_closing_date", style: "#{'display: none;' if transaction_term_form.object.m_closing_date?}"
           = transaction_term_form.text_field :closing_date, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless transaction_term_form.object.m_closing_date?}"
         .pull-right
           .pull-left
