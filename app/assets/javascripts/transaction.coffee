@@ -235,6 +235,13 @@ $ ->
       combodate: { maxYear: 2030, minYear: 2000 },
       emptytext: 'Enter Date'
       template: 'MMM / D / YYYY'
+      validate: (value) ->
+        prev_counteroffer_date = $(this).parent().parent().prev().children().first().find('span.editable-date').data('value')
+        if prev_counteroffer_date > value.format('YYYY-MM-DD')
+          return 'Please select later date than previous counteroffer'
+      success: (response) ->
+        if response.counteroffer.offered_date && response.counteroffer.offered_price
+          selected_offer_tab.find('.add_counteroffer').prop("disabled", false) 
       
   initialize_editable_date_field()
 
@@ -246,6 +253,9 @@ $ ->
         params.value = $(document).find('input.offered-price').inputmask('unmaskedvalue');
         return params
       emptytext: 'Enter Amount of Offer'  
+      success: (response) ->
+        if response.counteroffer.offered_date && response.counteroffer.offered_price
+          selected_offer_tab.find('.add_counteroffer').prop("disabled", false)
   
   initialize_editable_currency_field()
 
@@ -301,6 +311,7 @@ $ ->
           selected_offer_tab.find('.counteroffer_history tr.last_row').before(add_row_html)
           initialize_editable_currency_field()
           initialize_editable_date_field()
+          selected_offer_tab.find('.add_counteroffer').prop("disabled", "disabled")
           $.notify "Successfully updated", "success"
         else
           $.notify "Failed", "error"
@@ -313,7 +324,7 @@ $ ->
     $(this).hide()
     selected_offer_tab.find('.counteroffer_action_buttons_wrapper').show()
 
-  $(document).on "click", ".add_client_counteroffer", (e) ->
+  $(document).on "click", ".add_counteroffer", (e) ->
     e.preventDefault()
     if last_counteroffer == 1
       last_counteroffer = 0
@@ -332,7 +343,12 @@ $ ->
       dataType: 'json'
       success: (data) ->
         if data
+          selected_offer_tab.find('.last_counteroffer_date').val(table_tr.prev().children().first().find('span.editable-date').data('value'))
           table_tr.remove()
+          if selected_offer_tab.find('.counteroffer_history tr').length == 1
+            selected_offer_tab.find('.initial_log_counteroffer').show()
+            selected_offer_tab.find('.counteroffer_action_buttons_wrapper').hide()
+
           $.notify "Successfully deleted", "success"
         else
           $.notify "Failed", "error"
@@ -377,7 +393,7 @@ $ ->
             $.notify "Failed", "error"
       selected_offer_tab.find('.btn_accept_counteroffer').attr('disabled', 'disabled')
                                                   .text('Counter Accepted')
-      selected_offer_tab.find('.add_client_counteroffer').attr('disabled', 'disabled')
+      selected_offer_tab.find('.add_counteroffer').attr('disabled', 'disabled')
       
       $(document).find('#relinquishing_purchaser_name').val(data.offer_name)
       $('#negotions_tab a#relinquishing_purchaser').click()                                                 
