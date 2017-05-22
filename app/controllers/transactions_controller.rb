@@ -425,6 +425,7 @@ class TransactionsController < ApplicationController
               replacement_purchaser_last_name: t.replacement_purchaser_last_name,
               purchaser_person_is: t.seller_person_is
             })   
+            t1.is_purchase = 1
             t1.save
           end
         end
