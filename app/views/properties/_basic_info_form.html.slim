@@ -62,12 +62,12 @@
       = label_tag "#{params[:ownership_status] == 'Prospective Purchase' ? 'Offering Price' : 'Purchase Price'}"
       .input-group
         .input-group-addon $
-        = f.text_field :price, class: 'form-control width-field-md'
+        = f.text_field :price, class: 'form-control width-field-md input-mask-currency'
     .form-group
       label Current Rent
       .input-group
         .input-group-addon $
-        = f.text_field :current_rent, class: 'form-control width-field-md'
+        = f.text_field :current_rent, class: 'form-control width-field-md input-mask-currency'
     .form-group
       label Cap Rate
       .input-group.width-field-md

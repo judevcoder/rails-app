@@ -54,11 +54,11 @@
     .form-group
       .half
         = f.label "Total Stock Shares"
-        = f.text_field :number_of_assets, "autocomplete" => "off", class: "form-control"
+        = f.text_field :number_of_assets, "autocomplete" => "off", class: "form-control input-mask-integer"
       .half
         = f.label "Remaining Stock Shares"
         .instant-remaining-stock-share
-          = text_field_tag "instant_remaining_number_of_assets", @entity.corporate_remaining_share, "disabled" => "disabled"
+          = text_field_tag "instant_remaining_number_of_assets", @entity.corporate_remaining_share, "disabled" => "disabled", class: " input-mask-integer"
         = hidden_field_tag "instant_remaining_number_of_assets", @entity.corporate_distributed_share
     .form-group
       .part23
@@ -125,3 +125,10 @@
 
 /#required_field
 /  | All (*) fields are mandatory
+
+javascript:
+  $(document).find('.input-mask-integer').inputmask({
+    alias: 'currency',
+    rightAlign: false,
+    prefix: '',
+    removeMaskOnSubmit: true})
