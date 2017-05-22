@@ -25,7 +25,7 @@
       label = "Closing Date of Relinquishing Sale #{require_field}".html_safe
       .clearfix
       .pull-left
-        = f.date_select :purchase_only_closing_date, {start_year: 50.years.ago.year, end_year: Time.zone.now.year}, class: "form-control select_auto transaction_purchase_only_closing_date", style: "#{'display: none;' if f.object.m_purchase_only_closing_date?}"
+        = f.date_select :purchase_only_closing_date, {start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year]}, class: "form-control select_auto transaction_purchase_only_closing_date", style: "#{'display: none;' if f.object.m_purchase_only_closing_date?}"
         = f.text_field :purchase_only_closing_date, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless f.object.m_purchase_only_closing_date?}"
       .pull-right
         .pull-left

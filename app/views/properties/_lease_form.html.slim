@@ -50,7 +50,7 @@ div[role="tabpanel"]
               h2.heading Date Of Lease
               .clearfix
               .pull-left
-                = f.date_select :date_of_lease, {start_year: 50.years.ago.year, end_year: Time.zone.now.year}, class: "form-control select_auto property_date_of_lease", style: "#{'display: none;' if f.object.m_date_of_lease?}"
+                = f.date_select :date_of_lease, {start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year]}, class: "form-control select_auto property_date_of_lease", style: "#{'display: none;' if f.object.m_date_of_lease?}"
                 = f.text_field :date_of_lease, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless f.object.m_date_of_lease?}"
               .pull-right
                 .pull-left
@@ -103,7 +103,7 @@ div[role="tabpanel"]
                 | Rent Commencement Date
             .clearfix
             .form-group
-              = f.date_select :rent_commencement_date, {start_year: 50.years.ago.year, end_year: Time.zone.now.year}, class: 'form-control select_auto'
+              = f.date_select :rent_commencement_date, {start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year]}, class: 'form-control select_auto'
             .clearfix
               h2.heading
                 | Rent Commencement Date Details

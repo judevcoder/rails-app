@@ -14,16 +14,16 @@
         th
             | Closing Date
         th
-            | Closing Proceeds      
+            | Closing Proceeds
     tbody
-      - @sales.each do |sale|     
-        tr       
+      - @sales.each do |sale|
+        tr
           td
             = sale.property.title
           td
             = sale.closing_date
           td
-            = sale.closing_proceeds
+            = number_to_currency(sale.closing_proceeds)
 
 .col-lg-12.col-md-12.col-sm-12.col-xs-12.margin-lg-top
   .clearfix
@@ -36,18 +36,19 @@
         th
             | Closing Date
         th
-            | Closing Proceeds      
+            | Closing Proceeds
     tbody
-      - @purchases.each do |purchase|     
-        tr       
+      - @purchases.each do |purchase|
+        tr
           td
             = purchase.property.title
           td
             = purchase.closing_date
           td
-            = purchase.closing_proceeds
+            = number_to_currency(purchase.closing_proceeds)
 
-.clearfix
-label QI Funds Balance
-h4
-  = @transaction_main.qi_funds
+.col-lg-12.col-md-12.col-sm-12.col-xs-12.margin-lg-top
+  .clearfix
+  label QI Funds Balance
+  h4
+    = number_to_currency(@transaction_main.qi_funds)
