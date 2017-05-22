@@ -410,6 +410,25 @@ class TransactionsController < ApplicationController
             @transaction.main.transaction_deadline = @transaction_property.closing_date + 180.days
         end 
         @transaction.main.save
+        if @transaction.is_a?(TransactionSale)
+          if @transaction.main.purchase.nil?
+            t = @transaction
+            t1 = TransactionPurchase.new({
+              transaction_main_id: @transaction.main.id,
+              relinquishing_seller_entity_id: t.relinquishing_seller_entity_id,
+              relinquishing_seller_honorific: t.relinquishing_seller_honorific,
+              relinquishing_seller_first_name: t.relinquishing_seller_first_name,
+              relinquishing_seller_last_name: t.relinquishing_purchaser_last_name,
+              replacement_purchaser_entity_id: t.replacement_purchaser_entity_id,
+              replacement_purchaser_honorific: t.replacement_purchaser_honorific,
+              replacement_purchaser_first_name: t.replacement_seller_first_name,
+              replacement_purchaser_last_name: t.replacement_purchaser_last_name,
+              purchaser_person_is: t.seller_person_is
+            })   
+            t1.save
+          end
+        end
+                       
         
       end      
       #return redirect_to edit_transaction_path(@transaction, type: 'sale', main_id: @transaction.transaction_main_id)
