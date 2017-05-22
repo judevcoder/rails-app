@@ -30,6 +30,6 @@ class CounteroffersController < ApplicationController
   end
 
   def counteroffer_params
-    params.permit(:property_offer_id, :offered_date, :offer_type, :offered_price)
+    params.permit(:transaction_property_offer_id, :offered_date, :offer_type, :offered_price)
   end
 end

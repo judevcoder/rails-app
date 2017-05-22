@@ -260,7 +260,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :property_offers
+  resources :transaction_property_offers
   resources :counteroffers
 
   resources :transactions do

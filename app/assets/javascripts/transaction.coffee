@@ -163,10 +163,10 @@ $ ->
     elem = $(this)
 
     $.ajax
-      url: '/property_offers/'
+      url: '/transaction_property_offers/'
       type: 'POST'
       dataType: 'json'
-      data: {offer_name: 'Offer ' + index, property_id: $(this).data('prop-id'), is_accepted: false}
+      data: { offer_name: 'Offer ' + index, transaction_property_id: $(this).data('tran-prop-id'), is_accepted: false }
       success: (data) ->
         if data.status
           elem.closest('li').before '<li><a data-toggle="tab" data-offer-id="' + data.offer_id + '" aria-expanded="true" href="#offer_' + data.offer_id + '_content">Offer '+ index + ' <span class="delete_offer fa fa-times"></span></a></li>'
@@ -185,7 +185,7 @@ $ ->
   $(document).on 'click', '#offer_list li span.delete_offer', (e)->
     anchor = $(this).parent('a')
     $.ajax
-      url: '/property_offers/' + anchor.data('offer-id')
+      url: '/transaction_property_offers/' + anchor.data('offer-id')
       type: 'DELETE'
       dataType: 'json'
       success: (data) ->
@@ -263,12 +263,12 @@ $ ->
     tab_element = $(document).find('#offer_list li.active a')
     offer_name = $(this).val()
     $.ajax
-      url: '/property_offers/' + tab_element.data('offer-id')
+      url: '/transaction_property_offers/' + tab_element.data('offer-id')
       type: 'PUT'
       dataType: 'json'
       data: { offer_name: offer_name }
       success: (data) ->
-        if data
+        if data.status
           tab_element.text(offer_name)
           $.notify "Successfully updated", "success"
         else
@@ -280,7 +280,7 @@ $ ->
       url: '/counteroffers/'
       type: 'POST'
       dataType: 'json'
-      data: { property_offer_id: offer_id, offer_type: offeror, offered_date: date, offered_price: price }
+      data: { transaction_property_offer_id: offer_id, offer_type: offeror, offered_date: date, offered_price: price }
       success: (data) ->
         if data.status
           add_row_html = '<tr data-counteroffer-id="' + data.counteroffer_id + '">
@@ -308,14 +308,14 @@ $ ->
     
   $(document).on 'click', '.initial_log_counteroffer', (e) ->
     e.preventDefault()
-    add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Client", "")
-    last_counteroffer = 1
+    add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Counter-Party", "")
+    last_counteroffer = 0
     $(this).hide()
     selected_offer_tab.find('.counteroffer_action_buttons_wrapper').show()
 
   $(document).on "click", ".add_client_counteroffer", (e) ->
     e.preventDefault()
-    if last_counteroffer
+    if last_counteroffer == 1
       last_counteroffer = 0
       add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Counter-Party", "")
       $(this).text('Client Counter')
@@ -365,12 +365,12 @@ $ ->
       tab_element = $(document).find('#offer_list li.active a')
       accepted_counteroffer_id = selected_offer_tab.find('table.counteroffer_history tr.last_row').prev().data('counteroffer-id')
       $.ajax
-        url: '/property_offers/' + tab_element.data('offer-id')
+        url: '/transaction_property_offers/' + tab_element.data('offer-id')
         type: 'PUT'
         dataType: 'json'
         data: { is_accepted: true, accepted_counteroffer_id: accepted_counteroffer_id }
         success: (data) ->
-          if data
+          if data.status
             
             $.notify "Counter Accepted", "success"
           else
@@ -379,10 +379,14 @@ $ ->
                                                   .text('Counter Accepted')
       selected_offer_tab.find('.add_client_counteroffer').attr('disabled', 'disabled')
       
+      $(document).find('#relinquishing_purchaser_name').val(data.offer_name)
       $('#negotions_tab a#relinquishing_purchaser').click()                                                 
     else
       $.notify "Failed!", "error"
 
+  $(document).on 'click', '#back_prev_tab', (e) ->
+    e.preventDefault()
+    $('#negotions_tab li.active').prev().find('a').click()
 
   # Show modal for submenu of top menu
   $(document).on 'click', '.top-header ul li a > span', (e)->

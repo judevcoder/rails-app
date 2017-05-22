@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519183045) do
+ActiveRecord::Schema.define(version: 20170522113045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,12 +106,12 @@ ActiveRecord::Schema.define(version: 20170519183045) do
   end
 
   create_table "counteroffers", force: :cascade do |t|
-    t.integer  "property_offer_id"
+    t.integer  "transaction_property_offer_id"
     t.date     "offered_date"
     t.string   "offer_type"
-    t.decimal  "offered_price",     precision: 15, scale: 2
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.decimal  "offered_price",                 precision: 15, scale: 2
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
   end
 
   create_table "dynamic_fields", force: :cascade do |t|
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20170519183045) do
     t.string   "jurisdiction"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "number_of_assets"
+    t.bigint   "number_of_assets"
     t.integer  "total_membership_interest",             default: 100
     t.integer  "total_undivided_interest",              default: 100
     t.integer  "total_partnership_interest",            default: 100
@@ -402,15 +402,6 @@ ActiveRecord::Schema.define(version: 20170519183045) do
     t.index ["key"], name: "index_properties_on_key", using: :btree
   end
 
-  create_table "property_offers", force: :cascade do |t|
-    t.string   "offer_name"
-    t.integer  "property_id"
-    t.boolean  "is_accepted"
-    t.integer  "accepted_counteroffer_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
   create_table "qualified_intermediaries", force: :cascade do |t|
     t.string   "name"
     t.decimal  "currently_held",                  precision: 15, scale: 2
@@ -490,6 +481,15 @@ ActiveRecord::Schema.define(version: 20170519183045) do
     t.index ["property_id", "transaction_id"], name: "index_transaction_properties_on_property_id_and_transaction_id", unique: true, using: :btree
     t.index ["property_id"], name: "index_transaction_properties_on_property_id", using: :btree
     t.index ["transaction_id"], name: "index_transaction_properties_on_transaction_id", using: :btree
+  end
+
+  create_table "transaction_property_offers", force: :cascade do |t|
+    t.string   "offer_name"
+    t.integer  "transaction_property_id"
+    t.boolean  "is_accepted"
+    t.integer  "accepted_counteroffer_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "transaction_status", force: :cascade do |t|
