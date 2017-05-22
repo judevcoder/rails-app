@@ -198,7 +198,7 @@ class Entity < ApplicationRecord
   def self.create_name_with_legal_ending(name_, has_comma_=false, legal_ending_='')
     comma_str = ""
     comma_str = "," if has_comma_
-    "#{name_.strip}#{comma_str} #{legal_ending_}" 
+    "#{name_.strip}#{comma_str} #{legal_ending_}"
   end
 
   def self.PurchasedPropertyEntityWithType(etype="entity")
@@ -208,7 +208,7 @@ class Entity < ApplicationRecord
     # }
     if etype == "individual"
       # exclude all non individual member types
-      a = Entity.where.not(name: [nil, ''], type_: ([3] + (5..100).to_a)).pluck(:name, :id, :type_)
+      a = Entity.where.not(name: [nil, ''], type_: ([2, 3] + (5..100).to_a)).pluck(:name, :id, :type_)
       # include sole props which have no business name
       b = Entity.where("(name2 is null or name2 = '') and type_ = ?", 2).pluck(:name, :id, :type_)
       # include poa for individuals
@@ -216,7 +216,7 @@ class Entity < ApplicationRecord
       c = Entity.where(id: poa).pluck(:name, :id, :type_)
     else
       # exclude all individual member types and concurrent estates
-      a = Entity.where.not(name: [nil, ''], type_: [1,2,3,4,7,8,9]).pluck(:name, :id, :type_)
+      a = Entity.where.not(name: [nil, ''], type_: [1,2,3,4]).pluck(:name, :id, :type_)
       # include sole props with business names
       b = Entity.where("name2 is not null and name2 <> '' and type_ = ?", 2).pluck(:name, :id, :type_)
       # include poa for entities
