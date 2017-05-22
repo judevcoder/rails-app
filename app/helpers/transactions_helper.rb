@@ -28,6 +28,15 @@ module TransactionsHelper
         return Property.find(property_id)
     end
     
+    def get_recent_counteroffer_price(transaction_property_offer)
+        last_offered_price = transaction_property_offer.counteroffers.where("offered_price IS NOT NULL AND offered_date IS NOT NULL").order(updated_at: :asc).last.try(:offered_price)
+        if last_offered_price
+            return number_to_currency(last_offered_price)
+        else
+            return ""
+        end
+    end
+    
     def is_property_closed?(transaction_id, property_id)
       retVal = false
       p = TransactionProperty.where(transaction_id: transaction_id, property_id: property_id).first

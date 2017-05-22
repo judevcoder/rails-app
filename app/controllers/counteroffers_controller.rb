@@ -23,7 +23,7 @@ class CounteroffersController < ApplicationController
   def update
     @counteroffer = Counteroffer.find(params[:id])
     if @counteroffer.update(counteroffer_params)
-      render json: { status: true, counteroffer: @counteroffer }
+      render json: { status: true, counteroffer: @counteroffer}
     else
       render json: { status: false }
     end
