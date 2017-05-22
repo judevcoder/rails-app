@@ -124,11 +124,11 @@ $ ->
   $(document).on "keypress keyup keydown click change", "#entity_number_of_assets", ->
     setTimeout(->
       try
-        total_val = parseInt($(document).find("#entity_number_of_assets").val())
+        total_val = parseInt($(document).find("#entity_number_of_assets").val().replace(',', ''))
       catch
         total_val = 0
       try
-        remaining_val = parseInt($(document).find("input[type='hidden']#instant_remaining_number_of_assets").val())
+        remaining_val = parseInt($(document).find("input[type='hidden']#instant_remaining_number_of_assets").val().replace(',', ''))
       catch
         remaining_val = 0
       total_val = 0 if isNaN(total_val)
@@ -136,13 +136,19 @@ $ ->
       $(document).find("input[type='text']#instant_remaining_number_of_assets").val(total_val - remaining_val)
     , 300)
 
+  $(document).find('.input-mask-integer').inputmask
+    alias: 'currency',
+    rightAlign: false,
+    prefix: '',
+    removeMaskOnSubmit: true
+
   $(document).on "keypress keyup keydown click change", "input[id$=_my_percentage]", ->
     remaining_number_of_assets_cal(300, this)
 
   remaining_number_of_assets_cal = (timeout, self)->
     setTimeout(->
 
-      current_value                             = $(self).val()
+      current_value                             = $(self).val().replace(",", "")
       remaining_number_of_assets_text           = $(document).find("input[type='text'][id$=remaining_number_of_assets]")
       remaining_number_of_assets_hidden         = $(document).find("input[type='hidden'][id$=remaining_number_of_assets]")
       remaining_number_of_assets_hidden_warning = $(document).find("input[type='hidden'][id$=remaining_number_of_assets_warning]")
@@ -153,7 +159,7 @@ $ ->
         total_val = 0
 
       try
-        remaining_val = parseInt(remaining_number_of_assets_hidden.val())
+        remaining_val = parseInt(remaining_number_of_assets_hidden.val().replace(",", ""))
       catch
         remaining_val = 0
 

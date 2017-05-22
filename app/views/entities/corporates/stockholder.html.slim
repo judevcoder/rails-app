@@ -31,14 +31,14 @@
       = hidden_field_tag :cid, @stockholder.temp_id
     .form-group
       label Stock Share
-      = f.text_field :my_percentage, "autocomplete" => "off", class: "form-control"
+      = f.text_field :my_percentage, "autocomplete" => "off", class: "form-control input-mask-integer"
     .form-group
       label Total Stock Share
-      = text_field_tag "number_of_assets", @stockholder.total_stock_share, "disabled" => "disabled", class: "form-control"
+      = text_field_tag "number_of_assets", @stockholder.total_stock_share, "disabled" => "disabled", class: "form-control input-mask-integer"
     .form-group
       label Remaining Total Stock Share
       = text_field_tag "remaining_number_of_assets", @stockholder.remaining_share_or_interest,
-              "disabled" => "disabled", "autocomplete" => "off", class: "form-control",
+              "disabled" => "disabled", "autocomplete" => "off", class: "form-control input-mask-integer",
               "data-init" => (f.object.my_percentage_was.present? ? f.object.my_percentage : 0)
       = hidden_field_tag "remaining_number_of_assets", @stockholder.remaining_share_or_interest
       = hidden_field_tag "remaining_number_of_assets_warning", 'Stock Share Cannot Be Negative'
@@ -59,3 +59,10 @@
       .modal-footer
         button type="button" class="btn btn-primary btn-xs" data-dismiss="modal"
           | close
+
+javascript:
+  $(document).find('.input-mask-integer').inputmask({
+    alias: 'currency',
+    rightAlign: false,
+    prefix: '',
+    removeMaskOnSubmit: true})
