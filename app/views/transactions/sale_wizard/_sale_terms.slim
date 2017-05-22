@@ -24,25 +24,25 @@
     .tab-content
       #offer_and_acceptance_section.tab-pane.fade.active.in[role="tabpanel"]
         ul#offer_list.nav.nav-tabs.bar_tabs[role="tablist"]
-          - @property.property_offers.each do |property_offer|
+          - @transaction_property.transaction_property_offers.each do |transaction_property_offer|
             li[role="presentation"]
-              a[href="#{ '#offer_' + property_offer.id.to_s }" role="tab" data-toggle="tab" aria-expanded="true" data-offer-id="#{property_offer.id}"] 
-                = property_offer.offer_name
+              a[href="#{ '#offer_' + transaction_property_offer.id.to_s }" role="tab" data-toggle="tab" aria-expanded="true" data-offer-id="#{transaction_property_offer.id}"] 
+                = transaction_property_offer.offer_name
                 span.delete_offer.fa.fa-times
           li[role="presentation"]
-            a#new_offer[href="#" role="tab" data-toggle="tab" aria-expanded="false" data-prop-id="#{params[:cur_property]}"] 
+            a#new_offer[href="#" role="tab" data-toggle="tab" aria-expanded="false" data-tran-prop-id="#{@transaction_property.id}"] 
               i.fa.fa-plus
 
         .tab-content
-          - @property.property_offers.each do |property_offer|
-            .tab-pane.fade.active.in[role="tabpanel" id="#{'offer_' + property_offer.id.to_s}"]
+          - @transaction_property.transaction_property_offers.each do |transaction_property_offer|
+            .tab-pane.fade.active.in[role="tabpanel" id="#{'offer_' + transaction_property_offer.id.to_s}"]
               .col-md-12.col-xs-12
                 form
-                  input.cur_offer_id[type="hidden" value="#{property_offer.id}"]
+                  input.cur_offer_id[type="hidden" value="#{transaction_property_offer.id}"]
                   .row
                     .col-md-4.form-group
                         label.control-label Relinquishing Offeror
-                        input.offeror_name.form-control[type="text" required="required" value="#{property_offer.offer_name}"]
+                        input.offeror_name.form-control[type="text" required="required" value="#{transaction_property_offer.offer_name}"]
                   .row
                     .col-md-12
                         .property-price.col-md-3
@@ -54,11 +54,11 @@
                             = image_tag('sale_house.jpg', :width => '150px', :alt => "image", :class => "img-responsive pull-left margin-lg-left")
                   .row
                     .col-md-12.margin-lg-top.form-group
-                      button.initial_log_counteroffer.btn.btn-default[style="#{'display: none' if property_offer.counteroffers.count != 0}"] Log Initial Counter Offer
+                      button.initial_log_counteroffer.btn.btn-default[style="#{'display: none' if transaction_property_offer.counteroffers.count != 0}"] Log Initial Counter Offer
                       
                       table.counteroffer_history.table.margin-lg-top
                         tbody
-                          - property_offer.counteroffers.each do |counteroffer|
+                          - transaction_property_offer.counteroffers.each do |counteroffer|
                             tr[data-counteroffer-id="#{counteroffer.id}"]
                               td[width="150"]
                                 span.editable-date[data-name="offered_date" data-type="combodate" data-value="#{counteroffer.offered_date}" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY" data-url="#{counteroffer_path(counteroffer.id)}"]
@@ -67,7 +67,7 @@
                               td[width="300"]
                                 span.green.editable-currency[data-name="offered_price" data-type="text" data-value="#{number_to_currency(counteroffer.offered_price)}" data-url="#{counteroffer_path(counteroffer.id)}"]
                               td
-                                - if !property_offer.is_accepted
+                                - if !transaction_property_offer.is_accepted
                                   a.delete_counteroffer.btn.btn-danger.btn-xs
                                     i.fa.fa-trash
                           tr.last_row
@@ -75,14 +75,14 @@
                             td
                             td
                             td
-                  .row.counteroffer_action_buttons_wrapper[style="#{'display: none' if property_offer.counteroffers.count == 0 }"]
+                  .row.counteroffer_action_buttons_wrapper[style="#{'display: none' if transaction_property_offer.counteroffers.count == 0 }"]
                     .col-md-4.col-xs-12.form-group
-                        - if !property_offer.is_accepted
-                          button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer"] Buyer Counter
+                        - if !transaction_property_offer.is_accepted
+                          button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer"] Client Counter
                           = link_to 'Accept Counter', new_contact_path(contact_type: 'individual', recommended_type: 'Counter-Party'), class: 'btn_accept_counteroffer btn btn-default green border-green', remote: true
                         - else
                           button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer" disabled] Buyer Counter
-                          = link_to 'Counter Accepted', '#', class: 'btn btn-default green border-green', disabled: property_offer.is_accepted 
+                          = link_to 'Counter Accepted', '#', class: 'btn btn-default green border-green', disabled: transaction_property_offer.is_accepted 
               / = nested_form_for(@transaction, as: :transaction, url: terms_update_transaction_path(@transaction, main_id: params[:main_id], sub: params[:sub], type: params[:type])) do |f|
               /   - if @transaction.errors.any?
               /     #error_explanation
@@ -186,7 +186,7 @@
           .clearfix.margin-sm-top
           h2.heading_without_padding_large
               = "Relinquishing Purchaser".html_safe
-          = link_to @transaction.relinquishing_seller_entity.name + ' ( ' + @transaction.relinquishing_seller_entity.entity_type.name + ' ) ', entity_path(@transaction.relinquishing_seller_entity.id), target: '_blank'
+          = link_to @transaction_property.transaction_property_offers.where(is_accepted: true).order(updated_at: :desc).first.try(:offer_name), "#", id: "relinquishing_purchaser_name"
           
       #letter_of_intent_section.tab-pane.fade[role="tabpanel"]
         .col-md-6.col-sm-12.col-xs-12
@@ -508,7 +508,7 @@
                 | Add Document
 .clearfix
 .divider
-button.btn.btn-default Back
+button#back_prev_tab.btn.btn-default Back
 
 /! Offer and Acceptance Template
 #offer_and_acceptance_template[style="display: none"]
@@ -538,6 +538,6 @@ button.btn.btn-default Back
                         td
       .row.counteroffer_action_buttons_wrapper[style="display: none"]
         .col-md-4.col-xs-12.form-group
-            button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer"] Buyer Counter
+            button.add_client_counteroffer.btn.btn-default.red.border-red[data-modal="add_client_counteroffer"] Client Counter
             = link_to 'Accept Counter', new_contact_path(contact_type: 'individual', recommended_type: 'Counter-Party'), class: 'btn_accept_counteroffer btn btn-default green border-green', remote: true
             

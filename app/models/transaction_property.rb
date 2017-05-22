@@ -4,6 +4,8 @@ class TransactionProperty < ApplicationRecord
   belongs_to :transaction_purchase, primary_key: :transaction_id
   belongs_to :property
 
+  has_many :transaction_property_offers, foreign_key: :transaction_property_id, dependent: :destroy
+
   delegate :name, to: :property, allow_nil: true
 
   def closed?
