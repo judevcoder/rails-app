@@ -22,11 +22,11 @@
         = "Relinquishing Seller #{require_field}".html_safe
     .form-group style=("#{('display: none;' if f.object.persisted? && f.object.relinquishing_seller_entity.present?)}")
       .heading_blue.radio-inline
-        span.margin-md-left = f.radio_button :seller_person_is, false, checked: !f.object.seller_person_is?, class: 'form-control flat-icheck radiobuttons'
-        span.margin-md-left Entity
-      .heading_blue.radio-inline
         span = f.radio_button :seller_person_is, true, checked: f.object.seller_person_is?, class: 'form-control flat-icheck radiobuttons'
         span.margin-md-left Individual
+      .heading_blue.radio-inline
+        span.margin-md-left = f.radio_button :seller_person_is, false, checked: !f.object.seller_person_is?, class: 'form-control flat-icheck radiobuttons'
+        span.margin-md-left Entity
     .clearfix
     .form-group
       = hidden_field_tag :seller_info, @transaction.try(:seller_info)
@@ -56,7 +56,7 @@
     /   .heading_blue.radio-inline
     /     span = f.radio_button :purchaser_person_is, false, checked: !f.object.purchaser_person_is?, class: 'form-control flat-icheck radiobuttons'
     /     span.margin-md-left Entity
-    
+
     / .clearfix
     / .form-group.purchase-tr-et-detail.margin-lg-top style=("#{('display: none;' if f.object.purchaser_person_is?)}")
     /   = f.select :relqn_purchaser_contact_id, options_for_select(Contact.TransactionContacts("company"), f.object.relinquishing_purchaser_contact_id), {include_blank: true}, class: 'selectize-single'
