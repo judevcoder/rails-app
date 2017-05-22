@@ -31,7 +31,10 @@
     tbody
       - @transactions.each do |transaction|
         - var = transaction
-        - next if var.main.blank?
+        - maint = var.main
+        - next if maint.blank?
+        - sale_closing_date = nil
+        - today_ = Date.today #Time.now
         tr
           td.align-with-th = check_box_tag :object_select, false, false, 'data-id' => var.id
           td = var.purchaser_name
@@ -41,8 +44,12 @@
               = "#{p.name}"
               br
 
-          td = var.closing_date.try(:strftime, '%d-%b-%Y')
-          td = number_to_currency(var.qi_fund)
+          td 
+            - sale_closing_date = maint.identification_deadline 
+            - if !sale_closing_date.nil?
+              - sale_closing_date = sale_closing_date - 45.days
+            = sale_closing_date.try(:strftime, '%d-%b-%Y')
+          td = number_to_currency(maint.qi_funds)
           td = number_to_currency(var.funds_identified)
           td = number_to_currency(var.funds_to_identified)
           td
@@ -50,8 +57,12 @@
               = "#{p.name}"
               br
           td = var.psa_date.try(:to_string)
-          td = var.days_45.try(:to_string)
-          td = var.days_180.try(:to_string)
+          td 
+            - if !sale_closing_date.nil?
+              = (maint.identification_deadline.to_date - today_).to_i            
+          td 
+            - if !sale_closing_date.nil?
+              = (maint.transaction_deadline.to_date - today_).to_i  
           td = (var.first_deposit_date_due.days_gone rescue '')
           td = var.end_of_inspection.try(:to_string)
           td = (var.second_deposit_date_due.days_gone rescue '')
