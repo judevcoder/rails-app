@@ -23,7 +23,7 @@
             label.control-label Closing Proceeds
             .input-group
                 .input-group-addon $
-                = text_field_tag :closing_proceeds, @closing_proceeds, class: 'form-control input-mask-currency width-field-sm'
+                = text_field_tag :closing_proceeds, @closing_proceeds, class: 'form-control input-mask-currency width-field-md'
         .clearfix
         = hidden_field_tag :main_id, @transaction_main_id
         = hidden_field_tag :cur_property, @property_id
