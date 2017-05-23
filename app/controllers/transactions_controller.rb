@@ -19,7 +19,6 @@ class TransactionsController < ApplicationController
     @transactions = @transactions.where('transaction_mains.init' => false, 'transaction_mains.user_id' => current_user.id)
     @transactions = @transactions.where('transactions.deleted_at' => nil) unless params[:trashed].to_b
     @transactions = @transactions.where.not('transactions.deleted_at' => nil) if params[:trashed].to_b
-    @transactions = @transactions.order('transactions.created_at DESC').paginate(page: params[:page], per_page: sessioned_per_page)
     del_transaction_ids = []
     if params[:mode] == 'sale'
       # filter out the transaction which have a closed property
@@ -41,21 +40,24 @@ class TransactionsController < ApplicationController
       @transactions.each do |transaction|  
         main = transaction.main
         sale = main.sale
-        if sale
-          if transaction.created_at < sale.created_at
-            # nothing - this seems to be a normal 'already sold' transaction
-          elsif 
-            tprops = sale.transaction_properties
-            del_flag = true
-            tprops.each do |prop|
-              if prop.closed?
-                del_flag = false
-                break
-              end
-            end
-            del_transaction_ids << transaction.id if del_flag  
-          end
+        if sale.nil?
+          continue
         end
+        
+        if transaction.created_at > sale.created_at
+          tprops = sale.transaction_properties
+          del_flag = true
+          tprops.each do |prop|
+            
+            if prop.closed?
+              del_flag = false
+              break
+            end
+            
+          end
+          del_transaction_ids << transaction.id if del_flag  
+        end
+        
       end
     end
     @transactions = @transactions.where.not('transactions.id in (?)', del_transaction_ids)
