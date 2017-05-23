@@ -429,10 +429,9 @@ class TransactionsController < ApplicationController
             t1.is_purchase = 1
             t1.save
           end
-        end
-                       
+        end                 
         
-      end      
+      end
       #return redirect_to edit_transaction_path(@transaction, type: 'sale', main_id: @transaction.transaction_main_id)
       return redirect_to qi_status_transaction_path(@transaction, main_id: @transaction.main.id)
     elsif request.get?
