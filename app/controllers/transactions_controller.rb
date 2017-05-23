@@ -44,16 +44,16 @@ class TransactionsController < ApplicationController
           continue
         end
         
-        if transaction.created_at < sale.created_at
-          # nothing - this seems to be a normal 'already sold' transaction
-        else
+        if transaction.created_at > sale.created_at
           tprops = sale.transaction_properties
           del_flag = true
           tprops.each do |prop|
+            
             if prop.closed?
               del_flag = false
               break
             end
+            
           end
           del_transaction_ids << transaction.id if del_flag  
         end
