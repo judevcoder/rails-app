@@ -161,7 +161,7 @@ class Entity < ApplicationRecord
     if result[0][:nodes] == []
       result[0].reject! {|key| key == :nodes}
     end
-    result.to_json
+    result
   end
 
   def self.PurchasedPropertyEntity
@@ -242,11 +242,11 @@ class Entity < ApplicationRecord
   private
 
   def percentage paf
-    if paf.class_name == "StockHolder"
-      StockHolder.find(paf.id).percentage_of_ownership
-    else
-      paf.my_percentage
-    end
+    # if paf.class_name == "StockHolder"
+    #   StockHolder.find(paf.id).percentage_of_ownership
+    # else
+    paf.my_percentage
+    # end
   end
 
   def paf_name entity, paf
