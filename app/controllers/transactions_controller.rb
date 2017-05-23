@@ -37,7 +37,26 @@ class TransactionsController < ApplicationController
       # check for 'already sold' transactions beacuse created_at <
       # created_at for a complimentary sale transaction else
       # check for the sale closure
-      
+      @transactions.each do |transaction|  
+        main = transaction.main
+        sale = main.sale
+        if !sale.nil?
+          if transaction.created_at > sale.created_at
+            tprops = sale.transaction_properties
+            del_flag = true
+            tprops.each do |prop|
+              
+              if prop.closed?
+                del_flag = false
+                break
+              end
+              
+            end
+            del_transaction_ids << transaction.id if del_flag  
+          end
+        end
+        
+      end
     end
     @transactions = @transactions.where.not('transactions.id in (?)', del_transaction_ids)
     @transactions = @transactions.order('transactions.created_at DESC').paginate(page: params[:page], per_page: sessioned_per_page)
