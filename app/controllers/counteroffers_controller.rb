@@ -23,13 +23,13 @@ class CounteroffersController < ApplicationController
   def update
     @counteroffer = Counteroffer.find(params[:id])
     if @counteroffer.update(counteroffer_params)
-      render json: true
+      render json: { status: true, counteroffer: @counteroffer}
     else
-      render json: false
+      render json: { status: false }
     end
   end
 
   def counteroffer_params
-    params.permit(:property_offer_id, :offered_date, :offer_type, :offered_price)
+    params.permit(:transaction_property_offer_id, :offered_date, :offer_type, :offered_price)
   end
 end

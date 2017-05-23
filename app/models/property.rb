@@ -16,8 +16,6 @@ class Property < ApplicationRecord
   has_many :group_members, :as => :gmember
   has_many :rent_tables
 
-  has_many :property_offers, foreign_key: :property_id
-  
   alias_attribute :name, :title
 
   validates_presence_of :title

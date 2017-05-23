@@ -19,7 +19,7 @@
         - override_active_record_errors(@entity.errors.messages, {name: :judge, name2: "Name of Ward", ein_or_ssn: "Social Security", base: ''}).each do |message|
           li = message
   .col-lg-4.close-md-4.col-sm-12.col-xs-12
-  
+
     .form-group.required
       label.control-label Ward First Name
       = f.text_field :first_name, class: "form-control"
@@ -35,7 +35,7 @@
       label.control-label Date of Appointment
       .clearfix
       .pull-left
-        = f.date_select :date_of_appointment, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto entity_guardianship_date_of_appointment", style: "#{'display: none;' if f.object.m_date_of_appointment?}"
+        = f.date_select :date_of_appointment, { start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year] }, class: "form-control select_auto entity_guardianship_date_of_appointment", style: "#{'display: none;' if f.object.m_date_of_appointment?}"
         = f.text_field :date_of_appointment, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless f.object.m_date_of_appointment?}"
       .pull-right
         .pull-left
@@ -48,7 +48,7 @@
       label.control-label Date of Commission
       .clearfix
       .pull-left
-        = f.date_select :date_of_commission, { start_year: 50.years.ago.year, end_year: Time.zone.now.year }, class: "form-control select_auto entity_guardianship_date_of_commission", style: "#{'display: none;' if f.object.m_date_of_commission?}"
+        = f.date_select :date_of_commission, { start_year: 50.years.ago.year, end_year: Time.zone.now.year, order: [:month, :day, :year] }, class: "form-control select_auto entity_guardianship_date_of_commission", style: "#{'display: none;' if f.object.m_date_of_commission?}"
         = f.text_field :date_of_commission, placeholder: 'YYYY-MM-DD', class: 'form-control', style: "#{'display: none;' unless f.object.m_date_of_commission?}"
       .pull-right
         .pull-left
@@ -66,7 +66,7 @@
     .clearfix
       .form-group
         - if @entity.persisted?
-          - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? " 
+          - c_str = "Warning, you just made changes to #{@entity.name} Are you sure you want to proceed to do this? "
           = f.submit 'Save', class: 'btn btn-sm btn-primary', data: { confirm: c_str }
         - else
           = f.submit 'Save', class: 'btn btn-sm btn-primary'
