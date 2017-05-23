@@ -210,7 +210,9 @@ $ ->
       #     if data
       #       $(document).find('.side-menu>li>.nav.child_menu>li.current-page').addClass('in-contract')    
       #     else
-      $(document).find('.side-menu>li>.nav.child_menu>li.current-page').addClass('in-contract')
+      if $(this).data('column-name') == "received_terms_from_counterparty"
+        $(document).find('.side-menu>li>.nav.child_menu>li.current-page').addClass('in-contract')
+
       $(this).parent().parent().parent().addClass('done')
     else
       # $.ajax
@@ -221,7 +223,9 @@ $ ->
       #     if data
       #       $(document).find('.side-menu>li>.nav.child_menu>li.current-page').removeClass('in-contract')    
       #     else
-      $(document).find('.side-menu>li>.nav.child_menu>li.current-page').removeClass('in-contract')
+      if $(this).data('column-name') == "received_terms_from_counterparty"
+        $(document).find('.side-menu>li>.nav.child_menu>li.current-page').removeClass('in-contract')
+
       $(this).parent().parent().parent().removeClass('done')
 
 
