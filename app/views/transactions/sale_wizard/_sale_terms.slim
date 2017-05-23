@@ -93,7 +93,7 @@
           .clearfix.margin-sm-top
           h2.heading_without_padding_large
               = "Relinquishing Purchaser".html_safe
-          = link_to @transaction_property.transaction_property_offers.where(is_accepted: true).order(updated_at: :desc).first.try(:offer_name), "#", id: "relinquishing_purchaser_name"
+          = link_to @transaction_property.transaction_property_offers.where(is_accepted: true).order(updated_at: :asc).first.try(:offer_name), "", id: "relinquishing_purchaser_name"
           
       #letter_of_intent_section.tab-pane.fade[role="tabpanel"]
         .col-md-6.col-sm-12.col-xs-12

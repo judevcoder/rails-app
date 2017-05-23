@@ -790,6 +790,9 @@ a:focus {
 .nav.side-menu>li.active>ul.nav.child_menu li.current-page:after{
     border-left-color: #ff7668
 }
+.nav.side-menu>li.active>ul.nav.child_menu li.closed-page:after{
+    border-left-color: red;
+}
 .nav.side-menu>li>a,
 .nav.child_menu>li>a {
     color: #777777;
@@ -927,6 +930,10 @@ a:focus {
 .side-menu>li.active>.nav.child_menu>li.current-page>a, .side-menu>li.active>.nav.child_menu>li.current-page>a span {
     color: #ff7678;
 }
+.side-menu>li.active>.nav.child_menu>li.closed-page>a, .side-menu>li.active>.nav.child_menu>li.closed-page>a span {
+    color: red;
+}
+
 .panel_toolbox {
     float: right;
     min-width: 70px
