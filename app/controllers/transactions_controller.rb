@@ -40,22 +40,20 @@ class TransactionsController < ApplicationController
       @transactions.each do |transaction|  
         main = transaction.main
         sale = main.sale
-        if sale.nil?
-          continue
-        end
-        
-        if transaction.created_at > sale.created_at
-          tprops = sale.transaction_properties
-          del_flag = true
-          tprops.each do |prop|
-            
-            if prop.closed?
-              del_flag = false
-              break
+        if !sale.nil?
+          if transaction.created_at > sale.created_at
+            tprops = sale.transaction_properties
+            del_flag = true
+            tprops.each do |prop|
+              
+              if prop.closed?
+                del_flag = false
+                break
+              end
+              
             end
-            
+            del_transaction_ids << transaction.id if del_flag  
           end
-          del_transaction_ids << transaction.id if del_flag  
         end
         
       end

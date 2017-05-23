@@ -26,13 +26,17 @@
 
         <div class='login-main-form'>
           <%= yield %>
-            
+
           <div class="clearfix margin-md-top">
             <div class="pull-right company_name">
               &copy; 2017 The Halper Firm.&nbsp;&nbsp;All Rights Reserved.
             </div>
             <div class="pull-left">
-              <%= link_to "New?<span>&nbsp;&nbsp;Sign up</span>".html_safe, new_registration_path(resource_name) %>
+              <% if devise_mapping.registerable? && controller_name != 'registrations' %>
+                <%= link_to "New?<span>&nbsp;&nbsp;Sign up</span>".html_safe, new_registration_path(resource_name) %>
+              <% else %>
+                <%= link_to "Back", :back %>
+              <% end %>
             </div>
           </div>
         </div>

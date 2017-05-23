@@ -1,15 +1,19 @@
 = hidden_field_tag :int_action, 'Ownerships'
 = hidden_field_tag :owner_entity, @entity.id
 .heading
-  = "List of #{@entity.name}'s Ownerships"
+  = "List of #{@entity.display_name}'s Ownerships"
 .clearfix
-div#owner-treeview data-key=@entity.key
+- if @owns_available
+  div#owner-treeview data-key=@entity.key
 
-javascript:
-  var options = {
-    bootstrap2: false,
-    showTags: true,
-    data: #{@ownership.html_safe}
-  };
+  javascript:
+    var options = {
+      bootstrap2: false,
+      showTags: true,
+      data: #{@ownership.html_safe}
+    };
 
-  $('#owner-treeview').treeview(options);
+    $('#owner-treeview').treeview(options);
+- else
+  p
+    = "#{@entity.display_name} does not own anything yet."
