@@ -1,6 +1,6 @@
 = hidden_field_tag :int_action, 'Ownerships'
 .heading
-  = "List of #{@entity.name}'s Ownerships"
+  = "List of #{@entity.display_name}'s Ownerships"
 .clearfix
 table#data_table
   thead
@@ -8,7 +8,7 @@ table#data_table
       th
         | Name
       th
-        | Type      
+        | Type
   tbody
     - owns(@entity).each do |item|
       tr
