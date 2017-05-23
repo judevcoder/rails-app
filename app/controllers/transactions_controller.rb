@@ -46,7 +46,7 @@ class TransactionsController < ApplicationController
         
         if transaction.created_at < sale.created_at
           # nothing - this seems to be a normal 'already sold' transaction
-        elsif 
+        else
           tprops = sale.transaction_properties
           del_flag = true
           tprops.each do |prop|
