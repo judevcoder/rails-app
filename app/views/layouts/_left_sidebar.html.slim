@@ -42,7 +42,7 @@
           ul.nav.child_menu[style= "display:block"]
             - sale_properties.each do |property|
               - pclosed = is_property_closed?(@transaction_main.sale.try(:id) || 0, property.id)
-              li[class=("#{'current-page' if property.id.to_s == params[:cur_property]} #{'closed-page' if pclosed}")]
+              li[class=("#{'current-page' if property.id.to_s == params[:cur_property]} #{'in-closed' if pclosed}")]
                 / check if this property has ever clicked
                 - prev_step = get_property_step(property.id, params[:main_id], true) 
                 - case prev_step.current_step 
@@ -132,8 +132,8 @@
                       - if !pclosed
                         span.manual_delete_property.lnr.lnr-cross[data-tran-propid="#{property.id}" data-tran-mainid="#{params[:main_id]}" data-tran-type="purchase"]
       
-      li class=("#{params[:type] == 'qi_status' ? 'active' : ''}")
-        a[href="#{qi_status_transaction_path(@transaction, main_id: @transaction_main.id)}"]
+      li class=("#{ params[:type] == 'qi_status' ? 'active' : '' }")
+        = link_to qi_status_transaction_path(@transaction, main_id: @transaction_main.id), class: "#{'active' if params[:type] == 'qi_status' || params[:type].blank?}" do
           = image_tag('icons/icon-qi.svg', class: 'icon')
           |  QI
       li

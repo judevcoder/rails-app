@@ -769,8 +769,16 @@ a:focus {
     margin: 0;
 }
 .nav.child_menu li:hover,
-.nav.child_menu li.active {
-    background-color: rgba(255, 118, 104, 0.2)
+.nav.child_menu li.current-page {
+    background-color: rgba(26, 187, 156, 0.2)
+}
+.nav.child_menu li.in-contract:hover,
+.nav.child_menu li.current-page.in-contract {
+    background-color: rgba(255, 168, 0, 0.2)
+}
+.nav.child_menu li.in-closed:hover,
+.nav.child_menu li.current-page.in-closed {
+    background-color: rgba(255, 118, 120, 0.2)
 }
 .nav.child_menu li:hover span {
     display: inline-block;
@@ -780,25 +788,50 @@ a:focus {
 }
 
 .nav-md ul.nav.child_menu li:after {
-    border-left: 2px solid #777;
+    border-left: 2px solid #1ABB9C;
     bottom: 4px;
     content: "";
     left: 30px;
     position: absolute;
     top: 4px
 }
-.nav.side-menu>li.active>ul.nav.child_menu li.current-page:after{
-    border-left-color: #ff7668
+.nav.side-menu>li>ul.nav.child_menu li.current-page:after{
+    border-left-color: #1abb9c
 }
-.nav.side-menu>li.active>ul.nav.child_menu li.closed-page:after{
-    border-left-color: red;
+.nav.side-menu>li>ul.nav.child_menu li.in-contract:after{
+    border-left-color: #ffa800
 }
-.nav.side-menu>li>a,
-.nav.child_menu>li>a {
+.nav.side-menu>li>ul.nav.child_menu li.in-closed:after{
+    border-left-color: #ff7678;
+}
+.nav.side-menu>li>a {
     color: #777777;
     font-size: 16px;
     font-weight: 500
 }
+
+.nav.child_menu>li>a {
+    color: #1abb9c;
+    font-size: 13px;
+    padding: 9px 30px 9px 9px;
+}
+
+.side-menu>li>.nav.child_menu>li>a span{
+    position: absolute;
+    top: calc(50% - 10px);
+    right: 5px;
+}
+
+.side-menu>li>.nav.child_menu>li>a, .side-menu>li.active>.nav.child_menu>li>a span {
+    color: #1abb9c;
+}
+.side-menu>li>.nav.child_menu>li.in-contract>a, .side-menu>li.active>.nav.child_menu>li.in-contract>a span {
+    color: #ffa800;
+}
+.side-menu>li>.nav.child_menu>li.in-closed>a, .side-menu>li.active>.nav.child_menu>li.in-closed>a span {
+    color: #ff7678;
+}
+
 .nav.child_menu li li:hover,
 .nav.child_menu li li.active {
     background: none
@@ -914,24 +947,6 @@ a:focus {
 }
 .toggle a i {
     font-size: 26px
-}
-.nav.child_menu>li>a {
-    color: #777;
-    font-size: 13px;
-    padding: 9px 30px 9px 9px;
-}
-
-.side-menu>li>.nav.child_menu>li>a span{
-    position: absolute;
-    top: calc(50% - 10px);
-    right: 5px;
-}
-
-.side-menu>li.active>.nav.child_menu>li.current-page>a, .side-menu>li.active>.nav.child_menu>li.current-page>a span {
-    color: #ff7678;
-}
-.side-menu>li.active>.nav.child_menu>li.closed-page>a, .side-menu>li.active>.nav.child_menu>li.closed-page>a span {
-    color: red;
 }
 
 .panel_toolbox {

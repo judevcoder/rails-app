@@ -202,9 +202,29 @@ $ ->
   # - Taks list
   $(document).on 'ifChanged', '.to_do .field_list .task_status', (e)->
     if this.checked
+      # $.ajax
+      #   url: ''
+      #   type: 'POST'
+      #   dataType: 'json'
+      #   success: (data) ->
+      #     if data
+      #       $(document).find('.side-menu>li>.nav.child_menu>li.current-page').addClass('in-contract')    
+      #     else
+      $(document).find('.side-menu>li>.nav.child_menu>li.current-page').addClass('in-contract')
       $(this).parent().parent().parent().addClass('done')
     else
+      # $.ajax
+      #   url: ''
+      #   type: 'POST'
+      #   dataType: 'json'
+      #   success: (data) ->
+      #     if data
+      #       $(document).find('.side-menu>li>.nav.child_menu>li.current-page').removeClass('in-contract')    
+      #     else
+      $(document).find('.side-menu>li>.nav.child_menu>li.current-page').removeClass('in-contract')
       $(this).parent().parent().parent().removeClass('done')
+
+
   # Enable 2nd Deposit
   $(document).on 'ifChanged', '#enable-2nd-deposit', ->
     if this.checked
@@ -401,7 +421,7 @@ $ ->
                                                   .text('Counter Accepted')
       selected_offer_tab.find('.add_counteroffer').attr('disabled', 'disabled')
       
-      $(document).find('#relinquishing_purchaser_name').val(data.offer_name)
+      $(document).find('#relinquishing_purchaser_name').text(selected_offer_tab.find('input.offeror_name').val())
       $('#negotions_tab a#relinquishing_purchaser').click()                                                 
     else
       $.notify "Failed!", "error"
