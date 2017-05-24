@@ -11,10 +11,10 @@ input#google_api_app_id[type="hidden" value="#{ENV['GOOGLE_API_APP_ID']}"]
         = link_to 'Clients<span class="fa fa-plus-circle" id="add-client"></span>'.html_safe, clients_path, class: "#{@current_page == 'client' ? 'active' : ''}"
       li
         = link_to 'Contacts<span class="fa fa-plus-circle" id="add-contact"></span>'.html_safe, contacts_path, class: "#{@current_page == 'contacts' ? 'active' : ''}"
-      li
+      /li
         = link_to 'Reports', 'javascript:;', class: "#{@current_page == 'crucial personnel' ? 'active' : ''}", "data-toggle" => "dropdown" 
         ul.dropdown-menu
-          li 
+          /li 
             - if current_user.admin?
               = link_to 'Admin Panel', admin_users_path
     ul.nav.navbar-nav.navbar-right
@@ -23,6 +23,9 @@ input#google_api_app_id[type="hidden" value="#{ENV['GOOGLE_API_APP_ID']}"]
           = current_user.email 
           span.lnr.lnr-chevron-down
         ul.dropdown-menu.dropdown-usermenu.pull-right
+          - if current_user.admin?
+            li             
+              = link_to 'Admin Panel', admin_users_path
           li
             a[href="javascript:;"]
               |  Profile
