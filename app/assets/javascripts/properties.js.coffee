@@ -156,13 +156,13 @@ $ ->
         console.log e
 
   autoPopulateCapRate = ->
-    currentRent = $("#property_current_rent").val()
-    propertyPrice = $("#property_price").val()
+    currentRent = $("#property_current_rent").val().replace(/\,/g, "")
+    propertyPrice = $("#property_price").val().replace(/\,/g, "")
 
     if isNaN(propertyPrice) || isNaN(currentRent)
       $("#property_cap_rate").val("")
     else
-      $("#property_cap_rate").val(parseFloat(currentRent)/parseFloat(propertyPrice))
+      $("#property_cap_rate").val(parseFloat(currentRent)/parseFloat(propertyPrice)*100)
 
   $(document).on 'keyup', '#property_price', ->
     autoPopulateCapRate()
