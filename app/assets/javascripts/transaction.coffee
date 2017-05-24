@@ -3,6 +3,7 @@ $ ->
   # Global Variables
   selected_offer_tab = $(document).find($(document).find('#offer_list li.active a').attr('href'))
   last_counteroffer = ""
+  counter_accepted_status = '<span class="counter_accepted_status label label-success margin-md-left" style="display: none">Counter Accepted</span>'
 
   # Sale
   $(document).on 'ifChecked', '#transaction_seller_person_is_true', ->
@@ -268,9 +269,12 @@ $ ->
         if response.counteroffer.offered_date && response.counteroffer.offered_price
           if last_counteroffer  == "Client"
             selected_offer_tab.find('.add_counteroffer').text('Buyer Counter')
+            selected_offer_tab.find('.counter_accepted_status').show()
           else
             selected_offer_tab.find('.add_counteroffer').text('Client Counter')
-            
+            selected_offer_tab.find('.counter_accepted_status').remove()
+
+          selected_offer_tab.find('.counteroffer_action_buttons_wrapper').show()  
           selected_offer_tab.find('.add_counteroffer').attr("disabled", false)
           selected_offer_tab.find('.last_counteroffer_price').val('$' + parseFloat(response.counteroffer.offered_price).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
           
@@ -289,9 +293,12 @@ $ ->
         if response.counteroffer.offered_date && response.counteroffer.offered_price
           if last_counteroffer  == "Client"
             selected_offer_tab.find('.add_counteroffer').text('Buyer Counter')
+            selected_offer_tab.find('.counter_accepted_status').show()
           else
             selected_offer_tab.find('.add_counteroffer').text('Client Counter')
-
+            selected_offer_tab.find('.counter_accepted_status').remove()
+          
+          selected_offer_tab.find('.counteroffer_action_buttons_wrapper').show()
           selected_offer_tab.find('.add_counteroffer').attr("disabled", false)
           selected_offer_tab.find('.last_counteroffer_price').val('$' + parseFloat(response.counteroffer.offered_price).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
           
@@ -324,13 +331,18 @@ $ ->
           $.notify "Failed", "error"
     
   
-  add_counteroffer_row = (offer_id, date, offeror, price) ->
+  add_counteroffer_row = (offer_id, date, offeror, counter_accepted_str = '', price) ->
     date = date || moment().format('YYYY-MM-DD')
+    if price != ""
+      unformated_price = Number(price.replace(/[^0-9\.]+/g,""));
+    else
+       unformated_price = ""
+    
     $.ajax
       url: '/counteroffers/'
       type: 'POST'
       dataType: 'json'
-      data: { transaction_property_offer_id: offer_id, offer_type: offeror, offered_date: date, offered_price: price }
+      data: { transaction_property_offer_id: offer_id, offer_type: offeror, offered_date: date, offered_price: unformated_price }
       success: (data) ->
         if data.status
           add_row_html = '<tr data-counteroffer-id="' + data.counteroffer_id + '">
@@ -338,8 +350,8 @@ $ ->
                                 <span class="editable-date" data-name="offered_date" data-url="/counteroffers/' + data.counteroffer_id + '" data-type="combodate" data-value="' + date + '" data-format="YYYY-MM-DD" data-viewformat="MM/DD/YYYY"></span>
                             </td>
                             <td width="300"> 
-                                <span>' + offeror + '</span>
-                            </td>
+                                <span>' + offeror + '</span>' + counter_accepted_str + 
+                            '</td>
                             <td>  
                                 <span class="green editable-currency" data-name="offered_price" data-type="text" data-url="/counteroffers/' + data.counteroffer_id + '" data-value="' + price + '"></span>
                             </td>
@@ -347,7 +359,7 @@ $ ->
                                 <a href="#" class="delete_counteroffer btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
                             </td>
                         </tr>'
-    
+          
           selected_offer_tab.find('.counteroffer_history tr.last_row').before(add_row_html)
           initialize_editable_currency_field()
           initialize_editable_date_field()
@@ -359,19 +371,26 @@ $ ->
     
   $(document).on 'click', '.initial_log_counteroffer', (e) ->
     e.preventDefault()
-    add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Counter-Party", "")
+    add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Counter-Party", "", "")
     last_counteroffer = "Counter-Party"
     $(this).hide()
+    selected_offer_tab.find('.ask_accepted').hide()
+      
+  $(document).on 'click', '.ask_accepted', (e) ->
+    e.preventDefault()
+    property_price = selected_offer_tab.find('.property-price').find('h1').text()
+    add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Counter-Party", "", property_price)
+    selected_offer_tab.find('.last_counteroffer_price').val(property_price)
     selected_offer_tab.find('.counteroffer_action_buttons_wrapper').show()
 
   $(document).on "click", ".add_counteroffer", (e) ->
     e.preventDefault()
     last_counteroffer = if last_counteroffer == "" then selected_offer_tab.find('.last_counteroffer').val() else last_counteroffer
     if last_counteroffer == "Client"
-      add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Counter-Party", "")
+      add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Counter-Party", "", "")
       last_counteroffer = "Counter-Party"
     else
-      add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Client", "")  
+      add_counteroffer_row(selected_offer_tab.find('input.cur_offer_id').val(), "", "Client", counter_accepted_status, "")  
       last_counteroffer = "Client"
   
   $(document).on 'click', '.delete_counteroffer', (e)->
@@ -386,6 +405,7 @@ $ ->
           table_tr.remove()
           if selected_offer_tab.find('.counteroffer_history tr').length == 1
             selected_offer_tab.find('.initial_log_counteroffer').show()
+            selected_offer_tab.find('.ask_accepted').show()
             selected_offer_tab.find('.counteroffer_action_buttons_wrapper').hide()
           
           selected_offer_tab.find('.add_counteroffer').attr('disabled', false)
