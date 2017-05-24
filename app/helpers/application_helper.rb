@@ -197,7 +197,7 @@ module ApplicationHelper
       when "Tenancy in Common"
         entity.tenants_in_common.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "Corporation"
-        entity.stockholders.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
+        entity.stockholders.map { |m| ["#{m.name} - #{m.my_percentage_stockholder}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "Partnership"
         entity.partners.map { |m| ["#{m.name} - #{m.my_percentage}", m.entity.present? ? edit_entity_path(m.entity.key) : ( m.contact.present? ? edit_contact_path(m.contact) : "#")] }
       when "Tenancy by the Entirety"
@@ -237,7 +237,7 @@ module ApplicationHelper
 
     if m = StockHolder.find_by_entity_id(entity.id)
       e = m.super_entity
-      result.push ["#{e.name} - #{m.percentage_of_ownership}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
+      result.push ["#{e.name} - #{m.my_percentage_stockholder}", edit_entity_path(e.key), MemberType.member_types[e.type_], e.id] unless e.nil?
     end
 
     if m = Partner.find_by_entity_id(entity.id)

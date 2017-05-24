@@ -32,18 +32,18 @@ class StockHolder < PeopleAndFirm
   end
 
   def total_stock_share
-    self.super_entity.total.to_i rescue nil
+    self.super_entity.total rescue nil
   end
 
   def remaining_stock_share
-    val   = StockHolder.where(super_entity_id: self.super_entity_id).sum(:my_percentage)
+    val   = StockHolder.where(super_entity_id: self.super_entity_id).sum(:my_percentage_stockholder)
     val ||= 0
-    ((total_stock_share.try(:to_i) || 0) - val.to_i).to_i rescue ""
+    ((total_stock_share || 0) - val) rescue ""
   end
 
   def percentage_of_ownership
     if self.total_stock_share
-      ((self.my_percentage.try(:to_f)/self.total_stock_share)*100).to_i rescue ""
+      ((self.my_percentage_stockholder.try(:to_f)/self.total_stock_share)*100).to_i rescue ""
     else
       ""
     end
@@ -62,17 +62,17 @@ class StockHolder < PeopleAndFirm
       return
     end
 
-    if self.my_percentage.blank?
+    if self.my_percentage_stockholder.blank?
       errors.add(:stock_share, "can not be blank")
       return
     end
 
-    if self.my_percentage.to_f <= 0
+    if self.my_percentage_stockholder.to_f <= 0
       errors.add(:stock_share, "must be more than zero")
       return
     end
 
-    if self.my_percentage.to_f > self.remaining_share_or_interest_
+    if self.my_percentage_stockholder.to_f > self.remaining_share_or_interest_
       errors.add(:stock_share, "must be less than or equal to #{self.remaining_share_or_interest_}")
       return
     end
