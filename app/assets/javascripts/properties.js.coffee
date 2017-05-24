@@ -162,7 +162,7 @@ $ ->
     if isNaN(propertyPrice) || isNaN(currentRent)
       $("#property_cap_rate").val("")
     else
-      $("#property_cap_rate").val(parseFloat(currentRent)/parseFloat(propertyPrice))
+      $("#property_cap_rate").val(parseFloat(currentRent)/parseFloat(propertyPrice)*100)
 
   $(document).on 'keyup', '#property_price', ->
     autoPopulateCapRate()
