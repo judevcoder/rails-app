@@ -17,7 +17,7 @@ table#data_table
       th Action
   tbody
     - @properties.each do |property|
-      tr.new-record
+      tr
         td.align-with-th = check_box_tag :object_select, false, false, 'data-id' => property.id
         td = property.ownership_status
         td = property.owner.try(:name)
