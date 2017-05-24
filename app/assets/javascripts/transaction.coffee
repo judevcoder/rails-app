@@ -267,7 +267,7 @@ $ ->
       success: (response) ->
         if response.counteroffer.offered_date && response.counteroffer.offered_price
           selected_offer_tab.find('.add_counteroffer').attr("disabled", false)
-          selected_offer_tab.find('.last_counteroffer_price').val('$' + response.counteroffer.offered_price.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+          selected_offer_tab.find('.last_counteroffer_price').val('$' + parseFloat(response.counteroffer.offered_price).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
       
   initialize_editable_date_field()
 
@@ -282,7 +282,7 @@ $ ->
       success: (response) ->
         if response.counteroffer.offered_date && response.counteroffer.offered_price
           selected_offer_tab.find('.add_counteroffer').attr("disabled", false)
-          selected_offer_tab.find('.last_counteroffer_price').val('$' + response.counteroffer.offered_price.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+          selected_offer_tab.find('.last_counteroffer_price').val('$' + parseFloat(response.counteroffer.offered_price).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
       
   
   initialize_editable_currency_field()
