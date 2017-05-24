@@ -71,7 +71,7 @@
     .form-group
       label Cap Rate
       .input-group.width-field-md
-        = f.text_field :cap_rate, disabled: true, class: 'form-control input-mask-currency'
+        = f.text_field :cap_rate, readonly: true, class: 'form-control input-mask-currency'
         .input-group-addon %
 
     - unless params[:ownership_status] == 'Prospective Purchase'
