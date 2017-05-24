@@ -273,8 +273,10 @@ $ ->
         if response.counteroffer.offered_date && response.counteroffer.offered_price
           if last_counteroffer  == "Client"
             selected_offer_tab.find('.add_counteroffer').text('Buyer Counter')
+            selected_offer_tab.find('.btn_accept_counteroffer').text('Counter Accepted')
           else
             selected_offer_tab.find('.add_counteroffer').text('Client Counter')
+            selected_offer_tab.find('.btn_accept_counteroffer').text('Accept Counter')
           
           selected_offer_tab.find('.counteroffer_action_buttons_wrapper').show()  
           selected_offer_tab.find('.add_counteroffer').attr("disabled", false)
@@ -295,8 +297,10 @@ $ ->
         if response.counteroffer.offered_date && response.counteroffer.offered_price
           if last_counteroffer  == "Client"
             selected_offer_tab.find('.add_counteroffer').text('Buyer Counter')
+            selected_offer_tab.find('.btn_accept_counteroffer').text('Counter Accepted')
           else
             selected_offer_tab.find('.add_counteroffer').text('Client Counter')
+            selected_offer_tab.find('.btn_accept_counteroffer').text('Accept Counter')
             
           selected_offer_tab.find('.counteroffer_action_buttons_wrapper').show()
           selected_offer_tab.find('.add_counteroffer').attr("disabled", false)
