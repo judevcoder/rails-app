@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524052910) do
+ActiveRecord::Schema.define(version: 20170524121644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20170524052910) do
     t.string   "jurisdiction"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "number_of_assets"
+    t.decimal  "number_of_assets"
     t.integer  "total_membership_interest",             default: 100
     t.integer  "total_undivided_interest",              default: 100
     t.integer  "total_partnership_interest",            default: 100
@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 20170524052910) do
     t.boolean  "m_date_of_commission",                  default: false
     t.integer  "user_id"
     t.boolean  "has_comma",                             default: false
+    t.integer  "shares_decimal_count"
     t.index ["deleted_at"], name: "index_entities_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_entities_on_user_id", using: :btree
   end
@@ -260,15 +261,15 @@ ActiveRecord::Schema.define(version: 20170524052910) do
     t.string   "email"
     t.string   "phone_number"
     t.string   "snail_mail_address"
-    t.boolean  "tax_member",                                                default: false
-    t.boolean  "managing_member",                                           default: false
-    t.boolean  "general_partner",                                           default: false
-    t.string   "key",                   limit: 20
+    t.boolean  "tax_member",                                                    default: false
+    t.boolean  "managing_member",                                               default: false
+    t.boolean  "general_partner",                                               default: false
+    t.string   "key",                       limit: 20
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "member_type_id"
     t.integer  "resource_id"
-    t.boolean  "is_person",                                                 default: false
+    t.boolean  "is_person",                                                     default: false
     t.string   "first_name"
     t.string   "phone1"
     t.string   "phone2"
@@ -283,20 +284,21 @@ ActiveRecord::Schema.define(version: 20170524052910) do
     t.string   "is_honorific"
     t.bigint   "stock_share"
     t.integer  "entity_id"
-    t.string   "class_name",            limit: 20
-    t.decimal  "number_of_share",                  precision: 40, scale: 4
+    t.string   "class_name",                limit: 20
+    t.decimal  "number_of_share",                      precision: 40, scale: 4
     t.integer  "my_percentage"
-    t.decimal  "undivided_interest",               precision: 40, scale: 4
+    t.decimal  "undivided_interest",                   precision: 40, scale: 4
     t.integer  "super_entity_id"
-    t.boolean  "m_date_of_appointment",                                     default: false
-    t.boolean  "m_date_of_formation",                                       default: false
-    t.boolean  "m_date_of_commission",                                      default: false
+    t.boolean  "m_date_of_appointment",                                         default: false
+    t.boolean  "m_date_of_formation",                                           default: false
+    t.boolean  "m_date_of_commission",                                          default: false
     t.integer  "contact_id"
     t.string   "legal_ending"
-    t.boolean  "has_comma",                                                 default: false
+    t.boolean  "has_comma",                                                     default: false
     t.string   "office"
-    t.boolean  "is_manager",                                                default: false
+    t.boolean  "is_manager",                                                    default: false
     t.string   "gender"
+    t.decimal  "my_percentage_stockholder"
   end
 
   create_table "procedure_action_checklists", force: :cascade do |t|

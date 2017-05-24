@@ -124,23 +124,87 @@ $ ->
   $(document).on "keypress keyup keydown click change", "#entity_number_of_assets", ->
     setTimeout(->
       try
-        total_val = parseInt($(document).find("#entity_number_of_assets").val().replace(',', ''))
+        total_val = parseFloat($(document).find("#entity_number_of_assets").val().replace(/\,/g, ''))
       catch
         total_val = 0
       try
-        remaining_val = parseInt($(document).find("input[type='hidden']#instant_remaining_number_of_assets").val().replace(',', ''))
+        remaining_val = parseFloat($(document).find("input[type='hidden']#instant_remaining_number_of_assets").val().replace(/\,/g, ''))
       catch
         remaining_val = 0
       total_val = 0 if isNaN(total_val)
       remaining_val = 0 if isNaN(remaining_val)
-      $(document).find("input[type='text']#instant_remaining_number_of_assets").val(total_val - remaining_val)
+      $(document).find("input[type='text']#instant_remaining_number_of_assets").val((total_val - remaining_val).toFixed(getDecimalCount()))
     , 300)
 
-  $(document).find('.input-mask-integer').inputmask
-    alias: 'currency',
-    rightAlign: false,
-    prefix: '',
-    removeMaskOnSubmit: true
+  getDecimalCount = ->
+    decimalCount = $("#entity_shares_decimal_count").val().trim()
+
+    if isNaN(parseInt(decimalCount)) || parseInt(decimalCount) == 0
+      return 0
+    else
+      return parseInt(decimalCount)
+
+  getDecimalCountForStock = ->
+    decimalCount = $("#corporate_decimal_count").text().trim()
+
+    if isNaN(parseInt(decimalCount)) || parseInt(decimalCount) == 0
+      return 0
+    else
+      return parseInt(decimalCount)
+
+  $(document).on "click", "#entity_shares_decimal_count", ->
+    $(document).find('.input-mask-integer').inputmask
+      'alias': 'decimal',
+      rightAlign: false,
+      'groupSeparator': ',',
+      'autoGroup': true,
+      digits: getDecimalCount(),
+      removeMaskOnSubmit: true
+
+    $(document).find('.input-mask-integer').each (index) ->
+      maskValue = $(this).val().replace(/\,/g, "")
+      realMaskValue = 0.0
+
+      if isNaN(parseFloat(maskValue))
+        realMaskValue = 0
+      else
+        realMaskValue = parseFloat(maskValue)
+      $(this).val(realMaskValue.toFixed(getDecimalCount()))
+
+  $(document).on "keypress keyup keydown click change", "input[id$=_my_percentage_stockholder]", ->
+    remaining_number_of_assets_cal_stockholder(300, this)
+
+  remaining_number_of_assets_cal_stockholder = (timeout, self)->
+    setTimeout(->
+
+      current_value                             = $(self).val().replace(/\,/g, "")
+      remaining_number_of_assets_text           = $(document).find("input[type='text'][id$=remaining_number_of_assets]")
+      remaining_number_of_assets_hidden         = $(document).find("input[type='hidden'][id$=remaining_number_of_assets]")
+      remaining_number_of_assets_hidden_warning = $(document).find("input[type='hidden'][id$=remaining_number_of_assets_warning]")
+
+      try
+        total_val = parseFloat(current_value)
+      catch
+        total_val = 0
+
+      try
+        remaining_val = parseFloat(remaining_number_of_assets_hidden.val().replace(/\,/g, ""))
+      catch
+        remaining_val = 0
+
+      try
+        init_val = parseFloat(remaining_number_of_assets_text.data('init'))
+      catch
+        init_val = 0
+
+      total_val     = 0 if isNaN(total_val)
+      remaining_val = 0 if isNaN(remaining_val)
+      init_val      = 0 if isNaN(init_val)
+      val_insert    = ((remaining_val + init_val) - total_val)
+      val_insert    = remaining_number_of_assets_hidden_warning.val() if val_insert < 0
+
+      remaining_number_of_assets_text.val(val_insert.toFixed(getDecimalCountForStock()))
+    , timeout)
 
   $(document).on "keypress keyup keydown click change", "input[id$=_my_percentage]", ->
     remaining_number_of_assets_cal(300, this)
