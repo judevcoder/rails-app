@@ -11,9 +11,4 @@ class TransactionProperty < ApplicationRecord
   def closed?
     return !self.closing_date.nil?
   end
-
-  def in_contract?
-      
-  end
-
 end

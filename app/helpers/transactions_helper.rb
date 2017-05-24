@@ -44,13 +44,4 @@ module TransactionsHelper
       return retVal
     end
 
-    def is_property_in_contract?(transaction_id, property_id)
-      retVal = false
-      p = TransactionProperty.where(transaction_id: transaction_id, property_id: property_id).first
-      if p.present?
-        p.transaction_property_offers.where(is_accepted: :true)
-      end
-      return retVal
-    end
-    
 end
