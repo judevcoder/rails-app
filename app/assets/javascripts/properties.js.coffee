@@ -154,3 +154,18 @@ $ ->
         $(document).find("#rent-table-wrapper").html(val);
       error: (e) ->
         console.log e
+
+  autoPopulateCapRate = ->
+    currentRent = $("#property_current_rent").val()
+    propertyPrice = $("#property_price").val()
+
+    if isNaN(propertyPrice) || isNaN(currentRent)
+      $("#property_cap_rate").val("")
+    else
+      $("#property_cap_rate").val(parseFloat(currentRent)/parseFloat(propertyPrice))
+
+  $(document).on 'keyup', '#property_price', ->
+    autoPopulateCapRate()
+
+  $(document).on 'keyup', '#property_current_rent', ->
+    autoPopulateCapRate()
