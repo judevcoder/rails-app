@@ -393,15 +393,8 @@ class TransactionsController < ApplicationController
         d = params[:date]
         @transaction_property.closing_date = Date.new(d["year"].to_i,d["month"].to_i,d["day"].to_i)
         @transaction_property.closing_proceeds = params[:closing_proceeds]
-        @transaction_property.save
+        @transaction_property.save           
         
-        val = @transaction.main.qi_funds
-        if @transaction.is_a?(TransactionSale)
-          val = val - prev_val + @transaction_property.closing_proceeds
-        else
-          val = val + prev_val - @transaction_property.closing_proceeds
-        end
-        @transaction.main.qi_funds = val
         if @transaction.main.identification_deadline.nil? || 
             ((@transaction.main.identification_deadline + 45.days) < (@transaction_property.closing_date + 45.days))
             @transaction.main.identification_deadline = @transaction_property.closing_date + 45.days
@@ -410,6 +403,30 @@ class TransactionsController < ApplicationController
             ((@transaction.main.transaction_deadline + 180.days) < (@transaction_property.closing_date + 180.days))
             @transaction.main.transaction_deadline = @transaction_property.closing_date + 180.days
         end 
+
+        has_deadline_passed = false
+        has_deadline_passed = 
+          DateTime.now > @transaction.main.transaction_deadline if !@transaction.main.transaction_deadline.nil?
+
+        if has_deadline_passed
+          # deadline has elapsed - into boot you go
+          @transaction.main.boot = @transaction.main.boot +
+            @transaction.main.qi_funds
+          @transaction.main.qi_funds = 0
+          # if it is a sale add it to boot
+          @transaction.main.boot = @transaction.main.boot +
+            @transaction_property.closing_proceeds if @transaction.is_a?(TransactionSale)
+        else
+          # still within the 180 days deadline
+          val = @transaction.main.qi_funds
+          if @transaction.is_a?(TransactionSale)
+            val = val - prev_val + @transaction_property.closing_proceeds
+          else
+            val = val + prev_val - @transaction_property.closing_proceeds
+          end
+          @transaction.main.qi_funds = val
+        end        
+
         @transaction.main.save
         if @transaction.is_a?(TransactionSale)
           if @transaction.main.purchase.nil?
