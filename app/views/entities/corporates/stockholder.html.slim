@@ -29,9 +29,11 @@
           = link_to "New", "javascript:void(0)", class: "resource-form-new-entity pull-right"
       = hidden_field_tag "stock_holder[member_type_id]", MemberType.getCorporationId
       = hidden_field_tag :cid, @stockholder.temp_id
+    span#corporate_decimal_count style="display: none"
+      = @stockholder.super_entity.shares_decimal_count
     .form-group
       label Stock Share
-      = f.text_field :my_percentage, "autocomplete" => "off", class: "form-control input-mask-integer"
+      = f.text_field :my_percentage_stockholder, "autocomplete" => "off", class: "form-control input-mask-integer"
     .form-group
       label Total Stock Share
       = text_field_tag "number_of_assets", @stockholder.total_stock_share, "disabled" => "disabled", class: "form-control input-mask-integer"
@@ -39,7 +41,7 @@
       label Remaining Total Stock Share
       = text_field_tag "remaining_number_of_assets", @stockholder.remaining_share_or_interest,
               "disabled" => "disabled", "autocomplete" => "off", class: "form-control input-mask-integer",
-              "data-init" => (f.object.my_percentage_was.present? ? f.object.my_percentage : 0)
+              "data-init" => (f.object.my_percentage_stockholder_was.present? ? f.object.my_percentage_stockholder : 0)
       = hidden_field_tag "remaining_number_of_assets", @stockholder.remaining_share_or_interest
       = hidden_field_tag "remaining_number_of_assets_warning", 'Stock Share Cannot Be Negative'
     .form-group
@@ -61,8 +63,32 @@
           | close
 
 javascript:
+  var decimalCount = $("#corporate_decimal_count").text().trim();
+  var realDecimalCount = 0;
+
+  if (isNaN(parseInt(decimalCount)) || parseInt(decimalCount) == 0) {
+    realDecimalCount = 0;
+  } else {
+    realDecimalCount = parseInt(decimalCount);
+  }
+
   $(document).find('.input-mask-integer').inputmask({
-    alias: 'currency',
+    'alias': 'decimal',
     rightAlign: false,
-    prefix: '',
-    removeMaskOnSubmit: true})
+    'groupSeparator': ',',
+    'autoGroup': true,
+    digits: realDecimalCount,
+    removeMaskOnSubmit: true
+  })
+
+  $(document).find('.input-mask-integer').each(function(index){
+    var maskValue = $(this).val().replace(/\,/g, "");
+    var realMaskValue = 0.0;
+
+    if (isNaN(parseFloat(maskValue))) {
+      realMaskValue = 0;
+    } else {
+      realMaskValue = parseFloat(maskValue);
+    }
+    $(this).val(realMaskValue.toFixed(realDecimalCount));
+  });

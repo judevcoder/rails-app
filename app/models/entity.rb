@@ -89,14 +89,14 @@ class Entity < ApplicationRecord
   end
 
   def corporate_remaining_share
-    val   = StockHolder.where(super_entity_id: self.id).sum(:stock_share).try(:to_i)
+    val   = StockHolder.where(super_entity_id: self.id).sum(:stock_share)
     val ||= 0
-    (self.number_of_assets.to_i - val.to_i).to_i rescue nil
+    (self.number_of_assets - val) rescue nil
   end
 
   def corporate_distributed_share
     val   = StockHolder.where(super_entity_id: self.id).sum(:stock_share)
-    val.to_i || 0
+    val || 0
   end
 
   def self.TransactionEntity(etype="entity")
@@ -242,11 +242,11 @@ class Entity < ApplicationRecord
   private
 
   def percentage paf
-    # if paf.class_name == "StockHolder"
-    #   StockHolder.find(paf.id).percentage_of_ownership
-    # else
+    if paf.class_name == "StockHolder"
+      paf.my_percentage_stockholder
+    else
     paf.my_percentage
-    # end
+    end
   end
 
   def paf_name entity, paf

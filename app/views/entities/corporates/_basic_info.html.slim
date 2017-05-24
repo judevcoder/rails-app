@@ -50,7 +50,12 @@
     .clearfix
     .form-group
       = f.label "State of Formation"
-      = f.select :jurisdiction, options_for_select(Entity.USSTATES, @entity.jurisdiction), class: "form-control selectize-single"
+      = f.select :jurisdiction, options_for_select(Entity.USSTATES, @entity.jurisdiction), {}, class: "form-control width-field-md"
+    .form-group
+      = f.label "Calculate Shares to How Many Decimal Places?"
+      = f.select :shares_decimal_count, options_for_select((0..9).to_a, @entity.shares_decimal_count), {}, class: "form-control width-field-sm"
+    span#corporate_decimal_count style="display: none"
+      = @entity.shares_decimal_count
     .form-group
       .half
         = f.label "Total Stock Shares"
@@ -127,8 +132,32 @@
 /  | All (*) fields are mandatory
 
 javascript:
+  var decimalCount = $("#entity_shares_decimal_count").val().trim();
+  var realDecimalCount = 0;
+
+  if (isNaN(parseInt(decimalCount)) || parseInt(decimalCount) == 0) {
+    realDecimalCount = 0;
+  } else {
+    realDecimalCount = parseInt(decimalCount);
+  }
+
   $(document).find('.input-mask-integer').inputmask({
-    alias: 'currency',
+    'alias': 'decimal',
     rightAlign: false,
-    prefix: '',
-    removeMaskOnSubmit: true})
+    'groupSeparator': ',',
+    'autoGroup': true,
+    digits: realDecimalCount,
+    removeMaskOnSubmit: true
+  })
+
+  $(document).find('.input-mask-integer').each(function(index){
+    var maskValue = $(this).val().replace(/\,/g, "");
+    var realMaskValue = 0.0;
+
+    if (isNaN(parseFloat(maskValue))) {
+      realMaskValue = 0;
+    } else {
+      realMaskValue = parseFloat(maskValue);
+    }
+    $(this).val(realMaskValue.toFixed(realDecimalCount));
+  });

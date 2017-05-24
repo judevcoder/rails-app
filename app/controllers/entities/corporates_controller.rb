@@ -217,7 +217,7 @@ class Entities::CorporatesController < ApplicationController
                                    :postal_address, :city, :state, :zip, :date_of_formation,
                                    :m_date_of_formation, :ein_or_ssn, :s_corp_status,
                                    :not_for_profit_status, :legal_ending, :honorific,
-                                   :is_honorific, :has_comma)
+                                   :is_honorific, :has_comma, :shares_decimal_count)
   end
 
   def set_entity
@@ -226,7 +226,7 @@ class Entities::CorporatesController < ApplicationController
   end
 
   def stockholder_params
-    params.require(:stock_holder).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2, :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn, :my_percentage, :notes, :honorific, :is_honorific, :contact_id)
+    params.require(:stock_holder).permit(:temp_id, :member_type_id, :is_person, :entity_id, :first_name, :last_name, :phone1, :phone2, :fax, :email, :postal_address, :city, :state, :zip, :ein_or_ssn, :my_percentage_stockholder, :notes, :honorific, :is_honorific, :contact_id)
   end
 
   def officer_params
