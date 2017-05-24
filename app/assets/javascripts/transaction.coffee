@@ -199,9 +199,16 @@ $ ->
           $.notify "Successfully deleted", "success"
         else
           $.notify "Failed", "error"
+  
+  # - Taks list on LOI
+  $(document).on 'ifChanged', '#letter_of_intent_section .to_do .field_list .task_status', (e)->
+    if this.checked
+      $(this).parent().parent().parent().addClass('done')
+    else
+      $(this).parent().parent().parent().removeClass('done')
 
-  # - Taks list
-  $(document).on 'ifChanged', '.to_do .field_list .task_status', (e)->
+  # - Taks list on PSA
+  $(document).on 'ifChanged', '#purchase_sale_agreement_section .to_do .field_list .task_status', (e)->
     if this.checked
       # $.ajax
       #   url: ''
@@ -211,9 +218,6 @@ $ ->
       #     if data
       #       $(document).find('.side-menu>li>.nav.child_menu>li.current-page').addClass('in-contract')    
       #     else
-      if $(this).data('column-name') == "received_terms_from_counterparty"
-        $(document).find('.side-menu>li>.nav.child_menu>li.current-page').addClass('in-contract')
-
       $(this).parent().parent().parent().addClass('done')
     else
       # $.ajax
@@ -224,11 +228,12 @@ $ ->
       #     if data
       #       $(document).find('.side-menu>li>.nav.child_menu>li.current-page').removeClass('in-contract')    
       #     else
-      if $(this).data('column-name') == "received_terms_from_counterparty"
-        $(document).find('.side-menu>li>.nav.child_menu>li.current-page').removeClass('in-contract')
-
       $(this).parent().parent().parent().removeClass('done')
-
+    
+    if $('#purchase_sale_agreement_section .to_do .field_list .task_status').filter(':checked').length == $('#purchase_sale_agreement_section .to_do .field_list .task_status').length
+      $(document).find('.side-menu>li>.nav.child_menu>li.current-page').addClass('in-contract')
+    else
+      $(document).find('.side-menu>li>.nav.child_menu>li.current-page').removeClass('in-contract')
 
   # Enable 2nd Deposit
   $(document).on 'ifChanged', '#enable-2nd-deposit', ->
