@@ -279,21 +279,7 @@
                     .clearfix.margin-sm-top
                     button#delete_purchase_sale_agreement.pull-right.btn.btn-danger Delete
                   
-            .form-group
-                label.control-lable Sale Price
-                .input-group
-                    span.input-group-btn
-                        button.btn.btn-default[type="button"] $
-                    input.form-control.input-mask-currency[type="text"]
-            .form-group
-                label.control-lable Current Annual Rent
-                .input-group
-                    span.input-group-btn
-                        button.btn.btn-default[type="button"] $
-                    input.form-control.input-mask-currency[type="text"]
-            .form-group
-                label.control-lable Cap Rate
-                input.form-control[type="text"]
+            .clearfix
             .form-group
               label.control-label Date of Purchase Sale Agreement
               .clearfix
@@ -304,47 +290,45 @@
               select.form-control.select_auto.margin-sm-right
                 option 30
             .form-group
-                label.control-lable First Deposit Due Date
-                p.no-margin Number of Days After Date of Purchase Sale Agreement
-                select.form-control.select_auto_block
-                    option[value=""] 3
+                label.control-lable First Deposit To Be Received By
+                .clearfix
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option 2017
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option March
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option 30
             .form-group
-                label.control-lable Amount of First Deposit
-                .input-group
-                  span.input-group-btn
-                      button.btn.btn-default[type="button"] $
-                  input.form-control.input-mask-currency[type="text"]
+                label.control-lable Inspection Period Ends/Last Day For Buyer To Retrieve Deposit
+                .clearfix
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option 2017
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option March
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option 30
             .form-group
-                label.control-lable Number of Days in Inspection Period
-                select.form-control.select_auto_block
-                    option[value=""] 3
+                label.control-lable Second Deposit To Be Received By
+                .clearfix
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option 2017
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option March
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option 30
             .form-group
-              .field_list
-                .left
-                  input#enable-2nd-deposit.flat-icheck[type="checkbox"] 
-                  .vertical-line
-                .right
-                  .form-group
-                    label.control-label &nbsp;2nd Deposit Due Date
-                    p.no-margin Number of Days After Inspection Period(If applicable) 
-                    select.form-control.select_auto_block
-                      option[value=""] 3
-                  .form-group
-                    label.control-label 2nd Deposit Amount
-                    .input-group
-                      span.input-group-btn
-                        button.btn.btn-default[type="button"] $
-                      input.form-control.input-mask-currency[type="text"] 
-
+                label.control-lable Definition Of Holidays
+                .clearfix
+                input.form-control[type="text" disabled="disabled"]
             .form-group
-              label.control-label Approximate Date of Closing
-              p.no-margin Number of Days After insepction Period
-              select.form-control.select_auto_block
-                option[value=""] 3
-                
-            .form-group
-              label.control-label Date of Closing Note
-              input.form-control[type="text"]
+                label.control-lable Approximate Date Of Closing
+                .clearfix
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option 2017
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option March
+                select.form-control.select_auto.margin-sm-right[readonly="true"]
+                  option 30
     
         .col-lg-6.col-md-6.col-sm-12.col-xs-12
           .note

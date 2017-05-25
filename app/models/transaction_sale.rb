@@ -38,12 +38,12 @@ class TransactionSale < ApplicationRecord
   delegate :has_purchase?, to: :main, allow_nil: true
   delegate :has_sale?, to: :main, allow_nil: true
   
-  delegate :closing_date, to: :term, allow_nil: true
-  delegate :first_deposit_date_due, to: :term, allow_nil: true
-  delegate :inspection_period_days, to: :term, allow_nil: true
-  delegate :psa_date, to: :term, allow_nil: true
-  delegate :closing_date, to: :term, allow_nil: true
-  delegate :second_deposit_date_due, to: :term, allow_nil: true
+  delegate :closing_date, to: :transaction_term, allow_nil: true
+  delegate :first_deposit_date_due, to: :transaction_term, allow_nil: true
+  delegate :inspection_period_days, to: :transaction_term, allow_nil: true
+  delegate :psa_date, to: :transaction_term, allow_nil: true
+  delegate :closing_date, to: :transaction_term, allow_nil: true
+  delegate :second_deposit_date_due, to: :transaction_term, allow_nil: true
   
   def term
     @term ||= transaction_term
